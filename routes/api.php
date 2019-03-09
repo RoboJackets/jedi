@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], function () {
+    Route::post('/sync-access', 'SUMSController@editUser');
+});

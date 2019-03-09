@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'debug' => env('APP_DEBUG', false),
+    'debug' => env('APP_DEBUG', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -165,7 +165,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+         Subfission\Cas\CasServiceProvider::class,
+         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -174,8 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
-	App\Providers\RouteServiceProvider::class,
-	Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+	      App\Providers\RouteServiceProvider::class,
 
     ],
 
@@ -197,8 +197,10 @@ return [
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\BugsnagFacade\BugSnag::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
         'Cache' => Illuminate\Support\Facades\Cache::class,
+        'Cas' => Subfission\Cas\Facades\Cas::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
@@ -225,7 +227,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
     ],
 
 ];

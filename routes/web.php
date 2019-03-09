@@ -10,7 +10,16 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::group(['middleware' => 'auth.cas.force'], function () {
+    Route::get('/', function () {
+        Bugsnag::notifyException(new RuntimeException("Test error"));
+        return view('welcome');
+    });
+    // Route::get('profile', function () {
+    //     return view('users/userprofile', ['id' => auth()->user()->id]);
+    // });
+
 });
