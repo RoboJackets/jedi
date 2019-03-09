@@ -12,7 +12,6 @@
 */
 use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 
-
 Route::group(['middleware' => 'auth.cas.force'], function () {
     Route::get('/', function () {
         return view('welcome');
@@ -20,5 +19,4 @@ Route::group(['middleware' => 'auth.cas.force'], function () {
     // Route::get('profile', function () {
     //     return view('users/userprofile', ['id' => auth()->user()->id]);
     // });
-
 });
