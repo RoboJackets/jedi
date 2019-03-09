@@ -1,18 +1,14 @@
 <?php
 namespace App\Http\Middleware;
 use Closure;
-use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-//use App\Traits\CreateOrUpdateCASUser;
+
 class CASAuthenticate
 {
-    //use CreateOrUpdateCASUser;
-    protected $auth;
     protected $cas;
-    public function __construct(Guard $auth)
+    public function __construct()
     {
-        $this->auth = $auth;
         $this->cas = app('cas');
     }
     /**

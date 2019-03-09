@@ -15,7 +15,6 @@ use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 
 Route::group(['middleware' => 'auth.cas.force'], function () {
     Route::get('/', function () {
-        Bugsnag::notifyException(new RuntimeException("Test error"));
         return view('welcome');
     });
     // Route::get('profile', function () {

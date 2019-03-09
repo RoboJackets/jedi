@@ -1,0 +1,75 @@
+<?php
+
+return [
+    "target_php_version" => '7.2',
+
+    'directory_list' => [
+        '.',
+    ],
+
+    "exclude_analysis_directory_list" => [
+        'vendor/',
+        'database/',
+    ],
+
+    'suppress_issue_types' => [
+        'PhanPartialTypeMismatchReturn',
+        'PhanReadOnlyProtectedProperty',
+        'PhanUndeclaredClassMethod',
+        'PhanUndeclaredMethod',
+        'PhanUnreferencedClass',
+        'PhanUnreferencedClosure',
+        'PhanUnreferencedConstant',
+        'PhanUnreferencedProtectedMethod',
+        'PhanUnreferencedProtectedProperty',
+        'PhanUnreferencedPublicMethod',
+        'PhanUnreferencedUseNormal',
+        'PhanUnusedProtectedMethodParameter',
+    ],
+
+/*
+    'suppress_issue_types' => [
+        'PhanDeprecatedInterface',
+        'PhanPartialTypeMismatchArgument',
+        'PhanPartialTypeMismatchArgumentInternal',
+        'PhanPartialTypeMismatchReturn',
+        'PhanPossiblyFalseTypeArgumentInternal',
+        'PhanPossiblyNonClassMethodCall',
+        'PhanPossiblyNullTypeArgumentInternal',
+        'PhanReadOnlyPrivateProperty',
+        'PhanReadOnlyProtectedProperty',
+        'PhanUndeclaredClassMethod',
+        'PhanUndeclaredStaticMethod',
+        'PhanUnreferencedClass',
+        'PhanUnreferencedClosure',
+        'PhanUnreferencedConstant',
+        'PhanUnreferencedProtectedProperty',
+        'PhanUnreferencedPublicMethod',
+        'PhanUnreferencedPublicProperty',
+        'PhanUnusedClosureParameter',
+        'PhanWriteOnlyPrivateProperty',
+        'PhanWriteOnlyProtectedProperty',
+        'PhanWriteOnlyPublicProperty',
+    ],
+*/
+    'allow_missing_properties' => true,
+    'backward_compatibility_checks' => false,
+    'enable_include_path_checks' => true,
+    'strict_method_checking' => true,
+    'strict_param_checking' => true,
+    'strict_return_checking' => true,
+    'dead_code_detection' => true,
+
+    'plugins' => [
+        'DollarDollarPlugin',
+        'AlwaysReturnPlugin',
+        'DuplicateArrayKeyPlugin',
+        'PregRegexCheckerPlugin',
+        'PrintfCheckerPlugin',
+        'UnreachableCodePlugin',
+        'NonBoolBranchPlugin',
+        'NonBoolInLogicalArithPlugin',
+        'DuplicateExpressionPlugin',
+        'UnusedSuppressionPlugin',
+    ],
+];

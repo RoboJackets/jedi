@@ -13,7 +13,7 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",
         "laravel/framework": "5.7.*",
-        "laravel/horizon": "^2.2",
+        "laravel/horizon": "^3",
         "laravel/tinker": "^1.0",
         "subfission/cas": " dev-master"
     },
@@ -23,6 +23,7 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
+        "nunomaduro/larastan": "^0.3.15",
         "phpunit/phpunit": "^7.0"
     },
     "config": {
