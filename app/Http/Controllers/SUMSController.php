@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class SUMSController extends Controller
 {
-    function editUser(Request $request)
+    public function editUser(Request $request)
     {
         $this->validate($request, [
         'is_access_active' => 'required',
