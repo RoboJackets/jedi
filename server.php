@@ -8,7 +8,8 @@
  */
 
 $uri = urldecode(
-    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) // @phan-suppress-current-line PhanPartialTypeMismatchArgumentInternal
+    // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
+    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
 );
 
 // This file allows us to emulate Apache's "mod_rewrite" functionality from the
