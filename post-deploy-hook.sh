@@ -9,6 +9,7 @@ php artisan view:clear --no-interaction
 php artisan route:clear --no-interaction
 php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" --no-interaction
 php artisan cache:clear --no-interaction
+export PATH=$PATH:/bin
 npm install --no-progress
 npm run production --no-progress
 php artisan up
