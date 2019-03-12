@@ -27,6 +27,8 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      *
      * This gate determines who can access Horizon in non-local environments.
      *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     * @suppress PhanUnusedClosureParameter
      * @return void
      */
     protected function gate()
