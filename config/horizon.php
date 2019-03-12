@@ -122,7 +122,15 @@ return [
                 'tries' => 3,
             ],
         ],
-
+        'jedi-test' => [
+            'supervisor-1' => [
+                'connection' => 'redis',
+                'queue' => ['default'],
+                'balance' => 'simple',
+                'processes' => 1,
+                'tries' => 1,
+            ],
+        ],
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
