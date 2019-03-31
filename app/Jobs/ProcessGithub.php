@@ -51,7 +51,7 @@ class ProcessGithub implements ShouldQueue
              ],
             ]
         );
-        $response = $client->request('POST', config('github.endpoint'), ['query' => $send]);
+        $response = $client->request('POST', config('github.endpoint'), ['json' => $send]);
         if (200 !== $response->getStatusCode()) {
             throw new \Exception(
                 'Sending data to Github failed with HTTP response code '.$response->getStatusCode()

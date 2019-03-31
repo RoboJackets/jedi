@@ -18,6 +18,6 @@ class UserController extends Controller
         ]);
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);
-        return Response('good',204);
+        return Response('good',200);
     }
 }
