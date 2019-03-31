@@ -11,12 +11,13 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
-class ProcessSUMS implements ShouldQueue
+class ProcessGithub implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $uid;
     protected $has_access;
+    protected $teams;
 
     /**
      * Create a new job instance.
@@ -27,6 +28,7 @@ class ProcessSUMS implements ShouldQueue
     {
         $this->uid= $request->uid;
         $this->has_access= $request->is_access_active;
+        $this->teams= $request->teams;
     }
 
     /**
@@ -37,22 +39,25 @@ class ProcessSUMS implements ShouldQueue
     public function handle()
     {
         $send = [];
-        $send['UserName'] = $this->uid;
-        $send['BillingGroupId'] = config('sums.billingid');
-        $send['isRemove'] = (!$this->has_access)? 'true' : 'false';
-        $send['isListMembers'] = 'false';
-        $send['Key'] = config('sums.token');
+        $send['account'] = $this->uid;
+        $send['access'] = $this->has_access;
+        $send['teams'] = [];
+        foreach ($request->teams as $team) {
+            $send['teams'][] = $team;
+        }
         $client = new Client(
             [
              'headers' => [
                  'User-Agent' => 'JEDI on '.config('app.url'),
+                 'Accept' => 'application/json',
+                 'Authorization' => 'Bearer '.config('github.token'),
              ],
             ]
         );
-        $response = $client->request('GET', config('sums.endpoint'), ['query' => $send]);
+        $response = $client->request('POST', config('github.endpoint'), ['query' => $send]);
         if (200 !== $response->getStatusCode()) {
             throw new \Exception(
-               'Sending data to SUMS failed with HTTP response code '.$response->getStatusCode()
+                'Sending data to Github failed with HTTP response code '.$response->getStatusCode()
             );
         }
     }
