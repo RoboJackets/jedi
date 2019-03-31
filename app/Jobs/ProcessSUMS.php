@@ -52,7 +52,7 @@ class ProcessSUMS implements ShouldQueue
         $response = $client->request('GET', config('sums.endpoint'), ['query' => $send]);
         if (200 !== $response->getStatusCode()) {
             throw new \Exception(
-               'Sending data to SUMS failed with HTTP response code '.$response->getStatusCode()
+                'Sending data to SUMS failed with HTTP response code '.$response->getStatusCode()
             );
         }
     }
