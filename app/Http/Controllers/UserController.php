@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Jobs\ProcessSUMS;
-use App\Jobs\ProcessGith;
+use App\Jobs\ProcessGithub;
 
 class UserController extends Controller
 {
