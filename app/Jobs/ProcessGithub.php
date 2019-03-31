@@ -40,7 +40,8 @@ class ProcessGithub implements ShouldQueue
     {
         $send = [];
         $send['account'] = $this->uid;
-        $send['access'] = (!$this->has_access)? 'true' : 'false';;
+        $send['access'] = (!$this->has_access)? 'true' : 'false';
+        ;
         $send['teams'] = $this->teams;
         $client = new Client(
             [
