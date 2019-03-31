@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 
+use Illuminate\Http\Request;
+
 class UserController extends Controller
 {
     public function editUser(Request $request)
@@ -17,6 +19,6 @@ class UserController extends Controller
         ]);
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);
-        return response()->json(204);
+        return response(204);
     }
 }
