@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 
@@ -17,6 +18,6 @@ class UserController extends Controller
         ]);
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);
-        return response(204);
+        return Response('good',204);
     }
 }
