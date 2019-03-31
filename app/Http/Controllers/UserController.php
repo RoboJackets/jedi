@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 
-use Illuminate\Http\Request;
-
 class UserController extends Controller
 {
     public function editUser(Request $request)
