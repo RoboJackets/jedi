@@ -20,6 +20,7 @@ class UserController extends Controller
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);
         ProcessNextcloud::dispatch($request);
+        ProcessWordPress::dispatch($request);
         return Response('good', 200);
     }
 }
