@@ -70,6 +70,12 @@ class ProcessWordPress implements ShouldQueue
 
         $json = json_decode($response->getBody()->getContents());
 
+        if (!is_countable($json)) {
+            throw new \Exception(
+                'WordPress did not return an array for query by slug - should not happen'
+            );
+        }
+
         if (count($json) === 0) {
             // user does not exist in wordpress
             return;
