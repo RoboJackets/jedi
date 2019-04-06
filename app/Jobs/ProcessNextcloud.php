@@ -18,8 +18,6 @@ class ProcessNextcloud implements ShouldQueue
     private $uid;
     private $is_access_active;
     private $teams;
-    private $first_name;
-    private $last_name;
 
     /**
      * Create a new job instance.
@@ -31,8 +29,6 @@ class ProcessNextcloud implements ShouldQueue
         $this->uid = $request->uid;
         $this->is_access_active = $request->is_access_active;
         $this->teams = $request->teams;
-        $this->first_name = $request->first_name;
-        $this->last_name = $request->last_name;
     }
 
     /**
@@ -113,9 +109,6 @@ class ProcessNextcloud implements ShouldQueue
 
             if (false !== $xpath_result) {
                 foreach ($xpath_result as $nc_group) {
-                    if (null === $nc_group) {
-                        continue;
-                    }
                     $groups_from_nc[] = $nc_group->__toString();
                 }
             }
