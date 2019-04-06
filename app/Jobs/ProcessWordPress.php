@@ -92,7 +92,14 @@ class ProcessWordPress implements ShouldQueue
                                     .'&name='.$this->first_name.' '.$this->last_name
                                     .'&email='.$this->uid.'@gatech.edu'
                     ]
-                )
+                );
+
+                if (200 !== $response->getStatusCode()) {
+                    throw new \Exception(
+                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
+                        .', expected 200'
+                    );
+                }
             } else {
                 $client->post(
                     'users/'.$json[0]->id,
@@ -103,7 +110,14 @@ class ProcessWordPress implements ShouldQueue
                                     .'&email='.$this->uid.'@gatech.edu'
                                     .'&roles=editor'
                     ]
-                )
+                );
+
+                if (200 !== $response->getStatusCode()) {
+                    throw new \Exception(
+                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
+                        .', expected 200'
+                    );
+                }
             }
         } else {
             $client->post(
@@ -111,7 +125,14 @@ class ProcessWordPress implements ShouldQueue
                     [
                         'query' => 'roles='
                     ]
-                )
+                );
+
+                if (200 !== $response->getStatusCode()) {
+                    throw new \Exception(
+                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
+                        .', expected 200'
+                    );
+                }
             }
         }
     }
