@@ -109,8 +109,15 @@ class ProcessNextcloud implements ShouldQueue
 
             $groups_from_nc = [];
 
-            foreach ($xml->xpath('/ocs/data/groups/element') as $nc_group) {
-                $groups_from_nc[] = $nc_group->__toString();
+            $xpath_result = $xml->xpath('/ocs/data/groups/element');
+
+            if (false !== $xpath_result) {
+                foreach ($xpath_result as $nc_group) {
+                    if (null === $nc_group) {
+                        continue;
+                    }
+                    $groups_from_nc[] = $nc_group->__toString();
+                }
             }
 
             unset($groups_from_nc['admin']);
@@ -180,7 +187,7 @@ class ProcessNextcloud implements ShouldQueue
             }
         } else {
             // disable user
-            $client->put($this->uid.'/disable');
+            $response = $client->put($this->uid.'/disable');
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
@@ -212,6 +219,10 @@ class ProcessNextcloud implements ShouldQueue
     private function getStatusCodeFromXML(\SimpleXMLElement $xml): int
     {
         $status_array = $xml->xpath('/ocs/meta/statuscode');
+
+        if (false === $status_array) {
+            throw new \Exception('XPath search for status code returned false');
+        }
 
         if (count($status_array) !== 0) {
             throw new \Exception('XPath search for status code returned '.count($status_array).' results, expected 1');
