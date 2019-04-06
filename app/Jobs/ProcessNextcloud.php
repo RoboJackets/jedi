@@ -94,22 +94,24 @@ class ProcessNextcloud implements ShouldQueue
             $status_code = $this->getStatusCodeFromXML($xml);
 
             if (100 !== $status_code) {
-                throw new \Exception('Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100');
+                throw new \Exception(
+                    'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
+                );
             }
 
-            $groups_from_nextcloud = [];
+            $groups_from_nc = [];
 
-            foreach($xml->xpath('/ocs/data/groups/element') as $nc_group) {
-                $groups_from_nextcloud[] = $nc_group->__toString();
+            foreach ($xml->xpath('/ocs/data/groups/element') as $nc_group) {
+                $groups_from_nc[] = $nc_group->__toString();
             }
 
-            unset($groups_from_nextcloud['admin']);
+            unset($groups_from_nc['admin']);
 
-            $extra_groups = array_diff($groups_from_nextcloud, $this->teams);
+            $extra_groups = array_diff($groups_from_nc, $this->teams);
 
-            $missing_groups = array_diff($this->teams, $groups_from_nextcloud);
+            $missing_groups = array_diff($this->teams, $groups_from_nc);
 
-            foreach($extra_groups as $group) {
+            foreach ($extra_groups as $group) {
                 $response = $client->delete(
                     $this->uid.'/groups',
                     [
@@ -119,7 +121,8 @@ class ProcessNextcloud implements ShouldQueue
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
+                        .', expected 200'
                     );
                 }
 
@@ -128,11 +131,13 @@ class ProcessNextcloud implements ShouldQueue
                 $status_code = $this->getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code) {
-                    throw new \Exception('Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100');
+                    throw new \Exception(
+                        'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
+                    );
                 }
             }
 
-            foreach($missing_groups as $group) {
+            foreach ($missing_groups as $group) {
                 $response = $client->post(
                     $this->uid.'/groups',
                     [
@@ -142,7 +147,8 @@ class ProcessNextcloud implements ShouldQueue
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
+                        .', expected 200'
                     );
                 }
 
@@ -151,7 +157,9 @@ class ProcessNextcloud implements ShouldQueue
                 $status_code = $this->getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code && 102 !== $status_code) {
-                    throw new \Exception('Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 102');
+                    throw new \Exception(
+                        'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 102'
+                    );
                 }
             }
         } else {
@@ -179,7 +187,7 @@ class ProcessNextcloud implements ShouldQueue
         }
     }
 
-    private function getStatusCodeFromXML(SimpleXMLElement $xml): int
+    private function getStatusCodeFromXML(\SimpleXMLElement $xml): int
     {
         if (false === $xml) {
             throw new \Exception('Nextcloud did not return valid XML');
