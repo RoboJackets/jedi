@@ -68,6 +68,10 @@ class ProcessNextcloud implements ShouldQueue
 
             $xml = simplexml_load_string($response->getBody()->getContents());
 
+            if (false === $xml) {
+                throw new \Exception('Nextcloud did not return valid XML');
+            }
+
             $status_code = $this->getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
@@ -90,6 +94,10 @@ class ProcessNextcloud implements ShouldQueue
             }
 
             $xml = simplexml_load_string($response->getBody()->getContents());
+
+            if (false === $xml) {
+                throw new \Exception('Nextcloud did not return valid XML');
+            }
 
             $status_code = $this->getStatusCodeFromXML($xml);
 
@@ -128,6 +136,10 @@ class ProcessNextcloud implements ShouldQueue
 
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
+                if (false === $xml) {
+                    throw new \Exception('Nextcloud did not return valid XML');
+                }
+
                 $status_code = $this->getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code) {
@@ -154,6 +166,10 @@ class ProcessNextcloud implements ShouldQueue
 
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
+                if (false === $xml) {
+                    throw new \Exception('Nextcloud did not return valid XML');
+                }
+
                 $status_code = $this->getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code && 102 !== $status_code) {
@@ -172,7 +188,13 @@ class ProcessNextcloud implements ShouldQueue
                 );
             }
 
-            $status_code = $this->getStatusCodeFromXML($response->getBody()->getContents());
+            $xml = simplexml_load_string($response->getBody()->getContents());
+
+            if (false === $xml) {
+                throw new \Exception('Nextcloud did not return valid XML');
+            }
+
+            $status_code = $this->getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
                 // user probably just does not exist in Nextcloud
@@ -189,10 +211,6 @@ class ProcessNextcloud implements ShouldQueue
 
     private function getStatusCodeFromXML(\SimpleXMLElement $xml): int
     {
-        if (false === $xml) {
-            throw new \Exception('Nextcloud did not return valid XML');
-        }
-
         $status_array = $xml->xpath('/ocs/meta/statuscode');
 
         if (count($status_array) !== 0) {
