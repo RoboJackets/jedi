@@ -217,7 +217,7 @@ class ProcessNextcloud implements ShouldQueue
             throw new \Exception('XPath search for status code returned false');
         }
 
-        if (count($status_array) !== 0) {
+        if (count($status_array) !== 1) {
             throw new \Exception('XPath search for status code returned '.count($status_array).' results, expected 1');
         }
 
