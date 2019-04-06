@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
+use App\Jobs\ProcessNextcloud;
 
 class UserController extends Controller
 {
