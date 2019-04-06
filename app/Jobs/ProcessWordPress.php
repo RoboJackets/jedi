@@ -121,18 +121,17 @@ class ProcessWordPress implements ShouldQueue
             }
         } else {
             $client->post(
-                    'users/'.$json[0]->id,
-                    [
-                        'query' => 'roles='
-                    ]
-                );
+                'users/'.$json[0]->id,
+                [
+                    'query' => 'roles='
+                ]
+            );
 
-                if (200 !== $response->getStatusCode()) {
-                    throw new \Exception(
-                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
-                        .', expected 200'
-                    );
-                }
+            if (200 !== $response->getStatusCode()) {
+                throw new \Exception(
+                    'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
+                    .', expected 200'
+                );
             }
         }
     }
