@@ -18,6 +18,7 @@ class UserController extends Controller
         ]);
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);
+        ProcessNextcloud::dispatch($request);
         return Response('good', 200);
     }
 }
