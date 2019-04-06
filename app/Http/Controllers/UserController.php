@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 use App\Jobs\ProcessNextcloud;
+use App\Jobs\ProcessWordPress;
 
 class UserController extends Controller
 {
