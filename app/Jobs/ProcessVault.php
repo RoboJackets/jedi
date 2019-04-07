@@ -1,5 +1,6 @@
 <?php
 namespace App\Jobs;
+
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -8,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use App\Soap\Vault;
+
 class ProcessVault implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -38,7 +40,7 @@ class ProcessVault implements ShouldQueue
     {
         $vault = new Vault(config('vault.host'), config('vault.username'), config('vault.password'));
         $id = $vault->getUserId($this->uid);
-        if($id > 0) {
+        if ($id > 0) {
             $response = $vault->updateUser($id, $this->uid, $this->first_name, $this->last_name, $this->has_access);
             if ($this->has_access == true) { //update teams
                 $teamIds = $vault->getGroupsByName($this->teams);

@@ -1,5 +1,6 @@
 <?php
 namespace App\Jobs;
+
 /**
  * Created by PhpStorm.
  * User: Kristaps
@@ -30,8 +31,10 @@ class Sharepoint
         //     'stream_context' => $context
         // ]);
         $wsdl = __DIR__."/../../resources/wsdls/sympa-wsdl.xml";
-        $auth = new \SoapClient($wsdl,
-            array("trace" => 1, "location" => "https://lists.gatech.edu/sympa/wsdl", "stream_context" => $context));
+        $auth = new \SoapClient(
+            $wsdl,
+            array("trace" => 1, "location" => "https://lists.gatech.edu/sympa/wsdl", "stream_context" => $context)
+        );
         $auth->__soapCall(
             "login",
             array(

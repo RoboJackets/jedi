@@ -1,5 +1,6 @@
 <?php
 namespace App\Soap;
+
 /**
  * Created by PhpStorm.
  * User: Kristaps
@@ -102,13 +103,13 @@ class Vault
                     'groupId'=>$group->Id
                 )
             )->GetGroupInfoByGroupIdResult;
-            if (property_exists($result,'Users')) {
+            if (property_exists($result, 'Users')) {
                 $users= $result->Users;
                 if (!is_array($users)) {
                     $users = array($users);
                 }
                 foreach ($users as $user) {
-                    if (property_exists($user,'CreateUserId') && $user->CreateUserId == $uid) {
+                    if (property_exists($user, 'CreateUserId') && $user->CreateUserId == $uid) {
                         array_push($user_groups, $group->Id);
                     }
                 }
@@ -127,7 +128,8 @@ class Vault
             );
         }
     }
-    public function removeUserFromGroups(int $uid, Array $gids){
+    public function removeUserFromGroups(int $uid, Array $gids)
+    {
         foreach ($gids as $gid) {
             $this->AdminService->DeleteUserFromGroup(
                 array(
