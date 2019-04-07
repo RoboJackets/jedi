@@ -18,6 +18,8 @@ class ProcessWordPress implements ShouldQueue
     private $uid;
     private $is_access_active;
     private $teams;
+    private $first_name;
+    private $last_name;
 
     /**
      * Create a new job instance.
