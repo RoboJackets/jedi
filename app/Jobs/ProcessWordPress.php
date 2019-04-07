@@ -24,13 +24,19 @@ class ProcessWordPress implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(
+        string $uid,
+        bool $is_access_active,
+        array $teams,
+        string $first_name,
+        string $last_name
+    )
     {
-        $this->uid = $request->uid;
-        $this->is_access_active = $request->is_access_active;
-        $this->teams = $request->teams;
-        $this->first_name = $request->first_name;
-        $this->last_name = $request->last_name;
+        $this->uid = $uid;
+        $this->is_access_active = $is_access_active;
+        $this->teams = $teams;
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
     }
 
     /**
@@ -87,7 +93,7 @@ class ProcessWordPress implements ShouldQueue
             );
         }
 
-        if (((bool)$this->is_access_active) && in_array(config('wordpress.team'), $this->teams)) {
+        if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
             if (in_array('administrator', $json[0]->roles)) {
                 // user is an admin, don't revoke that
                 $client->post(
