@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Soap;
 /**
  * Created by PhpStorm.
@@ -47,17 +46,20 @@ class Vault
         }
         return $client;
     }
-    public function updateUser(int $userid, bool $has_access)
+    public function updateUser(int $userid, String $uid, String $firstName, String $lastName, bool $has_access)
     {
         //$isActive= $has_access? 'true' : 'false';
         return $this->AdminService->UpdateUserInfo(
             array("userId" => $userid,
+                  "userName"=> $uid,
+                  "firstName" => $firstName,
+                  "lastName" => $lastName,
+                  "email" => $uid.'@gatech.edu',
                   "atype" => "Vault",
-                  "isActive" => "true"
+                  "isActive" => $has_access
             )
         );
     }
-
     public function getUserId(String $username)
     {
         $users = $this->AdminService->GetAllUsers()->GetAllUsersResult->User;
@@ -70,5 +72,69 @@ class Vault
             }
         }
         return -1;
+    }
+    public function getGroupsByName(Array $teams)
+    {
+        $groups = $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
+        $teamIds = [];
+        foreach ($groups as $group) {
+            $result = $this->AdminService->GetGroupById(
+                array(
+                    'groupId'=>$group->Id
+                )
+            )->GetGroupByIdResult;
+            //print_r($result);
+            foreach ($teams as $team) {
+                if ($group->Name == $team) {
+                    array_push($teamIds, $group->Id);
+                }
+            }
+        }
+        return $teamIds;
+    }
+    public function getUsersGroups(int $uid)
+    {
+        $groups = $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
+        $user_groups = [];
+        foreach ($groups as $group) {
+            $result = $this->AdminService->GetGroupInfoByGroupId(
+                array(
+                    'groupId'=>$group->Id
+                )
+            )->GetGroupInfoByGroupIdResult;
+            if (property_exists($result,'Users')) {
+                $users= $result->Users;
+                if (!is_array($users)) {
+                    $users = array($users);
+                }
+                foreach ($users as $user) {
+                    if (property_exists($user,'CreateUserId') && $user->CreateUserId == $uid) {
+                        array_push($user_groups, $group->Id);
+                    }
+                }
+            }
+        }
+        return $user_groups;
+    }
+    public function addUserToGroups(int $uid, Array $gids)
+    {
+        foreach ($gids as $gid) {
+            $this->AdminService->addUserToGroup(
+                array(
+                    "userId" => $uid,
+                    "parentGroupId" => $gid
+                )
+            );
+        }
+    }
+    public function removeUserFromGroups(int $uid, Array $gids){
+        foreach ($gids as $gid) {
+            $this->AdminService->DeleteUserFromGroup(
+                array(
+                    "userId" => $uid,
+                    "parentGroupId" => $gid
+                )
+            );
+        }
     }
 }

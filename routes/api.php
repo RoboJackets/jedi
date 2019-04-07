@@ -18,5 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], function () {
-    Route::post('/sync-access', 'UserController@updateUser');
+    Route::post('/sync-access', 'UserController@editUser');
 });

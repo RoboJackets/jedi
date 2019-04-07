@@ -9,6 +9,7 @@ use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 use App\Jobs\ProcessNextcloud;
 use App\Jobs\ProcessWordPress;
+use App\Jobs\ProcessVault;
 
 class UserController extends Controller
 {
@@ -28,7 +29,7 @@ class UserController extends Controller
             $request->first_name,
             $request->last_name
         );
-
+        ProcessVault::dispatch($request);
         return Response('good', 200);
     }
 }
