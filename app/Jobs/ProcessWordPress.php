@@ -30,8 +30,7 @@ class ProcessWordPress implements ShouldQueue
         array $teams,
         string $first_name,
         string $last_name
-    )
-    {
+    ) {
         $this->uid = $uid;
         $this->is_access_active = $is_access_active;
         $this->teams = $teams;
