@@ -39,17 +39,17 @@ class ProcessVault implements ShouldQueue
     public function handle()
     {
         $vault = new Vault(config('vault.host'), config('vault.username'), config('vault.password'));
-        $id = $vault->getUserId($this->uid);
-        if ($id > 0) {
-            $response = $vault->updateUser($id, $this->uid, $this->first_name, $this->last_name, $this->has_access);
+        $userId = $vault->getUserId($this->uid);
+        if ($userId > 0) {
+            $vault->updateUser($userId, $this->uid, $this->first_name, $this->last_name, $this->has_access);
             if ($this->has_access == true) { //update teams
                 $teamIds = $vault->getGroupsByName($this->teams);
-                $currentGroups=$vault->getUsersGroups($id);
+                $currentGroups=$vault->getUsersGroups($userId);
                 //diff the two groups
                 $toAdd=array_diff($teamIds, $currentGroups);
                 $toRemove=array_diff($currentGroups, $teamIds);
-                $vault->addUserToGroups($id, $toAdd);
-                $vault->removeUserFromGroups($id, $toRemove);
+                $vault->addUserToGroups($userId, $toAdd);
+                $vault->removeUserFromGroups($userId, $toRemove);
             }
         }
     }

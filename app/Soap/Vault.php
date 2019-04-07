@@ -10,10 +10,10 @@ namespace App\Soap;
 class Vault
 {
     private $AdminService;
-    private $KnowledgeVaultService;
     public function __construct(String $server, String $username, String $password)
     {
         $auth = $this->makeSoapClient($server.'/AutodeskDM/Services/Filestore/v22/AuthService.svc?wsdl');
+        $response_headers=[];
         $auth->__soapCall(
             "SignIn",
             array(array(
@@ -79,12 +79,6 @@ class Vault
         $groups = $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
         $teamIds = [];
         foreach ($groups as $group) {
-            $result = $this->AdminService->GetGroupById(
-                array(
-                    'groupId'=>$group->Id
-                )
-            )->GetGroupByIdResult;
-            //print_r($result);
             foreach ($teams as $team) {
                 if ($group->Name == $team) {
                     array_push($teamIds, $group->Id);
