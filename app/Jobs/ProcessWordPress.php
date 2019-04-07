@@ -62,8 +62,7 @@ class ProcessWordPress implements ShouldQueue
         $response = $client->get(
             'users',
             [
-                'query' => 'slug='.$this->uid,
-                'context' => 'edit',
+                'query' => 'slug='.$this->uid.'&context=edit',
             ]
         );
 
