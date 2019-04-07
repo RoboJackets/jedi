@@ -87,7 +87,7 @@ class ProcessWordPress implements ShouldQueue
             );
         }
 
-        if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
+        if (((bool)$this->is_access_active) && in_array(config('wordpress.team'), $this->teams)) {
             if (in_array('administrator', $json[0]->roles)) {
                 // user is an admin, don't revoke that
                 $client->post(
