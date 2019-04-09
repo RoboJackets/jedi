@@ -104,8 +104,7 @@ class ProcessWordPress implements ShouldQueue
 
         if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
             if (in_array('administrator', $wp_user->roles)) {
-                if (
-                    $wp_user->first_name === $this->first_name &&
+                if ($wp_user->first_name === $this->first_name &&
                     $wp_user->last_name === $this->last_name &&
                     $wp_user->name === $this->first_name.' '.$this->last_name &&
                     $wp_user->email === $this->uid.'@gatech.edu'
@@ -130,8 +129,7 @@ class ProcessWordPress implements ShouldQueue
                     );
                 }
             } else {
-                if (
-                    $wp_user->first_name === $this->first_name &&
+                if ($wp_user->first_name === $this->first_name &&
                     $wp_user->last_name === $this->last_name &&
                     $wp_user->name === $this->first_name.' '.$this->last_name &&
                     $wp_user->email === $this->uid.'@gatech.edu' &&

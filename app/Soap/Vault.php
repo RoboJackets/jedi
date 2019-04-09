@@ -13,7 +13,11 @@ class Vault
     public function __construct(String $server, String $username, String $password)
     {
         $auth = $this->makeSoapClient($server.'/AutodeskDM/Services/Filestore/v22/AuthService.svc?wsdl');
-        $response_headers=[];
+
+        // for static analyzers
+        $response_headers['SecurityHeader']->Ticket = null;
+        $response_headers['SecurityHeader']->UserId = null;
+
         $auth->__soapCall(
             "SignIn",
             array(array(
