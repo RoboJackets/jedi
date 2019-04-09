@@ -93,11 +93,28 @@ class ProcessWordPress implements ShouldQueue
             );
         }
 
+        $wp_user = $json[0];
+
+        if ($wp_user->username !== $this->uid) {
+            throw new \Exception(
+                'WordPress returned a user with mismatched username - searched for '
+                .$this->uid.', got '.$wp_user->username
+            );
+        }
+
         if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
-            if (in_array('administrator', $json[0]->roles)) {
-                // user is an admin, don't revoke that
+            if (in_array('administrator', $wp_user->roles)) {
+                if (
+                    $wp_user->first_name === $this->first_name &&
+                    $wp_user->last_name === $this->last_name &&
+                    $wp_user->name === $this->first_name.' '.$this->last_name &&
+                    $wp_user->email === $this->uid.'@gatech.edu'
+                ) {
+                    return;
+                }
+
                 $client->post(
-                    'users/'.$json[0]->id,
+                    'users/'.$wp_user->id,
                     [
                         'query' => 'first_name='.$this->first_name
                                     .'&last_name='.$this->last_name
@@ -113,8 +130,18 @@ class ProcessWordPress implements ShouldQueue
                     );
                 }
             } else {
+                if (
+                    $wp_user->first_name === $this->first_name &&
+                    $wp_user->last_name === $this->last_name &&
+                    $wp_user->name === $this->first_name.' '.$this->last_name &&
+                    $wp_user->email === $this->uid.'@gatech.edu' &&
+                    $wp_user->roles === ['editor']
+                ) {
+                    return;
+                }
+
                 $client->post(
-                    'users/'.$json[0]->id,
+                    'users/'.$wp_user->id,
                     [
                         'query' => 'first_name='.$this->first_name
                                     .'&last_name='.$this->last_name
@@ -132,8 +159,12 @@ class ProcessWordPress implements ShouldQueue
                 }
             }
         } else {
+            if ($wp_user->roles === []) {
+                return;
+            }
+
             $client->post(
-                'users/'.$json[0]->id,
+                'users/'.$wp_user->id,
                 [
                     'query' => 'roles='
                 ]
