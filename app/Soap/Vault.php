@@ -15,6 +15,7 @@ class Vault
         $auth = $this->makeSoapClient($server.'/AutodeskDM/Services/Filestore/v22/AuthService.svc?wsdl');
 
         // for static analyzers
+        $response_headers = [];
         $response_headers['SecurityHeader']->Ticket = null;
         $response_headers['SecurityHeader']->UserId = null;
 
