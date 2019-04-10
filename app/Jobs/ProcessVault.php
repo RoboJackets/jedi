@@ -38,7 +38,7 @@ class ProcessVault implements ShouldQueue
      */
     public function handle()
     {
-        if ($this->uid == config('vault.username')){
+        if ($this->uid == config('vault.username')) {
             return;
         }
         $vault = new Vault(config('vault.host'), config('vault.username'), config('vault.password'));

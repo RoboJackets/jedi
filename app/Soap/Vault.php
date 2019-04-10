@@ -87,10 +87,10 @@ class Vault
     {
         $users = [];
         $result=$this->AdminService->GetGroupInfoByGroupId(
-                array(
+            array(
                     'groupId'=>$gid
                 )
-            )->GetGroupInfoByGroupIdResult;
+        )->GetGroupInfoByGroupIdResult;
         if (property_exists($result, 'Users')) {
             $users= $result->Users;
             if (!is_array($users)) {
