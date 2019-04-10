@@ -38,18 +38,39 @@ class ProcessVault implements ShouldQueue
      */
     public function handle()
     {
+        if ($this->uid == config('vault.username')){
+            return;
+        }
         $vault = new Vault(config('vault.host'), config('vault.username'), config('vault.password'));
         $userId = $vault->getUserId($this->uid);
         if ($userId > 0) {
             $vault->updateUser($userId, $this->uid, $this->first_name, $this->last_name, $this->has_access);
             if ($this->has_access == true) { //update teams
-                $teamIds = $vault->getGroupsByName($this->teams);
-                $currentGroups=$vault->getUsersGroups($userId);
+                $groups = $vault->getAllGroups();
+                $currentGroups = [];
+                $teamIds = [];
+                foreach ($groups as $group) {
+                    $users = $vault->getGroupUsers($group->Id);
+                    foreach ($users as $user) {  //get the groupIds the user currently belongs to
+                        if (property_exists($user, 'CreateUserId') && $user->CreateUserId == $this->uid) {
+                            array_push($currentGroups, $group->Id);
+                        }
+                    }
+                    foreach ($this->teams as $team) { //get the groupIds of the teams user should belong to
+                        if ($group->Name == $team) {
+                            array_push($teamIds, $group->Id);
+                        }
+                    }
+                }
                 //diff the two groups
                 $toAdd=array_diff($teamIds, $currentGroups);
                 $toRemove=array_diff($currentGroups, $teamIds);
-                $vault->addUserToGroups($userId, $toAdd);
-                $vault->removeUserFromGroups($userId, $toRemove);
+                foreach ($toAdd as $gid) {
+                    $vault->addUserToGroup($userId, $gid);
+                }
+                foreach ($toRemove as $gid) {
+                    $vault->removeUserFromGroup($userId, $gid);
+                }
             }
         }
     }

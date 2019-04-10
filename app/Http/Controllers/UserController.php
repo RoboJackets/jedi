@@ -16,6 +16,9 @@ class UserController extends Controller
     public function editUser(Request $request)
     {
         $this->validate($request, [
+          'uid' => 'required',
+          'first_name' => 'required',
+          'last_name' => 'required',
           'is_access_active' => 'required',
           'teams' => 'required'
         ]);

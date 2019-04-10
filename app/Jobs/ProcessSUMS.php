@@ -36,6 +36,9 @@ class ProcessSUMS implements ShouldQueue
      */
     public function handle()
     {
+        if ($this->uid == config('sums.username')){
+            return;
+        }
         $send = [];
         $send['UserName'] = $this->uid;
         $send['BillingGroupId'] = config('sums.billingid');

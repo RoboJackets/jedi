@@ -74,63 +74,42 @@ class Vault
         }
         return -1;
     }
-    public function getGroupsByName(Array $teams)
+    public function getAllGroups()
     {
-        $groups = $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
-        $teamIds = [];
-        foreach ($groups as $group) {
-            foreach ($teams as $team) {
-                if ($group->Name == $team) {
-                    array_push($teamIds, $group->Id);
-                }
-            }
-        }
-        return $teamIds;
+        return $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
     }
-    public function getUsersGroups(int $uid)
+    public function getGroupUsers(int $gid)
     {
-        $groups = $this->AdminService->GetAllGroups()->GetAllGroupsResult->Group;
-        $user_groups = [];
-        foreach ($groups as $group) {
-            $result = $this->AdminService->GetGroupInfoByGroupId(
+        $users = [];
+        $result=$this->AdminService->GetGroupInfoByGroupId(
                 array(
-                    'groupId'=>$group->Id
+                    'groupId'=>$gid
                 )
             )->GetGroupInfoByGroupIdResult;
-            if (property_exists($result, 'Users')) {
-                $users= $result->Users;
-                if (!is_array($users)) {
-                    $users = array($users);
-                }
-                foreach ($users as $user) {
-                    if (property_exists($user, 'CreateUserId') && $user->CreateUserId == $uid) {
-                        array_push($user_groups, $group->Id);
-                    }
-                }
+        if (property_exists($result, 'Users')) {
+            $users= $result->Users;
+            if (!is_array($users)) {
+                $users = array($users);
             }
         }
-        return $user_groups;
+        return $users;
     }
-    public function addUserToGroups(int $uid, Array $gids)
+    public function addUserToGroup(int $uid, int $gid)
     {
-        foreach ($gids as $gid) {
-            $this->AdminService->addUserToGroup(
-                array(
-                    "userId" => $uid,
-                    "parentGroupId" => $gid
-                )
-            );
-        }
+        $this->AdminService->addUserToGroup(
+            array(
+                "userId" => $uid,
+                "parentGroupId" => $gid
+            )
+        );
     }
-    public function removeUserFromGroups(int $uid, Array $gids)
+    public function removeUserFromGroup(int $uid, int $gid)
     {
-        foreach ($gids as $gid) {
-            $this->AdminService->DeleteUserFromGroup(
-                array(
-                    "userId" => $uid,
-                    "parentGroupId" => $gid
-                )
-            );
-        }
+        $this->AdminService->DeleteUserFromGroup(
+            array(
+                "userId" => $uid,
+                "parentGroupId" => $gid
+            )
+        );
     }
 }
