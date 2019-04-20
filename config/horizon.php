@@ -141,4 +141,8 @@ return [
             ],
         ],
     ],
+    'middleware' => [
+       'web',
+       'auth.cas.force',
+   ],
 ];
