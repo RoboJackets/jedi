@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 use App\Jobs\ProcessNextcloud;
@@ -11,7 +12,7 @@ use App\Jobs\ProcessVault;
 
 class UserController extends Controller
 {
-    public function editUser(Request $request)
+    public function editUser(Request $request): JsonResponse
     {
         $this->validate($request, [
             'uid' => 'required',

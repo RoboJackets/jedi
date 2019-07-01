@@ -11,12 +11,8 @@
 |
 */
 
-
 Route::group(['middleware' => 'auth.cas.force'], static function (): void {
     Route::get('/', static function () {
         return view('welcome');
     });
-    // Route::get('profile', function () {
-    //     return view('users/userprofile', ['id' => auth()->user()->id]);
-    // });
 });

@@ -14,8 +14,25 @@ class ProcessGithub implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The user's username
+     *
+     * @var string
+     */
     protected $uid;
+
+    /**
+     * Whether the user should have access
+     *
+     * @var bool
+     */
     protected $has_access;
+
+    /**
+     * The user's teams
+     *
+     * @var array<string>
+     */
     protected $teams;
 
     /**
@@ -48,7 +65,11 @@ class ProcessGithub implements ShouldQueue
                 ],
             ]
         );
-        $response = $client->request('POST', config('github.endpoint'), ['json' => $send]);
+        $endpoint = config('github.endpoint');
+        if (!is_string($endpoint)) {
+            throw new \Exception('endpoint isn\'t a string');
+        }
+        $response = $client->request('POST', $endpoint, ['json' => $send]);
         if (204 !== $response->getStatusCode()) {
             throw new \Exception(
                 'Sending data to Github failed with HTTP response code ' . $response->getStatusCode()

@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable PEAR.Files.IncludingFile.UseInclude
+
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;

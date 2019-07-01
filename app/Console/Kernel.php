@@ -1,5 +1,8 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
+// phpcs:disable PEAR.Files.IncludingFile.UseInclude
+
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
@@ -10,7 +13,7 @@ class Kernel extends ConsoleKernel
     /**
      * The Artisan commands provided by your application.
      *
-     * @var array
+     * @var array<string>
      */
     protected $commands = [
     ];
@@ -26,8 +29,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
     }
 
     /**

@@ -7,9 +7,15 @@
  * @author  Taylor Otwell <taylor@laravel.com>
  */
 
+$parsed_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+if (null === $parsed_url) {
+    throw new Exception('parse_url returned null');
+}
+
 $uri = urldecode(
     // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
+    $parsed_url
 );
 
 // This file allows us to emulate Apache's "mod_rewrite" functionality from the

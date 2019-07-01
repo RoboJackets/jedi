@@ -14,18 +14,15 @@ return [
      * of your proxy (e.g. if using ELB or similar).
      *
      */
-    'proxies' => null, // [<ip addresses>,], '*', '<ip addresses>,'
+    'proxies' => null,
     /*
      * To trust one or more specific proxies that connect
      * directly to your server, use an array or a string separated by comma of IP addresses:
      */
-    // 'proxies' => ['192.168.1.1'],
-    // 'proxies' => '192.168.1.1, 192.168.1.2',
     /*
      * Or, to trust all proxies that connect
      * directly to your server, use a "*"
      */
-    // 'proxies' => '*',
     /*
      * Which headers to use to detect proxy related data (For, Host, Proto, Port)
      *

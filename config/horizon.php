@@ -39,7 +39,10 @@ return [
     |
     */
 
-    'middleware' => [],
+    'middleware' => [
+        'web',
+        'auth.cas.force',
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -140,9 +143,5 @@ return [
                 'tries' => 3,
             ],
         ],
-    ],
-    'middleware' => [
-        'web',
-        'auth.cas.force',
     ],
 ];

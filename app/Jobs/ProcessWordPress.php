@@ -13,14 +13,49 @@ class ProcessWordPress implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The user's username
+     *
+     * @var string
+     */
     private $uid;
+
+    /**
+     * Whether the user should have access
+     *
+     * @var bool
+     */
     private $is_access_active;
+
+    /**
+     * The user's teams
+     *
+     * @var array<string>
+     */
     private $teams;
+
+    /**
+     * The user's first name
+     *
+     * @var string
+     */
     private $first_name;
+
+    /**
+     * The user's last name
+     *
+     * @var string
+     */
     private $last_name;
 
     /**
-     * Create a new job instance.
+     * Create a new job instance
+     *
+     * @param string $uid              The user's username
+     * @param bool   $is_access_active Whether the user should have access
+     * @param array<string>  $teams    The user's teams
+     * @param string $first_name       The user's first name
+     * @param string $last_name        The user's last name
      */
     public function __construct(
         string $uid,
@@ -140,8 +175,7 @@ class ProcessWordPress implements ShouldQueue
                         'query' => 'first_name=' . $this->first_name
                                     . '&last_name=' . $this->last_name
                                     . '&name=' . $this->first_name . ' ' . $this->last_name
-                                    . '&email=' . $this->uid . '@gatech.edu'
-                                    . '&roles=editor',
+                                    . '&email=' . $this->uid . '@gatech.edu' . '&roles=editor',
                     ]
                 );
 

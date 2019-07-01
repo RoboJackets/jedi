@@ -34,13 +34,6 @@ class CASAuthenticate
                 }
 
                 return response('Unauthorized.', 401);
-                // return response(view(
-                //     'errors.generic',
-                //     [
-                //         'error_code' => 500,
-                //         'error_message' => 'Unknown error authenticating with CAS',
-                //     ]
-                // ), 500);
             }
 
             if ($request->ajax() || $request->wantsJson()) {

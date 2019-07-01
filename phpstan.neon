@@ -3,17 +3,13 @@ parameters:
     - %currentWorkingDirectory%/vendor/*
   autoload_directories:
     - %currentWorkingDirectory%/database/
-  ignoreErrors:
-    - '#Method [a-zA-Z0-9\\]+::[a-zA-Z0-9]+\(\) should return [a-zA-Z0-9\\]+\\?[a-zA-Z0-9\\]+ but returns [a-zA-Z0-9\\]+\|?\\?[a-zA-Z0-9\\]+#'
-    - '#Call to an undefined static method [a-zA-Z\\]+::create\(\)#'
-    - '#Access to an undefined property [a-zA-Z\\]+::\$[a-zA-Z]+#'
-    - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)#'
-    - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
-    - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Broadcast#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Artisan#'
   includes:
     - %rootDir%/../phpstan-strict-rules/rules.neon
     - %rootDir%/../phpstan-deprecation-rules/rules.neon
     - %currentWorkingDirectory%/vendor/nunomaduro/larastan/extension.neon
+  ignoreErrors:
+    - '#Access to an undefined property [a-zA-Z\\]+::\$[a-zA-Z]+#'
+    - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
+    - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
+    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
+    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Broadcast#'

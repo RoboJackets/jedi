@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
@@ -14,8 +16,25 @@ class ProcessNextcloud implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The user's username
+     *
+     * @var string
+     */
     private $uid;
+
+    /**
+     * Whether the user should have access
+     *
+     * @var bool
+     */
     private $is_access_active;
+
+    /**
+     * The user's teams
+     *
+     * @var array<string>
+     */
     private $teams;
 
     /**
@@ -55,7 +74,8 @@ class ProcessNextcloud implements ShouldQueue
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 200'
                 );
             }
 
@@ -82,7 +102,8 @@ class ProcessNextcloud implements ShouldQueue
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 200'
                 );
             }
 
@@ -181,7 +202,8 @@ class ProcessNextcloud implements ShouldQueue
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 200'
                 );
             }
 
@@ -215,7 +237,9 @@ class ProcessNextcloud implements ShouldQueue
         }
 
         if (1 !== count($status_array)) {
-            throw new \Exception('XPath search for status code returned ' . count($status_array) . ' results, expected 1');
+            throw new \Exception(
+                'XPath search for status code returned ' . count($status_array) . ' results, expected 1'
+            );
         }
 
         return intval($status_array[0]->__toString());

@@ -14,7 +14,18 @@ class ProcessSUMS implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /**
+     * The user's username
+     *
+     * @var string
+     */
     protected $uid;
+
+    /**
+     * Whether the user should have access
+     *
+     * @var bool
+     */
     protected $has_access;
 
     /**
@@ -49,7 +60,11 @@ class ProcessSUMS implements ShouldQueue
                 ],
             ]
         );
-        $response = $client->request('GET', config('sums.endpoint'), ['query' => $send]);
+        $endpoint = config('sums.endpoint');
+        if (!is_string($endpoint)) {
+            throw new \Exception('endpoint isn\'t a string');
+        }
+        $response = $client->request('GET', $endpoint, ['query' => $send]);
         if (200 !== $response->getStatusCode() && 204 !== $response->getStatusCode()) {
             throw new \Exception(
                 'Sending data to SUMS failed with HTTP response code ' . $response->getStatusCode()
