@@ -1,13 +1,13 @@
-<?php
+<?php declare(strict_types = 1);
 
 return [
-    "target_php_version" => '7.2',
+    'target_php_version' => '7.2',
 
     'directory_list' => [
         '.',
     ],
 
-    "exclude_analysis_directory_list" => [
+    'exclude_analysis_directory_list' => [
         'vendor/',
         'database/',
     ],

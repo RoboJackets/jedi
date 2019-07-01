@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Jobs;
 
@@ -7,9 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-
 use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 
 class ProcessWordPress implements ShouldQueue
 {
@@ -32,7 +30,7 @@ class ProcessWordPress implements ShouldQueue
         array $teams,
         string $first_name,
         string $last_name
-    ) {
+    ): void {
         $this->uid = $uid;
         $this->is_access_active = $is_access_active;
         $this->teams = $teams;
@@ -45,13 +43,13 @@ class ProcessWordPress implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new Client(
             [
-                'base_uri' => config('wordpress.server').'/wp-json/wp/v2/',
+                'base_uri' => config('wordpress.server') . '/wp-json/wp/v2/',
                 'headers' => [
-                    'User-Agent' => 'JEDI on '.config('app.url'),
+                    'User-Agent' => 'JEDI on ' . config('app.url'),
                 ],
                 'auth' => [
                     config('wordpress.username'),
@@ -64,13 +62,13 @@ class ProcessWordPress implements ShouldQueue
         $response = $client->get(
             'users',
             [
-                'query' => 'slug='.$this->uid.'&context=edit',
+                'query' => 'slug=' . $this->uid . '&context=edit',
             ]
         );
 
         if (200 !== $response->getStatusCode()) {
             throw new \Exception(
-                'WordPress returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
             );
         }
 
@@ -82,12 +80,12 @@ class ProcessWordPress implements ShouldQueue
             );
         }
 
-        if (count($json) === 0) {
+        if (0 === count($json)) {
             // user does not exist in wordpress
             return;
         }
 
-        if (count($json) !== 1) {
+        if (1 !== count($json)) {
             throw new \Exception(
                 'WordPress returned more than one user for query by slug - should not happen'
             );
@@ -98,80 +96,80 @@ class ProcessWordPress implements ShouldQueue
         if ($wp_user->username !== $this->uid) {
             throw new \Exception(
                 'WordPress returned a user with mismatched username - searched for '
-                .$this->uid.', got '.$wp_user->username
+                . $this->uid . ', got ' . $wp_user->username
             );
         }
 
         if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
             if (in_array('administrator', $wp_user->roles)) {
-                if ($wp_user->first_name === $this->first_name &&
-                    $wp_user->last_name === $this->last_name &&
-                    $wp_user->name === $this->first_name.' '.$this->last_name &&
-                    $wp_user->email === $this->uid.'@gatech.edu'
+                if ($wp_user->first_name === $this->first_name
+                    && $wp_user->last_name === $this->last_name
+                    && $wp_user->name === $this->first_name . ' ' . $this->last_name
+                    && $wp_user->email === $this->uid . '@gatech.edu'
                 ) {
                     return;
                 }
 
                 $client->post(
-                    'users/'.$wp_user->id,
+                    'users/' . $wp_user->id,
                     [
-                        'query' => 'first_name='.$this->first_name
-                                    .'&last_name='.$this->last_name
-                                    .'&name='.$this->first_name.' '.$this->last_name
-                                    .'&email='.$this->uid.'@gatech.edu'
+                        'query' => 'first_name=' . $this->first_name
+                                    . '&last_name=' . $this->last_name
+                                    . '&name=' . $this->first_name . ' ' . $this->last_name
+                                    . '&email=' . $this->uid . '@gatech.edu',
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
-                        .', expected 200'
+                        'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 200'
                     );
                 }
             } else {
-                if ($wp_user->first_name === $this->first_name &&
-                    $wp_user->last_name === $this->last_name &&
-                    $wp_user->name === $this->first_name.' '.$this->last_name &&
-                    $wp_user->email === $this->uid.'@gatech.edu' &&
-                    $wp_user->roles === ['editor']
+                if ($wp_user->first_name === $this->first_name
+                    && $wp_user->last_name === $this->last_name
+                    && $wp_user->name === $this->first_name . ' ' . $this->last_name
+                    && $wp_user->email === $this->uid . '@gatech.edu'
+                    && ['editor'] === $wp_user->roles
                 ) {
                     return;
                 }
 
                 $client->post(
-                    'users/'.$wp_user->id,
+                    'users/' . $wp_user->id,
                     [
-                        'query' => 'first_name='.$this->first_name
-                                    .'&last_name='.$this->last_name
-                                    .'&name='.$this->first_name.' '.$this->last_name
-                                    .'&email='.$this->uid.'@gatech.edu'
-                                    .'&roles=editor'
+                        'query' => 'first_name=' . $this->first_name
+                                    . '&last_name=' . $this->last_name
+                                    . '&name=' . $this->first_name . ' ' . $this->last_name
+                                    . '&email=' . $this->uid . '@gatech.edu'
+                                    . '&roles=editor',
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
-                        .', expected 200'
+                        'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 200'
                     );
                 }
             }
         } else {
-            if ($wp_user->roles === []) {
+            if ([] === $wp_user->roles) {
                 return;
             }
 
             $client->post(
-                'users/'.$wp_user->id,
+                'users/' . $wp_user->id,
                 [
-                    'query' => 'roles='
+                    'query' => 'roles=',
                 ]
             );
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
-                    .', expected 200'
+                    'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 200'
                 );
             }
         }

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 /*
 |--------------------------------------------------------------------------
@@ -10,10 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Bugsnag\BugsnagLaravel\Facades\Bugsnag;
 
-Route::group(['middleware' => 'auth.cas.force'], function () {
-    Route::get('/', function () {
+
+Route::group(['middleware' => 'auth.cas.force'], static function (): void {
+    Route::get('/', static function () {
         return view('welcome');
     });
     // Route::get('profile', function () {

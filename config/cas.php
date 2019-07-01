@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -123,7 +124,7 @@ return [
     | will override this configuration.
     |--------------------------------------------------------------------------
     */
-    'cas_version'         => env('CAS_VERSION', "2.0"),
+    'cas_version'         => env('CAS_VERSION', '2.0'),
 
     /*
     |--------------------------------------------------------------------------
@@ -148,5 +149,5 @@ return [
     | This should only be used for developmental purposes.  getAttributes()
     | will return null in this condition.
      */
-    'cas_masquerade'      => env('CAS_MASQUERADE', '')
+    'cas_masquerade'      => env('CAS_MASQUERADE', ''),
 ];

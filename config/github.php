@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -9,4 +10,4 @@ return [
     'token'        => env('GH_TOKEN', ''),
     'endpoint'     => env('GH_ENDPOINT', ''),
 
-  ];
+];

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 return [
 
@@ -142,7 +142,7 @@ return [
         ],
     ],
     'middleware' => [
-       'web',
-       'auth.cas.force',
-   ],
+        'web',
+        'auth.cas.force',
+    ],
 ];

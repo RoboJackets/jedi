@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Jobs;
 
@@ -7,7 +7,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -24,7 +23,7 @@ class ProcessNextcloud implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request): void
     {
         $this->uid = $request->uid;
         $this->is_access_active = $request->is_access_active;
@@ -36,13 +35,13 @@ class ProcessNextcloud implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $client = new Client(
             [
-                'base_uri' => config('nextcloud.server').'/ocs/v1.php/cloud/users/',
+                'base_uri' => config('nextcloud.server') . '/ocs/v1.php/cloud/users/',
                 'headers' => [
-                    'User-Agent' => 'JEDI on '.config('app.url'),
+                    'User-Agent' => 'JEDI on ' . config('app.url'),
                     'OCS-APIRequest' => 'true',
                 ],
                 'auth' => [
@@ -54,11 +53,11 @@ class ProcessNextcloud implements ShouldQueue
         );
 
         if ($this->is_access_active) {
-            $response = $client->put($this->uid.'/enable');
+            $response = $client->put($this->uid . '/enable');
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
                 );
             }
 
@@ -77,15 +76,15 @@ class ProcessNextcloud implements ShouldQueue
 
             if (100 !== $status_code) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 101'
+                    'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 101'
                 );
             }
 
-            $response = $client->get($this->uid.'/groups');
+            $response = $client->get($this->uid . '/groups');
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
                 );
             }
 
@@ -99,7 +98,7 @@ class ProcessNextcloud implements ShouldQueue
 
             if (100 !== $status_code) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
+                    'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100'
                 );
             }
 
@@ -121,16 +120,16 @@ class ProcessNextcloud implements ShouldQueue
 
             foreach ($extra_groups as $group) {
                 $response = $client->delete(
-                    $this->uid.'/groups',
+                    $this->uid . '/groups',
                     [
-                        'query' => 'groupid='.$group
+                        'query' => 'groupid=' . $group,
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
-                        .', expected 200'
+                        'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 200'
                     );
                 }
 
@@ -144,23 +143,23 @@ class ProcessNextcloud implements ShouldQueue
 
                 if (100 !== $status_code) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
+                        'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100'
                     );
                 }
             }
 
             foreach ($missing_groups as $group) {
                 $response = $client->post(
-                    $this->uid.'/groups',
+                    $this->uid . '/groups',
                     [
-                        'query' => 'groupid='.$group
+                        'query' => 'groupid=' . $group,
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
-                        .', expected 200'
+                        'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 200'
                     );
                 }
 
@@ -174,17 +173,17 @@ class ProcessNextcloud implements ShouldQueue
 
                 if (100 !== $status_code && 102 !== $status_code) {
                     throw new \Exception(
-                        'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 102'
+                        'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 102'
                     );
                 }
             }
         } else {
             // disable user
-            $response = $client->put($this->uid.'/disable');
+            $response = $client->put($this->uid . '/disable');
 
             if (200 !== $response->getStatusCode()) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
+                    'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
                 );
             }
 
@@ -203,7 +202,7 @@ class ProcessNextcloud implements ShouldQueue
 
             if (100 !== $status_code) {
                 throw new \Exception(
-                    'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 101'
+                    'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 101'
                 );
             }
         }
@@ -217,8 +216,8 @@ class ProcessNextcloud implements ShouldQueue
             throw new \Exception('XPath search for status code returned false');
         }
 
-        if (count($status_array) !== 1) {
-            throw new \Exception('XPath search for status code returned '.count($status_array).' results, expected 1');
+        if (1 !== count($status_array)) {
+            throw new \Exception('XPath search for status code returned ' . count($status_array) . ' results, expected 1');
         }
 
         return intval($status_array[0]->__toString());

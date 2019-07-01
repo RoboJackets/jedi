@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(): void
     {
         $this->middleware('guest');
     }

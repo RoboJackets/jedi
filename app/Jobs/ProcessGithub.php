@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Jobs;
 
@@ -7,7 +7,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 
@@ -24,11 +23,11 @@ class ProcessGithub implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Request $request)
+    public function __construct(Request $request): void
     {
-        $this->uid= $request->uid;
-        $this->has_access= $request->is_access_active;
-        $this->teams= $request->teams;
+        $this->uid = $request->uid;
+        $this->has_access = $request->is_access_active;
+        $this->teams = $request->teams;
     }
 
     /**
@@ -36,25 +35,25 @@ class ProcessGithub implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $send = [];
         $send['account'] = $this->uid;
-        $send['access'] = ($this->has_access)? 'true' : 'false';
+        $send['access'] = $this->has_access ? 'true' : 'false';
         $send['teams'] = $this->teams;
         $client = new Client(
             [
-             'headers' => [
-                 'User-Agent' => 'JEDI on '.config('app.url'),
-                 'Accept' => 'application/json',
-                 'Authorization' => 'Bearer '.config('github.token'),
-             ],
+                'headers' => [
+                    'User-Agent' => 'JEDI on ' . config('app.url'),
+                    'Accept' => 'application/json',
+                    'Authorization' => 'Bearer ' . config('github.token'),
+                ],
             ]
         );
         $response = $client->request('POST', config('github.endpoint'), ['json' => $send]);
         if (204 !== $response->getStatusCode()) {
             throw new \Exception(
-                'Sending data to Github failed with HTTP response code '.$response->getStatusCode()
+                'Sending data to Github failed with HTTP response code ' . $response->getStatusCode()
             );
         }
     }

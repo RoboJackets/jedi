@@ -1,10 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use App\Jobs\ProcessSUMS;
 use App\Jobs\ProcessGithub;
 use App\Jobs\ProcessNextcloud;
@@ -16,11 +14,11 @@ class UserController extends Controller
     public function editUser(Request $request)
     {
         $this->validate($request, [
-          'uid' => 'required',
-          'first_name' => 'required',
-          'last_name' => 'required',
-          'is_access_active' => 'required',
-          'teams' => 'required'
+            'uid' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'is_access_active' => 'required',
+            'teams' => 'required',
         ]);
         ProcessSUMS::dispatch($request);
         ProcessGithub::dispatch($request);

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -9,6 +10,6 @@ return [
     'username'     => env('SUMS_USERNAME', ''),
     'token'        => env('SUMS_TOKEN', ''),
     'endpoint'     => env('SUMS_ENDPOINT', ''),
-    'billingid'    => env('SUMS_BILLING_ID', '')
+    'billingid'    => env('SUMS_BILLING_ID', ''),
 
-  ];
+];

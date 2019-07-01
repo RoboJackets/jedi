@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -19,7 +20,7 @@ class APITokenAuthenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(\Illuminate\Http\Request $request, Closure $next)
     {
         $token = Auth::guard('api')->getTokenForRequest();
         $hasToken = Auth::guard('api')->validate(['api_token' => $token]);

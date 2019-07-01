@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -90,9 +90,9 @@ return [
             'level' => 'debug',
         ],
         
-          'bugsnag' => [
-              'driver' => 'bugsnag',
-          ],
+        'bugsnag' => [
+            'driver' => 'bugsnag',
+        ],
     ],
 
 ];

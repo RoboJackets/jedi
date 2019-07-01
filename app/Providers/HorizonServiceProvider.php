@@ -1,8 +1,7 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace App\Providers;
 
-use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
@@ -13,7 +12,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
@@ -28,12 +27,12 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      * This gate determines who can access Horizon in non-local environments.
      *
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
-     * @return void
+     * @return                                      void
      */
-    protected function gate()
+    protected function gate(): void
     {
         // @phan-suppress-next-line PhanUnusedClosureParameter
-        Gate::define('viewHorizon', function ($user) {
+        Gate::define('viewHorizon', static function ($user) {
             return true;
         });
     }
@@ -43,8 +42,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
     }
 }

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types = 1);
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -10,4 +11,4 @@ return [
     'username'     => env('VAULT_USERNAME', ''),
     'password'     => env('VAULT_PASSWORD', ''),
     'vault'        => env('VAULT_VAULT', ''),
-  ];
+];
