@@ -23,27 +23,4 @@ class Handler extends ExceptionHandler
         'password',
         'password_confirmation',
     ];
-
-    /**
-     * Report or log an exception.
-     *
-     * @param  \Exception  $exception
-     * @return void
-     */
-    public function report(\Throwable $exception): void
-    {
-        parent::report($exception);
-    }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
-     */
-    public function render(\Illuminate\Http\Request $request, \Throwable $exception): \Illuminate\Http\Response
-    {
-        return parent::render($request, $exception);
-    }
 }

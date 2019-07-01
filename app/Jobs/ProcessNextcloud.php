@@ -20,10 +20,8 @@ class ProcessNextcloud implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
-    public function __construct(Request $request): void
+    public function __construct(Request $request)
     {
         $this->uid = $request->uid;
         $this->is_access_active = $request->is_access_active;

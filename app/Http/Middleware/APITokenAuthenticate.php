@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
+use Illuminate\Http\Request;
 
 class APITokenAuthenticate
 {
@@ -20,7 +21,7 @@ class APITokenAuthenticate
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         $token = Auth::guard('api')->getTokenForRequest();
         $hasToken = Auth::guard('api')->validate(['api_token' => $token]);

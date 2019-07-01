@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Illuminate\Http\Request;
 
 class CASAuthenticate
 {
@@ -20,7 +21,7 @@ class CASAuthenticate
      * @param  \Closure $next
      * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         //Check to ensure the request isn't already authenticated through the API guard
         if (! Auth::guard('api')->check()) {

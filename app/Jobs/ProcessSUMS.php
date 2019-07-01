@@ -19,10 +19,8 @@ class ProcessSUMS implements ShouldQueue
 
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
-    public function __construct(Request $request): void
+    public function __construct(Request $request)
     {
         $this->uid = $request->uid;
         $this->has_access = $request->is_access_active;

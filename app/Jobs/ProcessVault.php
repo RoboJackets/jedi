@@ -20,10 +20,8 @@ class ProcessVault implements ShouldQueue
     protected $last_name;
     /**
      * Create a new job instance.
-     *
-     * @return void
      */
-    public function __construct(Request $request): void
+    public function __construct(Request $request)
     {
         $this->uid = $request->uid;
         $this->has_access = $request->is_access_active;

@@ -18,8 +18,10 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param                                         \Illuminate\Console\Scheduling\Schedule  $schedule
-     * @return                                        void
+     * @param \Illuminate\Console\Scheduling\Schedule  $schedule
+     *
+     * @return void
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function schedule(Schedule $schedule): void
@@ -37,6 +39,6 @@ class Kernel extends ConsoleKernel
     {
         $this->load(__DIR__ . '/Commands');
 
-        include base_path('routes/console.php');
+        require base_path('routes/console.php');
     }
 }
