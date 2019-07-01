@@ -1,3 +1,4 @@
+// phpcs:disable Squiz.Objects.DisallowObjectStringIndex
 
 window._ = require('lodash');
 
