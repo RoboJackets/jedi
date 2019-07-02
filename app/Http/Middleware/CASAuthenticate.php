@@ -1,4 +1,4 @@
- <?php declare(strict_types = 1);
+<?php declare(strict_types = 1);
 
 // phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
@@ -39,7 +39,8 @@ class CASAuthenticate
                 if (is_a($user, \App\User::class)) {
                     Auth::login($user);
                     return $next($request);
-                } elseif (is_a($user, 'Illuminate\Http\Response')) {
+                }
+                if (is_a($user, 'Illuminate\Http\Response')) {
                     return $user;
                 }
 
