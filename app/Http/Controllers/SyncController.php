@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Jobs\SyncNextcloud;
 use Illuminate\Http\JsonResponse;
-use App\Jobs\ProcessSUMS;
-use App\Jobs\ProcessGithub;
-use App\Jobs\ProcessNextcloud;
-use App\Jobs\ProcessWordPress;
-use App\Jobs\ProcessVault;
+use Illuminate\Http\Request;
 
 class SyncController extends Controller
 {

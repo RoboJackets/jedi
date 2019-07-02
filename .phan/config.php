@@ -23,8 +23,10 @@ return [
         'PhanUnreferencedProtectedMethod',
         'PhanUnreferencedProtectedProperty',
         'PhanUnreferencedPublicMethod',
+        'PhanUnreferencedPublicProperty',
         'PhanUnreferencedUseNormal',
         'PhanUnusedProtectedMethodParameter',
+        'PhanWriteOnlyProtectedProperty',
     ],
 
     'allow_missing_properties' => true,

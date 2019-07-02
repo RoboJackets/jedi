@@ -3,10 +3,9 @@
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 
 abstract class AbstractSyncJob implements ShouldQueue
 {
@@ -57,11 +56,11 @@ abstract class AbstractSyncJob implements ShouldQueue
     /**
      * Create a new job instance
      *
-     * @param string $uid              The user's GT username
-     * @param string $first_name       The user's first name
-     * @param string $last_name        The user's last name
-     * @param string $is_access_active Whether the user should have access to systems
-     * @param array<string>  $teams    The names of the teams the user is in
+     * @param string $uid            The user's GT username
+     * @param string $first_name     The user's first name
+     * @param string $last_name      The user's last name
+     * @param bool $is_access_active Whether the user should have access to systems
+     * @param array<string>  $teams  The names of the teams the user is in
      */
     public function __construct(
         string $uid,
