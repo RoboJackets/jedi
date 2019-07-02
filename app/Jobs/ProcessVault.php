@@ -70,9 +70,9 @@ class ProcessVault implements ShouldQueue
             return;
         }
         $vault = Client::makeWithCredentials(
-            config('vault.host'),
-            config('vault.username'),
-            config('vault.password')
+            'asdf',
+            'jkl',
+            'semicolon'
         );
         $userId = $vault->getUserIdByUsername($this->uid);
         if ($userId <= 0) {
@@ -84,26 +84,8 @@ class ProcessVault implements ShouldQueue
             return;
         }
         //update teams
-        $groups = $vault->getAllGroups();
         $currentGroups = [];
         $teamIds = [];
-        foreach ($groups as $group) {
-            $users = [];
-            foreach ($users as $user) {  //get the groupIds the user currently belongs to
-                if (!property_exists($user, 'CreateUserId') || $user->CreateUserId !== $this->uid) {
-                    continue;
-                }
-
-                array_push($currentGroups, $group->Id);
-            }
-            foreach ($this->teams as $team) { //get the groupIds of the teams user should belong to
-                if ($group->Name !== $team) {
-                    continue;
-                }
-
-                array_push($teamIds, $group->Id);
-            }
-        }
         //diff the two groups
         $toAdd = array_diff($teamIds, $currentGroups);
         $toRemove = array_diff($currentGroups, $teamIds);

@@ -152,7 +152,7 @@ class SyncNextcloud extends AbstractSyncJob
                     [
                         'query' => [
                             'groupid' => $group,
-                        ]
+                        ],
                     ]
                 );
 
