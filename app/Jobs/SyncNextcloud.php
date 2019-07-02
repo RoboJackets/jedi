@@ -71,6 +71,8 @@ class SyncNextcloud extends AbstractSyncJob
                 );
             }
 
+            Log::debug(self::class . ': Getting groups for user ' . $this->uid);
+
             $response = $client->get($this->uid . '/groups');
 
             if (200 !== $response->getStatusCode()) {
