@@ -83,17 +83,5 @@ class ProcessVault implements ShouldQueue
         if (true !== $this->has_access) {
             return;
         }
-        //update teams
-        $currentGroups = [];
-        $teamIds = [];
-        //diff the two groups
-        $toAdd = array_diff($teamIds, $currentGroups);
-        $toRemove = array_diff($currentGroups, $teamIds);
-        foreach ($toAdd as $gid) {
-            $vault->addUserToGroup($userId, $gid);
-        }
-        foreach ($toRemove as $gid) {
-            $vault->deleteUserFromGroup($userId, $gid);
-        }
     }
 }
