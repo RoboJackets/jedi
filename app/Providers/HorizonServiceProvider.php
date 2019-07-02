@@ -32,6 +32,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      */
     public function register(): void
     {
+        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         Horizon::routeSlackNotificationsTo(config('slack.endpoint'));
     }
 }
