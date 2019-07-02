@@ -22,7 +22,7 @@ class SyncController extends Controller
             ]
         );
 
-        Log::info(self::class . ': Request to sync ' . $this->uid);
+        Log::info(self::class . ': Request to sync ' . $request->uid);
 
         if (true === config('nextcloud.enabled')) {
             SyncNextcloud::dispatch(
