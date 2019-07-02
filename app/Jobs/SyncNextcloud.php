@@ -15,7 +15,7 @@ use SimpleXMLElement;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class SyncNextcloud implements AbstractSyncJob
+class SyncNextcloud extends AbstractSyncJob
 {
     /**
      * The queue this job will run on
