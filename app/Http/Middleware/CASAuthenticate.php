@@ -1,4 +1,4 @@
-<?php declare(strict_types = 1);
+ <?php declare(strict_types = 1);
 
 // phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
@@ -35,9 +35,10 @@ class CASAuthenticate
         //Check to ensure the request isn't already authenticated through the API guard
         if (! Auth::guard('api')->check()) {
             if ($this->cas->isAuthenticated()) {
-                $user = User::where('uid', $this->cas->user())->first();
+                $user = User::where('uid', '=', $this->cas->user())->first();
                 if (is_a($user, \App\User::class)) {
                     Auth::login($user);
+                    return $next($request);
                 } elseif (is_a($user, 'Illuminate\Http\Response')) {
                     return $user;
                 }
