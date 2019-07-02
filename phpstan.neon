@@ -9,8 +9,9 @@ parameters:
     - %currentWorkingDirectory%/vendor/nunomaduro/larastan/extension.neon
   ignoreErrors:
     - '#Access to an undefined property [a-zA-Z\\]+::\$[a-zA-Z]+#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)#'
     - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
     - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
-    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
     - '#Call to static method [a-zA-Z]+\(\) on an unknown class Broadcast#'
+    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'

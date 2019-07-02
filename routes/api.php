@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', static function (Request $request) {
-    return $request->user();
-});
-
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
-    Route::post('/sync-access', 'UserController@editUser');
+    Route::post('/sync', 'SyncController@sync');
 });

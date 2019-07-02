@@ -11,41 +11,18 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use SimpleXMLElement;
+use Exception
+use Illuminate\Support\Facades\Log;
 
-class ProcessNextcloud implements ShouldQueue
+class SyncNextcloud implements AbstractSyncJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
-     * The user's username
+     * The queue this job will run on
      *
      * @var string
      */
-    private $uid;
-
-    /**
-     * Whether the user should have access
-     *
-     * @var bool
-     */
-    private $is_access_active;
-
-    /**
-     * The user's teams
-     *
-     * @var array<string>
-     */
-    private $teams;
-
-    /**
-     * Create a new job instance.
-     */
-    public function __construct(Request $request)
-    {
-        $this->uid = $request->uid;
-        $this->is_access_active = $request->is_access_active;
-        $this->teams = $request->teams;
-    }
+    public $queue = 'nextcloud';
 
     /**
      * Execute the job.
@@ -70,10 +47,12 @@ class ProcessNextcloud implements ShouldQueue
         );
 
         if ($this->is_access_active) {
+            Log::info(self::class . ': Enabling user ' . $this->uid);
+
             $response = $client->put($this->uid . '/enable');
 
             if (200 !== $response->getStatusCode()) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
                     . ', expected 200'
                 );
@@ -82,18 +61,18 @@ class ProcessNextcloud implements ShouldQueue
             $xml = simplexml_load_string($response->getBody()->getContents());
 
             if (false === $xml) {
-                throw new \Exception('Nextcloud did not return valid XML');
+                throw new Exception('Nextcloud did not return valid XML');
             }
 
-            $status_code = $this->getStatusCodeFromXML($xml);
+            $status_code = self::getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
-                // user probably just does not exist in Nextcloud
+                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in NextCloud');
                 return;
             }
 
             if (100 !== $status_code) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 101'
                 );
             }
@@ -101,7 +80,7 @@ class ProcessNextcloud implements ShouldQueue
             $response = $client->get($this->uid . '/groups');
 
             if (200 !== $response->getStatusCode()) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
                     . ', expected 200'
                 );
@@ -110,13 +89,13 @@ class ProcessNextcloud implements ShouldQueue
             $xml = simplexml_load_string($response->getBody()->getContents());
 
             if (false === $xml) {
-                throw new \Exception('Nextcloud did not return valid XML');
+                throw new Exception('Nextcloud did not return valid XML');
             }
 
-            $status_code = $this->getStatusCodeFromXML($xml);
+            $status_code = self::getStatusCodeFromXML($xml);
 
             if (100 !== $status_code) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100'
                 );
             }
@@ -138,15 +117,19 @@ class ProcessNextcloud implements ShouldQueue
             $missing_groups = array_diff($this->teams, $groups_from_nc);
 
             foreach ($extra_groups as $group) {
+                Log::debug(self::class . ': Removing group ' . $group . ' from ' . $this->uid);
+
                 $response = $client->delete(
                     $this->uid . '/groups',
                     [
-                        'query' => 'groupid=' . $group,
+                        'query' => [
+                            'groupid' => $group,
+                        ],
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
-                    throw new \Exception(
+                    throw new Exception(
                         'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
                         . ', expected 200'
                     );
@@ -155,28 +138,32 @@ class ProcessNextcloud implements ShouldQueue
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
                 if (false === $xml) {
-                    throw new \Exception('Nextcloud did not return valid XML');
+                    throw new Exception('Nextcloud did not return valid XML');
                 }
 
-                $status_code = $this->getStatusCodeFromXML($xml);
+                $status_code = self::getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code) {
-                    throw new \Exception(
+                    throw new Exception(
                         'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100'
                     );
                 }
             }
 
             foreach ($missing_groups as $group) {
+                Log::debug(self::class . ': Adding group ' . $group . ' to ' . $this->uid);
+
                 $response = $client->post(
                     $this->uid . '/groups',
                     [
-                        'query' => 'groupid=' . $group,
+                        'query' => [
+                            'groupid' => $group,
+                        ]
                     ]
                 );
 
                 if (200 !== $response->getStatusCode()) {
-                    throw new \Exception(
+                    throw new Exception(
                         'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
                         . ', expected 200'
                     );
@@ -185,23 +172,26 @@ class ProcessNextcloud implements ShouldQueue
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
                 if (false === $xml) {
-                    throw new \Exception('Nextcloud did not return valid XML');
+                    throw new Exception('Nextcloud did not return valid XML');
                 }
 
-                $status_code = $this->getStatusCodeFromXML($xml);
+                $status_code = self::getStatusCodeFromXML($xml);
 
                 if (100 !== $status_code && 102 !== $status_code) {
-                    throw new \Exception(
+                    throw new Exception(
                         'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 102'
                     );
                 }
             }
+
+            Log::info(self::class . ': Successfully enabled and synced groups for ' . $this->uid);
         } else {
-            // disable user
+            Log::info(self::class . ': Disabling user ' . $this->uid);
+
             $response = $client->put($this->uid . '/disable');
 
             if (200 !== $response->getStatusCode()) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code ' . $response->getStatusCode()
                     . ', expected 200'
                 );
@@ -210,34 +200,36 @@ class ProcessNextcloud implements ShouldQueue
             $xml = simplexml_load_string($response->getBody()->getContents());
 
             if (false === $xml) {
-                throw new \Exception('Nextcloud did not return valid XML');
+                throw new Exception('Nextcloud did not return valid XML');
             }
 
-            $status_code = $this->getStatusCodeFromXML($xml);
+            $status_code = self::getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
-                // user probably just does not exist in Nextcloud
+                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in NextCloud');
                 return;
             }
 
             if (100 !== $status_code) {
-                throw new \Exception(
+                throw new Exception(
                     'Nextcloud returned an unexpected status code ' . $status_code . ' in XML, expected 100 or 101'
                 );
             }
+
+            Log::info(self::class . ': Successfully disabled ' . $this->uid);
         }
     }
 
-    private function getStatusCodeFromXML(\SimpleXMLElement $xml): int
+    private static function getStatusCodeFromXML(SimpleXMLElement $xml): int
     {
         $status_array = $xml->xpath('/ocs/meta/statuscode');
 
         if (false === $status_array) {
-            throw new \Exception('XPath search for status code returned false');
+            throw new Exception('XPath search for status code returned false');
         }
 
         if (1 !== count($status_array)) {
-            throw new \Exception(
+            throw new Exception(
                 'XPath search for status code returned ' . count($status_array) . ' results, expected 1'
             );
         }

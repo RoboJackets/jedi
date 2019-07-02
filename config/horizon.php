@@ -117,11 +117,17 @@ return [
 
     'environments' => [
         'production' => [
-            'supervisor-1' => [
+            'supervisor' => [
                 'connection' => 'redis',
-                'queue' => ['default'],
+                'queue' => [
+                    'github',
+                    'nextcloud',
+                    'sums',
+                    'vault',
+                    'wordpress',
+                ],
                 'balance' => 'simple',
-                'processes' => 10,
+                'processes' => 5,
                 'tries' => 3,
             ],
         ],

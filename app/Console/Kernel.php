@@ -1,6 +1,5 @@
 <?php declare(strict_types = 1);
 
-// phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter
 // phpcs:disable PEAR.Files.IncludingFile.UseInclude
 
 namespace App\Console;
@@ -24,11 +23,10 @@ class Kernel extends ConsoleKernel
      * @param \Illuminate\Console\Scheduling\Schedule  $schedule
      *
      * @return void
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     protected function schedule(Schedule $schedule): void
     {
+        $schedule->command('horizon:snapshot')->everyFiveMinutes();
     }
 
     /**

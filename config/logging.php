@@ -36,7 +36,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'bugsnag'],
+            'channels' => ['daily', 'bugsnag', 'papertrail'],
             'ignore_exceptions' => false,
         ],
 
@@ -89,7 +89,7 @@ return [
             'driver' => 'errorlog',
             'level' => 'debug',
         ],
-        
+
         'bugsnag' => [
             'driver' => 'bugsnag',
         ],
