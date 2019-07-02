@@ -17,6 +17,7 @@
         "laravel/horizon": "^3",
         "laravel/tinker": "^1.0",
         "robojackets/vault-sdk": "^1.2",
+        "spatie/laravel-failed-job-monitor": "^3.1",
         "subfission/cas": " dev-master"
     },
     "require-dev": {

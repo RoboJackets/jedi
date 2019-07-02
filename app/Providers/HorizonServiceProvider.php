@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\User;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
@@ -31,5 +32,6 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
      */
     public function register(): void
     {
+        Horizon::routeSlackNotificationsTo(config('slack.endpoint'));
     }
 }
