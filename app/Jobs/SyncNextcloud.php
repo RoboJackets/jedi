@@ -12,7 +12,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
-use Exception
+use Exception;
 use Illuminate\Support\Facades\Log;
 
 class SyncNextcloud implements AbstractSyncJob

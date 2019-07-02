@@ -31,7 +31,7 @@ class SyncController extends Controller
                 $request->first_name,
                 $request->last_name,
                 $request->is_access_active,
-                $request->teams,
+                $request->teams
             );
         }
 
