@@ -32,6 +32,6 @@ class UserController extends Controller
             $request->last_name
         );
         ProcessVault::dispatch($request);
-        return Response('good', 200);
+        return response()->json('good', 200);
     }
 }

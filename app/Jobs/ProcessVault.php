@@ -69,7 +69,7 @@ class ProcessVault implements ShouldQueue
         if ($this->uid === config('vault.username')) {
             return;
         }
-        $vault = new Client::makeWithCredentials(
+        $vault = Client::makeWithCredentials(
             config('vault.host'),
             config('vault.username'),
             config('vault.password')
@@ -79,7 +79,7 @@ class ProcessVault implements ShouldQueue
             return;
         }
 
-        //$vault->updateUserInfo($userId, $this->uid, $this->first_name, $this->last_name, $this->has_access);
+        $vault->updateUserInfo($userId, $this->has_access, $this->uid, '', $this->first_name, $this->last_name);
         if (true !== $this->has_access) {
             return;
         }
@@ -88,7 +88,6 @@ class ProcessVault implements ShouldQueue
         $currentGroups = [];
         $teamIds = [];
         foreach ($groups as $group) {
-            //$users = $vault->getGroupUsers($group->Id);
             $users = [];
             foreach ($users as $user) {  //get the groupIds the user currently belongs to
                 if (!property_exists($user, 'CreateUserId') || $user->CreateUserId !== $this->uid) {

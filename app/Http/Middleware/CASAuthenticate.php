@@ -14,7 +14,7 @@ class CASAuthenticate
     /**
      * The CAS manager
      *
-     * @var Subfission\Cas\CasManager
+     * @var \Subfission\Cas\CasManager
      */
     protected $cas;
 
