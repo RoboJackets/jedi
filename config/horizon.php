@@ -41,7 +41,7 @@ return [
 
     'middleware' => [
         'web',
-        'auth.cas.force',
+        'auth.cas',
     ],
 
     /*

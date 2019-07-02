@@ -36,7 +36,7 @@ return [
     |
     */
 
-    'app_version' => env('BUGSNAG_APP_VERSION'),
+    'app_version' => exec('cd ' . __DIR__ . ' && git rev-parse HEAD'),
 
     /*
     |--------------------------------------------------------------------------
