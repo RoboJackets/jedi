@@ -175,7 +175,7 @@ class ProcessWordPress implements ShouldQueue
                         'query' => 'first_name=' . $this->first_name
                                     . '&last_name=' . $this->last_name
                                     . '&name=' . $this->first_name . ' ' . $this->last_name
-                                    . '&email=' . $this->uid . '@gatech.edu' . '&roles=editor',
+                                    . '&email=' . $this->uid . '@gatech.edu&roles=editor',
                     ]
                 );
 

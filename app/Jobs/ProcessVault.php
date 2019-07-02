@@ -69,13 +69,17 @@ class ProcessVault implements ShouldQueue
         if ($this->uid === config('vault.username')) {
             return;
         }
-        $vault = new Client(config('vault.host'), config('vault.username'), config('vault.password'));
-        $userId = $vault->getUserId($this->uid);
+        $vault = new Client::makeWithCredentials(
+            config('vault.host'),
+            config('vault.username'),
+            config('vault.password')
+        );
+        $userId = $vault->getUserIdByUsername($this->uid);
         if ($userId <= 0) {
             return;
         }
 
-        $vault->updateUser($userId, $this->uid, $this->first_name, $this->last_name, $this->has_access);
+        //$vault->updateUserInfo($userId, $this->uid, $this->first_name, $this->last_name, $this->has_access);
         if (true !== $this->has_access) {
             return;
         }
@@ -84,7 +88,8 @@ class ProcessVault implements ShouldQueue
         $currentGroups = [];
         $teamIds = [];
         foreach ($groups as $group) {
-            $users = $vault->getGroupUsers($group->Id);
+            //$users = $vault->getGroupUsers($group->Id);
+            $users = [];
             foreach ($users as $user) {  //get the groupIds the user currently belongs to
                 if (!property_exists($user, 'CreateUserId') || $user->CreateUserId !== $this->uid) {
                     continue;
@@ -107,7 +112,7 @@ class ProcessVault implements ShouldQueue
             $vault->addUserToGroup($userId, $gid);
         }
         foreach ($toRemove as $gid) {
-            $vault->removeUserFromGroup($userId, $gid);
+            $vault->deleteUserFromGroup($userId, $gid);
         }
     }
 }

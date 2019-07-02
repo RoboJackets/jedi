@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -9,7 +11,13 @@ use Illuminate\Http\Request;
 
 class CASAuthenticate
 {
+    /**
+     * The CAS manager
+     *
+     * @var Subfission\Cas\CasManager
+     */
     protected $cas;
+
     public function __construct()
     {
         $this->cas = app('cas');
@@ -17,8 +25,9 @@ class CASAuthenticate
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

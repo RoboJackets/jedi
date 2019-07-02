@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'filters' => env('BUGSNAG_FILTERS') === null ? ['password'] : explode(
+    'filters' => null === env('BUGSNAG_FILTERS') ? ['password'] : explode(
         ',',
         str_replace(
             ' ',
@@ -111,7 +111,7 @@ return [
     'proxy' => array_filter([
         'http' => env('HTTP_PROXY'),
         'https' => env('HTTPS_PROXY'),
-        'no' => env('NO_PROXY') === null ? null : explode(',', str_replace(' ', '', env('NO_PROXY'))),
+        'no' => null === env('NO_PROXY') ? null : explode(',', str_replace(' ', '', env('NO_PROXY'))),
     ]),
 
     /*
@@ -188,7 +188,7 @@ return [
     |
     */
 
-    'notify_release_stages' => env('BUGSNAG_NOTIFY_RELEASE_STAGES') === null ? null : explode(
+    'notify_release_stages' => null === env('BUGSNAG_NOTIFY_RELEASE_STAGES') ? null : explode(
         ',',
         str_replace(
             ' ',
