@@ -10,9 +10,3 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::group(['middleware' => 'auth.cas'], static function (): void {
-    Route::get('/', static function () {
-        return view('welcome');
-    });
-});

@@ -34,5 +34,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
     {
         // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         Horizon::routeSlackNotificationsTo(config('slack.endpoint'));
+
+        Horizon::night();
     }
 }
