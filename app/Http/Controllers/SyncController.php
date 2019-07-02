@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SyncNextcloud;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SyncController extends Controller
 {
