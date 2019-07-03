@@ -106,13 +106,15 @@ class SyncNextcloud extends AbstractSyncJob
                 }
             }
 
-            unset($groups_from_nc['admin']);
-
             $extra_groups = array_diff($groups_from_nc, $this->teams);
 
             $missing_groups = array_diff($this->teams, $groups_from_nc);
 
             foreach ($extra_groups as $group) {
+                if ('admin' === $group) {
+                    continue;
+                }
+
                 Log::debug(self::class . ': Removing group ' . $group . ' from ' . $this->uid);
 
                 $response = $client->delete(
@@ -147,6 +149,10 @@ class SyncNextcloud extends AbstractSyncJob
             }
 
             foreach ($missing_groups as $group) {
+                if ('admin' === $group) {
+                    continue;
+                }
+
                 Log::debug(self::class . ': Adding group ' . $group . ' to ' . $this->uid);
 
                 $response = $client->post(
