@@ -13,5 +13,4 @@ parameters:
     - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)#'
     - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
     - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Broadcast#'
     - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
