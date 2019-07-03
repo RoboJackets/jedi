@@ -40,11 +40,8 @@ class CASAuthenticate
                     Auth::login($user);
                     return $next($request);
                 }
-                if (is_a($user, 'Illuminate\Http\Response')) {
-                    return $user;
-                }
 
-                return response('Unauthorized.', 401);
+                return view('errors/401');
             }
 
             if ($request->ajax() || $request->wantsJson()) {
@@ -52,7 +49,7 @@ class CASAuthenticate
             }
             $this->cas->authenticate();
         }
-        //User is authenticated, no update needed or already updated
+
         return $next($request);
     }
 }
