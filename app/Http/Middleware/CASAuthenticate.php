@@ -41,11 +41,11 @@ class CASAuthenticate
                     return $next($request);
                 }
 
-                return view('errors/401');
+                abort(401);
             }
 
             if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized', 401);
+                abort(401);
             }
             $this->cas->authenticate();
         }
