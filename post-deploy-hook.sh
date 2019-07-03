@@ -9,9 +9,6 @@ php artisan view:clear --no-interaction
 php artisan route:clear --no-interaction
 php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" --no-interaction
 php artisan cache:clear --no-interaction
-export PATH=$PATH:/bin
-npm ci --no-progress
-npm run production --no-progress
 # Patch Horizon not cooperating with being at /
 sed -i 's#base:"/"+window.Horizon.path+"/"#base:"/"#' public/vendor/horizon/app.js
 sed -i 's#"/"+Horizon.path+##g' public/vendor/horizon/app.js
