@@ -2,74 +2,22 @@
 
 namespace App\Jobs;
 
+use GuzzleHttp\Client;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use GuzzleHttp\Client;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class ProcessWordPress implements ShouldQueue
+class SyncWordPress extends AbstractSyncJob
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
-     * The user's username
+     * The queue this job will run on
      *
      * @var string
      */
-    private $uid;
-
-    /**
-     * Whether the user should have access
-     *
-     * @var bool
-     */
-    private $is_access_active;
-
-    /**
-     * The user's teams
-     *
-     * @var array<string>
-     */
-    private $teams;
-
-    /**
-     * The user's first name
-     *
-     * @var string
-     */
-    private $first_name;
-
-    /**
-     * The user's last name
-     *
-     * @var string
-     */
-    private $last_name;
-
-    /**
-     * Create a new job instance
-     *
-     * @param string $uid              The user's username
-     * @param bool   $is_access_active Whether the user should have access
-     * @param array<string>  $teams    The user's teams
-     * @param string $first_name       The user's first name
-     * @param string $last_name        The user's last name
-     */
-    public function __construct(
-        string $uid,
-        bool $is_access_active,
-        array $teams,
-        string $first_name,
-        string $last_name
-    ) {
-        $this->uid = $uid;
-        $this->is_access_active = $is_access_active;
-        $this->teams = $teams;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-    }
+    public $queue = 'wordpress';
 
     /**
      * Execute the job.
@@ -95,7 +43,10 @@ class ProcessWordPress implements ShouldQueue
         $response = $client->get(
             'users',
             [
-                'query' => 'slug=' . $this->uid . '&context=edit',
+                'query' => [
+                    'slug' => $this->uid,
+                    'context' => 'edit',
+                ],
             ]
         );
 
@@ -114,7 +65,8 @@ class ProcessWordPress implements ShouldQueue
         }
 
         if (0 === count($json)) {
-            // user does not exist in wordpress
+            Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in WordPress');
+
             return;
         }
 
@@ -134,22 +86,30 @@ class ProcessWordPress implements ShouldQueue
         }
 
         if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
+            Log::info(self::class . ': Enabling user ' . $this->uid);
+
             if (in_array('administrator', $wp_user->roles)) {
+                Log::debug(self::class . ': User ' . $this->uid . ' is admin');
                 if ($wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name . ' ' . $this->last_name
                     && $wp_user->email === $this->uid . '@gatech.edu'
                 ) {
+                    Log::debug(self::class . ': User ' . $this->uid . ' attributes are up to date');
                     return;
                 }
+
+                Log::debug(self::class . ': Updating name/email for user ' . $this->uid);
 
                 $client->post(
                     'users/' . $wp_user->id,
                     [
-                        'query' => 'first_name=' . $this->first_name
-                                    . '&last_name=' . $this->last_name
-                                    . '&name=' . $this->first_name . ' ' . $this->last_name
-                                    . '&email=' . $this->uid . '@gatech.edu',
+                        'query' => [
+                            'first_name' => $this->first_name,
+                            'last_name' => $this->last_name,
+                            'name' => $this->first_name . ' ' . $this->last_name,
+                            'email' => $this->uid . '@gatech.edu',
+                        ],
                     ]
                 );
 
@@ -159,6 +119,7 @@ class ProcessWordPress implements ShouldQueue
                         . ', expected 200'
                     );
                 }
+
             } else {
                 if ($wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
@@ -166,16 +127,20 @@ class ProcessWordPress implements ShouldQueue
                     && $wp_user->email === $this->uid . '@gatech.edu'
                     && ['editor'] === $wp_user->roles
                 ) {
+                    Log::debug(self::class . ': User ' . $this->uid . ' attributes are up to date');
                     return;
                 }
 
                 $client->post(
                     'users/' . $wp_user->id,
                     [
-                        'query' => 'first_name=' . $this->first_name
-                                    . '&last_name=' . $this->last_name
-                                    . '&name=' . $this->first_name . ' ' . $this->last_name
-                                    . '&email=' . $this->uid . '@gatech.edu&roles=editor',
+                        'query' => [
+                            'first_name' => $this->first_name,
+                            'last_name' => $this->last_name,
+                            'name' => $this->first_name . ' ' . $this->last_name,
+                            'email' => $this->uid . '@gatech.edu',
+                            'roles' => 'editor',
+                        ],
                     ]
                 );
 
@@ -186,15 +151,22 @@ class ProcessWordPress implements ShouldQueue
                     );
                 }
             }
+
+            Log::debug(self::class . ': Successfully updated ' . $this->uid);
         } else {
             if ([] === $wp_user->roles) {
+                Log::info(self::class . ': User ' . $this->uid . ' already disabled, don\'t need to change anything');
                 return;
             }
+
+            Log::info(self::class . ': Disabling user ' . $this->uid);
 
             $client->post(
                 'users/' . $wp_user->id,
                 [
-                    'query' => 'roles=',
+                    'query' => [
+                        'roles' => '',
+                    ]
                 ]
             );
 
@@ -204,6 +176,8 @@ class ProcessWordPress implements ShouldQueue
                     . ', expected 200'
                 );
             }
+
+            Log::info(self::class . ': Successfully disabled ' . $this->uid);
         }
     }
 }

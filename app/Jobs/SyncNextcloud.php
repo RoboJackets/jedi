@@ -61,7 +61,7 @@ class SyncNextcloud extends AbstractSyncJob
             $status_code = self::getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
-                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in NextCloud');
+                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in Nextcloud');
                 return;
             }
 
@@ -208,7 +208,7 @@ class SyncNextcloud extends AbstractSyncJob
             $status_code = self::getStatusCodeFromXML($xml);
 
             if (101 === $status_code) {
-                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in NextCloud');
+                Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in Nextcloud');
                 return;
             }
 
