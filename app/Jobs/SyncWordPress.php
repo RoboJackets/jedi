@@ -3,11 +3,6 @@
 namespace App\Jobs;
 
 use GuzzleHttp\Client;
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 
 class SyncWordPress extends AbstractSyncJob
@@ -119,7 +114,6 @@ class SyncWordPress extends AbstractSyncJob
                         . ', expected 200'
                     );
                 }
-
             } else {
                 if ($wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
@@ -166,7 +160,7 @@ class SyncWordPress extends AbstractSyncJob
                 [
                     'query' => [
                         'roles' => '',
-                    ]
+                    ],
                 ]
             );
 
