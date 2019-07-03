@@ -12,5 +12,9 @@ php artisan cache:clear --no-interaction
 export PATH=$PATH:/bin
 npm ci --no-progress
 npm run production --no-progress
+# Patch Horizon not cooperating with being at /
+sed -i 's#base:"/"+window.Horizon.path+"/"#base:"/"#' public/vendor/horizon/app.js
+sed -i 's#"/"+Horizon.path+##g' public/vendor/horizon/app.js
+sed -i 's#"/"+t.Horizon.path+##g' public/vendor/horizon/app.js
 php artisan up
 php artisan horizon:terminate
