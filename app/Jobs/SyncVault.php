@@ -68,6 +68,8 @@ class SyncVault extends AbstractSyncJob
             if (-1 !== $userId) {
                 Cache::forever('vault_user_id_' . $this->uid, $userId);
             }
+        } else {
+            $userId = intval($userId);
         }
 
         if (-1 === $userId) {
