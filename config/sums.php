@@ -1,15 +1,9 @@
 <?php declare(strict_types = 1);
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | CAS Hostname
-    |--------------------------------------------------------------------------
-    | Example: 'cas.myuniv.edu'.
-    */
-    'username'     => env('SUMS_USERNAME', ''),
-    'token'        => env('SUMS_TOKEN', ''),
-    'endpoint'     => env('SUMS_ENDPOINT', ''),
-    'billingid'    => env('SUMS_BILLING_ID', ''),
-
+    'enabled' => env('SUMS_ENABLED', false),
+    'server' => env('SUMS_SERVER'),
+    'username' => env('SUMS_USERNAME'),
+    'token' => env('SUMS_TOKEN'),
+    'billinggroupid' => env('SUMS_BILLING_GROUP_ID'),
 ];
