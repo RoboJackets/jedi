@@ -158,7 +158,7 @@ class SyncVault extends AbstractSyncJob
         }
     }
 
-    // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUse
+    // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
 
     /**
      * The job failed to process.
