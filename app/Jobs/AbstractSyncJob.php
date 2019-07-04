@@ -88,8 +88,8 @@ abstract class AbstractSyncJob implements ShouldQueue
      *
      * @return array<string>
      */
-    public function tags()
+    public function tags(): array
     {
-        return ['user:'.$this->uid];
+        return ['user:' . $this->uid];
     }
 }
