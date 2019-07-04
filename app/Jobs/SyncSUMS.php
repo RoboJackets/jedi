@@ -53,7 +53,7 @@ class SyncSUMS extends AbstractSyncJob
                         'isRemove' => false,
                         'isListMembers' => false,
                         'Key' => config('sums.token'),
-                    ]
+                    ],
                 ]
             );
 
@@ -89,7 +89,7 @@ class SyncSUMS extends AbstractSyncJob
                         'isRemove' => true,
                         'isListMembers' => false,
                         'Key' => config('sums.token'),
-                    ]
+                    ],
                 ]
             );
 
