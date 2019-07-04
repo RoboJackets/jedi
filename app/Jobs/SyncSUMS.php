@@ -50,8 +50,8 @@ class SyncSUMS extends AbstractSyncJob
                     'query' => [
                         'UserName' => $this->uid,
                         'BillingGroupId' => config('sums.billinggroupid'),
-                        'isRemove' => false,
-                        'isListMembers' => false,
+                        'isRemove' => 'false',
+                        'isListMembers' => 'false',
                         'Key' => config('sums.token'),
                     ],
                 ]
@@ -86,8 +86,8 @@ class SyncSUMS extends AbstractSyncJob
                     'query' => [
                         'UserName' => $this->uid,
                         'BillingGroupId' => config('sums.billinggroupid'),
-                        'isRemove' => true,
-                        'isListMembers' => false,
+                        'isRemove' => 'true',
+                        'isListMembers' => 'false',
                         'Key' => config('sums.token'),
                     ],
                 ]
