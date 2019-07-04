@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use RoboJackets\Vault\Client;
 use RoboJackets\Vault\Group;
+use SoapFault;
+use Throwable;
 
 class SyncVault extends AbstractSyncJob
 {
@@ -51,20 +53,20 @@ class SyncVault extends AbstractSyncJob
 
         $header = Cache::get('vault_security_header');
 
-        if ($header === null) {
+        if (null === $header) {
             $header = Client::makeSecurityHeader($server, $username, $password);
-            Cache::put('vault_security_header', $header);
+            Cache::forever('vault_security_header', $header);
         }
 
         $vault = Client::makeWithSecurityHeader($server, $header);
 
         $userId = Cache::get('vault_user_id_' . $this->uid);
 
-        if ($userId === null) {
+        if (null === $userId) {
             $userId = $vault->getUserIdByUsername($this->uid);
 
             if (-1 !== $userId) {
-                Cache::put('vault_user_id_' . $this->uid, $userId);
+                Cache::forever('vault_user_id_' . $this->uid, $userId);
             }
         }
 
@@ -115,7 +117,7 @@ class SyncVault extends AbstractSyncJob
 
             if (null === $groups) {
                 $groups = $vault->getAllGroups();
-                Cache::put('vault_groups', $groups);
+                Cache::forever('vault_groups', $groups);
             }
 
             foreach ($this->teams as $team) {
@@ -135,7 +137,7 @@ class SyncVault extends AbstractSyncJob
                     // as far as i can tell this doesn't throw an exception or anything if they're already in the group
                     $key = array_keys($filteredgroups)[0];
                     Log::debug(self::class . ': Adding group ' . $filteredgroups[$key]->Name . ' to ' . $this->uid);
-                    $vault->addUserToGroup($userid, $filteredgroups[$key]->Id);
+                    $vault->addUserToGroup($userId, $filteredgroups[$key]->Id);
                 }
 
                 if (count($filteredgroups) > 1) {
@@ -156,14 +158,16 @@ class SyncVault extends AbstractSyncJob
         }
     }
 
+    // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUse
+
     /**
      * The job failed to process.
      *
-     * @param Throwable  $exception
+     * @param Throwable  $throwable
      *
      * @return void
      */
-    public function failed(Throwable $exception): void
+    public function failed(Throwable $throwable): void
     {
         if ($throwable instanceof SoapFault && 300 === intval($throwable->getMessage())) {
             Cache::forget('vault_security_header');
