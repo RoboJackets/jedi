@@ -82,4 +82,14 @@ abstract class AbstractSyncJob implements ShouldQueue
      * @return void
      */
     abstract public function handle(): void;
+
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<string>
+     */
+    public function tags()
+    {
+        return ['user:'.$this->uid];
+    }
 }
