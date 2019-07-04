@@ -124,7 +124,7 @@ class SyncVault extends AbstractSyncJob
                 $filteredgroups = array_filter(
                     $groups,
                     static function (Group $group) use ($team): bool {
-                        return $group->Name === $team;
+                        return $group->Name === $team && $group->IsActive;
                     }
                 );
 
