@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SyncNextcloud;
+use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,6 +28,16 @@ class SyncController extends Controller
 
         if (true === config('nextcloud.enabled')) {
             SyncNextcloud::dispatch(
+                $request->uid,
+                $request->first_name,
+                $request->last_name,
+                $request->is_access_active,
+                $request->teams
+            );
+        }
+
+        if (true === config('vault.enabled')) {
+            SyncVault::dispatch(
                 $request->uid,
                 $request->first_name,
                 $request->last_name,

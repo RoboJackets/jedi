@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use Exception
 
 class SyncWordPress extends AbstractSyncJob
 {
@@ -46,7 +47,7 @@ class SyncWordPress extends AbstractSyncJob
         );
 
         if (200 !== $response->getStatusCode()) {
-            throw new \Exception(
+            throw new Exception(
                 'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
             );
         }
@@ -54,19 +55,19 @@ class SyncWordPress extends AbstractSyncJob
         $json = json_decode($response->getBody()->getContents());
 
         if (!is_array($json)) {
-            throw new \Exception(
+            throw new Exception(
                 'WordPress did not return an array for query by slug - should not happen'
             );
         }
 
         if (0 === count($json)) {
-            Log::info(self::class . ': User ' . $this->uid . ' (probably) does not exist in WordPress');
+            Log::info(self::class . ': User ' . $this->uid . ' does not exist in WordPress');
 
             return;
         }
 
         if (1 !== count($json)) {
-            throw new \Exception(
+            throw new Exception(
                 'WordPress returned more than one user for query by slug - should not happen'
             );
         }
@@ -74,7 +75,7 @@ class SyncWordPress extends AbstractSyncJob
         $wp_user = $json[0];
 
         if ($wp_user->username !== $this->uid) {
-            throw new \Exception(
+            throw new Exception(
                 'WordPress returned a user with mismatched username - searched for '
                 . $this->uid . ', got ' . $wp_user->username
             );
@@ -109,7 +110,7 @@ class SyncWordPress extends AbstractSyncJob
                 );
 
                 if (200 !== $response->getStatusCode()) {
-                    throw new \Exception(
+                    throw new Exception(
                         'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
                         . ', expected 200'
                     );
@@ -139,7 +140,7 @@ class SyncWordPress extends AbstractSyncJob
                 );
 
                 if (200 !== $response->getStatusCode()) {
-                    throw new \Exception(
+                    throw new Exception(
                         'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
                         . ', expected 200'
                     );
@@ -165,7 +166,7 @@ class SyncWordPress extends AbstractSyncJob
             );
 
             if (200 !== $response->getStatusCode()) {
-                throw new \Exception(
+                throw new Exception(
                     'WordPress returned an unexpected HTTP response code ' . $response->getStatusCode()
                     . ', expected 200'
                 );

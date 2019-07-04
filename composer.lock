@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "228e30d68d28998be31b5d82c7b11e5d",
+    "content-hash": "ecbdef2b304d01630169ab9a01e2d442",
     "packages": [
         {
             "name": "apereo/phpcas",
