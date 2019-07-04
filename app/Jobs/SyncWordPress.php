@@ -4,7 +4,7 @@ namespace App\Jobs;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
-use Exception
+use Exception;
 
 class SyncWordPress extends AbstractSyncJob
 {

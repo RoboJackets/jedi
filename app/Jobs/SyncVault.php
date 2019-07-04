@@ -165,7 +165,7 @@ class SyncVault extends AbstractSyncJob
      */
     public function failed(Throwable $exception): void
     {
-        if ($throwable instanceof SoapFault && 300 === intval($throwable->getMessage()) {
+        if ($throwable instanceof SoapFault && 300 === intval($throwable->getMessage())) {
             Cache::forget('vault_security_header');
         }
     }
