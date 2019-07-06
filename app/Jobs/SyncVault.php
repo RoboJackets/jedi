@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use RoboJackets\Vault\Client;
 use RoboJackets\Vault\Group;
 use SoapFault;
-use Throwable;
 
 class SyncVault extends AbstractSyncJob
 {
@@ -137,7 +136,8 @@ class SyncVault extends AbstractSyncJob
 
                     if (1 === count($filteredgroups)) {
                         // checking group membership is ass so we're just going to try to add them
-                        // as far as i can tell this doesn't throw an exception or anything if they're already in the group
+                        // as far as i can tell this doesn't throw an exception or anything if they're already in the
+                        // group
                         $key = array_keys($filteredgroups)[0];
                         Log::debug(self::class . ': Adding group ' . $filteredgroups[$key]->Name . ' to ' . $this->uid);
                         $vault->addUserToGroup($userId, $filteredgroups[$key]->Id);
@@ -156,7 +156,9 @@ class SyncVault extends AbstractSyncJob
 
                     Log::info(self::class . ': Successfully disabled ' . $this->uid);
                 } else {
-                    Log::info(self::class . ': User ' . $this->uid . ' already disabled, don\'t need to change anything');
+                    Log::info(
+                        self::class . ': User ' . $this->uid . ' already disabled, don\'t need to change anything'
+                    );
                 }
             }
         } catch (SoapFault $e) {
