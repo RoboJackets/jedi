@@ -20,15 +20,6 @@ class SyncVault extends AbstractSyncJob
     public $queue = 'vault';
 
     /**
-     * The number of times the job may be attempted.
-     *
-     * Overridden to 2 here because we want to retry if the issue was with the security header.
-     *
-     * @var int
-     */
-    public $tries = 2;
-
-    /**
      * Execute the job.
      *
      * @return void
