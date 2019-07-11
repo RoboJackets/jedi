@@ -198,7 +198,7 @@ class SyncGitHub extends AbstractSyncJob
 
                 $response = $client->request(
                     'POST',
-                    '/orgs/' . config('github.organization') . 'invitations',
+                    '/orgs/' . config('github.organization') . '/invitations',
                     [
                         'json' => [
                             'invitee_id' => $invitee_id,
