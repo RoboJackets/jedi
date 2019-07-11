@@ -92,7 +92,7 @@ class SyncGitHub extends AbstractSyncJob
             throw new Exception('Aborting job as we are near the rate limit');
         }
 
-        self::info('Getting membership status');
+        self::debug('Getting membership status');
 
         $response = $client->get(
             '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
@@ -105,7 +105,7 @@ class SyncGitHub extends AbstractSyncJob
         }
 
         if ($this->is_access_active) {
-            self::info('Getting all teams in organization');
+            self::debug('Getting all teams in organization');
 
             $teams = Cache::get('github_teams');
             $etag = Cache::get('github_teams_etag');
@@ -211,11 +211,11 @@ class SyncGitHub extends AbstractSyncJob
             } elseif (200 === $response->getStatusCode()) {
                 foreach ($teams as $team) {
                     if (in_array($team->name, $this->teams, true)) {
-                        self::info('User should be in team ' . $team->name . ', checking membership');
+                        self::debug('User should be in team ' . $team->name . ', checking membership');
                         $response = $client->get('/teams/' . $team->id . '/memberships/' . $this->github_username);
 
                         if (200 === $response->getStatusCode()) {
-                            self::info('User already in team ' . $team->name);
+                            self::debug('User already in team ' . $team->name);
                             continue;
                         } elseif (404 === $response->getStatusCode()) {
                             self::info('Adding user to team ' . $team->name);
@@ -321,17 +321,17 @@ class SyncGitHub extends AbstractSyncJob
         return $jwt->encode($set);
     }
 
-    private static debug(string $message): void
+    private static function debug(string $message): void
     {
         Log::debug(self::jobDetails() . $message);
     }
 
-    private static info(string $message): void
+    private static function info(string $message): void
     {
         Log::info(self::jobDetails() . $message);
     }
 
-    private static jobDetails(): string
+    private static function jobDetails(): string
     {
         return self::class . ' GT=' . $this->uid . ' GH=' . $this->github_username . ' ';
     }
