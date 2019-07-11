@@ -23,7 +23,7 @@ class SyncController extends Controller
                 'last_name' => 'bail|required|string',
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
-                'github_username' => 'bail|present|string',
+                'github_username' => 'bail|present|string|nullable',
             ]
         );
 
