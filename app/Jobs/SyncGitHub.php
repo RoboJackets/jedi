@@ -163,7 +163,7 @@ class SyncGitHub extends AbstractSyncJob
             }
 
             $response = $client->get(
-                '/orgs/' . config('config.organization') . '/memberships/' . $this->github_username
+                '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
             );
 
             if (404 === $response->getStatusCode()) {
@@ -207,14 +207,14 @@ class SyncGitHub extends AbstractSyncJob
                     ]
                 );
 
-                $this->info('Invite sent successfully');
-
                 if (201 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
                             . ', expected 201'
                     );
                 }
+
+                $this->info('Invite sent successfully');
             } elseif (200 === $response->getStatusCode()) {
                 $this->info('User is in the organization');
 
