@@ -162,6 +162,10 @@ class SyncGitHub extends AbstractSyncJob
                 }
             }
 
+            $response = $client->get(
+                '/orgs/' . config('config.organization') . '/memberships/' . $this->github_username
+            );
+
             if (404 === $response->getStatusCode()) {
                 $this->info('Not a member, building invite');
                 $response = $client->get('/users/' . $this->github_username);
