@@ -60,7 +60,7 @@ class SyncGitHub extends AbstractSyncJob
     ) {
         parent::__construct($uid, $first_name, $last_name, $is_access_active, $teams);
 
-        $this->$github_username = $github_username;
+        $this->github_username = $github_username;
     }
 
     /**
@@ -175,7 +175,7 @@ class SyncGitHub extends AbstractSyncJob
 
                 $user = json_decode($response->getBody()->getContents());
 
-                if (!is_object($teams)) {
+                if (!is_object($user)) {
                     throw new Exception('GitHub did not return an object');
                 }
 
@@ -327,13 +327,16 @@ class SyncGitHub extends AbstractSyncJob
     private static function generateJWT(): string
     {
         $set = new KeySet();
-        $pemfile = file_get_contents(config('github.private_key'));
 
-        if (false === $pemfile) {
+        $filename = config('github.private_key');
+
+        $pem = file_get_contents($filename);
+
+        if (false === $pem) {
             throw new Exception('Could not read private key');
         }
 
-        $set->add(new RSAKey($pemfile, 'pem'));
+        $set->add(new RSAKey($pem, 'pem'));
 
         $headers = ['alg' => 'RS256', 'typ' => 'JWT'];
         $claims = ['iss' => config('github.app_id'), 'exp' => time() + 5];
