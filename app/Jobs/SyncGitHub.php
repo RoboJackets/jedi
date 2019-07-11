@@ -312,7 +312,7 @@ class SyncGitHub extends AbstractSyncJob
     private static function generateJWT(): string
     {
         $set = new KeySet();
-        $set->add(new RSAKey(config('github.private_key'), 'pem'));
+        $set->add(new RSAKey(file_get_contents(config('github.private_key')), 'pem'));
 
         $headers = ['alg' => 'RS256', 'typ' => 'JWT'];
         $claims = ['iss' => config('github.app_id'), 'exp' => time() + 5];
