@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+
 namespace App\Jobs;
 
 use Exception;
@@ -79,7 +81,7 @@ class SyncGitHub extends AbstractSyncJob
                 'base_uri' => 'https://api.github.com',
                 'headers' => [
                     'User-Agent' => 'GitHub App ID ' . config('github.app_id'),
-                    'Authorization' => 'Bearer ' . $token
+                    'Authorization' => 'Bearer ' . $token,
                 ],
                 'allow_redirects' => false,
                 'http_errors' => false,
@@ -92,7 +94,7 @@ class SyncGitHub extends AbstractSyncJob
             throw new Exception('Aborting job as we are near the rate limit');
         }
 
-        self::debug('Getting membership status');
+        $this->debug('Getting membership status');
 
         $response = $client->get(
             '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
@@ -105,7 +107,7 @@ class SyncGitHub extends AbstractSyncJob
         }
 
         if ($this->is_access_active) {
-            self::debug('Getting all teams in organization');
+            $this->debug('Getting all teams in organization');
 
             $teams = Cache::get('github_teams');
             $etag = Cache::get('github_teams_etag');
@@ -151,9 +153,7 @@ class SyncGitHub extends AbstractSyncJob
 
                     Cache::forever('github_teams', $teams);
                     Cache::forever('github_teams_etag', $etag);
-                } elseif (304 === $response->getStatusCode()) {
-                    // cached data is correct
-                } else {
+                } elseif (304 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
                             . ', expected 200 or 304'
@@ -162,7 +162,7 @@ class SyncGitHub extends AbstractSyncJob
             }
 
             if (404 === $response->getStatusCode()) {
-                self::info('Not a member, building invite');
+                $this->info('Not a member, building invite');
                 $response = $client->get('/users/' . $this->github_username);
 
                 if (200 !== $response->getStatusCode()) {
@@ -183,10 +183,12 @@ class SyncGitHub extends AbstractSyncJob
                 $team_ids = [];
 
                 foreach ($teams as $team) {
-                    if (in_array($team->name, $this->teams, true)) {
-                        self::info('Team ' . $team->name . ' will be in invite');
-                        $team_ids[] = $team->id;
+                    if (!in_array($team->name, $this->teams, true)) {
+                        continue;
                     }
+
+                    $this->info('Team ' . $team->name . ' will be in invite');
+                    $team_ids[] = $team->id;
                 }
 
                 $response = $client->request(
@@ -200,7 +202,7 @@ class SyncGitHub extends AbstractSyncJob
                     ]
                 );
 
-                self::info('Invite sent successfully');
+                $this->info('Invite sent successfully');
 
                 if (201 !== $response->getStatusCode()) {
                     throw new Exception(
@@ -210,29 +212,33 @@ class SyncGitHub extends AbstractSyncJob
                 }
             } elseif (200 === $response->getStatusCode()) {
                 foreach ($teams as $team) {
-                    if (in_array($team->name, $this->teams, true)) {
-                        self::debug('User should be in team ' . $team->name . ', checking membership');
-                        $response = $client->get('/teams/' . $team->id . '/memberships/' . $this->github_username);
+                    if (!in_array($team->name, $this->teams, true)) {
+                        continue;
+                    }
 
-                        if (200 === $response->getStatusCode()) {
-                            self::debug('User already in team ' . $team->name);
-                            continue;
-                        } elseif (404 === $response->getStatusCode()) {
-                            self::info('Adding user to team ' . $team->name);
-                            $client->put('/teams/' . $team->id . '/memberships/' . $this->github_username);
+                    $this->debug('User should be in team ' . $team->name . ', checking membership');
+                    $response = $client->get('/teams/' . $team->id . '/memberships/' . $this->github_username);
 
-                            if (200 !== $response->getStatusCode()) {
-                                throw new Exception(
-                                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                                        . ', expected 200'
-                                );
-                            }
-                        } else {
+                    if (200 === $response->getStatusCode()) {
+                        $this->debug('User already in team ' . $team->name);
+                        continue;
+                    }
+
+                    if (404 === $response->getStatusCode()) {
+                        $this->info('Adding user to team ' . $team->name);
+                        $client->put('/teams/' . $team->id . '/memberships/' . $this->github_username);
+
+                        if (200 !== $response->getStatusCode()) {
                             throw new Exception(
                                 'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                                    . ', expected 200 or 404'
+                                    . ', expected 200'
                             );
                         }
+                    } else {
+                        throw new Exception(
+                            'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                                . ', expected 200 or 404'
+                        );
                     }
                 }
             } else {
@@ -243,20 +249,21 @@ class SyncGitHub extends AbstractSyncJob
             }
         } else {
             if (404 === $response->getStatusCode()) {
-                self::info('not a member and shouldn\'t be - nothing to do');
+                $this->info('not a member and shouldn\'t be - nothing to do');
             } elseif (200 === $response->getStatusCode()) {
                 $response = $client->delete(
                     '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
                 );
 
                 if (204 === $response->getStatusCode()) {
-                    self::info('successfully removed from organization');
-                } else {
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 204'
-                    );
+                    $this->info('successfully removed from organization');
+                    exit;
                 }
+
+                throw new Exception(
+                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 204'
+                );
             } else {
                 throw new Exception(
                     'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
@@ -321,17 +328,17 @@ class SyncGitHub extends AbstractSyncJob
         return $jwt->encode($set);
     }
 
-    private static function debug(string $message): void
+    private function debug(string $message): void
     {
         Log::debug(self::jobDetails() . $message);
     }
 
-    private static function info(string $message): void
+    private function info(string $message): void
     {
         Log::info(self::jobDetails() . $message);
     }
 
-    private static function jobDetails(): string
+    private function jobDetails(): string
     {
         return self::class . ' GT=' . $this->uid . ' GH=' . $this->github_username . ' ';
     }
