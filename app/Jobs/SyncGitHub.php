@@ -233,7 +233,7 @@ class SyncGitHub extends AbstractSyncJob
 
                     if (404 === $response->getStatusCode()) {
                         $this->info('Adding user to team ' . $team->name);
-                        $client->put('/teams/' . $team->id . '/memberships/' . $this->github_username);
+                        $response = $client->put('/teams/' . $team->id . '/memberships/' . $this->github_username);
 
                         if (200 !== $response->getStatusCode()) {
                             throw new Exception(
