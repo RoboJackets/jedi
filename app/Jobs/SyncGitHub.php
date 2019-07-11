@@ -101,7 +101,7 @@ class SyncGitHub extends AbstractSyncJob
             '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
         );
 
-        $json = json_decode($response->getBody()->getAllContents());
+        $json = json_decode($response->getBody()->getContents());
 
         if (!is_object($json)) {
             throw new Exception('GitHub did not return an object');
@@ -122,7 +122,7 @@ class SyncGitHub extends AbstractSyncJob
                     );
                 }
 
-                $teams = json_decode($response->getBody()->getAllContents());
+                $teams = json_decode($response->getBody()->getContents());
 
                 if (!is_array($teams)) {
                     throw new Exception('GitHub did not return an array');
@@ -144,7 +144,7 @@ class SyncGitHub extends AbstractSyncJob
                 );
 
                 if (200 === $response->getStatusCode()) {
-                    $teams = json_decode($response->getBody()->getAllContents());
+                    $teams = json_decode($response->getBody()->getContents());
 
                     if (!is_array($teams)) {
                         throw new Exception('GitHub did not return an array');
@@ -173,7 +173,7 @@ class SyncGitHub extends AbstractSyncJob
                     );
                 }
 
-                $user = json_decode($response->getBody()->getAllContents());
+                $user = json_decode($response->getBody()->getContents());
 
                 if (!is_object($teams)) {
                     throw new Exception('GitHub did not return an object');
