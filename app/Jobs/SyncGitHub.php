@@ -212,6 +212,8 @@ class SyncGitHub extends AbstractSyncJob
                     );
                 }
             } elseif (200 === $response->getStatusCode()) {
+                $this->info('User is in the organization');
+
                 foreach ($teams as $team) {
                     if (!in_array($team->name, $this->teams, true)) {
                         continue;
