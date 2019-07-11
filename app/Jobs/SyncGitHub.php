@@ -330,6 +330,10 @@ class SyncGitHub extends AbstractSyncJob
 
         $filename = config('github.private_key');
 
+        if (!is_string($filename)) {
+            throw new Exception('Private key path is not string');
+        }
+
         $pem = file_get_contents($filename);
 
         if (false === $pem) {
