@@ -5,11 +5,12 @@
 namespace App\Jobs;
 
 use Exception;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use SimpleJWT\Keys\RSAKey;
-use SimpleJWT\Keys\KeySet;
 use SimpleJWT\JWT;
+use SimpleJWT\Keys\KeySet;
+use SimpleJWT\Keys\RSAKey;
 
 class SyncGitHub extends AbstractSyncJob
 {
@@ -73,7 +74,7 @@ class SyncGitHub extends AbstractSyncJob
 
         if (null === $token) {
             $token = self::getInstallationToken();
-            Cache::put('github_installation_token', $token, FIFTY_NINE_MINUTES);
+            Cache::put('github_installation_token', $token, self::FIFTY_NINE_MINUTES);
         }
 
         $client = new Client(
@@ -234,12 +235,14 @@ class SyncGitHub extends AbstractSyncJob
                                     . ', expected 200'
                             );
                         }
-                    } else {
-                        throw new Exception(
-                            'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                                . ', expected 200 or 404'
-                        );
+
+                        continue;
                     }
+
+                    throw new Exception(
+                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                            . ', expected 200 or 404'
+                    );
                 }
             } else {
                 throw new Exception(
@@ -257,19 +260,19 @@ class SyncGitHub extends AbstractSyncJob
 
                 if (204 === $response->getStatusCode()) {
                     $this->info('successfully removed from organization');
-                    exit;
+                    return;
                 }
 
                 throw new Exception(
                     'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
                         . ', expected 204'
                 );
-            } else {
-                throw new Exception(
-                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                        . ', expected 200 or 404'
-                );
             }
+
+            throw new Exception(
+                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 200 or 404'
+            );
         }
     }
 
@@ -319,7 +322,13 @@ class SyncGitHub extends AbstractSyncJob
     private static function generateJWT(): string
     {
         $set = new KeySet();
-        $set->add(new RSAKey(file_get_contents(config('github.private_key')), 'pem'));
+        $pemfile = file_get_contents(config('github.private_key'));
+
+        if (false === $pemfile) {
+            throw new Exception('Could not read private key');
+        }
+
+        $set->add(new RSAKey($pemfile, 'pem'));
 
         $headers = ['alg' => 'RS256', 'typ' => 'JWT'];
         $claims = ['iss' => config('github.app_id'), 'exp' => time() + 5];
