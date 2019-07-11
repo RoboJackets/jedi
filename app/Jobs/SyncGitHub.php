@@ -204,6 +204,9 @@ class SyncGitHub extends AbstractSyncJob
                             'invitee_id' => $invitee_id,
                             'team_ids' => $team_ids,
                         ],
+                        'headers' => [
+                            'Accept' => 'application/vnd.github.dazzler-preview+json',
+                        ]
                     ]
                 );
 
