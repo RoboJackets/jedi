@@ -118,14 +118,14 @@ class SyncGitHub extends AbstractSyncJob
                 if (200 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200'
+                            . ', expected 200 - ' . $response->getBody()->getContents()
                     );
                 }
 
                 $teams = json_decode($response->getBody()->getContents());
 
                 if (!is_array($teams)) {
-                    throw new Exception('GitHub did not return an array');
+                    throw new Exception('GitHub did not return an array - ' . $response->getBody()->getContents());
                 }
 
                 $etag = $response->getHeader('ETag')[0];
@@ -147,7 +147,7 @@ class SyncGitHub extends AbstractSyncJob
                     $teams = json_decode($response->getBody()->getContents());
 
                     if (!is_array($teams)) {
-                        throw new Exception('GitHub did not return an array');
+                        throw new Exception('GitHub did not return an array - ' . $response->getBody()->getContents());
                     }
 
                     $etag = $response->getHeader('ETag')[0];
@@ -157,7 +157,7 @@ class SyncGitHub extends AbstractSyncJob
                 } elseif (304 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 or 304'
+                            . ', expected 200 or 304 - ' . $response->getBody()->getContents()
                     );
                 }
             }
@@ -173,14 +173,14 @@ class SyncGitHub extends AbstractSyncJob
                 if (200 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200'
+                            . ', expected 200 - ' . $response->getBody()->getContents()
                     );
                 }
 
                 $user = json_decode($response->getBody()->getContents());
 
                 if (!is_object($user)) {
-                    throw new Exception('GitHub did not return an object');
+                    throw new Exception('GitHub did not return an object - ' . $response->getBody()->getContents());
                 }
 
                 $invitee_id = $user->id;
@@ -210,7 +210,7 @@ class SyncGitHub extends AbstractSyncJob
                 if (201 !== $response->getStatusCode()) {
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 201'
+                            . ', expected 201 - ' . $response->getBody()->getContents()
                     );
                 }
 
@@ -238,7 +238,7 @@ class SyncGitHub extends AbstractSyncJob
                         if (200 !== $response->getStatusCode()) {
                             throw new Exception(
                                 'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                                    . ', expected 200'
+                                    . ', expected 200 - ' . $response->getBody()->getContents()
                             );
                         }
 
@@ -247,13 +247,13 @@ class SyncGitHub extends AbstractSyncJob
 
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 or 404'
+                            . ', expected 200 or 404 - ' . $response->getBody()->getContents()
                     );
                 }
             } else {
                 throw new Exception(
                     'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                        . ', expected 200 or 404'
+                        . ', expected 200 or 404 - ' . $response->getBody()->getContents()
                 );
             }
 
@@ -277,13 +277,13 @@ class SyncGitHub extends AbstractSyncJob
 
             throw new Exception(
                 'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                    . ', expected 204'
+                    . ', expected 204 - ' . $response->getBody()->getContents()
             );
         }
 
         throw new Exception(
             'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                . ', expected 200 or 404'
+                . ', expected 200 or 404 - ' . $response->getBody()->getContents()
         );
     }
 
@@ -312,14 +312,15 @@ class SyncGitHub extends AbstractSyncJob
 
         if (201 !== $response->getStatusCode()) {
             throw new Exception(
-                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 201'
+                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                    . ', expected 201 - ' . $response->getBody()->getContents()
             );
         }
 
         $json = json_decode($response->getBody()->getContents());
 
         if (!is_object($json)) {
-            throw new Exception('GitHub did not return an object');
+            throw new Exception('GitHub did not return an object - ' . $response->getBody()->getContents());
         }
 
         return $json->token;
