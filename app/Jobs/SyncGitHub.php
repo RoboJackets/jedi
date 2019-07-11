@@ -250,30 +250,35 @@ class SyncGitHub extends AbstractSyncJob
                         . ', expected 200 or 404'
                 );
             }
-        } else {
-            if (404 === $response->getStatusCode()) {
-                $this->info('not a member and shouldn\'t be - nothing to do');
-            } elseif (200 === $response->getStatusCode()) {
-                $response = $client->delete(
-                    '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
-                );
 
-                if (204 === $response->getStatusCode()) {
-                    $this->info('successfully removed from organization');
-                    return;
-                }
+            return;
+        }
 
-                throw new Exception(
-                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                        . ', expected 204'
-                );
+        if (404 === $response->getStatusCode()) {
+            $this->info('not a member and shouldn\'t be - nothing to do');
+            return;
+        }
+
+        if (200 === $response->getStatusCode()) {
+            $response = $client->delete(
+                '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
+            );
+
+            if (204 === $response->getStatusCode()) {
+                $this->info('successfully removed from organization');
+                return;
             }
 
             throw new Exception(
                 'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                    . ', expected 200 or 404'
+                    . ', expected 204'
             );
         }
+
+        throw new Exception(
+            'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                . ', expected 200 or 404'
+        );
     }
 
     /**
