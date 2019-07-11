@@ -1,13 +1,9 @@
 <?php declare(strict_types = 1);
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | CAS Hostname
-    |--------------------------------------------------------------------------
-    | Example: 'cas.myuniv.edu'.
-    */
-    'token'        => env('GH_TOKEN', ''),
-    'endpoint'     => env('GH_ENDPOINT', ''),
-
+    'enabled' => env('GITHUB_ENABLED', false),
+    'app_id' => env('GITHUB_APP_ID'),
+    'organization' => env('GITHUB_ORGANIZATION'),
+    'private_key' => file_get_contents(env('GITHUB_PRIVATE_KEY')),
+    'installation_id' => env('GITHUB_INSTALLATION_ID'),
 ];

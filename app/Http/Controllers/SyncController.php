@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SyncGitHub;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncVault;
@@ -22,10 +23,22 @@ class SyncController extends Controller
                 'last_name' => 'bail|required|string',
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
+                'github_username' => 'bail|present|string',
             ]
         );
 
         Log::info(self::class . ': Request to sync ' . $request->uid);
+
+        if (true === config('github.enabled') && $request->filled('github_username')) {
+            SyncGitHub::dispatch(
+                $request->uid,
+                $request->first_name,
+                $request->last_name,
+                $request->is_access_active,
+                $request->teams,
+                $request->github_username
+            );
+        }
 
         if (true === config('nextcloud.enabled')) {
             SyncNextcloud::dispatch(
