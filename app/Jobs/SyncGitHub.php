@@ -206,6 +206,7 @@ class SyncGitHub extends AbstractSyncJob
                         ],
                         'headers' => [
                             'Accept' => 'application/vnd.github.dazzler-preview+json',
+                            'Authorization' => 'Bearer ' . config('github.admin_token'),
                         ],
                     ]
                 );
