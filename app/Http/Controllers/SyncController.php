@@ -41,18 +41,19 @@ class SyncController extends Controller
         $lastRequest = Cache::get('last_request_for_' . $request->uid);
 
         if (null !== $lastRequest) {
-            $same = $lastRequest->first_name === $request->first_name &&
-                    $lastRequest->last_name === $request->last_name &&
-                    $lastRequest->is_access_active === $request->is_access_active &&
-                    [] === array_diff($lastRequest->teams, $request->teams) &&
-                    [] === array_diff($request->teams, $lastRequest->teams) &&
-                    $lastRequest->github_username === $request->github_username;
+            $same = $lastRequest['first_name'] === $request->first_name &&
+                    $lastRequest['last_name'] === $request->last_name &&
+                    $lastRequest['is_access_active'] === $request->is_access_active &&
+                    [] === array_diff($lastRequest['teams'], $request->teams) &&
+                    [] === array_diff($request->teams, $lastRequest['teams']) &&
+                    $lastRequest['github_username'] === $request->github_username;
 
             if ($same) {
                 if ('manual' !== $request->model_event) {
                     Log::info(
                         self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
                     );
+                    Cache::put('last_request_for_' . $request->uid, $request->all(), self::ONE_DAY); // update exp
                     return response()->json('duplicate', 200);
                 }
                 Log::info(
