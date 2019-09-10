@@ -9,10 +9,13 @@ use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class SyncController extends Controller
 {
+    private const ONE_DAY = 24 * 60 * 60;
+
     public function sync(Request $request): JsonResponse
     {
         $this->validate(
@@ -24,10 +27,35 @@ class SyncController extends Controller
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
                 'github_username' => 'bail|present|string|nullable',
+                'model_class' => 'bail|required|string',
+                'model_id' => 'bail|required|numeric',
+                'model_event' => 'bail|required|string',
             ]
         );
 
-        Log::info(self::class . ': Request to sync ' . $request->uid);
+        Log::info(
+            self::class . ': Request to sync ' . $request->uid . ' caused by ' . $request->model_event . ' of '
+            . $request->model_class . ' with id ' . $request->model_event
+        );
+
+        $lastRequest = Cache::get('last_request_for_' . $request->uid);
+
+        $same = $lastRequest->first_name === $request->first_name &&
+                $lastRequest->last_name === $request->last_name &&
+                $lastRequest->is_access_active === $request->is_access_active &&
+                array_diff($lastRequest->teams, $lastRequest->teams) === [] &&
+                array_diff($request->teams, $lastRequest->teams) === [] &&
+                $lastRequest->github_username === $request->github_username;
+
+        if ($same) {
+            if ('manual' === $model_event) {
+                Log::info(self::class . ': ' . $request->uid . ' is a duplicate request but this one is manual');
+            } else {
+                Log::info(self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event');
+            }
+        }
+
+        Cache::put('last_request_for_' . $request->uid, $request->all(), self::ONE_DAY);
 
         if (true === config('github.enabled') && $request->filled('github_username')) {
             SyncGitHub::dispatch(
