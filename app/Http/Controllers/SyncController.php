@@ -35,7 +35,7 @@ class SyncController extends Controller
 
         Log::info(
             self::class . ': Request to sync ' . $request->uid . ' caused by ' . $request->model_event . ' of '
-            . $request->model_class . ' with id ' . $request->model_event
+            . $request->model_class . ' with id ' . $request->model_id
         );
 
         $lastRequest = Cache::get('last_request_for_' . $request->uid);
