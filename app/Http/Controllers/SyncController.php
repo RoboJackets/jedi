@@ -43,12 +43,12 @@ class SyncController extends Controller
         $same = $lastRequest->first_name === $request->first_name &&
                 $lastRequest->last_name === $request->last_name &&
                 $lastRequest->is_access_active === $request->is_access_active &&
-                array_diff($lastRequest->teams, $lastRequest->teams) === [] &&
-                array_diff($request->teams, $lastRequest->teams) === [] &&
+                [] === array_diff($lastRequest->teams, $request->teams) &&
+                [] === array_diff($request->teams, $lastRequest->teams) &&
                 $lastRequest->github_username === $request->github_username;
 
         if ($same) {
-            if ('manual' === $model_event) {
+            if ('manual' === $request->model_event) {
                 Log::info(self::class . ': ' . $request->uid . ' is a duplicate request but this one is manual');
             } else {
                 Log::info(self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event');
