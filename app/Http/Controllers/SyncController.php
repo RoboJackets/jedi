@@ -49,17 +49,16 @@ class SyncController extends Controller
                     $lastRequest->github_username === $request->github_username;
 
             if ($same) {
-                if ('manual' === $request->model_event) {
-                    Log::info(
-                        self::class . ': ' . $request->uid
-                            . ' is a duplicate request but this one is manual, continuing'
-                    );
-                } else {
+                if ('manual' !== $request->model_event) {
                     Log::info(
                         self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
                     );
                     return response()->json('duplicate', 200);
                 }
+                Log::info(
+                    self::class . ': ' . $request->uid
+                        . ' is a duplicate request but this one is manual, continuing'
+                );
             }
         }
 
