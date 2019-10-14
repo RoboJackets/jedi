@@ -27,8 +27,8 @@ class SyncSUMS extends AbstractSyncJob
      */
     public function handle(): void
     {
-        if ($this->uid === config('sums.username') && !$this->is_access_active) {
-            Log::error(self::class . ': Attempted to disable ' . $this->uid . ' but that user owns this token');
+        if (in_array($this->uid, config('sums.account_whitelist')) && !$this->is_access_active) {
+            throw new Exception('Attempted to disable ' . $this->uid . ' but that user is whitelisted');
         }
 
         $client = new Client(

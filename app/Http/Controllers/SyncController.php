@@ -7,6 +7,7 @@ use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
+use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -30,6 +31,8 @@ class SyncController extends Controller
                 'model_class' => 'bail|required|string',
                 'model_id' => 'bail|required|numeric',
                 'model_event' => 'bail|required|string',
+                'last_attendance_time' => 'bail|present|date',
+                'last_attendance_id' => 'bail|present|numeric|nullable',
             ]
         );
 
@@ -87,13 +90,51 @@ class SyncController extends Controller
         }
 
         if (true === config('sums.enabled')) {
-            SyncSUMS::dispatch(
-                $request->uid,
-                $request->first_name,
-                $request->last_name,
-                $request->is_access_active,
-                $request->teams
-            );
+            if (true === config('sums.attendance_timeout_enabled')) {
+                if ($request->is_access_active
+                    && (null !== $request->last_attendance_time)
+                    && ($request->last_attendance_time < Carbon::now()->subWeeks(4))
+                ) {
+                    SyncSUMS::dispatch(
+                        $request->uid,
+                        $request->first_name,
+                        $request->last_name,
+                        false,
+                        $request->teams
+                    );
+                    if (true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id) {
+                        if (0 === EmailEvent::where(
+                            'last_attendance_id',
+                            $request->last_attendance_id
+                        )->where(
+                            'uid',
+                            $request->uid
+                        )->count()) {
+                            $ee = new EmailEvent();
+                            $ee->last_attendance_id = $request->last_attendance_id;
+                            $ee->uid = $request->uid;
+                            $ee->save();
+                            SendSUMSTimeoutEmail::dispatch($request->uid);
+                        }
+                    }
+                } else {
+                    SyncSUMS::dispatch(
+                        $request->uid,
+                        $request->first_name,
+                        $request->last_name,
+                        $request->is_access_active,
+                        $request->teams
+                    );
+                }
+            } else {
+                SyncSUMS::dispatch(
+                    $request->uid,
+                    $request->first_name,
+                    $request->last_name,
+                    $request->is_access_active,
+                    $request->teams
+                );
+            }
         }
 
         if (true === config('vault.enabled')) {
