@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\EmailEvent;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
+use App\Jobs\SendSUMSTimeoutEmail;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -109,11 +111,12 @@ class SyncController extends Controller
                         )->where(
                             'uid',
                             $request->uid
-                        )->count()) {
-                            $ee = new EmailEvent();
-                            $ee->last_attendance_id = $request->last_attendance_id;
-                            $ee->uid = $request->uid;
-                            $ee->save();
+                        )->count()
+                    ) {
+                            $email = new EmailEvent();
+                            $email->last_attendance_id = $request->last_attendance_id;
+                            $email->uid = $request->uid;
+                            $email->save();
                             SendSUMSTimeoutEmail::dispatch($request->uid);
                         }
                     }

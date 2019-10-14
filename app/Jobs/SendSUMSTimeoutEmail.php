@@ -38,13 +38,13 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
                 'base_uri' => config('apiary.server'),
                 'headers' => [
                     'User-Agent' => 'JEDI on ' . config('app.url'),
-                    'Authorization' => 'Bearer ' . config('apiary.token')
+                    'Authorization' => 'Bearer ' . config('apiary.token'),
                 ],
                 'allow_redirects' => false,
             ]
         );
 
-        $client->put(
+        $response = $client->put(
             '/api/v1/notification/manual',
             [
                 'json' => [
@@ -52,8 +52,8 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
                     'template_id' => config('apiary.sums_timeout_email_template_id'),
                     'emails' => [
                         $this->uid . '@gatech.edu',
-                    ]
-                ]
+                    ],
+                ],
             ]
         );
 
