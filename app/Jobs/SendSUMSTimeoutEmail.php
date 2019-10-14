@@ -70,7 +70,7 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
         if ('success' !== $json->status) {
             throw new Exception(
                 'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
-            )
+            );
         }
 
         Log::info(self::class . ': Successfully queued for ' . $this->uid);
