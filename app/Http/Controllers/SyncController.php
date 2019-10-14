@@ -93,7 +93,7 @@ class SyncController extends Controller
 
         if (true === config('sums.enabled')) {
             if (true === config('sums.attendance_timeout_enabled')) {
-                if ($request->is_access_active
+                if (true === $request->is_access_active
                     && (null !== $request->last_attendance_time)
                     && ($request->last_attendance_time < Carbon::now()->subWeeks(4))
                 ) {
@@ -106,13 +106,13 @@ class SyncController extends Controller
                     );
                     if (true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id) {
                         if (0 === EmailEvent::where(
-                            'last_attendance_id',
-                            $request->last_attendance_id
-                        )->where(
-                            'uid',
-                            $request->uid
-                        )->count()
-                    ) {
+                                'last_attendance_id',
+                                $request->last_attendance_id
+                            )->where(
+                                'uid',
+                                $request->uid
+                            )->count()
+                        ) {
                             $email = new EmailEvent();
                             $email->last_attendance_id = $request->last_attendance_id;
                             $email->uid = $request->uid;
