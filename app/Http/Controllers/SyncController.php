@@ -106,12 +106,12 @@ class SyncController extends Controller
                     );
                     if (true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id) {
                         if (0 === EmailEvent::where(
-                                'last_attendance_id',
-                                $request->last_attendance_id
-                            )->where(
-                                'uid',
-                                $request->uid
-                            )->count()
+                            'last_attendance_id',
+                            $request->last_attendance_id
+                        )->where(
+                            'uid',
+                            $request->uid
+                        )->count()
                         ) {
                             $email = new EmailEvent();
                             $email->last_attendance_id = $request->last_attendance_id;
