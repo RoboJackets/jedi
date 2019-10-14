@@ -55,7 +55,7 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
                     ]
                 ]
             ]
-        )
+        );
 
         if (200 !== $response->getStatusCode()) {
             throw new Exception(

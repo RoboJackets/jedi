@@ -15,7 +15,7 @@ class CreateEmailEventTable extends Migration
     {
         Schema::create('email_event', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('last_attendance_id')
+            $table->unsignedInteger('last_attendance_id');
             $table->string('uid', 100);
             $table->timestamps();
 
