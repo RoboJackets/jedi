@@ -90,6 +90,6 @@ abstract class AbstractSyncJob implements ShouldQueue
      */
     public function tags(): array
     {
-        return ['user:' . $this->uid];
+        return ['user:' . $this->uid, 'active:' . ($this->is_access_active ? 'true' : 'false')];
     }
 }

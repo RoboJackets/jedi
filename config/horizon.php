@@ -121,10 +121,10 @@ return [
             'supervisor' => [
                 'connection' => 'redis',
                 'queue' => [
+                    'apiary',
                     'github',
                     'nextcloud',
                     'sums',
-                    'vault',
                     'wordpress',
                 ],
                 'balance' => 'simple',
