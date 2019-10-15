@@ -96,9 +96,9 @@ class SyncController extends Controller
                 && (true === $request->is_access_active)
                 && (null !== $request->last_attendance_time)
                 && ($request->last_attendance_time < new Carbon(
-                    config('sums.attendance_timeout_limit')),
+                    config('sums.attendance_timeout_limit'),
                     'America/New_York'
-                )
+                ))
             ) {
                 SyncSUMS::dispatch(
                     $request->uid,
