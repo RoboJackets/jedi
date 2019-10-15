@@ -92,42 +92,36 @@ class SyncController extends Controller
         }
 
         if (true === config('sums.enabled')) {
-            if (true === config('sums.attendance_timeout_enabled')) {
-                if (true === $request->is_access_active
-                    && (null !== $request->last_attendance_time)
-                    && ($request->last_attendance_time < Carbon::now()->subWeeks(4))
-                ) {
-                    SyncSUMS::dispatch(
-                        $request->uid,
-                        $request->first_name,
-                        $request->last_name,
-                        false,
-                        $request->teams
-                    );
-                    if (true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id) {
-                        if (0 === EmailEvent::where(
-                            'last_attendance_id',
-                            $request->last_attendance_id
-                        )->where(
-                            'uid',
-                            $request->uid
-                        )->count()
-                        ) {
-                            $email = new EmailEvent();
-                            $email->last_attendance_id = $request->last_attendance_id;
-                            $email->uid = $request->uid;
-                            $email->save();
-                            SendSUMSTimeoutEmail::dispatch($request->uid);
-                        }
+            if (true === config('sums.attendance_timeout_enabled')
+                && (true === $request->is_access_active)
+                && (null !== $request->last_attendance_time)
+                && ($request->last_attendance_time < new Carbon(
+                    config('sums.attendance_timeout_limit')),
+                    'America/New_York'
+                )
+            ) {
+                SyncSUMS::dispatch(
+                    $request->uid,
+                    $request->first_name,
+                    $request->last_name,
+                    false,
+                    $request->teams
+                );
+                if (true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id) {
+                    if (0 === EmailEvent::where(
+                        'last_attendance_id',
+                        $request->last_attendance_id
+                    )->where(
+                        'uid',
+                        $request->uid
+                    )->count()
+                    ) {
+                        $email = new EmailEvent();
+                        $email->last_attendance_id = $request->last_attendance_id;
+                        $email->uid = $request->uid;
+                        $email->save();
+                        SendSUMSTimeoutEmail::dispatch($request->uid);
                     }
-                } else {
-                    SyncSUMS::dispatch(
-                        $request->uid,
-                        $request->first_name,
-                        $request->last_name,
-                        $request->is_access_active,
-                        $request->teams
-                    );
                 }
             } else {
                 SyncSUMS::dispatch(

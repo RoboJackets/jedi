@@ -28,7 +28,7 @@ class SyncSUMS extends AbstractSyncJob
     public function handle(): void
     {
         // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-        if (in_array($this->uid, config('sums.account_whitelist')) && !$this->is_access_active) {
+        if (in_array($this->uid, config('sums.whitelisted_accounts')) && !$this->is_access_active) {
             throw new Exception('Attempted to disable ' . $this->uid . ' but that user is whitelisted');
         }
 
