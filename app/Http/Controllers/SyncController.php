@@ -98,10 +98,9 @@ class SyncController extends Controller
                 && ($request->last_attendance_time < new Carbon(
                     // @phan-suppress-next-line PhanPartialTypeMismatchArgument
                     config('sums.attendance_timeout_limit'),
-                        'America/New_York'
+                    'America/New_York'
                 ))
-                || null === $request->last_attendance_id
-                )
+                || null === $request->last_attendance_id)
             ) {
                 SyncSUMS::dispatch(
                     $request->uid,
