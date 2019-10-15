@@ -33,7 +33,7 @@ class SyncController extends Controller
                 'model_class' => 'bail|required|string',
                 'model_id' => 'bail|required|numeric',
                 'model_event' => 'bail|required|string',
-                'last_attendance_time' => 'bail|present|date',
+                'last_attendance_time' => 'bail|present|date|nullable',
                 'last_attendance_id' => 'bail|present|numeric|nullable',
             ]
         );
