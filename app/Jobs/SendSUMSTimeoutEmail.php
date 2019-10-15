@@ -44,7 +44,7 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
             ]
         );
 
-        $response = $client->put(
+        $response = $client->post(
             '/api/v1/notification/manual',
             [
                 'json' => [
