@@ -31,7 +31,7 @@ class SyncSUMS extends AbstractSyncJob
     /**
      * Last seen attendance event ID
      *
-     * @var int
+     * @var ?int
      */
     private $last_attendance_id;
 
