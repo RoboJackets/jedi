@@ -20,7 +20,7 @@ class SendTimeoutEmail extends AbstractSyncJob
     /**
      * Whether this user exists in SUMS
      *
-     * @var boolean
+     * @var bool
      */
     private $exists_in_sums = false;
 
@@ -35,7 +35,7 @@ class SendTimeoutEmail extends AbstractSyncJob
         bool $exists_in_sums
     ) {
         parent::__construct($uid, '', '', false, []);
-        $this->$exists_in_sums = $exists_in_sums;
+        $this->exists_in_sums = $exists_in_sums;
     }
 
     /**
