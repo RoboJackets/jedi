@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\EmailEvent;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -39,13 +40,13 @@ class SyncSUMS extends AbstractSyncJob
      *
      * @param string $uid             The user's GT username
      * @param bool $is_access_active  Whether the user should have access to systems
-     * @param string $should_send_email Whether this job should trigger an email
+     * @param bool $should_send_email Whether this job should trigger an email
      * @param int $last_attendance_id The last seen attendance event ID for this user
      */
     public function __construct(
         string $uid,
         bool $is_access_active,
-        string $should_send_email,
+        bool $should_send_email,
         int $last_attendance_id
     ) {
         parent::__construct($uid, '', '', $is_access_active, []);
@@ -153,10 +154,10 @@ class SyncSUMS extends AbstractSyncJob
             if ($this->should_send_email) {
                 if (0 === EmailEvent::where(
                     'last_attendance_id',
-                    $request->last_attendance_id
+                    $this->last_attendance_id
                 )->where(
                     'uid',
-                    $request->uid
+                    $this->uid
                 )->count()
                 ) {
                     $email = new EmailEvent();

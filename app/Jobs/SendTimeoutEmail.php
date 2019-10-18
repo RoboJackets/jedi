@@ -1,8 +1,9 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable Squiz.WhiteSpace.OperatorSpacing.SpacingBefore
+
 namespace App\Jobs;
 
-use App\EmailEvent;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
@@ -16,6 +17,11 @@ class SendTimeoutEmail extends AbstractSyncJob
      */
     public $queue = 'apiary';
 
+    /**
+     * Whether this user exists in SUMS
+     *
+     * @var boolean
+     */
     private $exists_in_sums = false;
 
     /**
