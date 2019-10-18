@@ -61,7 +61,7 @@ class SendTimeoutEmail extends AbstractSyncJob
             [
                 'json' => [
                     'template_type' => 'database',
-                    'template_id' => $this->existsInSUMS
+                    'template_id' => $this->exists_in_sums
                         ? config('apiary.sums_timeout_email_template_id')
                         : config('apiary.non_sums_timeout_email_template_id'),
                     'emails' => [
