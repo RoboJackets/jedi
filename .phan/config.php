@@ -29,7 +29,7 @@ return [
         'PhanWriteOnlyProtectedProperty',
     ],
 
-    'allow_missing_properties' => true,
+    'allow_missing_properties' => false,
     'backward_compatibility_checks' => false,
     'enable_include_path_checks' => true,
     'strict_method_checking' => true,
