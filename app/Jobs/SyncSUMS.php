@@ -41,13 +41,13 @@ class SyncSUMS extends AbstractSyncJob
      * @param string $uid             The user's GT username
      * @param bool $is_access_active  Whether the user should have access to systems
      * @param bool $should_send_email Whether this job should trigger an email
-     * @param int $last_attendance_id The last seen attendance event ID for this user
+     * @param ?int $last_attendance_id The last seen attendance event ID for this user
      */
     public function __construct(
         string $uid,
         bool $is_access_active,
         bool $should_send_email,
-        int $last_attendance_id
+        ?int $last_attendance_id
     ) {
         parent::__construct($uid, '', '', $is_access_active, []);
 

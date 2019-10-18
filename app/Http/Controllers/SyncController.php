@@ -103,13 +103,15 @@ class SyncController extends Controller
                 SyncSUMS::dispatch(
                     $request->uid,
                     false,
-                    true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id
+                    true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id,
+                    $request->last_attendance_id
                 );
             } else {
                 SyncSUMS::dispatch(
                     $request->uid,
                     $request->is_access_active,
-                    false
+                    false,
+                    $request->last_attendance_id
                 );
             }
         }
