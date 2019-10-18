@@ -2,11 +2,12 @@
 
 namespace App\Jobs;
 
+use App\EmailEvent;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
-class SendSUMSTimeoutEmail extends AbstractSyncJob
+class SendTimeoutEmail extends AbstractSyncJob
 {
     /**
      * The queue this job will run on
@@ -15,15 +16,20 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
      */
     public $queue = 'apiary';
 
+    private $exists_in_sums = false;
+
     /**
      * Create a new job instance
      *
      * @param string $uid The user's GT username
+     * @param bool $exists_in_sums Whether this user exists in SUMS
      */
     public function __construct(
-        string $uid
+        string $uid,
+        bool $exists_in_sums
     ) {
         parent::__construct($uid, '', '', false, []);
+        $this->$exists_in_sums = $exists_in_sums;
     }
 
     /**
@@ -49,7 +55,9 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
             [
                 'json' => [
                     'template_type' => 'database',
-                    'template_id' => config('apiary.sums_timeout_email_template_id'),
+                    'template_id' => $this->existsInSUMS
+                        ? config('apiary.sums_timeout_email_template_id')
+                        : config('apiary.non_sums_timeout_email_template_id'),
                     'emails' => [
                         $this->uid . '@gatech.edu',
                     ],
@@ -74,5 +82,15 @@ class SendSUMSTimeoutEmail extends AbstractSyncJob
         }
 
         Log::info(self::class . ': Successfully queued for ' . $this->uid);
+    }
+
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<string>
+     */
+    public function tags(): array
+    {
+        return ['user:' . $this->uid, 'exists_in_sums:' . ($this->exists_in_sums ? 'true' : 'false')];
     }
 }
