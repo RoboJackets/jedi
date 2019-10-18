@@ -51,7 +51,7 @@ class SyncSUMS extends AbstractSyncJob
         parent::__construct($uid, '', '', $is_access_active, []);
 
         $this->should_send_email = $should_send_email;
-        $this->last_attendance_id = $last_attendance_id
+        $this->last_attendance_id = $last_attendance_id;
     }
 
     /**
