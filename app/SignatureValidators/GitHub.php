@@ -2,8 +2,9 @@
 
 namespace App\SignatureValidators;
 
-use Spatie\WebhookClient\SignatureValidator\SignatureValidator;
 use Illuminate\Http\Request;
+use Spatie\WebhookClient\SignatureValidator\SignatureValidator;
+use Spatie\WebhookClient\WebhookConfig;
 
 class GitHub implements SignatureValidator
 {
