@@ -13,5 +13,6 @@
 
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
     Route::post('/sync', 'SyncController@sync');
-    Route::webhooks('/github', 'github');
 });
+
+Route::webhooks('/v1/github', 'github');
