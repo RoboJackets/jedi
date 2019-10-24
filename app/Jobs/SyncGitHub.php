@@ -24,16 +24,6 @@ class SyncGitHub extends AbstractSyncJob
     public $queue = 'github';
 
     /**
-     * The number of times the job may be attempted.
-     *
-     * Overridden to 2 here because we want to retry if the issue was with a token expiring (although that should not
-     * happen as the token should expire from the cache before it is unusable)
-     *
-     * @var int
-     */
-    public $tries = 2;
-
-    /**
      * The user's GitHub username
      *
      * @var string
