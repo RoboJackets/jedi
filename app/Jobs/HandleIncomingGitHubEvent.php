@@ -94,10 +94,8 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         $action = $this->webhookCall->payload['action'];
 
         if ('member_added' === $action || 'member_removed' === $action) {
-            $github_invite_pending = false;
             $github_username = $this->webhookCall->payload['membership']['user']['login'];
         } elseif ('member_invited' === $action) {
-            $github_invite_pending = true;
             $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
             throw new Exception('Unexpected action ' . $action);
