@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f7d2f7c11cd70240a688cd5468dcc16a",
+    "content-hash": "f4ecb73df5bcc3e8fdcff6ded12b6c1c",
     "packages": [
         {
             "name": "apereo/phpcas",
@@ -2687,6 +2687,63 @@
                 "spatie"
             ],
             "time": "2019-02-27T09:42:15+00:00"
+        },
+        {
+            "name": "spatie/laravel-webhook-client",
+            "version": "2.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-webhook-client.git",
+                "reference": "662d3e2dcde0cbb28d08514541666eeb90ea40e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-webhook-client/zipball/662d3e2dcde0cbb28d08514541666eeb90ea40e2",
+                "reference": "662d3e2dcde0cbb28d08514541666eeb90ea40e2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/bus": "^5.8|^6.0",
+                "illuminate/database": "^5.8|^6.0",
+                "illuminate/support": "^5.8|^6.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.8|^4.0",
+                "phpunit/phpunit": "^8.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\WebhookClient\\WebhookClientServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\WebhookClient\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Receive webhoops in Laravel apps",
+            "homepage": "https://github.com/spatie/laravel-webhook-client",
+            "keywords": [
+                "laravel-webhook-client",
+                "spatie"
+            ],
+            "time": "2019-09-04T08:22:52+00:00"
         },
         {
             "name": "subfission/cas",
