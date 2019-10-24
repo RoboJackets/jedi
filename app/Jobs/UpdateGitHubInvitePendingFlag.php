@@ -74,7 +74,7 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
     {
         return [
             'user:' . $this->uid,
-            'invite_pending:' . ($this->invite_pending ? 'true' : 'false'),
+            'github_invite_pending:' . ($this->github_invite_pending ? 'true' : 'false'),
         ];
     }
 }

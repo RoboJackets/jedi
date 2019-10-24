@@ -45,7 +45,8 @@ abstract class AbstractApiaryJob implements ShouldQueue
      *
      * @param string $uid The user's GT username
      */
-    protected function __construct(string $uid) {
+    protected function __construct(string $uid)
+    {
         $this->queue = 'apiary';
         $this->uid = $uid;
     }
