@@ -1,33 +1,31 @@
 <?php declare(strict_types = 1);
 
-// phpcs:disable Squiz.WhiteSpace.OperatorSpacing.SpacingBefore
-
 namespace App\Jobs;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class SendTimeoutEmail extends AbstractApiaryJob
+class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
 {
     /**
-     * Whether this user exists in SUMS
+     * Whether this user has a pending GitHub invitation
      *
      * @var bool
      */
-    private $exists_in_sums = false;
+    private $github_invite_pending = false;
 
     /**
      * Create a new job instance
      *
-     * @param string $uid The user's GT username
-     * @param bool $exists_in_sums Whether this user exists in SUMS
+     * @param string $uid
+     * @param bool $github_invite_pending
      */
     protected function __construct(
         string $uid,
-        bool $exists_in_sums
+        bool $github_invite_pending
     ) {
         parent::__construct($uid);
-        $this->exists_in_sums = $exists_in_sums;
+        $this->github_invite_pending = $github_invite_pending;
     }
 
     /**
@@ -40,16 +38,10 @@ class SendTimeoutEmail extends AbstractApiaryJob
         $client = self::client();
 
         $response = $client->post(
-            '/api/v1/notification/manual',
+            '/api/v1/users/' . $this->uid,
             [
                 'json' => [
-                    'template_type' => 'database',
-                    'template_id' => $this->exists_in_sums
-                        ? config('apiary.sums_timeout_email_template_id')
-                        : config('apiary.non_sums_timeout_email_template_id'),
-                    'emails' => [
-                        $this->uid . '@gatech.edu',
-                    ],
+                    'github_invite_pending' => $this->github_invite_pending,
                 ],
             ]
         );
@@ -70,7 +62,7 @@ class SendTimeoutEmail extends AbstractApiaryJob
             );
         }
 
-        Log::info(self::class . ': Successfully queued for ' . $this->uid);
+        Log::info(self::class . ': Successfully updated github_invite_pending flag for ' . $this->uid);
     }
 
     /**
@@ -80,6 +72,9 @@ class SendTimeoutEmail extends AbstractApiaryJob
      */
     public function tags(): array
     {
-        return ['user:' . $this->uid, 'exists_in_sums:' . ($this->exists_in_sums ? 'true' : 'false')];
+        return [
+            'user:' . $this->uid,
+            'github_invite_pending:' . ($this->github_invite_pending ? 'true' : 'false'),
+        ];
     }
 }
