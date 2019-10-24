@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use App\Http\Controllers\SyncController
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -12,7 +14,7 @@
 */
 
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
-    Route::post('/sync', 'SyncController@sync');
+    Route::post('/sync', [SyncController::class, 'sync']);
 });
 
 Route::webhooks('/v1/github', 'github');
