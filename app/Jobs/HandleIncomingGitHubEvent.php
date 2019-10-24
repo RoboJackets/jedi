@@ -32,19 +32,19 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
     public function handle(): void
     {
         # Parse webhook body
-        $github_username = $this->webhookCall->payload['membership']['user']['login'];
-
         $action = $this->webhookCall->payload['action'];
-
-        Log::info(self::class . ' Received ' . $action . ' event regarding GitHub user ' . $github_username);
 
         if ('member_added' === $action || 'member_removed' === $action) {
             $github_invite_pending = false;
+            $github_username = $this->webhookCall->payload['membership']['user']['login'];
         } elseif ('member_invited' === $action) {
             $github_invite_pending = true;
+            $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
             throw new Exception('Unexpected action ' . $action);
         }
+
+        Log::info(self::class . ' Received ' . $action . ' event regarding GitHub user ' . $github_username);
 
         # Get GT username from Apiary
         $client = AbstractApiaryJob::client();
@@ -91,9 +91,21 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
      */
     public function tags(): array
     {
+        $action = $this->webhookCall->payload['action'];
+
+        if ('member_added' === $action || 'member_removed' === $action) {
+            $github_invite_pending = false;
+            $github_username = $this->webhookCall->payload['membership']['user']['login'];
+        } elseif ('member_invited' === $action) {
+            $github_invite_pending = true;
+            $github_username = $this->webhookCall->payload['invitation']['login'];
+        } else {
+            throw new Exception('Unexpected action ' . $action);
+        }
+
         return [
-            'action:' . $this->webhookCall->payload['action'],
-            'github_user:' . $this->webhookCall->payload['membership']['user']['login'],
+            'action:' . $action,
+            'github_user:' . $github_username,
         ];
     }
 }
