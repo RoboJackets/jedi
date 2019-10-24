@@ -11,16 +11,28 @@ class GitHub implements SignatureValidator
 {
     public function isValid(Request $request, WebhookConfig $config): bool
     {
-        [$algo, $hash] = explode('=', $request->header('X-Hub-Signature'));
+        $header = $request->header('X-Hub-Signature');
+        $secret = $config->signingSecret;
+        $payload = $request->getContent();
+
+        if (!is_string($header)) {
+            throw new Exception('Header is not a string, possibly missing');
+        }
+
+        if (!is_string($secret)) {
+            throw new Exception('Secret is not a string');
+        }
+
+        if (!is_string($payload)) {
+            throw new Exception('Payload is not a string');
+        }
+
+        [$algo, $hash] = explode('=', $header);
 
         if ('sha1' !== $algo) {
             throw new Exception('Unexpected signature algorithm ' . $algo);
         }
 
-        if (!is_string($config->signingSecret)) {
-            throw new Exception('Expected signingSecret to be a string');
-        }
-
-        return $hash === hash_hmac($algo, $request->getContent(), $config->signingSecret);
+        return $hash === hash_hmac($algo, $payload, $secret);
     }
 }
