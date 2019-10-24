@@ -41,7 +41,7 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
             '/api/v1/users/' . $this->uid,
             [
                 'json' => [
-                    'github_invite_pending' => $this->github_invite_pending,
+                    'github_invite_pending' => $this->github_invite_pending ? 'true' : 'false',
                 ],
             ]
         );
