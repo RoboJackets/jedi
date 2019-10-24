@@ -3,7 +3,6 @@
 namespace App\Jobs;
 
 use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
 class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob

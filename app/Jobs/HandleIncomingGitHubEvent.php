@@ -1,9 +1,10 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
+
 namespace App\Jobs;
 
 use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\ProcessWebhookJob;
 
@@ -34,6 +35,8 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         $github_username = $this->webhookCall->payload['membership']['user']['login'];
 
         $action = $this->webhookCall->payload['action'];
+
+        Log::info(self::class . ' Received ' . $action . ' event regarding GitHub user ' . $github_username);
 
         if ('member_added' === $action || 'member_removed' === $action) {
             $github_invite_pending = false;
