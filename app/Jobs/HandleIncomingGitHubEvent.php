@@ -31,9 +31,9 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
     public function handle(): void
     {
         # Parse webhook body
-        $github_username = $this->webhookCall->payload['membership']['user']['login']
+        $github_username = $this->webhookCall->payload['membership']['user']['login'];
 
-        $action = $this->webhookCall->payload['action']
+        $action = $this->webhookCall->payload['action'];
 
         if ('member_added' === $action || 'member_removed' === $action) {
             $github_invite_pending = false;
@@ -47,7 +47,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         $client = AbstractApiaryJob::client();
 
         $response = $client->get(
-            '/api/v1/users/search'
+            '/api/v1/users/search',
             [
                 'query' => [
                     'keyword' => $github_username,
