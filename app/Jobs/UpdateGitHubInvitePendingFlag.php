@@ -20,11 +20,11 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
      * @param string $uid
      * @param bool $github_invite_pending
      */
-    public function __construct(
+    protected function __construct(
         string $uid,
         bool $github_invite_pending
     ) {
-        $this->uid = $uid;
+        parent::__construct($uid);
         $this->github_invite_pending = $github_invite_pending;
     }
 

@@ -62,7 +62,7 @@ abstract class AbstractSyncJob implements ShouldQueue
      * @param bool $is_access_active Whether the user should have access to systems
      * @param array<string>  $teams  The names of the teams the user is in
      */
-    public function __construct(
+    protected function __construct(
         string $uid,
         string $first_name,
         string $last_name,

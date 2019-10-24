@@ -26,13 +26,6 @@ abstract class AbstractApiaryJob implements ShouldQueue
      */
     public $tries = 1;
 
-    /**
-     * The queue this job will run on
-     *
-     * @var string
-     */
-    public $queue = 'apiary';
-
     protected static function client(): Client
     {
         return new Client(
@@ -45,6 +38,16 @@ abstract class AbstractApiaryJob implements ShouldQueue
                 'allow_redirects' => false,
             ]
         );
+    }
+
+    /**
+     * Create a new job instance
+     *
+     * @param string $uid The user's GT username
+     */
+    protected function __construct(string $uid) {
+        $this->queue = 'apiary';
+        $this->uid = $uid;
     }
 
     /**

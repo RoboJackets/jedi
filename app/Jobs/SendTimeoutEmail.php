@@ -22,11 +22,11 @@ class SendTimeoutEmail extends AbstractApiaryJob
      * @param string $uid The user's GT username
      * @param bool $exists_in_sums Whether this user exists in SUMS
      */
-    public function __construct(
+    protected function __construct(
         string $uid,
         bool $exists_in_sums
     ) {
-        $this->uid = $uid;
+        parent::__construct($uid);
         $this->exists_in_sums = $exists_in_sums;
     }
 

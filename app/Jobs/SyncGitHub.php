@@ -50,7 +50,7 @@ class SyncGitHub extends AbstractSyncJob
      * @param array<string>  $teams   The names of the teams the user is in
      * @param string $github_username The user's GitHub username
      */
-    public function __construct(
+    protected function __construct(
         string $uid,
         string $first_name,
         string $last_name,

@@ -43,7 +43,7 @@ class SyncSUMS extends AbstractSyncJob
      * @param bool $should_send_email Whether this job should trigger an email
      * @param ?int $last_attendance_id The last seen attendance event ID for this user
      */
-    public function __construct(
+    protected function __construct(
         string $uid,
         bool $is_access_active,
         bool $should_send_email,
