@@ -77,6 +77,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         foreach ($json->users as $user) {
             if ($user->github_username === $github_username) {
                 UpdateGitHubInvitePendingFlag::dispatch($user->uid, $github_invite_pending);
+                return;
             }
         }
 

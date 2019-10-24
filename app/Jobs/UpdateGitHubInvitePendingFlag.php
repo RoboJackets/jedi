@@ -37,7 +37,7 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
     {
         $client = self::client();
 
-        $response = $client->post(
+        $response = $client->put(
             '/api/v1/users/' . $this->uid,
             [
                 'json' => [

@@ -34,6 +34,7 @@ abstract class AbstractApiaryJob implements ShouldQueue
                 'headers' => [
                     'User-Agent' => 'JEDI on ' . config('app.url'),
                     'Authorization' => 'Bearer ' . config('apiary.token'),
+                    'Accept' => 'application/json',
                 ],
                 'allow_redirects' => false,
             ]
