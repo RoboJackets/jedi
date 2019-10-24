@@ -26,7 +26,7 @@ abstract class AbstractApiaryJob implements ShouldQueue
      */
     public $tries = 1;
 
-    protected static function client(): Client
+    public static function client(): Client
     {
         return new Client(
             [
