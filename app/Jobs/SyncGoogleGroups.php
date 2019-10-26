@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
+use Google_Service_Exception;
 
 class SyncGoogleGroups extends AbstractSyncJob
 {
@@ -80,10 +81,30 @@ class SyncGoogleGroups extends AbstractSyncJob
         foreach ($allGroups as $team => $group) {
             if ($this->is_access_active && $activeGroups->contains($group)) {
                 $this->debug('Adding to group '.$group);
-                $service->members->insert($group, $member);
+                try {
+                    $service->members->insert($group, $member);
+                } catch (Google_Service_Exception $e) {
+                    if ($e->getCode() == 409) {
+                        $this->info('User was already a member of Google Group '.$group);
+                        continue;
+                    } else {
+                        throw $e;
+                    }
+                }
+                $this->info('Added user to Google Group '.$group);
             } else {
                 $this->debug('Removing from group '.$group);
-                $service->members->delete($group, $this->gmail_address);
+                try {
+                    $service->members->delete($group, $this->gmail_address);
+                } catch (Google_Service_Exception $e) {
+                    if ($e->getCode() == 404) {
+                        $this->info('User was already not a member of Google Group '.$group);
+                        continue;
+                    } else {
+                        throw $e;
+                    }
+                    $this->info('Removed user from Google Group '.$group);
+                }
             }
         }
     }
