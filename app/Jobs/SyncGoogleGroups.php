@@ -73,8 +73,10 @@ class SyncGoogleGroups extends AbstractSyncJob
 
         foreach ($allGroups as $group) {
             if ($this->is_access_active && $activeGroups->contains($group)) {
+                $this->debug('Adding to group '.$group);
                 $service->members->insert($groupKey, $member);
             } else {
+                $this->debug('Removing from group '.$group);
                 $service->members->delete($groupKey, $this->gmail_address);
             }
         }
