@@ -5,6 +5,7 @@ namespace App\Jobs;
 
 use Exception;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Google_Client;
 use Google_Service_Directory;
@@ -112,7 +113,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         }
     }
 
-    private function getAllGroups(): array
+    private function getAllGroups(): Collection
     {
         $client = AbstractApiaryJob::client();
 
