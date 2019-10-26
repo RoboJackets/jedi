@@ -71,6 +71,8 @@ class SyncGoogleGroups extends AbstractSyncJob
             return in_array($team, $this->teams);
         });
 
+        $this->debug('Got all groups: '.print_r($allGroups, true));
+
         foreach ($allGroups as $group) {
             if ($this->is_access_active && $activeGroups->contains($group)) {
                 $this->debug('Adding to group '.$group);
