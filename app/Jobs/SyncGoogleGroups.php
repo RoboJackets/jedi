@@ -1,11 +1,9 @@
 <?php declare(strict_types = 1);
 
-// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
-
+// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps,Generic.CodeAnalysis.UnusedFunctionParameter,SlevomatCodingStandard.Functions.UnusedParameter
 namespace App\Jobs;
 
 use Exception;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Google_Client;
@@ -37,7 +35,7 @@ class SyncGoogleGroups extends AbstractSyncJob
      * @param string $last_name       The user's last name
      * @param bool $is_access_active  Whether the user should have access to systems
      * @param array<string>  $teams   The names of the teams the user is in
-     * @param string $github_username The user's GitHub username
+     * @param string $gmail_address   The user's Gmail address
      */
     public function __construct(
         string $uid,
@@ -60,10 +58,12 @@ class SyncGoogleGroups extends AbstractSyncJob
     public function handle(): void
     {
         $client = new Google_Client();
+        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         $client->setAuthConfig(config('google.credentials'));
         $client->setApplicationName('MyRoboJackets');
         $client->setScopes(['https://www.googleapis.com/auth/admin.directory.group.member']);
         // The subject is the user that the service account "impersonates"
+        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         $client->setSubject(config('google.admin'));
 
         $service = new Google_Service_Directory($client);
@@ -77,42 +77,42 @@ class SyncGoogleGroups extends AbstractSyncJob
             return $this->getAllGroups();
         });
         // Get the groups that the user should be in
+        // @phan-suppress-next-line PhanUnusedClosureParameter
         $activeGroups = $allGroups->filter(function ($group, $team) {
             return in_array($team, $this->teams);
         });
 
-        foreach ($allGroups as $team => $group) {
+        foreach ($allGroups as $group) {
+            // @phan-suppress-next-line PhanPluginNonBoolInLogicalArith
             if ($this->is_access_active && $activeGroups->contains($group)) {
-                $this->debug('Adding to group '.$group);
+                $this->debug('Adding to group ' . $group);
                 try {
                     $service->members->insert($group, $member);
                 } catch (Google_Service_Exception $e) {
-                    if ($e->getCode() == 409) {
-                        $this->info('User was already a member of Google Group '.$group);
+                    if (409 === $e->getCode()) {
+                        $this->info('User was already a member of Google Group ' . $group);
                         continue;
-                    } else {
-                        throw $e;
                     }
+                    throw $e;
                 }
-                $this->info('Added user to Google Group '.$group);
+                $this->info('Added user to Google Group ' . $group);
             } else {
-                $this->debug('Removing from group '.$group);
+                $this->debug('Removing from group ' . $group);
                 try {
                     $service->members->delete($group, $this->gmail_address);
                 } catch (Google_Service_Exception $e) {
-                    if ($e->getCode() == 404) {
-                        $this->info('User was already not a member of Google Group '.$group);
+                    if (404 === $e->getCode()) {
+                        $this->info('User was already not a member of Google Group ' . $group);
                         continue;
-                    } else {
-                        throw $e;
                     }
-                    $this->info('Removed user from Google Group '.$group);
+                    throw $e;
                 }
+                $this->info('Removed user from Google Group ' . $group);
             }
         }
     }
 
-    private function getAllGroups()
+    private function getAllGroups(): array
     {
         $client = AbstractApiaryJob::client();
 
@@ -135,11 +135,11 @@ class SyncGoogleGroups extends AbstractSyncJob
 
         $teams = collect($json->teams);
 
-        return $teams->filter(function ($team) {
+        return $teams->filter(static function ($team) {
             return null !== $team->google_group
                 && 'officers@robojackets.org' !== $team->google_group
                 && 'developers@robojackets.org' !== $team->google_group;
-        })->mapWithKeys(function ($team) {
+        })->mapWithKeys(static function ($team) {
             return [$team->name => $team->google_group];
         });
     }
