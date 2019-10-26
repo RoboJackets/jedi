@@ -77,13 +77,13 @@ class SyncGoogleGroups extends AbstractSyncJob
 
         $this->debug('Got all groups: '.print_r($allGroups, true));
 
-        foreach ($allGroups as $group) {
+        foreach ($allGroups as $team => $group) {
             if ($this->is_access_active && $activeGroups->contains($group)) {
                 $this->debug('Adding to group '.$group);
-                $service->members->insert($groupKey, $member);
+                $service->members->insert($group, $member);
             } else {
                 $this->debug('Removing from group '.$group);
-                $service->members->delete($groupKey, $this->gmail_address);
+                $service->members->delete($group, $this->gmail_address);
             }
         }
     }
@@ -112,7 +112,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         $teams = collect($json->teams);
 
         return $teams->filter(function ($team) {
-            return null === $team->google_group;
+            return null !== $team->google_group;
         })->mapWithKeys(function ($team) {
             return [$team->name => $team->google_group];
         });
