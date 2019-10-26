@@ -8,6 +8,9 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Google_Client;
+use Google_Service_Directory;
+use Google_Service_Directory_Member;
 
 class SyncGoogleGroups extends AbstractSyncJob
 {
