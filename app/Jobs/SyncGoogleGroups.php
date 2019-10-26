@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 // phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps,Generic.CodeAnalysis.UnusedFunctionParameter,SlevomatCodingStandard.Functions.UnusedParameter
+
 namespace App\Jobs;
 
 use Exception;
