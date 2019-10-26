@@ -7,6 +7,7 @@ use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
+use App\Jobs\SyncGoogleGroups;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -133,6 +134,17 @@ class SyncController extends Controller
                 $request->last_name,
                 $request->is_access_active,
                 $request->teams
+            );
+        }
+
+        if (true === config('google.enabled') && $request->filled('gmail_address')) {
+            SyncGoogleGroups::dispatch(
+                $request->uid,
+                $request->first_name,
+                $request->last_name,
+                $request->is_access_active,
+                $request->teams,
+                $request->gmail_address
             );
         }
 
