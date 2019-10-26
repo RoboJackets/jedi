@@ -59,6 +59,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         $client->setAuthConfig(config('google.credentials'));
         $client->setApplicationName('MyRoboJackets');
         $client->setScopes(['https://www.googleapis.com/auth/admin.directory.group.member']);
+        $client->setSubject(config('google.admin'));
 
         $service = new Google_Service_Directory($client);
 
