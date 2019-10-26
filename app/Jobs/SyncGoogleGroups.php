@@ -133,7 +133,9 @@ class SyncGoogleGroups extends AbstractSyncJob
         $teams = collect($json->teams);
 
         return $teams->filter(function ($team) {
-            return null !== $team->google_group;
+            return null !== $team->google_group
+                && 'officers@robojackets.org' !== $team->google_group
+                && 'developers@robojackets.org' !== $team->google_group;
         })->mapWithKeys(function ($team) {
             return [$team->name => $team->google_group];
         });
