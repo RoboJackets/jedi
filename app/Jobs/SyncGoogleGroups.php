@@ -63,6 +63,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         $client->setAuthConfig(config('google.credentials'));
         $client->setApplicationName('MyRoboJackets');
         $client->setScopes(['https://www.googleapis.com/auth/admin.directory.group.member']);
+        // The subject is the user that the service account "impersonates"
         $client->setSubject(config('google.admin'));
 
         $service = new Google_Service_Directory($client);
@@ -71,12 +72,14 @@ class SyncGoogleGroups extends AbstractSyncJob
         $member->setEmail($this->gmail_address);
         $member->setRole('MEMBER');
 
-        $allGroups = $this->getAllGroups();
+        // Cache for 15 minutes
+        $allGroups = Cache::remember('apiary_google_groups_teams', 15, function () {
+            return $this->getAllGroups();
+        });
+        // Get the groups that the user should be in
         $activeGroups = $allGroups->filter(function ($group, $team) {
             return in_array($team, $this->teams);
         });
-
-        $this->debug('Got all groups: '.print_r($allGroups, true));
 
         foreach ($allGroups as $team => $group) {
             if ($this->is_access_active && $activeGroups->contains($group)) {
