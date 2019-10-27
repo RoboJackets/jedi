@@ -14,7 +14,7 @@ use App\Http\Controllers\SyncController;
 */
 
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
-    Route::post('/sync', [SyncController::class, 'sync']);
+    Route::post('/apiary', [SyncController::class, 'sync']);
 });
 
 Route::webhooks('/v1/github', 'github');
