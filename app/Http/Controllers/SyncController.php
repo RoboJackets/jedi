@@ -34,6 +34,7 @@ class SyncController extends Controller
                 'model_event' => 'bail|required|string',
                 'last_attendance_time' => 'bail|present|date|nullable',
                 'last_attendance_id' => 'bail|present|numeric|nullable',
+                'exists_in_sums' => 'bail|required|boolean',
             ]
         );
 
@@ -105,14 +106,16 @@ class SyncController extends Controller
                     $request->uid,
                     false,
                     true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id,
-                    $request->last_attendance_id
+                    $request->last_attendance_id,
+                    $request->exists_in_sums
                 );
             } else {
                 SyncSUMS::dispatch(
                     $request->uid,
                     $request->is_access_active,
                     false,
-                    $request->last_attendance_id
+                    $request->last_attendance_id,
+                    $request->exists_in_sums
                 );
             }
         }
