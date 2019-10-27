@@ -114,12 +114,12 @@ class SyncSUMS extends AbstractSyncJob
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Enabled ' . $this->uid);
-                if ($this->exists_in_sums) {
+                if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
             } elseif (self::MEMBER_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already enabled');
-                if ($this->exists_in_sums) {
+                if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
             } elseif (self::USER_NOT_FOUND === $responseBody) {
@@ -156,12 +156,12 @@ class SyncSUMS extends AbstractSyncJob
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Disabled ' . $this->uid);
-                if ($this->exists_in_sums) {
+                if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
             } elseif (self::MEMBER_NOT_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already disabled');
-                if ($this->exists_in_sums) {
+                if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
             } elseif (self::USER_NOT_FOUND === $responseBody) {
