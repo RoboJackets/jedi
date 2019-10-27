@@ -64,5 +64,10 @@ abstract class AbstractApiaryJob implements ShouldQueue
      *
      * @return array<string>
      */
-    abstract public function tags(): array;
+    public function tags(): array
+    {
+        return [
+            'user:' . $this->uid,
+        ];
+    }
 }
