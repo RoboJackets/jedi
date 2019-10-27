@@ -36,23 +36,33 @@ class SyncSUMS extends AbstractSyncJob
     private $last_attendance_id;
 
     /**
+     * Whether the user exists in SUMS according to Apiary
+     *
+     * @var bool
+     */
+    private $exists_in_sums;
+
+    /**
      * Create a new job instance
      *
      * @param string $uid             The user's GT username
      * @param bool $is_access_active  Whether the user should have access to systems
      * @param bool $should_send_email Whether this job should trigger an email
      * @param ?int $last_attendance_id The last seen attendance event ID for this user
+     * @param bool $exists_in_sums    Whether the user exists in SUMS according to Apiary
      */
     protected function __construct(
         string $uid,
         bool $is_access_active,
         bool $should_send_email,
-        ?int $last_attendance_id
+        ?int $last_attendance_id,
+        bool $exists_in_sums
     ) {
         parent::__construct($uid, '', '', $is_access_active, []);
 
         $this->should_send_email = $should_send_email;
         $this->last_attendance_id = $last_attendance_id;
+        $this->exists_in_sums = $exists_in_sums;
     }
 
     /**
@@ -104,8 +114,14 @@ class SyncSUMS extends AbstractSyncJob
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Enabled ' . $this->uid);
+                if (!$this->exists_in_sums) {
+                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                }
             } elseif (self::MEMBER_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already enabled');
+                if (!$this->exists_in_sums) {
+                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                }
             } elseif (self::USER_NOT_FOUND === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
@@ -140,8 +156,14 @@ class SyncSUMS extends AbstractSyncJob
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Disabled ' . $this->uid);
+                if (!$this->exists_in_sums) {
+                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                }
             } elseif (self::MEMBER_NOT_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already disabled');
+                if (!$this->exists_in_sums) {
+                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                }
             } elseif (self::USER_NOT_FOUND === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
