@@ -29,6 +29,7 @@ class SyncController extends Controller
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
                 'github_username' => 'bail|present|string|nullable',
+                'gmail_address' => 'bail|present|string|nullable',
                 'model_class' => 'bail|required|string',
                 'model_id' => 'bail|required|numeric',
                 'model_event' => 'bail|required|string',
@@ -51,10 +52,13 @@ class SyncController extends Controller
                     $lastRequest['is_access_active'] === $request->is_access_active &&
                     [] === array_diff($lastRequest['teams'], $request->teams) &&
                     [] === array_diff($request->teams, $lastRequest['teams']) &&
-                    $lastRequest['github_username'] === $request->github_username;
+                    $lastRequest['github_username'] === $request->github_username &&
+                    $lastRequest['gmail_address'] === $request->gmail_address &&
+                    $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
+                    $lastRequest['last_attendance_id'] === $request->last_attendance_id;
 
             if ($same) {
-                if ('manual' !== $request->model_event) {
+                if (!in_array($request->model_event, config('apiary.whitelisted_events'))) {
                     Log::info(
                         self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
                     );
@@ -63,7 +67,7 @@ class SyncController extends Controller
                 }
                 Log::info(
                     self::class . ': ' . $request->uid
-                        . ' is a duplicate request but this one is manual, continuing'
+                        . ' is a duplicate request but this one is ' . $request->model_event . ', continuing'
                 );
             }
         }
