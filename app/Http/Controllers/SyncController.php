@@ -58,6 +58,7 @@ class SyncController extends Controller
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id;
 
             if ($same) {
+                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
                 if (!in_array($request->model_event, config('apiary.whitelisted_events'))) {
                     Log::info(
                         self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
