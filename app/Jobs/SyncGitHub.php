@@ -1,6 +1,7 @@
 <?php declare(strict_types = 1);
 
 // phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+// phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
 
 namespace App\Jobs;
 
@@ -163,8 +164,8 @@ class SyncGitHub extends AbstractSyncJob
                 if (200 !== $response->getStatusCode()) {
                     if (404 === $response->getStatusCode()) {
                         throw new Exception(
-                            'Linked account does not exist; it may have been renamed. Administrator '
-                            . 'investigation required! Response from GitHub: ' . $response->getBody()->getContents()
+                            'Linked account does not exist; it may have been renamed. Administrator investigation '
+                            . 'required! Response from GitHub: ' . $response->getBody()->getContents()
                         );
                     }
                     throw new Exception(

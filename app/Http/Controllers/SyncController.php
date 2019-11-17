@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SyncGitHub;
+use App\Jobs\SyncGoogleGroups;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
-use App\Jobs\SyncGoogleGroups;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
