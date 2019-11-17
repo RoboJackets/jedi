@@ -15,3 +15,4 @@ sed -i 's#"/"+Horizon.path+##g' public/vendor/horizon/app.js
 sed -i 's#"/"+t.Horizon.path+##g' public/vendor/horizon/app.js
 php artisan up
 php artisan horizon:terminate
+php artisan bugsnag:deploy --repository "https://github.gatech.edu/RoboJackets/jedi" --revision $(git rev-parse HEAD) --provider "github-enterprise" --builder "rj-dc-00"
