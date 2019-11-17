@@ -161,6 +161,12 @@ class SyncGitHub extends AbstractSyncJob
                 $response = $client->get('/users/' . $this->github_username);
 
                 if (200 !== $response->getStatusCode()) {
+                    if (404 === $response->getStatusCode()) {
+                        throw new Exception(
+                            'Linked account does not exist; it may have been renamed. Administrator '
+                            . 'investigation required! Response from GitHub: ' . $response->getBody()->getContents()
+                        )
+                    }
                     throw new Exception(
                         'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
                             . ', expected 200 - ' . $response->getBody()->getContents()
@@ -255,6 +261,22 @@ class SyncGitHub extends AbstractSyncJob
         }
 
         if (404 === $response->getStatusCode()) {
+            $this->info('GitHub says user is not in the organization, making sure the account exists...')
+            $response = $client->get('/users/' . $this->github_username);
+
+            if (200 !== $response->getStatusCode()) {
+                if (404 === $response->getStatusCode()) {
+                    throw new Exception(
+                        'Linked account does not exist; it may have been renamed. Administrator '
+                        . 'investigation required! Response from GitHub: ' . $response->getBody()->getContents()
+                    )
+                }
+                throw new Exception(
+                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
+                        . ', expected 200 - ' . $response->getBody()->getContents()
+                );
+            }
+
             $this->info('not a member and shouldn\'t be - nothing to do');
             return;
         }
