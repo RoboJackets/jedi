@@ -5,13 +5,13 @@
 namespace App\Jobs;
 
 use Exception;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Log;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
 use Google_Service_Exception;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class SyncGoogleGroups extends AbstractSyncJob
 {

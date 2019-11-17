@@ -2,8 +2,8 @@
 
 namespace App\WebhookProfiles;
 
-use Spatie\WebhookClient\WebhookProfile\WebhookProfile;
 use Illuminate\Http\Request;
+use Spatie\WebhookClient\WebhookProfile\WebhookProfile;
 
 class OnlyProcessMemberChanges implements WebhookProfile
 {
