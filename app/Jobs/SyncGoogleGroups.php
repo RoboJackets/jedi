@@ -83,7 +83,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         $user_teams = $this->teams;
         // @phan-suppress-next-line PhanUnusedClosureParameter
         $activeGroups = $allGroups->filter(static function ($group, $team) use ($user_teams): bool {
-            return in_array($team, $this->teams);
+            return in_array($team, $user_teams);
         });
 
         foreach ($allGroups as $group) {
