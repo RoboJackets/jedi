@@ -14,8 +14,11 @@ use RoboJackets\ErrorPages\DuoOutage;
 use RoboJackets\ErrorPages\EduroamISSDisabled;
 use RoboJackets\ErrorPages\EduroamNonGatech;
 use RoboJackets\ErrorPages\UsernameContainsDomain;
+use RoboJackets\NetworkCheck;
 
 /**
+ * Authenticates users against a CAS server (e.g. GT Login Service)
+ *
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  * @SuppressWarnings(PHPMD.ExitExpression)
  */
@@ -75,17 +78,17 @@ class CASAuthenticate
                     exit;
                 }
                 if (NetworkCheck::GTOTHER === $network) {
-                    BadNetwork::render('GTother', $username, phpCAS::getAttribute('eduPersonPrimaryAffiliation'));
+                    BadNetwork::render('GTother', $username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
                     exit;
                 }
                 if (NetworkCheck::GTVISITOR === $network) {
-                    BadNetwork::render('GTvisitor', $username, phpCAS::getAttribute('eduPersonPrimaryAffiliation'));
+                    BadNetwork::render('GTvisitor', $username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
                     exit;
                 }
                 if (NetworkCheck::EDUROAM_NON_GATECH_V4 === $network
                     || NetworkCheck::EDUROAM_NON_GATECH_V6 === $network
                 ) {
-                    EduroamNonGatech::render($username, phpCAS::getAttribute('eduPersonPrimaryAffiliation'));
+                    EduroamNonGatech::render($username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
                     exit;
                 }
 

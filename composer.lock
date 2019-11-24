@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31a1a6f8b8faacaec1cc16cd927abc5",
+    "content-hash": "6f80ef7fcbf1643cb4bf4a0c5565f1a2",
     "packages": [
         {
             "name": "apereo/phpcas",
@@ -2649,6 +2649,40 @@
             "description": "Error pages shared across authentication plugins",
             "homepage": "https://github.gatech.edu/RoboJackets/error-pages",
             "time": "2019-09-21T21:59:14+00:00"
+        },
+        {
+            "name": "robojackets/network-check",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.gatech.edu/RoboJackets/network-check.git",
+                "reference": "2fed18379f699e0e215b999b8c59c8dda5d7d00c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://packages.robojackets.org/dist/robojackets/network-check/robojackets-network-check-v1.0.1-2a429c.zip",
+                "reference": "2fed18379f699e0e215b999b8c59c8dda5d7d00c",
+                "shasum": "8cce208a5e00877ba3b6be080815925b9a4742c3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RoboJackets\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristaps Berzinch",
+                    "email": "kristapsberzinch@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Determines what GT network a client is connected to",
+            "homepage": "https://github.gatech.edu/RoboJackets/network-check",
+            "time": "2019-09-18T23:54:27+00:00"
         },
         {
             "name": "spatie/laravel-failed-job-monitor",

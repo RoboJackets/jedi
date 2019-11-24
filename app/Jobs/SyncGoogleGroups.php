@@ -5,6 +5,7 @@
 
 namespace App\Jobs;
 
+use App\Services\Apiary;
 use Exception;
 use Google_Client;
 use Google_Service_Directory;
@@ -118,7 +119,7 @@ class SyncGoogleGroups extends AbstractSyncJob
 
     private function getAllGroups(): Collection
     {
-        $client = AbstractApiaryJob::client();
+        $client = Apiary::client();
 
         $response = $client->get('/api/v1/teams');
 

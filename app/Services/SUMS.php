@@ -16,7 +16,7 @@ class SUMS extends Service
      *
      * @var \GuzzleHttp\Client
      */
-    private $client = null;
+    private static $client = null;
 
     public static function removeUser(string $username): string
     {
@@ -33,7 +33,7 @@ class SUMS extends Service
             ]
         );
 
-        self::expectResponseCode(200);
+        self::expectStatusCode(200);
 
         return $response->getBody()->getContents();
     }
@@ -53,7 +53,7 @@ class SUMS extends Service
             ]
         );
 
-        self::expectResponseCode(200);
+        self::expectStatusCode(200);
 
         return $response->getBody()->getContents();
     }

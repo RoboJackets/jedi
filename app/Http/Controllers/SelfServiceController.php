@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Service\Apiary;
-use App\Service\GitHub;
-use App\Service\SUMS;
+use App\Services\Apiary;
+use App\Services\GitHub;
+use App\Services\SUMS;
 use Illuminate\Http\Request;
 
 class SelfServiceController extends Controller

@@ -14,7 +14,7 @@ abstract class Service
      * Verifies that a passed ResponseInterface has an expected response code and throws an exception if not
      *
      * @param ResponseInterface $response An HTTP response
-     * @param int $expected               Possible response codes
+     * @param array<int> $expected               Possible response codes
      *
      * @return void
      */

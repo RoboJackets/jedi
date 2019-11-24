@@ -78,22 +78,22 @@ class SyncSUMS extends AbstractSyncJob
 
             $responseBody = SUMS::addUser($this->uid);
 
-            if (self::SUCCESS === $responseBody) {
+            if (SUMS::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Enabled ' . $this->uid);
                 if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
-            } elseif (self::MEMBER_EXISTS === $responseBody) {
+            } elseif (SUMS::MEMBER_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already enabled');
                 if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
-            } elseif (self::USER_NOT_FOUND === $responseBody) {
+            } elseif (SUMS::USER_NOT_FOUND === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . self::SUCCESS . '", "'
-                        . self::MEMBER_EXISTS . '", "' . self::USER_NOT_FOUND . '"'
+                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . SUMS::SUCCESS . '", "'
+                        . SUMS::MEMBER_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }
         } else {
@@ -101,22 +101,22 @@ class SyncSUMS extends AbstractSyncJob
 
             $responseBody = SUMS::removeUser($this->uid);
 
-            if (self::SUCCESS === $responseBody) {
+            if (SUMS::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Disabled ' . $this->uid);
                 if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
-            } elseif (self::MEMBER_NOT_EXISTS === $responseBody) {
+            } elseif (SUMS::MEMBER_NOT_EXISTS === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' was already disabled');
                 if (!$this->exists_in_sums) {
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
-            } elseif (self::USER_NOT_FOUND === $responseBody) {
+            } elseif (SUMS::USER_NOT_FOUND === $responseBody) {
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . self::SUCCESS . '", "'
-                        . self::MEMBER_NOT_EXISTS . '", "' . self::USER_NOT_FOUND . '"'
+                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . SUMS::SUCCESS . '", "'
+                        . SUMS::MEMBER_NOT_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }
 

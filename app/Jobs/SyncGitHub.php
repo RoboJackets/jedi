@@ -26,8 +26,6 @@ class SyncGitHub extends AbstractSyncJob
      * Create a new job instance
      *
      * @param string $uid             The user's GT username
-     * @param string $first_name      The user's first name
-     * @param string $last_name       The user's last name
      * @param bool $is_access_active  Whether the user should have access to systems
      * @param array<string>  $teams   The names of the teams the user is in
      * @param string $github_username The user's GitHub username
@@ -75,6 +73,10 @@ class SyncGitHub extends AbstractSyncJob
                 foreach ($teams as $team) {
                     if (!in_array($team->name, $this->teams, true)) {
                         continue;
+                    }
+
+                    if (! is_int($team->id)) {
+                        throw new Exception('Expected team id to be an integer');
                     }
 
                     $this->info('Team ' . $team->name . ' will be in invite');

@@ -5,6 +5,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\DownstreamServiceException;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use SimpleJWT\JWT;
@@ -20,20 +21,20 @@ class GitHub extends Service
      *
      * @var \GuzzleHttp\Client
      */
-    private $client = null;
+    private static $client = null;
 
     public static function removeUserFromOrganization(string $username): void
     {
         $response = self::client()->delete(
             '/orgs/' . config('github.organization') . '/memberships/' . $username
         );
-        self::expectResponseCodes($response, 204);
+        self::expectStatusCodes($response, 204);
     }
 
     public static function addUserToTeam(int $team_id, string $username): void
     {
         $response = self::client()->put('/teams/' . $team_id . '/memberships/' . $username);
-        self::expectResponseCodes($response, 200);
+        self::expectStatusCodes($response, 200);
     }
 
     public static function getTeamMembership(int $team_id, string $username): ?object
@@ -47,7 +48,7 @@ class GitHub extends Service
         if (null === $membership) {
             $response = self::client()->get('/teams/' . $team_id . '/memberships/' . $username);
 
-            self::expectResponseCodes($response, 200, 404);
+            self::expectStatusCodes($response, 200, 404);
             $membership = self::decodeToObject($response);
 
             if (200 === $response->getStatusCode()) {
@@ -116,7 +117,7 @@ class GitHub extends Service
             ]
         );
 
-        self::expectResponseCodes($response, 201);
+        self::expectStatusCodes($response, 201);
     }
 
     public static function getTeams(): array
@@ -130,7 +131,7 @@ class GitHub extends Service
         if (null === $teams) {
             $response = self::client()->get('/orgs/' . config('github.organization') . '/teams');
 
-            self::expectResponseCodes($response, 200);
+            self::expectStatusCodes($response, 200);
             $teams = self::decodeToArray($response);
 
             $etag = $response->getHeader('ETag')[0];
@@ -172,9 +173,9 @@ class GitHub extends Service
         $etag = Cache::get($etag_key);
 
         if (null === $user) {
-            $response = $client->get('/users/' . $username);
+            $response = self::client()->get('/users/' . $username);
 
-            self::expectResponseCodes($response, 200, 404);
+            self::expectStatusCodes($response, 200, 404);
 
             if (404 === $response->getStatusCode()) {
                 throw new DownstreamServiceException(
@@ -339,20 +340,8 @@ class GitHub extends Service
 
         $response = $client->post('/app/installations/' . config('github.installation_id') . '/access_tokens');
 
-        if (201 !== $response->getStatusCode()) {
-            throw new Exception(
-                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                    . ', expected 201 - ' . $response->getBody()->getContents()
-            );
-        }
-
-        $json = json_decode($response->getBody()->getContents());
-
-        if (!is_object($json)) {
-            throw new Exception('GitHub did not return an object - ' . $response->getBody()->getContents());
-        }
-
-        return $json->token;
+        self::expectStatusCodes($response, 201);
+        return self::decodeToObject($response)->token;
     }
 
     /**

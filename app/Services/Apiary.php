@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\DownstreamServiceException;
 use GuzzleHttp\Client;
 
 class Apiary extends Service
@@ -11,7 +12,7 @@ class Apiary extends Service
      *
      * @var \GuzzleHttp\Client
      */
-    private $client = null;
+    private static $client = null;
 
     public static function getUser(string $username): object
     {
@@ -24,7 +25,7 @@ class Apiary extends Service
             ]
         );
 
-        self::expectResponseCodes($response, 200);
+        self::expectStatusCodes($response, 200);
 
         return self::decodeToObject($response);
     }
@@ -40,7 +41,7 @@ class Apiary extends Service
             ]
         );
 
-        self::expectResponseCodes($response, 200);
+        self::expectStatusCodes($response, 200);
 
         if ('success' !== self::decodeToObject($response)->status) {
             throw new DownstreamServiceException(

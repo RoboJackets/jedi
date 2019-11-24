@@ -35,7 +35,7 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
      */
     public function handle(): void
     {
-        Apiary::client()->setFlag($this->uid, 'github_invite_pending', $this->github_invite_pending);
+        Apiary::setFlag($this->uid, 'github_invite_pending', $this->github_invite_pending);
 
         Log::info(self::class . ': Successfully updated github_invite_pending flag for ' . $this->uid);
     }

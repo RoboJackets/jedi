@@ -14,7 +14,7 @@ class UpdateExistsInSUMSFlag extends AbstractApiaryJob
      */
     public function handle(): void
     {
-        Apiary::client()->setFlag($this->uid, 'exists_in_sums', true);
+        Apiary::setFlag($this->uid, 'exists_in_sums', true);
 
         Log::info(self::class . ': Successfully updated exists_in_sums flag for ' . $this->uid);
     }

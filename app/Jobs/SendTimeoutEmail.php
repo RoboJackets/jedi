@@ -4,6 +4,7 @@
 
 namespace App\Jobs;
 
+use App\Services\Apiary;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
@@ -37,9 +38,7 @@ class SendTimeoutEmail extends AbstractApiaryJob
      */
     public function handle(): void
     {
-        $client = self::client();
-
-        $response = $client->post(
+        $response = Apiary::client()->post(
             '/api/v1/notification/manual',
             [
                 'json' => [
