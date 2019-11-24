@@ -1,8 +1,11 @@
-<?php
+<?php declare(strict_types = 1);
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
+// phpcs:disable Squiz.Classes.ClassFileName.NoMatch
+
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFailedJobsTable extends Migration
 {
@@ -11,9 +14,9 @@ class CreateFailedJobsTable extends Migration
      *
      * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create('failed_jobs', function (Blueprint $table) {
+        Schema::create('failed_jobs', static function (Blueprint $table): void {
             $table->bigIncrements('id');
             $table->text('connection');
             $table->text('queue');
@@ -28,7 +31,7 @@ class CreateFailedJobsTable extends Migration
      *
      * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('failed_jobs');
     }
