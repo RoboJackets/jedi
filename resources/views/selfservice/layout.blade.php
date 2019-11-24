@@ -10,9 +10,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="card mt-lg-5 mt-md-3 mt-2 container" style="max-width: 42rem;">
-                    <div class="card-body pb-0">
-                        <h5 class="card-title">@yield('title')</h5>
-                        @yield('message')
+                    <div class="card-body">
+                        <h1 class="card-title">@yield('title')</h1>
+                        <p class="card-text">
+                            @yield('message')
+                        </p>
                     </div>
                 </div>
             </div>
