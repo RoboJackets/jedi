@@ -1,5 +1,8 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification
+// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+
 namespace App\Services;
 
 use GuzzleHttp\Client;
@@ -7,12 +10,16 @@ use Illuminate\Support\Facades\Cache;
 use SimpleJWT\JWT;
 use SimpleJWT\Keys\KeySet;
 use SimpleJWT\Keys\RSAKey;
-use Psr\Http\Message\ResponseInterface;
 
 class GitHub extends Service
 {
     private const FIFTY_NINE_MINUTES = 59 * 60;
 
+    /**
+     * A Guzzle client configured for GitHub
+     *
+     * @var \GuzzleHttp\Client
+     */
     private $client = null;
 
     public static function removeUserFromOrganization(string $username): void
@@ -25,7 +32,7 @@ class GitHub extends Service
 
     public static function addUserToTeam(int $team_id, string $username): void
     {
-        $response = GitHub::client()->put('/teams/' . $team_id . '/memberships/' . $username);
+        $response = self::client()->put('/teams/' . $team_id . '/memberships/' . $username);
         self::expectResponseCodes($response, 200);
     }
 
@@ -49,36 +56,46 @@ class GitHub extends Service
             }
 
             return false;
-        } else {
-            $response = self::client()->request(
-                'GET',
-                '/teams/' . $team_id . '/memberships/' . $username,
-                [
-                    'headers' => [
-                        'If-None-Match' => $etag,
-                    ],
-                ]
-            );
+        }
 
-            self::expectStatusCodes($response, 200, 304, 404);
+        $response = self::client()->request(
+            'GET',
+            '/teams/' . $team_id . '/memberships/' . $username,
+            [
+                'headers' => [
+                    'If-None-Match' => $etag,
+                ],
+            ]
+        );
 
-            if (200 === $response->getStatusCode()) {
-                $etag = $response->getHeader('ETag')[0];
+        self::expectStatusCodes($response, 200, 304, 404);
 
-                Cache::forever($etag_key, $etag);
-                return true;
-            } elseif (304 === $response->getStatusCode()) {
-                return true;
-            } elseif (404 === $response->getStatusCode()) {
-                Cache::forget($etag_key);
-                return false;
-            }
+        if (200 === $response->getStatusCode()) {
+            $etag = $response->getHeader('ETag')[0];
+
+            Cache::forever($etag_key, $etag);
+            return true;
+        }
+        if (304 === $response->getStatusCode()) {
+            return true;
+        }
+        if (404 === $response->getStatusCode()) {
+            Cache::forget($etag_key);
+            return false;
         }
     }
 
-    public static function inviteUserToOrganization(string $invitee_id, array $team_ids): void
+    /**
+     * Invite a user to the organization
+     *
+     * @param int $invitee_id the GitHub user's numeric ID
+     * @param array<int>  $team_ids   The teams to add the user to
+     *
+     * @return void
+     */
+    public static function inviteUserToOrganization(int $invitee_id, array $team_ids): void
     {
-        $response = GitHub::client()->request(
+        $response = self::client()->request(
             'POST',
             '/orgs/' . config('github.organization') . '/invitations',
             [
@@ -155,8 +172,10 @@ class GitHub extends Service
 
             if (404 === $response->getStatusCode()) {
                 throw new DownstreamServiceException(
-                    'Linked GitHub user ' . $username . ' does not exist, it may have been renamed. Admin intervention '
-                    . 'required! ' . $response->getBody()->getContents()
+                    'Linked GitHub user '
+                    . $username
+                    . ' does not exist, it may have been renamed. Admin intervention required! '
+                    . $response->getBody()->getContents()
                 );
             } else {
                 $user = self::decodeToObject($response);
@@ -219,36 +238,38 @@ class GitHub extends Service
             }
 
             return null;
-        } else {
-            $response = self::client()->request(
-                'GET',
-                '/users/' . $username,
-                [
-                    'headers' => [
-                        'If-None-Match' => $etag,
-                    ],
-                ]
-            );
+        }
 
-            self::expectStatusCodes($response, 200, 304, 404);
+        $response = self::client()->request(
+            'GET',
+            '/users/' . $username,
+            [
+                'headers' => [
+                    'If-None-Match' => $etag,
+                ],
+            ]
+        );
 
-            if (200 === $response->getStatusCode()) {
-                $membership = self::decodeToObject($response);
+        self::expectStatusCodes($response, 200, 304, 404);
 
-                $etag = $response->getHeader('ETag')[0];
+        if (200 === $response->getStatusCode()) {
+            $membership = self::decodeToObject($response);
 
-                Cache::forever($cache_key, $membership);
-                Cache::forever($etag_key, $etag);
+            $etag = $response->getHeader('ETag')[0];
 
-                return $membership;
-            } elseif (304 === $response->getStatusCode()) {
-                return $membership;
-            } elseif (404 === $response->getStatusCode()) {
-                Cache::forget($cache_key);
-                Cache::forget($etag_key);
+            Cache::forever($cache_key, $membership);
+            Cache::forever($etag_key, $etag);
 
-                return null;
-            }
+            return $membership;
+        }
+        if (304 === $response->getStatusCode()) {
+            return $membership;
+        }
+        if (404 === $response->getStatusCode()) {
+            Cache::forget($cache_key);
+            Cache::forget($etag_key);
+
+            return null;
         }
     }
 

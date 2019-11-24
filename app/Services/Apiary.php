@@ -3,14 +3,14 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
-use SimpleJWT\JWT;
-use SimpleJWT\Keys\KeySet;
-use SimpleJWT\Keys\RSAKey;
-use Psr\Http\Message\ResponseInterface;
 
 class Apiary extends Service
 {
+    /**
+     * A Guzzle client configured for Apiary
+     *
+     * @var \GuzzleHttp\Client
+     */
     private $client = null;
 
     public static function getUser(string $username): object
@@ -20,7 +20,7 @@ class Apiary extends Service
             [
                 'query' => [
                     'include' => 'teams,attendance',
-                ]
+                ],
             ]
         );
 

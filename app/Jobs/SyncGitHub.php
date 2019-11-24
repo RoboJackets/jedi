@@ -1,8 +1,5 @@
 <?php declare(strict_types = 1);
 
-// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
-// phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
-
 namespace App\Jobs;
 
 use App\Services\GitHub;

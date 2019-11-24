@@ -1,12 +1,15 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification
+
 namespace App\Services;
 
+use App\Exceptions\DownstreamServiceException;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
-use App\Exceptions\DownstreamServiceException;
 
-abstract class Service {
+abstract class Service
+{
     /**
      * Verifies that a passed ResponseInterface has an expected response code and throws an exception if not
      *
@@ -15,7 +18,8 @@ abstract class Service {
      *
      * @return void
      */
-    protected static function expectStatusCodes(ResponseInterface $response, int ...$expected): void {
+    protected static function expectStatusCodes(ResponseInterface $response, int ...$expected): void
+    {
         $received = $response->getStatusCode();
 
         if (!in_array($received, $expected)) {
@@ -26,7 +30,8 @@ abstract class Service {
         }
     }
 
-    protected static function decodeToObject(ResponseInterface $response): object {
+    protected static function decodeToObject(ResponseInterface $response): object
+    {
         $ret = json_decode($response->getBody()->getContents());
 
         if (!is_object($ret)) {
@@ -38,7 +43,8 @@ abstract class Service {
         return $ret;
     }
 
-    protected static function decodeToArray(ResponseInterface $response): array {
+    protected static function decodeToArray(ResponseInterface $response): array
+    {
         $ret = json_decode($response->getBody()->getContents());
 
         if (!is_array($ret)) {

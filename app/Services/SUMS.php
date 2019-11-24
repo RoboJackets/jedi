@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 
 class SUMS extends Service
 {
@@ -12,6 +11,11 @@ class SUMS extends Service
     public const SUCCESS = 'Success';
     public const USER_NOT_FOUND = 'User not found';
 
+    /**
+     * A Guzzle client configured for SUMS
+     *
+     * @var \GuzzleHttp\Client
+     */
     private $client = null;
 
     public static function removeUser(string $username): string
