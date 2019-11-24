@@ -120,7 +120,7 @@ class SelfServiceController extends Controller
             return view(
                 'self-service.success',
                 [
-                    'group-name-in-service' => 'group in SUMS',
+                    'group_name_in_service' => 'group in SUMS',
                 ]
             );
         }
