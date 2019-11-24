@@ -108,11 +108,13 @@ class CASAuthenticate
                 return $next($request);
             }
 
-            if ($request->ajax() || $request->wantsJson()) {
+            if (null === $request->user() && ($request->ajax() || $request->wantsJson())) {
                 abort(401);
             }
 
-            $this->cas->authenticate();
+            if (null === $request->user()) {
+                $this->cas->authenticate();
+            }
         }
 
         return $next($request);
