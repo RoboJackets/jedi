@@ -1,4 +1,4 @@
-@extends('selfservice::layout')
+@extends('self-service::layout')
 
 @section('title', 'Something went wrong')
 
