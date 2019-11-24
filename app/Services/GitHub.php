@@ -6,6 +6,7 @@
 namespace App\Services;
 
 use App\Exceptions\DownstreamServiceException;
+use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use SimpleJWT\JWT;

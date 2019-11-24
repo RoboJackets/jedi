@@ -33,7 +33,7 @@ class SUMS extends Service
             ]
         );
 
-        self::expectStatusCode(200);
+        self::expectStatusCodes($response, 200);
 
         return $response->getBody()->getContents();
     }
@@ -53,7 +53,7 @@ class SUMS extends Service
             ]
         );
 
-        self::expectStatusCode(200);
+        self::expectStatusCodes($response, 200);
 
         return $response->getBody()->getContents();
     }

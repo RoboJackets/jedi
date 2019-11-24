@@ -133,7 +133,7 @@ class SyncSUMS extends AbstractSyncJob
                     $email->last_attendance_id = $this->last_attendance_id;
                     $email->uid = $this->uid;
                     $email->save();
-                    if (self::USER_NOT_FOUND === $responseBody) {
+                    if (SUMS::USER_NOT_FOUND === $responseBody) {
                         SendTimeoutEmail::dispatch($this->uid, false);
                     } else {
                         SendTimeoutEmail::dispatch($this->uid, true);
