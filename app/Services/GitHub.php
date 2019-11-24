@@ -91,6 +91,8 @@ class GitHub extends Service
             Cache::forget($etag_key);
             return null;
         }
+
+        throw new Exception('Unreachable statement');
     }
 
     /**
@@ -279,6 +281,8 @@ class GitHub extends Service
 
             return null;
         }
+
+        throw new Exception('Unreachable statement');
     }
 
     public static function getRateLimitRemaining(): int

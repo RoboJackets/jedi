@@ -7,8 +7,8 @@ use App\Jobs\UpdateExistsInSUMSFlag;
 use App\Services\Apiary;
 use App\Services\GitHub;
 use App\Services\SUMS;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class SelfServiceController extends Controller
 {
