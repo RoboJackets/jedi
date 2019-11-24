@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 // phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
 
@@ -59,11 +61,12 @@ class CASAuthenticate
                 }
 
                 if ('duo-two-factor' !== $this->cas->getAttribute('authn_method')) {
-                    if (in_array(
-                        '/gt/central/services/iam/two-factor/duo-user',
-                        $this->cas->getAttribute('gtAccountEntitlement'),
-                        true
-                    )
+                    if (
+                        in_array(
+                            '/gt/central/services/iam/two-factor/duo-user',
+                            $this->cas->getAttribute('gtAccountEntitlement'),
+                            true
+                        )
                     ) {
                         DuoOutage::render();
                         exit;
@@ -85,7 +88,8 @@ class CASAuthenticate
                     BadNetwork::render('GTvisitor', $username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
                     exit;
                 }
-                if (NetworkCheck::EDUROAM_NON_GATECH_V4 === $network
+                if (
+                    NetworkCheck::EDUROAM_NON_GATECH_V4 === $network
                     || NetworkCheck::EDUROAM_NON_GATECH_V6 === $network
                 ) {
                     EduroamNonGatech::render($username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));

@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -94,7 +96,8 @@ class SyncController extends Controller
         }
 
         if (true === config('sums.enabled')) {
-            if (true === config('sums.attendance_timeout_enabled')
+            if (
+                true === config('sums.attendance_timeout_enabled')
                 && (true === $request->is_access_active)
                 && (null !== $request->last_attendance_time
                 && ($request->last_attendance_time < new Carbon(

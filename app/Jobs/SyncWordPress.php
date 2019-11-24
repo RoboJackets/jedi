@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -86,7 +88,8 @@ class SyncWordPress extends AbstractSyncJob
 
             if (in_array('administrator', $wp_user->roles, true)) {
                 Log::debug(self::class . ': User ' . $this->uid . ' is admin');
-                if ($wp_user->first_name === $this->first_name
+                if (
+                    $wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name . ' ' . $this->last_name
                     && $wp_user->email === $this->uid . '@gatech.edu'
@@ -116,7 +119,8 @@ class SyncWordPress extends AbstractSyncJob
                     );
                 }
             } else {
-                if ($wp_user->first_name === $this->first_name
+                if (
+                    $wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name . ' ' . $this->last_name
                     && $wp_user->email === $this->uid . '@gatech.edu'

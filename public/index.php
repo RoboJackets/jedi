@@ -1,6 +1,4 @@
-<?php declare(strict_types = 1);
-
-// phpcs:disable PEAR.Files.IncludingFile.UseIncludeOnce
+<?php
 
 /**
  * Laravel - A PHP Framework For Web Artisans
@@ -9,6 +7,10 @@
  *
  * @author Taylor Otwell <taylor@laravel.com>
  */
+
+declare(strict_types=1);
+
+// phpcs:disable PEAR.Files.IncludingFile.UseIncludeOnce
 
 /*
 |--------------------------------------------------------------------------

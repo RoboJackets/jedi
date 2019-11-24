@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -9,7 +11,9 @@ use Illuminate\Queue\InteractsWithQueue;
 
 abstract class AbstractApiaryJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable;
+    use Dispatchable;
+    use InteractsWithQueue;
+    use Queueable;
 
     /**
      * The user's GT username

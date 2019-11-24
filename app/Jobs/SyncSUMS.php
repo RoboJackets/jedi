@@ -1,4 +1,6 @@
-<?php declare(strict_types = 1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Jobs;
 
@@ -121,13 +123,14 @@ class SyncSUMS extends AbstractSyncJob
             }
 
             if ($this->should_send_email) {
-                if (0 === EmailEvent::where(
-                    'last_attendance_id',
-                    $this->last_attendance_id
-                )->where(
-                    'uid',
-                    $this->uid
-                )->count()
+                if (
+                    0 === EmailEvent::where(
+                        'last_attendance_id',
+                        $this->last_attendance_id
+                    )->where(
+                        'uid',
+                        $this->uid
+                    )->count()
                 ) {
                     $email = new EmailEvent();
                     $email->last_attendance_id = $this->last_attendance_id;
