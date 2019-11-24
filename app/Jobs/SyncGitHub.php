@@ -70,7 +70,7 @@ class SyncGitHub extends AbstractSyncJob
         if ($this->is_access_active) {
             $this->debug('Getting all teams in organization');
 
-            $teams = GitHub::getTeams()
+            $teams = GitHub::getTeams();
 
             if (null === $membership) {
                 $this->info('Not a member, building invite');

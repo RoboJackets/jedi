@@ -46,7 +46,7 @@ class Apiary extends Service
             throw new DownstreamServiceException(
                 'Apiary returned an unexpected response ' . $response->getBody()->getContents()
                 . ', expected status: success'
-            )
+            );
         }
     }
 

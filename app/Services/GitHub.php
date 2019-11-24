@@ -38,7 +38,7 @@ class GitHub extends Service
         if (null === $membership) {
             $response = self::client()->get('/teams/' . $team_id . '/memberships/' . $username);
 
-            self::expectResponseCodes($response, 200, 404)
+            self::expectResponseCodes($response, 200, 404);
 
             if (200 === $response->getStatusCode()) {
                 $etag = $response->getHeader('ETag')[0];
@@ -151,13 +151,13 @@ class GitHub extends Service
         if (null === $user) {
             $response = $client->get('/users/' . $username);
 
-            self::expectResponseCodes($response, 200, 404)
+            self::expectResponseCodes($response, 200, 404);
 
             if (404 === $response->getStatusCode()) {
                 throw new DownstreamServiceException(
                     'Linked GitHub user ' . $username . ' does not exist, it may have been renamed. Admin intervention '
                     . 'required! ' . $response->getBody()->getContents()
-                )
+                );
             } else {
                 $user = self::decodeToObject($response);
 

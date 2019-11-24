@@ -16,7 +16,7 @@ class SelfServiceController extends Controller
 
         if (! $apiary_user->user->is_access_active) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Unauthorized',
                     'message' => 'You have not paid dues, so you do not have access to GitHub right now. If you need a '
@@ -28,7 +28,7 @@ class SelfServiceController extends Controller
 
         if (0 === count($apiary_user->user->teams)) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Unauthorized',
                     'message' => 'You are not a member of any teams yet. <a href="https://my.robojackets.org/teams">'
@@ -39,7 +39,7 @@ class SelfServiceController extends Controller
 
         if (null === $apiary_user->user->github_username) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Link your GitHub account',
                     'message' => 'You have not linked your GitHub account yet. <a href="https://my.robojackets.org/'
@@ -67,7 +67,7 @@ class SelfServiceController extends Controller
 
             if (null === $github_membership) {
                 return view(
-                    'selfservice.layout'
+                    'selfservice.layout',
                     [
                         'title' => 'Something went wrong',
                         'message' => 'Please post in <a href="https://slack.com/'
@@ -84,7 +84,7 @@ class SelfServiceController extends Controller
 
         if ('active' === $github_membership->state) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'You are already a member',
                     'message' => 'You already have access to GitHub.'
@@ -93,7 +93,7 @@ class SelfServiceController extends Controller
         }
 
         return view(
-            'selfservice.layout'
+            'selfservice.layout',
             [
                 'title' => 'Something went wrong',
                 'message' => 'Please post in <a href="https://slack.com/'
@@ -111,7 +111,7 @@ class SelfServiceController extends Controller
 
         if (! $apiary_user->user->is_access_active) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Unauthorized',
                     'message' => 'You have not paid dues, so you do not have access to GitHub right now. If you need a '
@@ -123,7 +123,7 @@ class SelfServiceController extends Controller
 
         if (0 === count($apiary_user->user->teams)) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Unauthorized',
                     'message' => 'You are not a member of any teams yet. <a href="https://my.robojackets.org/teams">'
@@ -145,7 +145,7 @@ class SelfServiceController extends Controller
 
         if (0 === count($recent_attendance)) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Unauthorized',
                     'message' => 'You have not swiped in at the shop recently, so you do not have access to SUMS right '
@@ -158,7 +158,7 @@ class SelfServiceController extends Controller
 
         if (SUMS::SUCCESS === $response) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'Success!',
                     'message' => 'You have been added as a member of the RoboJackets group in SUMS.'
@@ -166,7 +166,7 @@ class SelfServiceController extends Controller
             );
         } elseif (SUMS::MEMBER_EXISTS === $response) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'You are already a member',
                     'message' => 'You already have access to SUMS.'
@@ -174,7 +174,7 @@ class SelfServiceController extends Controller
             );
         } elseif (SUMS::USER_NOT_FOUND === $response) {
             return view(
-                'selfservice.layout'
+                'selfservice.layout',
                 [
                     'title' => 'You don\'t have a SUMS account',
                     'message' => 'You need to log in once to create an account before you can be added to the '
@@ -185,7 +185,7 @@ class SelfServiceController extends Controller
         }
 
         return view(
-            'selfservice.layout'
+            'selfservice.layout',
             [
                 'title' => 'Something went wrong',
                 'message' => 'Please post in <a href="https://slack.com/'
