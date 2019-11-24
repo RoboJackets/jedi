@@ -15,6 +15,9 @@
                         <p class="card-text">
                             @yield('message')
                         </p>
+                        <p class="card-text">
+                            If you have any questions, please post in <a href="https://slack.com/app_redirect?team=T033JPZLT&channel=C29Q3D8K0">#it-helpdesk</a> on Slack.
+                        </p>
                     </div>
                 </div>
             </div>
