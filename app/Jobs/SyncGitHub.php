@@ -99,7 +99,7 @@ class SyncGitHub extends AbstractSyncJob
 
                     $this->debug('User should be in team ' . $team->name . ', checking membership');
 
-                    if (GitHub::getTeamMembership($team->id, $this->github_username)) {
+                    if (null !== GitHub::getTeamMembership($team->id, $this->github_username)) {
                         $this->debug('User already in team ' . $team->name);
                         continue;
                     }

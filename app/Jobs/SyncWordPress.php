@@ -81,10 +81,10 @@ class SyncWordPress extends AbstractSyncJob
             );
         }
 
-        if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams)) {
+        if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams, true)) {
             Log::info(self::class . ': Enabling user ' . $this->uid);
 
-            if (in_array('administrator', $wp_user->roles)) {
+            if (in_array('administrator', $wp_user->roles, true)) {
                 Log::debug(self::class . ': User ' . $this->uid . ' is admin');
                 if ($wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name

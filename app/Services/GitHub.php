@@ -24,7 +24,7 @@ class GitHub extends Service
 
     public static function removeUserFromOrganization(string $username): void
     {
-        $response = $client->delete(
+        $response = self::client()->delete(
             '/orgs/' . config('github.organization') . '/memberships/' . $username
         );
         self::expectResponseCodes($response, 204);
@@ -36,26 +36,29 @@ class GitHub extends Service
         self::expectResponseCodes($response, 200);
     }
 
-    public static function getTeamMembership(int $team_id, string $username): bool
+    public static function getTeamMembership(int $team_id, string $username): ?object
     {
+        $cache_key = 'github_team_' . $team_id . '_member_' . $username;
         $etag_key = 'github_team_' . $team_id . '_member_' . $username . '_etag';
 
+        $membership = Cache::get($cache_key);
         $etag = Cache::get($etag_key);
 
         if (null === $membership) {
             $response = self::client()->get('/teams/' . $team_id . '/memberships/' . $username);
 
             self::expectResponseCodes($response, 200, 404);
+            $membership = self::decodeToObject($response);
 
             if (200 === $response->getStatusCode()) {
                 $etag = $response->getHeader('ETag')[0];
 
-                Cache::forever($cache_key, $user);
+                Cache::forever($cache_key, $membership);
                 Cache::forever($etag_key, $etag);
-                return true;
+                return $membership;
             }
 
-            return false;
+            return null;
         }
 
         $response = self::client()->request(
@@ -71,17 +74,20 @@ class GitHub extends Service
         self::expectStatusCodes($response, 200, 304, 404);
 
         if (200 === $response->getStatusCode()) {
+            $membership = self::decodeToObject($response);
             $etag = $response->getHeader('ETag')[0];
 
+            Cache::forever($cache_key, $membership);
             Cache::forever($etag_key, $etag);
-            return true;
+            return $membership;
         }
         if (304 === $response->getStatusCode()) {
-            return true;
+            return $membership;
         }
         if (404 === $response->getStatusCode()) {
+            Cache::forget($cache_key);
             Cache::forget($etag_key);
-            return false;
+            return null;
         }
     }
 

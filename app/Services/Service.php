@@ -22,7 +22,7 @@ abstract class Service
     {
         $received = $response->getStatusCode();
 
-        if (!in_array($received, $expected)) {
+        if (!in_array($received, $expected, true)) {
             throw new DownstreamServiceException(
                 'Service returned unexpected HTTP response code ' . $received . ', expected '
                 . implode(' or ', $expected) . ', response body: ' . $response->getBody()->getContents()

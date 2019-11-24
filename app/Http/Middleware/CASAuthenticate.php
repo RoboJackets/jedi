@@ -15,6 +15,10 @@ use RoboJackets\ErrorPages\EduroamISSDisabled;
 use RoboJackets\ErrorPages\EduroamNonGatech;
 use RoboJackets\ErrorPages\UsernameContainsDomain;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.ExitExpression)
+ */
 class CASAuthenticate
 {
     /**
@@ -54,7 +58,8 @@ class CASAuthenticate
                 if ('duo-two-factor' !== $this->cas->getAttribute('authn_method')) {
                     if (in_array(
                         '/gt/central/services/iam/two-factor/duo-user',
-                        $this->cas->getAttribute('gtAccountEntitlement')
+                        $this->cas->getAttribute('gtAccountEntitlement'),
+                        true
                     )
                     ) {
                         DuoOutage::render();
