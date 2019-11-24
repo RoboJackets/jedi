@@ -15,6 +15,9 @@ class RenameUserActiveColumnToAdmin extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('active', 'admin');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->boolean('admin')->default(false)->change();
         });
     }
@@ -28,6 +31,9 @@ class RenameUserActiveColumnToAdmin extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('admin', 'active');
+        });
+
+        Schema::table('users', function (Blueprint $table) {
             $table->boolean('active')->default(true)->change();
         });
     }
