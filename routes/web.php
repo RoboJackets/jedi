@@ -14,6 +14,6 @@ use App\Http\Controllers\SelfServiceController;
 */
 
 Route::group(['prefix' => 'self-service/', 'middleware' => ['auth.cas']], static function (): void {
-    Route::post('/github', [SelfServiceController::class, 'github']);
-    Route::post('/sums', [SelfServiceController::class, 'sums']);
+    Route::get('/github', [SelfServiceController::class, 'github']);
+    Route::get('/sums', [SelfServiceController::class, 'sums']);
 });
