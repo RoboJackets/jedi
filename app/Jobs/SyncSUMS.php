@@ -6,14 +6,10 @@ use App\EmailEvent;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
+use App\Services\SUMS;
 
 class SyncSUMS extends AbstractSyncJob
 {
-    private const MEMBER_EXISTS = 'BG member already exists';
-    private const MEMBER_NOT_EXISTS = 'BG member does not exist';
-    private const SUCCESS = 'Success';
-    private const USER_NOT_FOUND = 'User not found';
-
     /**
      * The queue this job will run on
      *
@@ -78,39 +74,10 @@ class SyncSUMS extends AbstractSyncJob
             return;
         }
 
-        $client = new Client(
-            [
-                'base_uri' => config('sums.server') . '/SUMSAPI/rest/BillingGroupEdit/',
-                'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
-                ],
-                'allow_redirects' => false,
-            ]
-        );
-
         if ($this->is_access_active) {
             Log::info(self::class . ': Enabling ' . $this->uid);
 
-            $response = $client->get(
-                'EditPeople',
-                [
-                    'query' => [
-                        'UserName' => $this->uid,
-                        'BillingGroupId' => config('sums.billinggroupid'),
-                        'isRemove' => 'false',
-                        'isListMembers' => 'false',
-                        'Key' => config('sums.token'),
-                    ],
-                ]
-            );
-
-            if (200 !== $response->getStatusCode()) {
-                throw new Exception(
-                    'SUMS returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
-                );
-            }
-
-            $responseBody = $response->getBody()->getContents();
+            $responseBody = SUMS::addUser($this->uid);
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Enabled ' . $this->uid);
@@ -133,26 +100,7 @@ class SyncSUMS extends AbstractSyncJob
         } else {
             Log::info(self::class . ': Disabling ' . $this->uid);
 
-            $response = $client->get(
-                'EditPeople',
-                [
-                    'query' => [
-                        'UserName' => $this->uid,
-                        'BillingGroupId' => config('sums.billinggroupid'),
-                        'isRemove' => 'true',
-                        'isListMembers' => 'false',
-                        'Key' => config('sums.token'),
-                    ],
-                ]
-            );
-
-            if (200 !== $response->getStatusCode()) {
-                throw new Exception(
-                    'SUMS returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
-                );
-            }
-
-            $responseBody = $response->getBody()->getContents();
+            $responseBody = SUMS::removeUser($this->uid);
 
             if (self::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Disabled ' . $this->uid);

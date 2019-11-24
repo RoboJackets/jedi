@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "f4ecb73df5bcc3e8fdcff6ded12b6c1c",
+    "content-hash": "e31a1a6f8b8faacaec1cc16cd927abc5",
     "packages": [
         {
             "name": "apereo/phpcas",
@@ -2588,28 +2588,35 @@
             "time": "2018-07-19T23:38:55+00:00"
         },
         {
-            "name": "robojackets/vault-sdk",
-            "version": "v1.2.6",
+            "name": "robojackets/error-pages",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
-                "url": "https://github.gatech.edu/RoboJackets/vault-sdk.git",
-                "reference": "6a713c1de2dd18860a6eb387331dd091fa18b948"
+                "url": "https://github.gatech.edu/RoboJackets/error-pages.git",
+                "reference": "ad32dc756eff9a5ae11b6efd1bb4fc621d42ac3a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://packages.robojackets.org/dist/robojackets/vault-sdk/robojackets-vault-sdk-v1.2.6-3da794.zip",
-                "reference": "6a713c1de2dd18860a6eb387331dd091fa18b948",
-                "shasum": "5606ae68b17d130681078e1b1d1c212c33e9fb64"
+                "url": "https://packages.robojackets.org/dist/robojackets/error-pages/robojackets-error-pages-v2.0.0-229008.zip",
+                "reference": "ad32dc756eff9a5ae11b6efd1bb4fc621d42ac3a",
+                "shasum": "f995ee107a3de9549ae5fc258e1d24d425de0c09"
             },
             "require": {
-                "ext-soap": "*",
-                "php": ">=7.2"
+                "twig/twig": "^2.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "RoboJackets\\Vault\\": "src/"
+                    "RoboJackets\\ErrorPages\\": "src/"
                 }
+            },
+            "scripts": {
+                "post-install-cmd": [
+                    "rm composer.lock"
+                ],
+                "post-update-cmd": [
+                    "rm composer.lock"
+                ]
             },
             "license": [
                 "MIT"
@@ -2621,9 +2628,9 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Utility class for interacting with Autodesk Vault Server",
-            "homepage": "https://github.gatech.edu/RoboJackets/vault-sdk",
-            "time": "2019-07-04T02:50:13+00:00"
+            "description": "Error pages shared across authentication plugins",
+            "homepage": "https://github.gatech.edu/RoboJackets/error-pages",
+            "time": "2019-09-21T21:59:14+00:00"
         },
         {
             "name": "spatie/laravel-failed-job-monitor",
@@ -4224,6 +4231,73 @@
             "description": "CssToInlineStyles is a class that enables you to convert HTML-pages/files into HTML-pages/files with inline styles. This is very useful when you're sending emails.",
             "homepage": "https://github.com/tijsverkoyen/CssToInlineStyles",
             "time": "2017-11-27T11:13:29+00:00"
+        },
+        {
+            "name": "twig/twig",
+            "version": "v2.12.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
+                "reference": "d761fd1f1c6b867ae09a7d8119a6d95d06dc44ed",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "symfony/polyfill-ctype": "^1.8",
+                "symfony/polyfill-mbstring": "^1.3"
+            },
+            "require-dev": {
+                "psr/container": "^1.0",
+                "symfony/debug": "^3.4|^4.2",
+                "symfony/phpunit-bridge": "^4.4@dev|^5.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.12-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                },
+                "psr-4": {
+                    "Twig\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "https://twig.symfony.com/contributors",
+                    "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "https://twig.symfony.com",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2019-11-11T16:52:09+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

@@ -9,7 +9,6 @@ return [
 
     'exclude_analysis_directory_list' => [
         'vendor/',
-        'database/',
     ],
 
     'suppress_issue_types' => [

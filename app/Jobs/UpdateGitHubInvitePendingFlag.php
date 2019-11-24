@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
+use App\Services\Apiary;
 
 class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
 {
@@ -35,32 +36,7 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
      */
     public function handle(): void
     {
-        $client = self::client();
-
-        $response = $client->put(
-            '/api/v1/users/' . $this->uid,
-            [
-                'json' => [
-                    'github_invite_pending' => $this->github_invite_pending,
-                ],
-            ]
-        );
-
-        if (200 !== $response->getStatusCode()) {
-            throw new Exception(
-                'Apiary returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
-            );
-        }
-
-        $responseBody = $response->getBody()->getContents();
-
-        $json = json_decode($responseBody);
-
-        if ('success' !== $json->status) {
-            throw new Exception(
-                'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
-            );
-        }
+        Apiary::client()->setFlag($this->uid, 'github_invite_pending', $this->github_invite_pending);
 
         Log::info(self::class . ': Successfully updated github_invite_pending flag for ' . $this->uid);
     }

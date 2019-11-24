@@ -5,18 +5,14 @@
 
 namespace App\Jobs;
 
+use App\Services\GitHub;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use SimpleJWT\JWT;
-use SimpleJWT\Keys\KeySet;
-use SimpleJWT\Keys\RSAKey;
 
 class SyncGitHub extends AbstractSyncJob
 {
-    private const FIFTY_NINE_MINUTES = 59 * 60;
-
     /**
      * The queue this job will run on
      *
@@ -43,13 +39,11 @@ class SyncGitHub extends AbstractSyncJob
      */
     protected function __construct(
         string $uid,
-        string $first_name,
-        string $last_name,
         bool $is_access_active,
         array $teams,
         string $github_username
     ) {
-        parent::__construct($uid, $first_name, $last_name, $is_access_active, $teams);
+        parent::__construct($uid, '', '', $is_access_active, $teams);
 
         $this->github_username = $github_username;
     }
@@ -61,126 +55,25 @@ class SyncGitHub extends AbstractSyncJob
      */
     public function handle(): void
     {
-        $token = Cache::get('github_installation_token');
-
-        if (null === $token) {
-            $token = self::getInstallationToken();
-            Cache::put('github_installation_token', $token, self::FIFTY_NINE_MINUTES);
-        }
-
-        $client = new Client(
-            [
-                'base_uri' => 'https://api.github.com',
-                'headers' => [
-                    'User-Agent' => 'GitHub App ID ' . config('github.app_id'),
-                    'Authorization' => 'Bearer ' . $token,
-                ],
-                'allow_redirects' => false,
-                'http_errors' => false,
-            ]
-        );
-
-        $response = $client->get('/rate_limit');
-
-        if (intval($response->getHeader('X-RateLimit-Remaining')[0]) < 10) {
+        if (GitHub::getRateLimitRemaining() < 10) {
             throw new Exception('Aborting job as we are near the rate limit');
         }
 
+        $this->debug('Getting user');
+
+        $user = GitHub::getUser($this->github_username);
+
         $this->debug('Getting membership status');
 
-        $response = $client->get(
-            '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
-        );
-
-        $json = json_decode($response->getBody()->getContents());
-
-        if (!is_object($json)) {
-            throw new Exception('GitHub did not return an object');
-        }
+        $membership = GitHub::getOrganizationMembership($this->github_username);
 
         if ($this->is_access_active) {
             $this->debug('Getting all teams in organization');
 
-            $teams = Cache::get('github_teams');
-            $etag = Cache::get('github_teams_etag');
+            $teams = GitHub::getTeams()
 
-            if (null === $teams) {
-                $response = $client->get('/orgs/' . config('github.organization') . '/teams');
-                if (200 !== $response->getStatusCode()) {
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 - ' . $response->getBody()->getContents()
-                    );
-                }
-
-                $teams = json_decode($response->getBody()->getContents());
-
-                if (!is_array($teams)) {
-                    throw new Exception('GitHub did not return an array - ' . $response->getBody()->getContents());
-                }
-
-                $etag = $response->getHeader('ETag')[0];
-
-                Cache::forever('github_teams', $teams);
-                Cache::forever('github_teams_etag', $etag);
-            } else {
-                $response = $client->request(
-                    'GET',
-                    '/orgs/' . config('github.organization') . '/teams',
-                    [
-                        'headers' => [
-                            'If-None-Match' => $etag,
-                        ],
-                    ]
-                );
-
-                if (200 === $response->getStatusCode()) {
-                    $teams = json_decode($response->getBody()->getContents());
-
-                    if (!is_array($teams)) {
-                        throw new Exception('GitHub did not return an array - ' . $response->getBody()->getContents());
-                    }
-
-                    $etag = $response->getHeader('ETag')[0];
-
-                    Cache::forever('github_teams', $teams);
-                    Cache::forever('github_teams_etag', $etag);
-                } elseif (304 !== $response->getStatusCode()) {
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 or 304 - ' . $response->getBody()->getContents()
-                    );
-                }
-            }
-
-            $response = $client->get(
-                '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
-            );
-
-            if (404 === $response->getStatusCode()) {
+            if (null === $membership) {
                 $this->info('Not a member, building invite');
-                $response = $client->get('/users/' . $this->github_username);
-
-                if (200 !== $response->getStatusCode()) {
-                    if (404 === $response->getStatusCode()) {
-                        throw new Exception(
-                            'Linked account does not exist; it may have been renamed. Administrator investigation '
-                            . 'required! Response from GitHub: ' . $response->getBody()->getContents()
-                        );
-                    }
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 - ' . $response->getBody()->getContents()
-                    );
-                }
-
-                $user = json_decode($response->getBody()->getContents());
-
-                if (!is_object($user)) {
-                    throw new Exception('GitHub did not return an object - ' . $response->getBody()->getContents());
-                }
-
-                $invitee_id = $user->id;
 
                 $team_ids = [];
 
@@ -193,30 +86,18 @@ class SyncGitHub extends AbstractSyncJob
                     $team_ids[] = $team->id;
                 }
 
-                $response = $client->request(
-                    'POST',
-                    '/orgs/' . config('github.organization') . '/invitations',
-                    [
-                        'json' => [
-                            'invitee_id' => $invitee_id,
-                            'team_ids' => $team_ids,
-                        ],
-                        'headers' => [
-                            'Accept' => 'application/vnd.github.dazzler-preview+json',
-                            'Authorization' => 'Bearer ' . config('github.admin_token'),
-                        ],
-                    ]
-                );
-
-                if (201 !== $response->getStatusCode()) {
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 201 - ' . $response->getBody()->getContents()
+                if (0 === count($team_ids)) {
+                    $this->warning(
+                        'User would have access to GitHub but is not a member of any teams in Apiary, '
+                        . 'not sending invitation'
                     );
+                    return;
                 }
 
+                GitHub::inviteUserToOrganization($user->id, $team_ids);
+
                 $this->info('Invite sent successfully');
-            } elseif (200 === $response->getStatusCode()) {
+            } else {
                 $this->info('User is in the organization');
 
                 foreach ($teams as $team) {
@@ -225,162 +106,40 @@ class SyncGitHub extends AbstractSyncJob
                     }
 
                     $this->debug('User should be in team ' . $team->name . ', checking membership');
-                    $response = $client->get('/teams/' . $team->id . '/memberships/' . $this->github_username);
 
-                    if (200 === $response->getStatusCode()) {
+                    if (GitHub::getTeamMembership($team->id, $this->github_username)) {
                         $this->debug('User already in team ' . $team->name);
                         continue;
-                    }
-
-                    if (404 === $response->getStatusCode()) {
+                    } else {
                         $this->info('Adding user to team ' . $team->name);
-                        $response = $client->put('/teams/' . $team->id . '/memberships/' . $this->github_username);
-
-                        if (200 !== $response->getStatusCode()) {
-                            throw new Exception(
-                                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                                    . ', expected 200 - ' . $response->getBody()->getContents()
-                            );
-                        }
-
+                        GitHub::addUserToTeam($team->id, $this->github_username);
                         continue;
                     }
-
-                    throw new Exception(
-                        'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                            . ', expected 200 or 404 - ' . $response->getBody()->getContents()
-                    );
                 }
-            } else {
-                throw new Exception(
-                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                        . ', expected 200 or 404 - ' . $response->getBody()->getContents()
-                );
             }
 
             return;
         }
 
-        if (404 === $response->getStatusCode()) {
-            $this->info('GitHub says user is not in the organization, making sure the account exists...');
-            $response = $client->get('/users/' . $this->github_username);
-
-            if (200 !== $response->getStatusCode()) {
-                if (404 === $response->getStatusCode()) {
-                    throw new Exception(
-                        'Linked account does not exist; it may have been renamed. Administrator '
-                        . 'investigation required! Response from GitHub: ' . $response->getBody()->getContents()
-                    );
-                }
-                throw new Exception(
-                    'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                        . ', expected 200 - ' . $response->getBody()->getContents()
-                );
-            }
-
-            $this->info('not a member and shouldn\'t be - nothing to do');
-            return;
+        if (null !== $membership) {
+            GitHub::removeUserFromOrganization($this->github_username);
+            $this->info('successfully removed from organization');
         }
-
-        if (200 === $response->getStatusCode()) {
-            $response = $client->delete(
-                '/orgs/' . config('github.organization') . '/memberships/' . $this->github_username
-            );
-
-            if (204 === $response->getStatusCode()) {
-                $this->info('successfully removed from organization');
-                return;
-            }
-
-            throw new Exception(
-                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                    . ', expected 204 - ' . $response->getBody()->getContents()
-            );
-        }
-
-        throw new Exception(
-            'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                . ', expected 200 or 404 - ' . $response->getBody()->getContents()
-        );
     }
 
-    /**
-     * Fetches a new installation token to authenticate to the API as the GitHub App
-     *
-     * @return string
-     */
-    private static function getInstallationToken(): string
+    private function warning(string $message): void
     {
-        $jwt = self::generateJWT();
-
-        $client = new Client(
-            [
-                'base_uri' => 'https://api.github.com',
-                'headers' => [
-                    'User-Agent' => 'GitHub App ID ' . config('github.app_id'),
-                    'Authorization' => 'Bearer ' . $jwt,
-                    'Accept' => 'application/vnd.github.machine-man-preview+json',
-                ],
-                'allow_redirects' => false,
-            ]
-        );
-
-        $response = $client->post('/app/installations/' . config('github.installation_id') . '/access_tokens');
-
-        if (201 !== $response->getStatusCode()) {
-            throw new Exception(
-                'GitHub returned an unexpected HTTP response code ' . $response->getStatusCode()
-                    . ', expected 201 - ' . $response->getBody()->getContents()
-            );
-        }
-
-        $json = json_decode($response->getBody()->getContents());
-
-        if (!is_object($json)) {
-            throw new Exception('GitHub did not return an object - ' . $response->getBody()->getContents());
-        }
-
-        return $json->token;
-    }
-
-    /**
-     * Generate a new JWT to authenticate to the API as the GitHub App
-     *
-     * @return string
-     */
-    private static function generateJWT(): string
-    {
-        $set = new KeySet();
-
-        $filename = config('github.private_key');
-
-        if (!is_string($filename)) {
-            throw new Exception('Private key path is not string');
-        }
-
-        $pem = file_get_contents($filename);
-
-        if (false === $pem) {
-            throw new Exception('Could not read private key');
-        }
-
-        $set->add(new RSAKey($pem, 'pem'));
-
-        $headers = ['alg' => 'RS256', 'typ' => 'JWT'];
-        $claims = ['iss' => config('github.app_id'), 'exp' => time() + 5];
-        $jwt = new JWT($headers, $claims);
-
-        return $jwt->encode($set);
+        Log::warning($this->jobDetails() . $message);
     }
 
     private function debug(string $message): void
     {
-        Log::debug(self::jobDetails() . $message);
+        Log::debug($this->jobDetails() . $message);
     }
 
     private function info(string $message): void
     {
-        Log::info(self::jobDetails() . $message);
+        Log::info($this->jobDetails() . $message);
     }
 
     private function jobDetails(): string

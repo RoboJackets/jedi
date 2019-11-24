@@ -6,7 +6,6 @@ use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
-use App\Jobs\SyncVault;
 use App\Jobs\SyncWordPress;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
@@ -78,8 +77,6 @@ class SyncController extends Controller
         if (true === config('github.enabled') && $request->filled('github_username')) {
             SyncGitHub::dispatch(
                 $request->uid,
-                $request->first_name,
-                $request->last_name,
                 $request->is_access_active,
                 $request->teams,
                 $request->github_username
@@ -123,16 +120,6 @@ class SyncController extends Controller
                     $request->exists_in_sums
                 );
             }
-        }
-
-        if (true === config('vault.enabled')) {
-            SyncVault::dispatch(
-                $request->uid,
-                $request->first_name,
-                $request->last_name,
-                $request->is_access_active,
-                $request->teams
-            );
         }
 
         if (true === config('wordpress.enabled')) {

@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+use App\Http\Controllers\SelfServiceController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,3 +12,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::group(['prefix' => 'self-service/', 'middleware' => ['auth.cas']], static function (): void {
+    Route::post('/github', [SelfServiceController::class, 'github']);
+    Route::post('/sums', [SelfServiceController::class, 'sums']);
+});

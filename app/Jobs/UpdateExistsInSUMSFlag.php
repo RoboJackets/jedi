@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use Exception;
 use Illuminate\Support\Facades\Log;
+use App\Services\Apiary;
 
 class UpdateExistsInSUMSFlag extends AbstractApiaryJob
 {
@@ -14,32 +15,7 @@ class UpdateExistsInSUMSFlag extends AbstractApiaryJob
      */
     public function handle(): void
     {
-        $client = self::client();
-
-        $response = $client->put(
-            '/api/v1/users/' . $this->uid,
-            [
-                'json' => [
-                    'exists_in_sums' => true,
-                ],
-            ]
-        );
-
-        if (200 !== $response->getStatusCode()) {
-            throw new Exception(
-                'Apiary returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
-            );
-        }
-
-        $responseBody = $response->getBody()->getContents();
-
-        $json = json_decode($responseBody);
-
-        if ('success' !== $json->status) {
-            throw new Exception(
-                'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
-            );
-        }
+        Apiary::client()->setFlag($this->uid, 'exists_in_sums', true);
 
         Log::info(self::class . ': Successfully updated exists_in_sums flag for ' . $this->uid);
     }

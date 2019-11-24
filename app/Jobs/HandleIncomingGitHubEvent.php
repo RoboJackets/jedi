@@ -7,6 +7,7 @@ namespace App\Jobs;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\ProcessWebhookJob;
+use App\Services\Apiary;
 
 class HandleIncomingGitHubEvent extends ProcessWebhookJob
 {
@@ -47,9 +48,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         Log::info(self::class . ' Received ' . $action . ' event regarding GitHub user ' . $github_username);
 
         # Get GT username from Apiary
-        $client = AbstractApiaryJob::client();
-
-        $response = $client->get(
+        $response = Apiary::client()->get(
             '/api/v1/users/search',
             [
                 'query' => [

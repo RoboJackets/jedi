@@ -26,21 +26,6 @@ abstract class AbstractApiaryJob implements ShouldQueue
      */
     public $tries = 1;
 
-    public static function client(): Client
-    {
-        return new Client(
-            [
-                'base_uri' => config('apiary.server'),
-                'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
-                    'Authorization' => 'Bearer ' . config('apiary.token'),
-                    'Accept' => 'application/json',
-                ],
-                'allow_redirects' => false,
-            ]
-        );
-    }
-
     /**
      * Create a new job instance
      *
