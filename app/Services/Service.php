@@ -18,7 +18,6 @@ abstract class Service
      *
      * @return void
      *
-     * Analyzers disagree on how to annotate $expected
      * @phan-suppress PhanTypeMismatchDeclaredParam
      */
     protected static function expectStatusCodes(ResponseInterface $response, int ...$expected): void
