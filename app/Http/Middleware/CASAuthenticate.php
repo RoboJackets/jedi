@@ -13,7 +13,6 @@ use RoboJackets\ErrorPages\DuoNotEnabled;
 use RoboJackets\ErrorPages\DuoOutage;
 use RoboJackets\ErrorPages\EduroamISSDisabled;
 use RoboJackets\ErrorPages\EduroamNonGatech;
-use RoboJackets\ErrorPages\Unauthorized;
 use RoboJackets\ErrorPages\UsernameContainsDomain;
 
 class CASAuthenticate

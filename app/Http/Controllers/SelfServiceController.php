@@ -12,7 +12,8 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with GitHub.
      *
-     * @param  Request $request The incoming request
+     * @param Request $request The incoming request
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function github(Request $request)
@@ -63,7 +64,7 @@ class SelfServiceController extends Controller
             return view(
                 'self-service.already-member',
                 [
-                    'service' => 'GitHub'
+                    'service' => 'GitHub',
                 ]
             );
         }
@@ -74,7 +75,8 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with SUMS.
      *
-     * @param  Request $request The incoming request
+     * @param Request $request The incoming request
+     *
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function sums(Request $request)
@@ -116,15 +118,17 @@ class SelfServiceController extends Controller
                     'group-name-in-service' => 'group in SUMS',
                 ]
             );
-        } elseif (SUMS::MEMBER_EXISTS === $response) {
+        }
+        if (SUMS::MEMBER_EXISTS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);
             return view(
                 'self-service.already-member',
                 [
-                    'service' => 'SUMS'
+                    'service' => 'SUMS',
                 ]
             );
-        } elseif (SUMS::USER_NOT_FOUND === $response) {
+        }
+        if (SUMS::USER_NOT_FOUND === $response) {
             return view('self-service.need-sums-account');
         }
 

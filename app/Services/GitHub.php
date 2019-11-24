@@ -177,14 +177,14 @@ class GitHub extends Service
                     . ' does not exist, it may have been renamed. Admin intervention required! '
                     . $response->getBody()->getContents()
                 );
-            } else {
-                $user = self::decodeToObject($response);
-
-                $etag = $response->getHeader('ETag')[0];
-
-                Cache::forever($cache_key, $user);
-                Cache::forever($etag_key, $etag);
             }
+
+            $user = self::decodeToObject($response);
+
+            $etag = $response->getHeader('ETag')[0];
+
+            Cache::forever($cache_key, $user);
+            Cache::forever($etag_key, $etag);
         } else {
             $response = self::client()->request(
                 'GET',

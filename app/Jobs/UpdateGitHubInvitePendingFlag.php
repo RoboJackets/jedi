@@ -2,9 +2,8 @@
 
 namespace App\Jobs;
 
-use Exception;
-use Illuminate\Support\Facades\Log;
 use App\Services\Apiary;
+use Illuminate\Support\Facades\Log;
 
 class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
 {

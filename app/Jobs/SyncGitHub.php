@@ -4,8 +4,6 @@ namespace App\Jobs;
 
 use App\Services\GitHub;
 use Exception;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class SyncGitHub extends AbstractSyncJob
@@ -84,10 +82,7 @@ class SyncGitHub extends AbstractSyncJob
                 }
 
                 if (0 === count($team_ids)) {
-                    $this->warning(
-                        'User would have access to GitHub but is not a member of any teams in Apiary, '
-                        . 'not sending invitation'
-                    );
+                    $this->warning('User is not a member of any teams in Apiary, not sending invitation');
                     return;
                 }
 
@@ -107,21 +102,22 @@ class SyncGitHub extends AbstractSyncJob
                     if (GitHub::getTeamMembership($team->id, $this->github_username)) {
                         $this->debug('User already in team ' . $team->name);
                         continue;
-                    } else {
-                        $this->info('Adding user to team ' . $team->name);
-                        GitHub::addUserToTeam($team->id, $this->github_username);
-                        continue;
                     }
+
+                    $this->info('Adding user to team ' . $team->name);
+                    GitHub::addUserToTeam($team->id, $this->github_username);
                 }
             }
 
             return;
         }
 
-        if (null !== $membership) {
-            GitHub::removeUserFromOrganization($this->github_username);
-            $this->info('successfully removed from organization');
+        if (null === $membership) {
+            return;
         }
+
+        GitHub::removeUserFromOrganization($this->github_username);
+        $this->info('successfully removed from organization');
     }
 
     private function warning(string $message): void

@@ -4,10 +4,10 @@
 
 namespace App\Jobs;
 
+use App\Services\Apiary;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Spatie\WebhookClient\ProcessWebhookJob;
-use App\Services\Apiary;
 
 class HandleIncomingGitHubEvent extends ProcessWebhookJob
 {

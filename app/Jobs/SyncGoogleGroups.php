@@ -1,5 +1,8 @@
 <?php declare(strict_types = 1);
 
+// phpcs:disable Generic.CodeAnalysis.UnusedFunctionParameter
+// phpcs:disable SlevomatCodingStandard.Functions.UnusedParameter
+
 namespace App\Jobs;
 
 use Exception;
@@ -77,8 +80,9 @@ class SyncGoogleGroups extends AbstractSyncJob
             return $this->getAllGroups();
         });
         // Get the groups that the user should be in
+        $user_teams = $this->teams;
         // @phan-suppress-next-line PhanUnusedClosureParameter
-        $activeGroups = $allGroups->filter(function ($group, $team) {
+        $activeGroups = $allGroups->filter(static function ($group, $team) use ($user_teams): bool {
             return in_array($team, $this->teams);
         });
 

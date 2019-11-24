@@ -3,10 +3,9 @@
 namespace App\Jobs;
 
 use App\EmailEvent;
-use Exception;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Log;
 use App\Services\SUMS;
+use Exception;
+use Illuminate\Support\Facades\Log;
 
 class SyncSUMS extends AbstractSyncJob
 {
