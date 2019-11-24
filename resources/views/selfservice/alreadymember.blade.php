@@ -1,4 +1,4 @@
-@extends('self-service::layout')
+@extends('selfservice/layout')
 
 @section('title', 'You\'re already a member')
 
