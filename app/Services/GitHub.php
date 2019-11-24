@@ -254,7 +254,7 @@ class GitHub extends Service
 
         $response = self::client()->request(
             'GET',
-            '/orgs/' . config('github.organization') . '/memberships/' . $username
+            '/orgs/' . config('github.organization') . '/memberships/' . $username,
             [
                 'headers' => [
                     'If-None-Match' => $etag,
