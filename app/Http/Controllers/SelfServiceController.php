@@ -28,11 +28,11 @@ class SelfServiceController extends Controller
         $apiary_user = Apiary::getUser($username);
 
         if (! $apiary_user->user->is_access_active) {
-            return view('self-service.unpaid-dues');
+            return view('selfservice.unpaiddues');
         }
 
         if (0 === count($apiary_user->user->teams)) {
-            return view('self-service.no-teams');
+            return view('selfservice.noteams');
         }
 
         if (null === $apiary_user->user->github_username) {
@@ -57,7 +57,7 @@ class SelfServiceController extends Controller
             $github_membership = GitHub::getOrganizationMembership($apiary_user->user->github_username);
 
             if (null === $github_membership) {
-                return view('self-service.error');
+                return view('selfservice.error');
             }
         }
 
@@ -67,14 +67,14 @@ class SelfServiceController extends Controller
 
         if ('active' === $github_membership->state) {
             return view(
-                'self-service.already-member',
+                'selfservice.alreadymember',
                 [
                     'service' => 'GitHub',
                 ]
             );
         }
 
-        return view('self-service.error');
+        return view('selfservice.error');
     }
 
     /**
@@ -91,11 +91,11 @@ class SelfServiceController extends Controller
         $apiary_user = Apiary::getUser($username);
 
         if (! $apiary_user->user->is_access_active) {
-            return view('self-service.unpaid-dues');
+            return view('selfservice.unpaiddues');
         }
 
         if (0 === count($apiary_user->user->teams)) {
-            return view('self-service.no-teams');
+            return view('selfservice.noteams');
         }
 
         $recent_attendance = array_filter(
@@ -110,7 +110,7 @@ class SelfServiceController extends Controller
         );
 
         if (0 === count($recent_attendance)) {
-            return view('self-service.no-recent-attendance');
+            return view('selfservice.norecentattendance');
         }
 
         $response = SUMS::addUser($username);
@@ -118,7 +118,7 @@ class SelfServiceController extends Controller
         if (SUMS::SUCCESS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);
             return view(
-                'self-service.success',
+                'selfservice.success',
                 [
                     'group_name_in_service' => 'group in SUMS',
                 ]
@@ -127,16 +127,16 @@ class SelfServiceController extends Controller
         if (SUMS::MEMBER_EXISTS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);
             return view(
-                'self-service.already-member',
+                'selfservice.alreadymember',
                 [
                     'service' => 'SUMS',
                 ]
             );
         }
         if (SUMS::USER_NOT_FOUND === $response) {
-            return view('self-service.need-sums-account');
+            return view('selfservice.needsumsaccount');
         }
 
-        return view('self-service.error');
+        return view('selfservice.error');
     }
 }
