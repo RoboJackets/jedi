@@ -298,7 +298,7 @@ class GitHub extends Service
 
     public static function client(): Client
     {
-        if (null !== self::$client) {
+        if (null !== self::$client && null !== Cache::get('github_installation_token')) {
             return self::$client;
         }
 
