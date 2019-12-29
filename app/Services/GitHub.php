@@ -45,7 +45,7 @@ class GitHub extends Service
         $response = self::client()->put(
             '/teams/' . $team_id . '/memberships/' . $username,
             [
-                'query' => [
+                'json' => [
                     'role' => 'maintainer',
                 ],
                 'headers' => [
