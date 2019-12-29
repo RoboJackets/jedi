@@ -113,9 +113,10 @@ class SyncGitHub extends AbstractSyncJob
                     $team_prefix_length = strlen($team_prefix);
 
                     foreach ($teams as $team) {
-                        if ($team->name === $team_prefix
+                        if (
+                            $team->name === $team_prefix
                             || $team_prefix !== substr($team->name, 0, $team_prefix_length)
-                            ) {
+                        ) {
                             continue;
                         }
 
@@ -160,7 +161,8 @@ class SyncGitHub extends AbstractSyncJob
                     $team_prefix_length = strlen($team_prefix);
 
                     foreach ($teams as $team) {
-                        if ($team->name === $team_prefix
+                        if (
+                            $team->name === $team_prefix
                             || $team_prefix !== substr($team->name, 0, $team_prefix_length)
                         ) {
                             continue;
