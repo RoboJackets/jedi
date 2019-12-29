@@ -48,6 +48,9 @@ class GitHub extends Service
                 'query' => [
                     'role' => 'maintainer',
                 ],
+                'headers' => [
+                    'Authorization' => 'Bearer ' . config('github.admin_token'),
+                ],
             ]
         );
         self::expectStatusCodes($response, 200);
