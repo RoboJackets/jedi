@@ -29,6 +29,7 @@ class SyncController extends Controller
                 'last_name' => 'bail|required|string',
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
+                'project_manager_of_teams' => 'bail|present|array',
                 'github_username' => 'bail|present|string|nullable',
                 'gmail_address' => 'bail|present|string|nullable',
                 'model_class' => 'bail|required|string',
@@ -53,6 +54,8 @@ class SyncController extends Controller
                     $lastRequest['is_access_active'] === $request->is_access_active &&
                     [] === array_diff($lastRequest['teams'], $request->teams) &&
                     [] === array_diff($request->teams, $lastRequest['teams']) &&
+                    [] === array_diff($lastRequest['project_manager_of_teams'], $request->project_manager_of_teams) &&
+                    [] === array_diff($request->project_manager_of_teams, $lastRequest['project_manager_of_teams']) &&
                     $lastRequest['github_username'] === $request->github_username &&
                     $lastRequest['gmail_address'] === $request->gmail_address &&
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
@@ -81,6 +84,7 @@ class SyncController extends Controller
                 $request->uid,
                 $request->is_access_active,
                 $request->teams,
+                $request->project_manager_of_teams,
                 $request->github_username
             );
         }

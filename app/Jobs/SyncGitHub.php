@@ -25,22 +25,32 @@ class SyncGitHub extends AbstractSyncJob
     private $github_username;
 
     /**
+     * The names of teams this user manages
+     *
+     * @var array<string>
+     */
+    private $project_manager_of_teams;
+
+    /**
      * Create a new job instance
      *
      * @param string $uid             The user's GT username
      * @param bool $is_access_active  Whether the user should have access to systems
      * @param array<string>  $teams   The names of the teams the user is in
+     * @param array<string> $project_manager_of_teams The names of teams this user manages
      * @param string $github_username The user's GitHub username
      */
     protected function __construct(
         string $uid,
         bool $is_access_active,
         array $teams,
+        array $project_manager_of_teams,
         string $github_username
     ) {
         parent::__construct($uid, '', '', $is_access_active, $teams);
 
         $this->github_username = $github_username;
+        $this->project_manager_of_teams = $project_manager_of_teams;
     }
 
     /**
@@ -92,6 +102,34 @@ class SyncGitHub extends AbstractSyncJob
 
                 GitHub::inviteUserToOrganization($user->id, $team_ids);
 
+                if (0 !== count($this->project_manager_of_teams)) {
+                    if (1 < count($this->project_manager_of_teams)) {
+                        $this->warning(
+                            'User is listed as manager of multiple teams, maintainer access may not work as desired'
+                        );
+                    }
+
+                    $team_prefix = $this->project_manager_of_teams[0];
+                    $team_prefix_length = strlen($team_prefix);
+
+                    foreach ($teams as $team) {
+                        if (
+                            $team->name === $team_prefix
+                            || $team_prefix !== substr($team->name, 0, $team_prefix_length)
+                        ) {
+                            continue;
+                        }
+
+                        if (! is_int($team->id)) {
+                            throw new Exception('Expected team id to be an integer');
+                        }
+
+                        $this->info('Promoting to maintainer of ' . $team->name);
+
+                        GitHub::promoteUserToTeamMaintainer($team->id, $this->github_username);
+                    }
+                }
+
                 $this->info('Invite sent successfully');
             } else {
                 $this->info('User is in the organization');
@@ -110,6 +148,34 @@ class SyncGitHub extends AbstractSyncJob
 
                     $this->info('Adding user to team ' . $team->name);
                     GitHub::addUserToTeam($team->id, $this->github_username);
+                }
+
+                if (0 !== count($this->project_manager_of_teams)) {
+                    if (1 < count($this->project_manager_of_teams)) {
+                        $this->warning(
+                            'User is listed as manager of multiple teams, maintainer access may not work as desired'
+                        );
+                    }
+
+                    $team_prefix = $this->project_manager_of_teams[0];
+                    $team_prefix_length = strlen($team_prefix);
+
+                    foreach ($teams as $team) {
+                        if (
+                            $team->name === $team_prefix
+                            || $team_prefix !== substr($team->name, 0, $team_prefix_length)
+                        ) {
+                            continue;
+                        }
+
+                        if (! is_int($team->id)) {
+                            throw new Exception('Expected team id to be an integer');
+                        }
+
+                        $this->info('Promoting to maintainer of ' . $team->name);
+
+                        GitHub::promoteUserToTeamMaintainer($team->id, $this->github_username);
+                    }
                 }
             }
 
