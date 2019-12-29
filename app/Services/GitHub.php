@@ -40,6 +40,19 @@ class GitHub extends Service
         self::expectStatusCodes($response, 200);
     }
 
+    public static function promoteUserToTeamMaintainer(int $team_id, string $username): void
+    {
+        $response = self::client()->put(
+            '/teams/' . $team_id . '/memberships/' . $username,
+            [
+                'query' => [
+                    'role' => 'maintainer',
+                ],
+            ]
+        );
+        self::expectStatusCodes($response, 200);
+    }
+
     public static function getTeamMembership(int $team_id, string $username): ?object
     {
         $cache_key = 'github_team_' . $team_id . '_member_' . $username;
@@ -65,8 +78,7 @@ class GitHub extends Service
             return null;
         }
 
-        $response = self::client()->request(
-            'GET',
+        $response = self::client()->get(
             '/teams/' . $team_id . '/memberships/' . $username,
             [
                 'headers' => [
@@ -107,8 +119,7 @@ class GitHub extends Service
      */
     public static function inviteUserToOrganization(int $invitee_id, array $team_ids): void
     {
-        $response = self::client()->request(
-            'POST',
+        $response = self::client()->post(
             '/orgs/' . config('github.organization') . '/invitations',
             [
                 'json' => [
@@ -144,8 +155,7 @@ class GitHub extends Service
             Cache::forever($cache_key, $teams);
             Cache::forever($etag_key, $etag);
         } else {
-            $response = self::client()->request(
-                'GET',
+            $response = self::client()->get(
                 '/orgs/' . config('github.organization') . '/teams',
                 [
                     'headers' => [
@@ -198,8 +208,7 @@ class GitHub extends Service
             Cache::forever($cache_key, $user);
             Cache::forever($etag_key, $etag);
         } else {
-            $response = self::client()->request(
-                'GET',
+            $response = self::client()->get(
                 '/users/' . $username,
                 [
                     'headers' => [
@@ -252,8 +261,7 @@ class GitHub extends Service
             return null;
         }
 
-        $response = self::client()->request(
-            'GET',
+        $response = self::client()->get(
             '/orgs/' . config('github.organization') . '/memberships/' . $username,
             [
                 'headers' => [
