@@ -1,12 +1,12 @@
+includes:
+  - %rootDir%/../phpstan-strict-rules/rules.neon
+  - %rootDir%/../phpstan-deprecation-rules/rules.neon
+  - %rootDir%/../../nunomaduro/larastan/extension.neon
 parameters:
   excludes_analyse:
     - %currentWorkingDirectory%/vendor/*
   autoload_directories:
     - %currentWorkingDirectory%/database/
-  includes:
-    - %rootDir%/../phpstan-strict-rules/rules.neon
-    - %rootDir%/../phpstan-deprecation-rules/rules.neon
-    - %currentWorkingDirectory%/vendor/nunomaduro/larastan/extension.neon
   ignoreErrors:
     - '#Access to an undefined property [a-zA-Z\\]+::\$[a-zA-Z]+#'
     - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)#'

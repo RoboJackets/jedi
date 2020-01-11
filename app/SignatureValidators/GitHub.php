@@ -11,6 +11,11 @@ use Spatie\WebhookClient\WebhookConfig;
 
 class GitHub implements SignatureValidator
 {
+    /**
+     * Verifies a signature on a request from GitHub
+     *
+     * @SuppressWarnings(PHPMD.UndefinedVariable)
+     */
     public function isValid(Request $request, WebhookConfig $config): bool
     {
         $header = $request->header('X-Hub-Signature');

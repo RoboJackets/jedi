@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
-// phpcs:disable Squiz.Classes.ClassFileName.NoMatch
-// phpcs:disable SlevomatCodingStandard.Namespaces.UseSpacing.IncorrectLinesCountBeforeFirstUse
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 class CreateWebhookCallsTable extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('webhook_calls', static function (Blueprint $table): void {
@@ -25,6 +24,9 @@ class CreateWebhookCallsTable extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('webhook_calls');

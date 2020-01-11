@@ -12,16 +12,6 @@ use Psr\Http\Message\ResponseInterface;
 
 abstract class Service
 {
-    /**
-     * Verifies that a passed ResponseInterface has an expected response code and throws an exception if not
-     *
-     * @param ResponseInterface $response An HTTP response
-     * @param array<int,int> $expected               Possible response codes
-     *
-     * @return void
-     *
-     * @phan-suppress PhanTypeMismatchDeclaredParam
-     */
     protected static function expectStatusCodes(ResponseInterface $response, int ...$expected): void
     {
         $received = $response->getStatusCode();

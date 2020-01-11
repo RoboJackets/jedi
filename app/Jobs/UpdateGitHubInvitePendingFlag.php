@@ -18,9 +18,6 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
 
     /**
      * Create a new job instance
-     *
-     * @param string $uid
-     * @param bool $github_invite_pending
      */
     protected function __construct(
         string $uid,
@@ -32,8 +29,6 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {

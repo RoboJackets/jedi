@@ -2,10 +2,6 @@
 
 declare(strict_types=1);
 
-// phpcs:disable PSR1.Classes.ClassDeclaration.MissingNamespace
-// phpcs:disable Squiz.Classes.ClassFileName.NoMatch
-// phpcs:disable SlevomatCodingStandard.Namespaces.UseSpacing.IncorrectLinesCountBeforeFirstUse
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,8 +10,6 @@ class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up(): void
     {
@@ -29,8 +23,6 @@ class CreateUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down(): void
     {

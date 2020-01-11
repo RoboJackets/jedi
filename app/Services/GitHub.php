@@ -117,8 +117,6 @@ class GitHub extends Service
      *
      * @param int $invitee_id the GitHub user's numeric ID
      * @param array<int>  $team_ids   The teams to add the user to
-     *
-     * @return void
      */
     public static function inviteUserToOrganization(int $invitee_id, array $team_ids): void
     {
@@ -337,8 +335,6 @@ class GitHub extends Service
 
     /**
      * Fetches a new installation token to authenticate to the API as the GitHub App
-     *
-     * @return string
      */
     private static function getInstallationToken(): string
     {
@@ -364,8 +360,6 @@ class GitHub extends Service
 
     /**
      * Generate a new JWT to authenticate to the API as the GitHub App
-     *
-     * @return string
      */
     private static function generateJWT(): string
     {
