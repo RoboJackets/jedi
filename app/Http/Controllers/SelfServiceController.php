@@ -51,6 +51,7 @@ class SelfServiceController extends Controller
                     },
                     $apiary_user->user->teams
                 ),
+                [], // TODO populate PMship here
                 $apiary_user->user->github_username
             );
 
