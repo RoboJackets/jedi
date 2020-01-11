@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 $parsed_url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-if (null === $parsed_url) {
-    throw new Exception('parse_url returned null');
+if (! is_string($parsed_url)) {
+    throw new Exception('Failed parsing url');
 }
 
 $uri = urldecode(

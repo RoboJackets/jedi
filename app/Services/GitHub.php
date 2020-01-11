@@ -137,6 +137,11 @@ class GitHub extends Service
         self::expectStatusCodes($response, 201);
     }
 
+    /**
+     * Returns all teams in the organization
+     *
+     * @return array<object>
+     */
     public static function getTeams(): array
     {
         $cache_key = 'github_teams';

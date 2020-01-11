@@ -37,6 +37,11 @@ abstract class Service
         return $ret;
     }
 
+    /**
+     * Decodes a response to an array
+     *
+     * @return array<object>
+     */
     protected static function decodeToArray(ResponseInterface $response): array
     {
         $ret = json_decode($response->getBody()->getContents());

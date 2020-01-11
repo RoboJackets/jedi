@@ -79,7 +79,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         $member->setRole('MEMBER');
 
         // Cache for 15 minutes
-        $allGroups = Cache::remember('apiary_google_groups_teams', 15, function () {
+        $allGroups = Cache::remember('apiary_google_groups_teams', 15, function (): Collection {
             return $this->getAllGroups();
         });
         // Get the groups that the user should be in
@@ -119,6 +119,11 @@ class SyncGoogleGroups extends AbstractSyncJob
         }
     }
 
+    /**
+     * Get all groups in the domain
+     *
+     * @return \Illuminate\Support\Collection<object>
+     */
     private function getAllGroups(): Collection
     {
         $client = Apiary::client();
@@ -142,11 +147,11 @@ class SyncGoogleGroups extends AbstractSyncJob
 
         $teams = collect($json->teams);
 
-        return $teams->filter(static function ($team) {
+        return $teams->filter(static function ($team): bool {
             return null !== $team->google_group
                 && 'officers@robojackets.org' !== $team->google_group
                 && 'developers@robojackets.org' !== $team->google_group;
-        })->mapWithKeys(static function ($team) {
+        })->mapWithKeys(static function ($team): array {
             return [$team->name => $team->google_group];
         });
     }
