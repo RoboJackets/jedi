@@ -16,7 +16,6 @@ if (! is_string($parsed_url)) {
 }
 
 $uri = urldecode(
-    // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
     $parsed_url
 );
 
