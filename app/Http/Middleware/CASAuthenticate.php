@@ -37,6 +37,7 @@ class CASAuthenticate
     {
         $this->cas = app('cas');
     }
+
     /**
      * Handle an incoming request.
      */

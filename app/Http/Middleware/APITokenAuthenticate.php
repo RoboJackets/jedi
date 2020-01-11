@@ -24,6 +24,7 @@ class APITokenAuthenticate
     {
         $this->auth = $auth;
     }
+
     /**
      * Handle an incoming request.
      */
