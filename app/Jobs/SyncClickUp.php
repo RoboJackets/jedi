@@ -67,10 +67,10 @@ class SyncClickUp extends AbstractSyncJob
             $response = ClickUp::addUser($this->clickup_email);
 
             if (null === $this->clickup_id) {
-                UpdateClickUpAttributes::dispatch($this->uid, $response->user->id, $response->memberInfo->invite);
+                UpdateClickUpAttributes::dispatch($this->uid, $response->user->id, $response->invite);
             } else {
-                if ($this->clickup_invite_pending !== $response->memberInfo->memberInvite) {
-                    UpdateClickUpInvitePendingFlag::dispatch($this->uid, $response->memberInfo->memberInvite);
+                if ($this->clickup_invite_pending !== $response->invite) {
+                    UpdateClickUpInvitePendingFlag::dispatch($this->uid, $response->invite);
                 }
             }
         } else {
