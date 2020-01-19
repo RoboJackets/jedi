@@ -178,14 +178,14 @@ class SelfServiceController extends Controller
             );
             if (true === $clickup_membership->invite) {
                 return view('selfservice.checkemailforclickup');
-            } else {
-                return view(
-                    'selfservice.alreadymember',
-                    [
-                        'service' => 'ClickUp',
-                    ]
-                );
             }
+
+            return view(
+                'selfservice.alreadymember',
+                [
+                    'service' => 'ClickUp',
+                ]
+            );
         }
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
