@@ -170,4 +170,18 @@ class SyncGoogleGroups extends AbstractSyncJob
     {
         return self::class . ' GT=' . $this->uid . ' Gmail=' . $this->gmail_address . ' ';
     }
+
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<string>
+     */
+    public function tags(): array
+    {
+        return [
+            'user:' . $this->uid,
+            'active:' . ($this->is_access_active ? 'true' : 'false'),
+            'google_account:' . $this->gmail_address
+        ];
+    }
 }
