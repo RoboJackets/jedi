@@ -181,7 +181,7 @@ class SyncGoogleGroups extends AbstractSyncJob
         return [
             'user:' . $this->uid,
             'active:' . ($this->is_access_active ? 'true' : 'false'),
-            'google_account:' . $this->gmail_address
+            'google_account:' . $this->gmail_address,
         ];
     }
 }
