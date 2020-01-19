@@ -95,6 +95,7 @@ class ClickUp extends Service
      * Returns a Guzzle client configured for ClickUp
      *
      * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     * @SuppressWarnings(PHPMD.UndefinedVariable)
      */
     public static function client(): Client
     {

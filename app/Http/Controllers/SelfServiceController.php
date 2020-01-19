@@ -174,7 +174,7 @@ class SelfServiceController extends Controller
             UpdateClickUpAttributes::dispatch(
                 $username,
                 $clickup_membership->user->id,
-                $clickup_membership->memberInfo->invite,
+                $clickup_membership->memberInfo->invite
             );
             return view('selfservice.checkemailforclickup');
         }
