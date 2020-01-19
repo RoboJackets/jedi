@@ -53,6 +53,25 @@ class Apiary extends Service
         }
     }
 
+    public static function setAttributes(string $username, array $attributes): void
+    {
+        $response = self::client()->put(
+            '/api/v1/users/' . $username,
+            [
+                'json' => $attributes,
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        if ('success' !== self::decodeToObject($response)->status) {
+            throw new DownstreamServiceException(
+                'Apiary returned an unexpected response ' . $response->getBody()->getContents()
+                . ', expected status: success'
+            );
+        }
+    }
+
     public static function client(): Client
     {
         if (null !== self::$client) {

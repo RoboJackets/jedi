@@ -124,6 +124,7 @@ return [
                 'connection' => 'redis',
                 'queue' => [
                     'apiary',
+                    'clickup',
                     'github',
                     'google',
                     'nextcloud',
@@ -131,25 +132,7 @@ return [
                     'wordpress',
                 ],
                 'balance' => 'simple',
-                'processes' => 6,
-                'tries' => 3,
-            ],
-        ],
-        'jedi-test' => [
-            'supervisor-1' => [
-                'connection' => 'redis',
-                'queue' => ['default'],
-                'balance' => 'simple',
-                'processes' => 1,
-                'tries' => 1,
-            ],
-        ],
-        'local' => [
-            'supervisor-1' => [
-                'connection' => 'redis',
-                'queue' => ['default'],
-                'balance' => 'simple',
-                'processes' => 3,
+                'processes' => 7,
                 'tries' => 3,
             ],
         ],

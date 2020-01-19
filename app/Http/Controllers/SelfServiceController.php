@@ -140,4 +140,55 @@ class SelfServiceController extends Controller
 
         return view('selfservice.error');
     }
+
+    /**
+     * Resend an invitation to ClickUp for the currently logged in user.
+     *
+     * @param Request $request The incoming request
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function clickup(Request $request)
+    {
+        $username = $request->user()->uid;
+
+        $apiary_user = Apiary::getUser($username);
+
+        if (! $apiary_user->user->is_access_active) {
+            return view('selfservice.unpaiddues');
+        }
+
+        if (0 === count($apiary_user->user->teams)) {
+            return view('selfservice.noteams');
+        }
+
+        if (null === $apiary_user->user->clickup_email) {
+            return redirect('https://my.robojackets.org/profile');
+        }
+
+        if (null === $apiary_user->user->clickup_id) {
+            $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
+            UpdateClickUpAttributes::dispatch($username, $clickup_membership->user->id, $clickup_membership->memberInfo->invite);
+            return view('selfservice.checkemailforclickup');
+        }
+
+        $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+        if (false === $clickup_membership->memberInfo->invite) {
+            if (true === $apiary_user->user->clickup_invite_pending) {
+                UpdateClickUpInvitePendingFlag::dispatch($username, false);
+            }
+            return view('selfservice.alreadymember');
+        }
+
+        ClickUp::resendInvitationToUser($apiary_user->user->clickup_id);
+
+        $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+        if (true === $apiary_user->user->clickup_invite_pending) {
+            UpdateClickUpInvitePendingFlag::dispatch($username, true);
+        }
+
+        return view('selfservice.checkemailforclickup');
+    }
 }
