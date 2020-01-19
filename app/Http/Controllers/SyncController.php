@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
 use App\Jobs\SyncNextcloud;
@@ -29,15 +30,21 @@ class SyncController extends Controller
                 'last_name' => 'bail|required|string',
                 'is_access_active' => 'bail|required|boolean',
                 'teams' => 'bail|present|array',
+                'teams.*' => 'string',
                 'project_manager_of_teams' => 'bail|present|array',
+                'project_manager_of_teams.*' => 'string',
                 'github_username' => 'bail|present|string|nullable',
-                'gmail_address' => 'bail|present|string|nullable',
+                'google_accounts' => 'bail|present|array',
+                'google_accounts.*' => 'string',
                 'model_class' => 'bail|required|string',
                 'model_id' => 'bail|required|numeric',
                 'model_event' => 'bail|required|string',
                 'last_attendance_time' => 'bail|present|date|nullable',
                 'last_attendance_id' => 'bail|present|numeric|nullable',
                 'exists_in_sums' => 'bail|required|boolean',
+                'clickup_email' => 'bail|present|string|nullable',
+                'clickup_id' => 'bail|present|integer|nullable',
+                'clickup_invite_pending' => 'bail|required|boolean',
             ]
         );
 
@@ -57,9 +64,13 @@ class SyncController extends Controller
                     [] === array_diff($lastRequest['project_manager_of_teams'], $request->project_manager_of_teams) &&
                     [] === array_diff($request->project_manager_of_teams, $lastRequest['project_manager_of_teams']) &&
                     $lastRequest['github_username'] === $request->github_username &&
-                    $lastRequest['gmail_address'] === $request->gmail_address &&
+                    [] === array_diff($lastRequest['google_accounts'], $request->google_accounts) &&
+                    [] === array_diff($request->google_accounts, $lastRequest['google_accounts']) &&
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
-                    $lastRequest['last_attendance_id'] === $request->last_attendance_id;
+                    $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
+                    $lastRequest['clickup_email'] === $request->clickup_email &&
+                    $lastRequest['clickup_id'] === $request->clickup_id &&
+                    $lastRequest['clickup_invite_pending'] === $request->clickup_invite_pending;
 
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
@@ -139,14 +150,26 @@ class SyncController extends Controller
             );
         }
 
-        if (true === config('google.enabled') && $request->filled('gmail_address')) {
-            SyncGoogleGroups::dispatch(
+        if (true === config('google.enabled')) {
+            foreach ($request->google_accounts as $google_account) {
+                SyncGoogleGroups::dispatch(
+                    $request->uid,
+                    $request->first_name,
+                    $request->last_name,
+                    $request->is_access_active,
+                    $request->teams,
+                    $google_account
+                );
+            }
+        }
+
+        if (true === config('clickup.enabled') && $request->filled('clickup_email')) {
+            SyncClickUp::dispatch(
                 $request->uid,
-                $request->first_name,
-                $request->last_name,
                 $request->is_access_active,
-                $request->teams,
-                $request->gmail_address
+                $request->clickup_email,
+                $request->clickup_id,
+                $request->clickup_invite_pending
             );
         }
 

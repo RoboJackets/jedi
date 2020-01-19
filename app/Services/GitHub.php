@@ -316,12 +316,13 @@ class GitHub extends Service
             return self::$client;
         }
 
-        $token = Cache::get('github_installation_token');
-
-        if (null === $token) {
-            $token = self::getInstallationToken();
-            Cache::put('github_installation_token', $token, self::FIFTY_NINE_MINUTES);
-        }
+        $token = Cache::remember(
+            'github_installation_token',
+            self::FIFTY_NINE_MINUTES,
+            static function (): string {
+                return self::getInstallationToken();
+            }
+        );
 
         self::$client = new Client(
             [

@@ -18,4 +18,5 @@ use App\Http\Controllers\SelfServiceController;
 Route::group(['prefix' => 'self-service/', 'middleware' => ['auth.cas']], static function (): void {
     Route::get('/github', [SelfServiceController::class, 'github']);
     Route::get('/sums', [SelfServiceController::class, 'sums']);
+    Route::get('/clickup', [SelfServiceController::class, 'clickup']);
 });
