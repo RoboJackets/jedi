@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Services\ClickUp;
-use Exception;
 use Illuminate\Support\Facades\Log;
 
 class SyncClickUp extends AbstractSyncJob
@@ -17,8 +16,25 @@ class SyncClickUp extends AbstractSyncJob
      */
     public $queue = 'clickup';
 
+    /**
+     * The email associated with this user in Apiary
+     *
+     * @var string
+     */
     private $clickup_email;
+
+    /**
+     * The numeric ID of this user within ClickUp
+     *
+     * @var ?int
+     */
     private $clickup_id;
+
+    /**
+     * Whether Apiary thinks this user has a pending invitation in ClickUp
+     *
+     * @var bool
+     */
     private $clickup_invite_pending;
 
     /**
@@ -68,7 +84,7 @@ class SyncClickUp extends AbstractSyncJob
             ClickUp::removeUser($this->clickup_id);
 
             if (true === $this->clickup_invite_pending) {
-                UpdateClickUpInvitePendingFlag($this->uid, false);
+                UpdateClickUpInvitePendingFlag::dispatch($this->uid, false);
             }
         }
     }

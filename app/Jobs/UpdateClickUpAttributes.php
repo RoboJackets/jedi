@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Log;
 
 class UpdateClickUpAttributes extends AbstractApiaryJob
 {
+    /**
+     * The numeric ID for this user within ClickUp
+     *
+     * @var int
+     */
     private $clickup_id;
 
     /**

@@ -151,7 +151,7 @@ class SyncController extends Controller
         }
 
         if (true === config('google.enabled')) {
-            foreach($request->google_accounts as $google_account) {
+            foreach ($request->google_accounts as $google_account) {
                 SyncGoogleGroups::dispatch(
                     $request->uid,
                     $request->first_name,

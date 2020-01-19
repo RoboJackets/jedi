@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Jobs\SyncGitHub;
+use App\Jobs\UpdateClickUpAttributes;
+use App\Jobs\UpdateClickUpInvitePendingFlag;
 use App\Jobs\UpdateExistsInSUMSFlag;
 use App\Services\Apiary;
+use App\Services\ClickUp;
 use App\Services\GitHub;
 use App\Services\SUMS;
 use Carbon\Carbon;
@@ -168,7 +171,11 @@ class SelfServiceController extends Controller
 
         if (null === $apiary_user->user->clickup_id) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
-            UpdateClickUpAttributes::dispatch($username, $clickup_membership->user->id, $clickup_membership->memberInfo->invite);
+            UpdateClickUpAttributes::dispatch(
+                $username,
+                $clickup_membership->user->id,
+                $clickup_membership->memberInfo->invite,
+            );
             return view('selfservice.checkemailforclickup');
         }
 

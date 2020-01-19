@@ -53,6 +53,12 @@ class Apiary extends Service
         }
     }
 
+    /**
+     * Sets some attributes on a user
+     *
+     * @param string $username   The user's uid
+     * @param array<string,string|bool>  $attributes The attributes to update
+     */
     public static function setAttributes(string $username, array $attributes): void
     {
         $response = self::client()->put(

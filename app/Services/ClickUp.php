@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+// phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
+// phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+
 namespace App\Services;
 
 use App\Exceptions\DownstreamServiceException;
@@ -20,28 +23,28 @@ class ClickUp extends Service
      */
     private static $client = null;
 
-    public static function resendInvitationToUser(int $id): void
+    public static function resendInvitationToUser(int $clickup_id): void
     {
         self::client()->put(
             'invite',
             [
                 'json' => [
-                    'invitee' => $id,
+                    'invitee' => $clickup_id,
                 ],
             ]
         );
     }
 
-    public static function getUserById(int $id): object
+    public static function getUserById(int $clickup_id): object
     {
-        $response = self::client()->get('profile/' . $id);
+        $response = self::client()->get('profile/' . $clickup_id);
 
         self::expectStatusCodes($response, 200);
 
         return self::decodeToObject($response);
     }
 
-    public static function removeUser(int $id): void
+    public static function removeUser(int $clickup_id): void
     {
         $response = self::client()->put(
             '/v1/team/' . config('clickup.workspace_id'),
@@ -49,7 +52,7 @@ class ClickUp extends Service
                 'json' => [
                     'rem' => [
                         [
-                            'id' => $id,
+                            'id' => $clickup_id,
                         ],
                     ],
                 ],
@@ -57,8 +60,6 @@ class ClickUp extends Service
         );
 
         self::expectStatusCodes($response, 200);
-
-        $team = self::decodeToObject($response);
     }
 
     public static function addUser(string $email): object
@@ -81,7 +82,7 @@ class ClickUp extends Service
 
         $team = self::decodeToObject($response);
 
-        foreach($team->members as $member) {
+        foreach ($team->members as $member) {
             if ($email === $member->user->email) {
                 return $member;
             }
@@ -90,6 +91,11 @@ class ClickUp extends Service
         throw new DownstreamServiceException('Couldn\'t find newly added user');
     }
 
+    /**
+     * Returns a Guzzle client configured for ClickUp
+     *
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+     */
     public static function client(): Client
     {
         if (null !== self::$client && null !== Cache::get('clickup_jwt')) {
@@ -104,9 +110,10 @@ class ClickUp extends Service
             }
         );
 
-        list($headers, $claims, $signing_input, $signature) = JWT::deserialise($token);
+        // @phan-suppress-next-line PhanUnusedVariable
+        [$headers, $claims, $signing_input, $signature] = JWT::deserialise($token);
 
-        if ($claims['exp'] < (time() - 60)) {
+        if ($claims['exp'] < time() - 60) {
             Cache::put('clickup_jwt', self::fetchJWT(), self::ALMOST_TWO_WEEKS);
             $token = Cache::get('clickup_jwt');
         }
@@ -117,6 +124,7 @@ class ClickUp extends Service
                 'headers' => [
                     'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . ' Make a real user api pls '
                     . '--kristaps@robojackets.org',
+                    'Authorization' => 'Bearer ' . $token,
                 ],
                 'allow_redirects' => false,
             ]
