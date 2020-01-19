@@ -192,7 +192,7 @@ class SelfServiceController extends Controller
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
 
-        if (true === $apiary_user->user->clickup_invite_pending) {
+        if (true === $clickup_membership->memberInfo->invite) {
             UpdateClickUpInvitePendingFlag::dispatch($username, true);
         }
 
