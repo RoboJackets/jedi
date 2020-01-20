@@ -69,8 +69,7 @@ class SyncController extends Controller
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
-                    $lastRequest['clickup_id'] === $request->clickup_id &&
-                    $lastRequest['clickup_invite_pending'] === $request->clickup_invite_pending;
+                    $lastRequest['clickup_id'] === $request->clickup_id;
 
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
