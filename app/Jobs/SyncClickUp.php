@@ -39,6 +39,13 @@ class SyncClickUp extends SyncJob
 
     /**
      * Create a new job instance
+     *
+     * @param string $uid            The user's GT username
+     * @param bool $is_access_active Whether the user should have access to systems
+     * @param array<string>  $teams  The names of the teams the user is in
+     * @param string $clickup_email     The user's ClickUp email
+     * @param ?int $clickup_id the user's ClickUp ID
+     * @param bool $clickup_invite_pending whether Apiary thinks the ClickUp invitation is pending
      */
     protected function __construct(
         string $uid,
@@ -76,10 +83,13 @@ class SyncClickUp extends SyncJob
             }
 
             foreach ($this->teams as $team) {
-                if (array_key_exists($team, config('clickup.teams_to_spaces'))) {
-                    foreach (config('clickup.teams_to_spaces')[$team] as $space_id) {
-                        ClickUp::addUserToSpace($this->clickup_id, $space_id);
-                    }
+                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
+                if (!array_key_exists($team, config('clickup.teams_to_spaces'))) {
+                    continue;
+                }
+
+                foreach (config('clickup.teams_to_spaces')[$team] as $space_id) {
+                    ClickUp::addUserToSpace($response->user->id, $space_id);
                 }
             }
         } else {
