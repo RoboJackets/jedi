@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Exceptions\DownstreamServiceException;
+use App\Exceptions\DownstreamServiceProblem;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
@@ -199,7 +199,7 @@ class GitHub extends Service
             self::expectStatusCodes($response, 200, 404);
 
             if (404 === $response->getStatusCode()) {
-                throw new DownstreamServiceException(
+                throw new DownstreamServiceProblem(
                     'Linked GitHub user '
                     . $username
                     . ' does not exist, it may have been renamed. Admin intervention required! '

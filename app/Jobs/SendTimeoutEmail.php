@@ -10,7 +10,7 @@ use App\Services\Apiary;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class SendTimeoutEmail extends AbstractApiaryJob
+class SendTimeoutEmail extends ApiaryJob
 {
     /**
      * Whether this user exists in SUMS
@@ -25,10 +25,8 @@ class SendTimeoutEmail extends AbstractApiaryJob
      * @param string $uid The user's GT username
      * @param bool $exists_in_sums Whether this user exists in SUMS
      */
-    protected function __construct(
-        string $uid,
-        bool $exists_in_sums
-    ) {
+    protected function __construct(string $uid, bool $exists_in_sums)
+    {
         parent::__construct($uid);
         $this->exists_in_sums = $exists_in_sums;
     }

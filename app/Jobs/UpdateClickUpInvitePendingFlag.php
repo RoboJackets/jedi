@@ -7,7 +7,7 @@ namespace App\Jobs;
 use App\Services\Apiary;
 use Illuminate\Support\Facades\Log;
 
-class UpdateClickUpInvitePendingFlag extends AbstractApiaryJob
+class UpdateClickUpInvitePendingFlag extends ApiaryJob
 {
     /**
      * Whether this user has a pending ClickUp invitation
@@ -19,10 +19,8 @@ class UpdateClickUpInvitePendingFlag extends AbstractApiaryJob
     /**
      * Create a new job instance
      */
-    protected function __construct(
-        string $uid,
-        bool $clickup_invite_pending
-    ) {
+    protected function __construct(string $uid, bool $clickup_invite_pending)
+    {
         parent::__construct($uid);
         $this->clickup_invite_pending = $clickup_invite_pending;
     }

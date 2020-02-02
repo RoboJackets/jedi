@@ -8,7 +8,7 @@ use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 
-class SyncWordPress extends AbstractSyncJob
+class SyncWordPress extends SyncJob
 {
     /**
      * The queue this job will run on

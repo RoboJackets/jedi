@@ -6,6 +6,6 @@ namespace App\Exceptions;
 
 use Exception;
 
-class DownstreamServiceException extends Exception
+class DownstreamServiceProblem extends Exception
 {
 }

@@ -7,7 +7,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Exceptions\DownstreamServiceException;
+use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
 use SimpleJWT\JWT;
@@ -88,10 +88,10 @@ class ClickUp extends Service
             }
         }
 
-        throw new DownstreamServiceException('Couldn\'t find newly added user');
+        throw new DownstreamServiceProblem('Couldn\'t find newly added user');
     }
 
-    public static function addUserToSpace(int $clickup_id, int $space_id)
+    public static function addUserToSpace(int $clickup_id, int $space_id): void
     {
         $response = self::client()->put(
             '/v1/project/' . $space_id,
@@ -110,7 +110,7 @@ class ClickUp extends Service
         self::decodeToObject($response);
     }
 
-    public static function removeUserFromSpace(int $clickup_id, int $space_id)
+    public static function removeUserFromSpace(int $clickup_id, int $space_id): void
     {
         $response = self::client()->put(
             '/v1/project/' . $space_id,

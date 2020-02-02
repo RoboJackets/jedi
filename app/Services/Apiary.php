@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Exceptions\DownstreamServiceException;
+use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
 
 class Apiary extends Service
@@ -46,7 +46,7 @@ class Apiary extends Service
         self::expectStatusCodes($response, 200);
 
         if ('success' !== self::decodeToObject($response)->status) {
-            throw new DownstreamServiceException(
+            throw new DownstreamServiceProblem(
                 'Apiary returned an unexpected response ' . $response->getBody()->getContents()
                 . ', expected status: success'
             );
@@ -71,7 +71,7 @@ class Apiary extends Service
         self::expectStatusCodes($response, 200);
 
         if ('success' !== self::decodeToObject($response)->status) {
-            throw new DownstreamServiceException(
+            throw new DownstreamServiceProblem(
                 'Apiary returned an unexpected response ' . $response->getBody()->getContents()
                 . ', expected status: success'
             );

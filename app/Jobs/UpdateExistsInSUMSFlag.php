@@ -7,7 +7,7 @@ namespace App\Jobs;
 use App\Services\Apiary;
 use Illuminate\Support\Facades\Log;
 
-class UpdateExistsInSUMSFlag extends AbstractApiaryJob
+class UpdateExistsInSUMSFlag extends ApiaryJob
 {
     /**
      * Execute the job.

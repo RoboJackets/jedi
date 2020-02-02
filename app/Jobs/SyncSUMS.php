@@ -9,7 +9,7 @@ use App\Services\SUMS;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class SyncSUMS extends AbstractSyncJob
+class SyncSUMS extends SyncJob
 {
     /**
      * The queue this job will run on

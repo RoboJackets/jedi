@@ -9,7 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 
-abstract class AbstractApiaryJob implements ShouldQueue
+abstract class ApiaryJob implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;

@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Exceptions\DownstreamServiceException;
+use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
 
@@ -17,7 +17,7 @@ abstract class Service
         $received = $response->getStatusCode();
 
         if (!in_array($received, $expected, true)) {
-            throw new DownstreamServiceException(
+            throw new DownstreamServiceProblem(
                 'Service returned unexpected HTTP response code ' . $received . ', expected '
                 . implode(' or ', $expected) . ', response body: ' . $response->getBody()->getContents()
             );
@@ -29,7 +29,7 @@ abstract class Service
         $ret = json_decode($response->getBody()->getContents());
 
         if (!is_object($ret)) {
-            throw new DownstreamServiceException(
+            throw new DownstreamServiceProblem(
                 'Service did not return an object - ' . $response->getBody()->getContents()
             );
         }
@@ -47,7 +47,7 @@ abstract class Service
         $ret = json_decode($response->getBody()->getContents());
 
         if (!is_array($ret)) {
-            throw new DownstreamServiceException(
+            throw new DownstreamServiceProblem(
                 'Service did not return an array - ' . $response->getBody()->getContents()
             );
         }

@@ -7,7 +7,7 @@ namespace App\Jobs;
 use App\Services\Apiary;
 use Illuminate\Support\Facades\Log;
 
-class UpdateClickUpAttributes extends AbstractApiaryJob
+class UpdateClickUpAttributes extends ApiaryJob
 {
     /**
      * The numeric ID for this user within ClickUp
@@ -26,11 +26,8 @@ class UpdateClickUpAttributes extends AbstractApiaryJob
     /**
      * Create a new job instance
      */
-    protected function __construct(
-        string $uid,
-        int $clickup_id,
-        bool $clickup_invite_pending
-    ) {
+    protected function __construct(string $uid, int $clickup_id, bool $clickup_invite_pending)
+    {
         parent::__construct($uid);
         $this->clickup_id = $clickup_id;
         $this->clickup_invite_pending = $clickup_invite_pending;

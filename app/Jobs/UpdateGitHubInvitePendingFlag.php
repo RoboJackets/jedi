@@ -7,7 +7,7 @@ namespace App\Jobs;
 use App\Services\Apiary;
 use Illuminate\Support\Facades\Log;
 
-class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
+class UpdateGitHubInvitePendingFlag extends ApiaryJob
 {
     /**
      * Whether this user has a pending GitHub invitation
@@ -19,10 +19,8 @@ class UpdateGitHubInvitePendingFlag extends AbstractApiaryJob
     /**
      * Create a new job instance
      */
-    protected function __construct(
-        string $uid,
-        bool $github_invite_pending
-    ) {
+    protected function __construct(string $uid, bool $github_invite_pending)
+    {
         parent::__construct($uid);
         $this->github_invite_pending = $github_invite_pending;
     }

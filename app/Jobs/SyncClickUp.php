@@ -7,7 +7,7 @@ namespace App\Jobs;
 use App\Services\ClickUp;
 use Illuminate\Support\Facades\Log;
 
-class SyncClickUp extends AbstractSyncJob
+class SyncClickUp extends SyncJob
 {
     /**
      * The queue this job will run on

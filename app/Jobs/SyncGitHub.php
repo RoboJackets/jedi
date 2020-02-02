@@ -8,7 +8,7 @@ use App\Services\GitHub;
 use Exception;
 use Illuminate\Support\Facades\Log;
 
-class SyncGitHub extends AbstractSyncJob
+class SyncGitHub extends SyncJob
 {
     /**
      * The queue this job will run on

@@ -11,7 +11,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Log;
 use SimpleXMLElement;
 
-class SyncNextcloud extends AbstractSyncJob
+class SyncNextcloud extends SyncJob
 {
     /**
      * The queue this job will run on
