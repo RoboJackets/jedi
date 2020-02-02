@@ -91,6 +91,44 @@ class ClickUp extends Service
         throw new DownstreamServiceException('Couldn\'t find newly added user');
     }
 
+    public static function addUserToSpace(int $clickup_id, int $space_id)
+    {
+        $response = self::client()->put(
+            '/v1/project/' . $space_id,
+            [
+                'json' => [
+                    'add' => [
+                        [
+                            'id' => $clickup_id,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+        self::decodeToObject($response);
+    }
+
+    public static function removeUserFromSpace(int $clickup_id, int $space_id)
+    {
+        $response = self::client()->put(
+            '/v1/project/' . $space_id,
+            [
+                'json' => [
+                    'rem' => [
+                        [
+                            'id' => $clickup_id,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+        self::decodeToObject($response);
+    }
+
     /**
      * Returns a Guzzle client configured for ClickUp
      *
