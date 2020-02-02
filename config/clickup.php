@@ -7,4 +7,7 @@ return [
     'workspace_id' => env('CLICKUP_WORKSPACE_ID'),
     'email' => env('CLICKUP_EMAIL'),
     'password' => env('CLICKUP_PASSWORD'),
+    'teams_to_spaces' => [
+        'Alumni Leadership' => [4276322],
+    ],
 ];

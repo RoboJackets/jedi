@@ -43,11 +43,12 @@ class SyncClickUp extends SyncJob
     protected function __construct(
         string $uid,
         bool $is_access_active,
+        array $teams,
         string $clickup_email,
         ?int $clickup_id,
         bool $clickup_invite_pending
     ) {
-        parent::__construct($uid, '', '', $is_access_active, []);
+        parent::__construct($uid, '', '', $is_access_active, $teams);
 
         $this->clickup_email = $clickup_email;
         $this->clickup_id = $clickup_id;
@@ -71,6 +72,14 @@ class SyncClickUp extends SyncJob
             } else {
                 if ($this->clickup_invite_pending !== $response->invite) {
                     UpdateClickUpInvitePendingFlag::dispatch($this->uid, $response->invite);
+                }
+            }
+
+            foreach ($this->teams as $team) {
+                if (array_key_exists($team, config('clickup.teams_to_spaces'))) {
+                    foreach (config('clickup.teams_to_spaces')[$team] as $space_id) {
+                        ClickUp::addUserToSpace($this->clickup_id, $space_id);
+                    }
                 }
             }
         } else {

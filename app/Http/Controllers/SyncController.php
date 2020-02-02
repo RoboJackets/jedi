@@ -166,6 +166,7 @@ class SyncController extends Controller
             SyncClickUp::dispatch(
                 $request->uid,
                 $request->is_access_active,
+                $request->teams,
                 $request->clickup_email,
                 $request->clickup_id,
                 $request->clickup_invite_pending
