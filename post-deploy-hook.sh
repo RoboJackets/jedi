@@ -7,6 +7,7 @@ php artisan migrate --no-interaction
 php artisan config:cache --no-interaction
 php artisan view:cache --no-interaction
 php artisan route:cache --no-interaction
+rm -rf public/vendor/horizon
 php artisan vendor:publish --provider="Laravel\Horizon\HorizonServiceProvider" --no-interaction
 php artisan cache:clear --no-interaction
 php artisan up
