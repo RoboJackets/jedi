@@ -8,7 +8,6 @@ parameters:
   autoload_directories:
     - %currentWorkingDirectory%/database/
   ignoreErrors:
-    - '#Access to an undefined property [a-zA-Z\\]+::\$[a-zA-Z]+#'
     - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)#'
     - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)#'
     - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
