@@ -122,7 +122,7 @@ class SyncGoogleGroups extends SyncJob
     /**
      * Get all groups in the domain
      *
-     * @return \Illuminate\Support\Collection<object>
+     * @return \Illuminate\Support\Collection
      */
     private function getAllGroups(): Collection
     {

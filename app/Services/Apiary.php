@@ -14,7 +14,7 @@ class Apiary extends Service
      *
      * @var \GuzzleHttp\Client
      */
-    private static $client = null;
+    private static $client;
 
     public static function getUser(string $username): object
     {

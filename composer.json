@@ -24,7 +24,7 @@
         "robojackets/network-check": "^1.0",
         "spatie/laravel-failed-job-monitor": "^3.1",
         "spatie/laravel-webhook-client": "^2.2",
-        "subfission/cas": " dev-master"
+        "subfission/cas": "*"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -32,11 +32,12 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^2.0",
-        "nunomaduro/larastan": "^0.3.15",
-        "phpunit/phpunit": "^7.0"
+        "nunomaduro/larastan": "*",
+        "phpstan/extension-installer": "*",
+        "robojackets/static-analysis": "*"
     },
     "config": {
-        "optimize-autoloader": true,
+        "classmap-authoritative": true,
         "preferred-install": "dist",
         "sort-packages": true
     },
@@ -72,7 +73,7 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://packages.robojackets.org"
+            "url": "https://composer.robojackets.org"
         }
     ]
 }

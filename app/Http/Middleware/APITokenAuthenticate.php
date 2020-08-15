@@ -27,6 +27,8 @@ class APITokenAuthenticate
 
     /**
      * Handle an incoming request.
+     *
+     * @psalm-suppress UndefinedInterfaceMethod
      */
     public function handle(Request $request, Closure $next)
     {

@@ -26,10 +26,6 @@ class GitHub implements SignatureValidator
             throw new Exception('Header is not a string, possibly missing');
         }
 
-        if (!is_string($secret)) {
-            throw new Exception('Secret is not a string');
-        }
-
         if (!is_string($payload)) {
             throw new Exception('Payload is not a string');
         }
