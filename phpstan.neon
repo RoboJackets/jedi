@@ -4,15 +4,17 @@ parameters:
   autoload_directories:
     - %currentWorkingDirectory%/database/
   ignoreErrors:
-    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)#'
-    - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)\.#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Guard::getTokenForRequest\(\)\.#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)\.#'
     - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
     - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
     - '#Call to function is_string\(\) with string will always evaluate to true\.#'
     - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
+    - '#Dynamic call to static method Illuminate\\Auth\\SessionGuard::authenticate\(\)\.#'
+    - '#Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder<App\\EmailEvent>::count\(\)\.#'
     - '#Method App\\Http\\Middleware\\[a-zA-Z]+::handle\(\) has no return typehint specified\.#'
     - '#Parameter \#1 \$var of function count expects array\|Countable, array\|null given\.#'
     - '#Parameter \#2 \$str of function explode expects string, array\|string given\.#'
-    - '#Strict comparison using !== between 200 and 200 will always evaluate to false\.#'
-    - '#Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder<App\\EmailEvent>::count\(\)\.#'
     - '#Property App\\EmailEvent::\$last_attendance_id \(int\) does not accept int\|null\.#'
+    - '#Strict comparison using !== between 200 and 200 will always evaluate to false\.#'
