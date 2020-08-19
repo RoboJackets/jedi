@@ -169,7 +169,17 @@ class SelfServiceController extends Controller
             return redirect('https://my.robojackets.org/profile');
         }
 
-        if (null === $apiary_user->user->clickup_id) {
+        $id_in_apiary_is_wrong = false;
+
+        if (null !== $apiary_user->user->clickup_id) {
+            $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+            if (null === $clickup_membership) {
+                $id_in_apiary_is_wrong = true;
+            }
+        }
+
+        if (null === $apiary_user->user->clickup_id || $id_in_apiary_is_wrong) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
             UpdateClickUpAttributes::dispatch(
                 $username,
