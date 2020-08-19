@@ -200,6 +200,11 @@ class SelfServiceController extends Controller
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
 
+        if (null === $clickup_membership) {
+            // This should be unreachable, but just in case
+            return view('selfservice.error');
+        }
+
         if (false === $clickup_membership->memberInfo->invite) {
             if (true === $apiary_user->user->clickup_invite_pending) {
                 UpdateClickUpInvitePendingFlag::dispatch($username, false);
@@ -215,6 +220,11 @@ class SelfServiceController extends Controller
         ClickUp::resendInvitationToUser($apiary_user->user->clickup_id);
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+        if (null === $clickup_membership) {
+            // This should be unreachable, but just in case
+            return view('selfservice.error');
+        }
 
         if (true === $clickup_membership->memberInfo->invite) {
             UpdateClickUpInvitePendingFlag::dispatch($username, true);
