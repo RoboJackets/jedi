@@ -169,7 +169,17 @@ class SelfServiceController extends Controller
             return redirect('https://my.robojackets.org/profile');
         }
 
-        if (null === $apiary_user->user->clickup_id) {
+        $id_in_apiary_is_wrong = false;
+
+        if (null !== $apiary_user->user->clickup_id) {
+            $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+            if (null === $clickup_membership) {
+                $id_in_apiary_is_wrong = true;
+            }
+        }
+
+        if (null === $apiary_user->user->clickup_id || $id_in_apiary_is_wrong) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
             UpdateClickUpAttributes::dispatch(
                 $username,
@@ -190,6 +200,11 @@ class SelfServiceController extends Controller
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
 
+        if (null === $clickup_membership) {
+            // This should be unreachable, but just in case
+            return view('selfservice.error');
+        }
+
         if (false === $clickup_membership->memberInfo->invite) {
             if (true === $apiary_user->user->clickup_invite_pending) {
                 UpdateClickUpInvitePendingFlag::dispatch($username, false);
@@ -205,6 +220,11 @@ class SelfServiceController extends Controller
         ClickUp::resendInvitationToUser($apiary_user->user->clickup_id);
 
         $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+
+        if (null === $clickup_membership) {
+            // This should be unreachable, but just in case
+            return view('selfservice.error');
+        }
 
         if (true === $clickup_membership->memberInfo->invite) {
             UpdateClickUpInvitePendingFlag::dispatch($username, true);

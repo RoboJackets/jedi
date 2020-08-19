@@ -74,7 +74,7 @@ class SyncClickUp extends SyncJob
 
             $response = ClickUp::addUser($this->clickup_email);
 
-            if (null === $this->clickup_id) {
+            if (null === $this->clickup_id || $this->clickup_id !== $response->user->id) {
                 UpdateClickUpAttributes::dispatch($this->uid, $response->user->id, $response->invite);
             } else {
                 if ($this->clickup_invite_pending !== $response->invite) {

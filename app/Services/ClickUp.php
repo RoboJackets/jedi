@@ -35,9 +35,13 @@ class ClickUp extends Service
         );
     }
 
-    public static function getUserById(int $clickup_id): object
+    public static function getUserById(int $clickup_id): ?object
     {
         $response = self::client()->get('profile/' . $clickup_id);
+
+        if ($response->getStatusCode() === 404) {
+            return null;
+        }
 
         self::expectStatusCodes($response, 200);
 
@@ -166,6 +170,7 @@ class ClickUp extends Service
                     'Authorization' => 'Bearer ' . $token,
                 ],
                 'allow_redirects' => false,
+                'http_errors' => false,
             ]
         );
 
