@@ -96,7 +96,7 @@ class SyncClickUp extends SyncJob
             Log::info(self::class . ': Disabling ' . $this->uid);
 
             if (null === $this->clickup_id) {
-                Log::warning(self::class . ': Asked to disable ' . $this->uid . ' but no clickup_id available');
+                Log::info(self::class . ': Asked to disable ' . $this->uid . ' but no clickup_id available');
                 return;
             }
 
