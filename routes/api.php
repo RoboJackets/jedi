@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SyncController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,14 +16,8 @@ use App\Http\Controllers\SyncController;
 |
 */
 
-/**
- * @psalm-suppress UndefinedClass
- */
 Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
     Route::post('/apiary', [SyncController::class, 'sync']);
 });
 
-/**
- * @psalm-suppress UndefinedClass
- */
 Route::webhooks('/v1/github', 'github');

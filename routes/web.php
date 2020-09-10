@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\SelfServiceController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,6 @@ use App\Http\Controllers\SelfServiceController;
 |
 */
 
-/**
- * @psalm-suppress UndefinedClass
- */
 Route::group(['prefix' => 'self-service/', 'middleware' => ['auth.cas']], static function (): void {
     Route::get('/github', [SelfServiceController::class, 'github']);
     Route::get('/sums', [SelfServiceController::class, 'sums']);

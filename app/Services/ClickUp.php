@@ -39,7 +39,7 @@ class ClickUp extends Service
     {
         $response = self::client()->get('profile/' . $clickup_id);
 
-        if ($response->getStatusCode() === 404) {
+        if (404 === $response->getStatusCode()) {
             return null;
         }
 
