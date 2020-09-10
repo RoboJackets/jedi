@@ -5,6 +5,8 @@ declare(strict_types=1);
 use App\Http\Controllers\SelfServiceController;
 use Illuminate\Support\Facades\Route;
 
+// @phan-file-suppress PhanStaticCallToNonStatic
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

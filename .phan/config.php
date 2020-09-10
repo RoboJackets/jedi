@@ -14,6 +14,7 @@ return [
     ],
 
     'suppress_issue_types' => [
+        'PhanCompatibleObjectTypePHP71',
         'PhanPartialTypeMismatchReturn',
         'PhanReadOnlyProtectedProperty',
         'PhanUndeclaredClassMethod',
