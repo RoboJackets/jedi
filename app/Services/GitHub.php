@@ -11,6 +11,7 @@ use App\Exceptions\DownstreamServiceProblem;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use SimpleJWT\JWT;
 use SimpleJWT\Keys\KeySet;
 use SimpleJWT\Keys\RSAKey;
@@ -323,6 +324,8 @@ class GitHub extends Service
                 return self::getInstallationToken();
             }
         );
+
+        Log::debug('Generated new GitHub installation token');
 
         self::$client = new Client(
             [
