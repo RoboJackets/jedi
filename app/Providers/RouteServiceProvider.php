@@ -19,11 +19,6 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * The path to the "home" route for your application.
-     */
-    public const HOME = '/horizon/dashboard';
-
-    /**
      * Define the routes for the application.
      *
      * @return void
