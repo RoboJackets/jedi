@@ -12,7 +12,7 @@ use Exception;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
-use Google_Service_Exception;
+use Google\Service\Exception as Google_Service_Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -64,12 +64,10 @@ class SyncGoogleGroups extends SyncJob
     public function handle(): void
     {
         $client = new Google_Client();
-        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         $client->setAuthConfig(config('google.credentials'));
         $client->setApplicationName('MyRoboJackets');
         $client->setScopes(['https://www.googleapis.com/auth/admin.directory.group.member']);
         // The subject is the user that the service account "impersonates"
-        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         $client->setSubject(config('google.admin'));
 
         $service = new Google_Service_Directory($client);
