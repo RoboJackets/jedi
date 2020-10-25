@@ -1,0 +1,134 @@
+
+*** Shift SKU: 60
+*** Completed: Shift\Tasks\Laravel\UpsellConsolidateNamespace
+>>> Event: formatting with: /opt/shift/resources/.php_cs.laravel
+
+In Finder.php line 589:
+                                                  
+  The "/project/tests" directory does not exist.  
+                                                  
+
+fix [--path-mode PATH-MODE] [--allow-risky ALLOW-RISKY] [--config CONFIG] [--dry-run] [--rules RULES] [--using-cache USING-CACHE] [--cache-file CACHE-FILE] [--diff] [--diff-format DIFF-FORMAT] [--format FORMAT] [--stop-on-violation] [--show-progress SHOW-PROGRESS] [--] [<path>...]
+
+*** Completed: Shift\Tasks\Laravel\FormatCode
+*** Completed: Shift\Tasks\PerformCommit
+Loaded config default from "/opt/shift/resources/.php_cs.short-array".
+Paths from configuration file have been overridden by paths provided as command arguments.
+*** Completed: Shift\Tasks\Laravel\ShortArraySyntax
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Php\ClassProperty
+*** Completed: Shift\Tasks\PerformCommit
+cp: can't create 'app/Http/Controllers/Auth/ConfirmPasswordController.php': No such file or directory
+cp: can't create 'app/Http/Controllers/Auth/ForgotPasswordController.php': No such file or directory
+cp: can't create 'app/Http/Controllers/Auth/ResetPasswordController.php': No such file or directory
+>>> Event: could not upgrade files Data: ["bootstrap\/app.php","app\/Http\/Kernel.php","resources\/lang\/en\/passwords.php","resources\/lang\/en\/validation.php"]
+*** Completed: Shift\Tasks\Laravel\SixDotZero\CoreFiles
+*** Completed: Shift\Tasks\Laravel\SixDotZero\CheckMissing
+*** Completed: Shift\Tasks\PerformCommit
+>>> Event: matched core file: app/Http/Middleware/RedirectIfAuthenticated.php with version: 6.12.0
+*** Completed: Shift\Tasks\Laravel\SixDotZero\HomeConstant
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\Fixer\DeprecatedHelpers
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\FiveDotEight\DeferredServiceProviders
+*** Completed: Shift\Tasks\PerformCommit
+>>> Event: could not upgrade config files Data: ["config\/auth.php","config\/broadcasting.php","config\/cache.php","config\/database.php","config\/filesystems.php","config\/logging.php","config\/mail.php","config\/queue.php","config\/services.php"]
+Array
+(
+)
+Array
+(
+    [0] => connections.pusher.options.encrypted
+)
+Array
+(
+)
+Array
+(
+    [0] => redis.cache.database
+    [1] => redis.cache.port
+    [2] => redis.cache.path
+    [3] => redis.cache.scheme
+    [4] => redis.default.database
+    [5] => redis.default.port
+    [6] => redis.default.path
+    [7] => redis.default.scheme
+    [8] => redis.client
+)
+Array
+(
+)
+Array
+(
+    [0] => channels.bugsnag.driver
+    [1] => channels.stack.channels.2
+    [2] => channels.stack.channels.1
+    [3] => channels.stack.channels.0
+)
+Array
+(
+)
+Array
+(
+    [0] => connections.sqs.region
+    [1] => connections.sqs.secret
+    [2] => connections.sqs.key
+)
+Array
+(
+    [0] => stripe.webhook.tolerance
+    [1] => stripe.webhook.secret
+    [2] => stripe.secret
+    [3] => stripe.key
+    [4] => stripe.model
+    [5] => sparkpost.secret
+    [6] => ses.region
+    [7] => ses.secret
+    [8] => ses.key
+)
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Config
+>>> Event: app contained dependency for fideloper/proxy of ^4.0
+>>> Event: app contained dependency for mockery/mockery of ^1.0
+>>> Event: app contained dependency for facade/ignition of ^1.4
+>>> Event: app contained dependency for predis/predis of ^1.1
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Dependencies
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Policies
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Eloquent
+*** Completed: Shift\Tasks\Laravel\SixDotZero\BetweenScheduling
+*** Completed: Shift\Tasks\Laravel\SixDotZero\FormRequest
+*** Completed: Shift\Tasks\Laravel\InputFacade
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Contracts
+*** Completed: Shift\Tasks\Laravel\SixDotZero\LangMethods
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Carbon2
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\SixDotZero\VerifyEmail
+*** Completed: Shift\Tasks\Laravel\FixNamespace
+>>> Event: formatting with: /opt/shift/resources/.php_cs.laravel
+
+In Finder.php line 589:
+                                                  
+  The "/project/tests" directory does not exist.  
+                                                  
+
+fix [--path-mode PATH-MODE] [--allow-risky ALLOW-RISKY] [--config CONFIG] [--dry-run] [--rules RULES] [--using-cache USING-CACHE] [--cache-file CACHE-FILE] [--diff] [--diff-format DIFF-FORMAT] [--format FORMAT] [--stop-on-violation] [--show-progress SHOW-PROGRESS] [--] [<path>...]
+
+*** Completed: Shift\Tasks\Laravel\FormatCode
+*** Completed: Shift\Tasks\PerformCommit
+grep: tests: No such file or directory
+*** Completed: Shift\Tasks\Php\PhpUnit8\MethodSignatures
+*** Completed: Shift\Tasks\PerformCommit
+grep: tests: No such file or directory
+grep: tests: No such file or directory
+grep: tests: No such file or directory
+*** Completed: Shift\Tasks\Php\PhpUnit8\Assertions
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\FiveDotFour\TestingFolder
+*** Completed: Shift\Tasks\PerformCommit
+*** Completed: Shift\Tasks\Laravel\SixDotZero\RouteHelpers
+*** Completed: Shift\Tasks\Php\SevenDotTwo\CreateFunction
+*** Completed: Shift\Tasks\Laravel\SixDotZero\Miscellaneous
+>>> Event: found publishing package
+*** Completed: Shift\Tasks\Laravel\RepublishReminder
