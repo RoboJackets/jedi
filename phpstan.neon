@@ -1,16 +1,9 @@
 parameters:
   excludes_analyse:
     - %currentWorkingDirectory%/vendor/*
-  autoload_directories:
-    - %currentWorkingDirectory%/database/
+    - %currentWorkingDirectory%/bootstrap/cache/*
   ignoreErrors:
-    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::authenticate\(\)\.#'
-    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Guard::getTokenForRequest\(\)\.#'
-    - '#Call to an undefined method Illuminate\\Contracts\\Routing\\ResponseFactory\|Illuminate\\Http\\Response::json\(\)\.#'
-    - '#Call to an undefined static method [a-zA-Z\\]+::where\(\)#'
-    - '#Call to an undefined static method Illuminate\\Support\\Facades\\Broadcast::routes\(\)#'
-    - '#Call to function is_string\(\) with string will always evaluate to true\.#'
-    - '#Call to static method [a-zA-Z]+\(\) on an unknown class Route#'
+    - '#Call to an undefined method Illuminate\\Contracts\\Auth\\StatefulGuard::getTokenForRequest\(\)\.#'
     - '#Dynamic call to static method Illuminate\\Auth\\SessionGuard::authenticate\(\)\.#'
     - '#Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder<App\\EmailEvent>::count\(\)\.#'
     - '#Method App\\Http\\Middleware\\[a-zA-Z]+::handle\(\) has no return typehint specified\.#'
