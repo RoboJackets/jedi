@@ -15,7 +15,6 @@ return [
     'checks' => [
         UKFast\HealthCheck\Checks\CacheHealthCheck::class,
         UKFast\HealthCheck\Checks\DatabaseHealthCheck::class,
-        UKFast\HealthCheck\Checks\HttpHealthCheck::class,
         UKFast\HealthCheck\Checks\LogHealthCheck::class,
         UKFast\HealthCheck\Checks\MigrationUpToDateHealthCheck::class,
         UKFast\HealthCheck\Checks\PackageSecurityHealthCheck::class,
@@ -64,7 +63,6 @@ return [
      * E.g. address => response code
      */
     'addresses' => [
-        env('APP_URL') => 200,
     ],
 
     /**
