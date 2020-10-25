@@ -7,6 +7,8 @@ parameters:
     - '#Dynamic call to static method Illuminate\\Auth\\SessionGuard::authenticate\(\)\.#'
     - '#Dynamic call to static method Illuminate\\Database\\Eloquent\\Builder<App\\EmailEvent>::count\(\)\.#'
     - '#Method App\\Http\\Middleware\\[a-zA-Z]+::handle\(\) has no return typehint specified\.#'
+    - '#Method App\\Nova\\[a-zA-Z]+::fields\(\) return type has no value type specified in iterable type array\.#'
+    - '#Parameter \#1 \$data of function bin2hex expects string, string\|false given\.#'
     - '#Parameter \#1 \$var of function count expects array\|Countable, array\|null given\.#'
     - '#Parameter \#2 \$str of function explode expects string, array\|string given\.#'
     - '#Property App\\EmailEvent::\$last_attendance_id \(int\) does not accept int\|null\.#'

@@ -11,13 +11,17 @@ return [
 
     'exclude_analysis_directory_list' => [
         'vendor/',
+        'bootstrap/cache/',
     ],
 
     'suppress_issue_types' => [
         'PhanCompatibleObjectTypePHP71',
+        'PhanInvalidFQSENInCallable',
         'PhanPartialTypeMismatchReturn',
+        'PhanPossiblyFalseTypeArgumentInternal',
         'PhanReadOnlyProtectedProperty',
         'PhanUndeclaredClassMethod',
+        'PhanUndeclaredFunctionInCallable',
         'PhanUndeclaredMethod',
         'PhanUnreferencedClass',
         'PhanUnreferencedClosure',
@@ -28,6 +32,8 @@ return [
         'PhanUnreferencedPublicProperty',
         'PhanUnreferencedUseNormal',
         'PhanUnusedProtectedMethodParameter',
+        'PhanUnusedPublicMethodParameter',
+        'PhanUnusedPublicNoOverrideMethodParameter',
         'PhanWriteOnlyProtectedProperty',
     ],
 
