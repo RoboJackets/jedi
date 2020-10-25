@@ -181,11 +181,7 @@ class SelfServiceController extends Controller
 
         if (null === $apiary_user->user->clickup_id || $id_in_apiary_is_wrong) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
-            UpdateClickUpAttributes::dispatch(
-                $username,
-                $clickup_membership->user->id,
-                $clickup_membership->invite
-            );
+            UpdateClickUpAttributes::dispatch($username, $clickup_membership->user->id, $clickup_membership->invite);
             if (true === $clickup_membership->invite) {
                 return view('selfservice.checkemailforclickup');
             }

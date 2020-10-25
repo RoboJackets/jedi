@@ -15,9 +15,7 @@ if (! is_string($parsed_url)) {
     throw new Exception('Failed parsing url');
 }
 
-$uri = urldecode(
-    $parsed_url
-);
+$uri = urldecode($parsed_url);
 
 // This file allows us to emulate Apache's "mod_rewrite" functionality from the
 // built-in PHP web server. This provides a convenient way to test a Laravel

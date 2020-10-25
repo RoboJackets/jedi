@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// phpcs:disable SlevomatCodingStandard.TypeHints.DisallowMixedTypeHint.DisallowedMixedTypeHint
+// phpcs:disable SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition.RequiredSingleLineCondition
 
 namespace App\Http\Middleware;
 
@@ -20,9 +20,6 @@ use RoboJackets\NetworkCheck;
 
 /**
  * Authenticates users against a CAS server (e.g. GT Login Service)
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.ExitExpression)
  */
 class CASAuthenticate
 {
