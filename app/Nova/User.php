@@ -52,7 +52,7 @@ class User extends Resource
             Text::make('API Token')
                 ->onlyOnDetail(),
 
-            HasMany::make('Email Events')
+            HasMany::make('Email Events', 'emailEvents', EmailEvent::class)
                 ->onlyOnDetail(),
 
             new Panel(

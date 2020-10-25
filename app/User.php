@@ -40,7 +40,7 @@ class User extends Authenticatable
     /**
      *  Get the email events associated with this user
      */
-    public function email_events(): HasMany
+    public function emailEvents(): HasMany
     {
         return $this->hasMany(EmailEvent::class, 'uid', 'uid');
     }
@@ -48,7 +48,7 @@ class User extends Authenticatable
     /**
      * Get the is_active flag for the User.
      */
-    public function getNameAttribute(): bool
+    public function getNameAttribute(): string
     {
         return $this->uid;
     }

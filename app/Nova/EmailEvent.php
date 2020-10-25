@@ -50,7 +50,7 @@ class EmailEvent extends Resource
 
             Number::make('Last Attendance ID')->sortable(),
 
-            BelongsTo::make('User', 'uid')->sortable(),
+            BelongsTo::make('User', 'user', User::class)->sortable(),
 
             new Panel(
                 'Metadata',
