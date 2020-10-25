@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Str;
 
 return [
@@ -196,6 +198,6 @@ return [
     |
     */
 
-    'same_site' => null,
+    'same_site' => "strict",
 
 ];
