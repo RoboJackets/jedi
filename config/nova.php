@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => env('NOVA_APP_NAME', "Go to Horizon"),
+    'name' => env('NOVA_APP_NAME', 'Go to Horizon'),
 
     /*
     |--------------------------------------------------------------------------
