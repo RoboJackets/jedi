@@ -18,7 +18,7 @@ return [
     |
     */
 
-    'name' => env('NOVA_APP_NAME', env('APP_NAME')),
+    'name' => env('NOVA_APP_NAME', "Go to Horizon"),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', '/horizon/dashboard'),
+    'url' => env('APP_URL') . '/horizon/dashboard',
 
     /*
     |--------------------------------------------------------------------------
