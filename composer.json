@@ -22,9 +22,11 @@
         "predis/predis": "^1.1",
         "robojackets/error-pages": "^2.0",
         "robojackets/network-check": "^1.0",
+        "sensiolabs/security-checker": "^6.0",
         "spatie/laravel-failed-job-monitor": "^3.1",
         "spatie/laravel-webhook-client": "^2.2",
-        "subfission/cas": "*"
+        "subfission/cas": "*",
+        "ukfast/laravel-health-check": "^1.7"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
