@@ -9,10 +9,10 @@ namespace App\Jobs;
 
 use App\Services\Apiary;
 use Exception;
+use Google\Service\Exception as Google_Service_Exception;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
-use Google\Service\Exception as Google_Service_Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
