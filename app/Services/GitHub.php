@@ -321,11 +321,11 @@ class GitHub extends Service
             'github_installation_token',
             self::FIFTY_NINE_MINUTES,
             static function (): string {
+                Log::debug('Generating new GitHub installation token');
+
                 return self::getInstallationToken();
             }
         );
-
-        Log::debug('Generated new GitHub installation token');
 
         self::$client = new Client(
             [
