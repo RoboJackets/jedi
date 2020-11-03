@@ -18,7 +18,7 @@ class AutodeskLibrary extends Service
     public static function addUser(string $email): void
     {
         $response = self::client()->post(
-            '/hubs/' . config('autodesk-library.hub_id') . '/invite',
+            'hubs/' . config('autodesk-library.hub_id') . '/invite',
             [
                 'json' => [
                     'inviteEmail' => $email,
@@ -35,7 +35,7 @@ class AutodeskLibrary extends Service
     public static function removeUser(string $email): void
     {
         $response = self::client()->post(
-            '/hubs/' . config('autodesk-library.hub_id'),
+            'hubs/' . config('autodesk-library.hub_id'),
             [
                 'json' => [
                     'rem' => [
@@ -60,14 +60,13 @@ class AutodeskLibrary extends Service
 
         $autodesk_client = new Client(
             [
-                'base_uri' => 'https://accounts.autodesk.com/' ,
+                'base_uri' => 'https://accounts.autodesk.com' ,
                 'headers' => [
                     'User-Agent' => 'JEDI on ' . config('app.url'),
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
                     'max'             => 10,        // allow at most 10 redirects.
-                    'strict'          => true,      // use "strict" RFC compliant redirects.
                     'referer'         => true,      // add a Referer header
                     'protocols'       => ['https'], // only allow https URLs
                     'track_redirects' => true
@@ -75,9 +74,8 @@ class AutodeskLibrary extends Service
                 'cookies' => $jar,
             ]
         );
-
         $response = $autodesk_client->post(
-            'Authentication/LogOn',
+            '/Authentication/LogOn',
             [
                 'json' => [
                     'UserName' => config('autodesk-library.email'),
@@ -98,7 +96,6 @@ class AutodeskLibrary extends Service
                 ],
                 'allow_redirects' => [
                     'max'             => 10,        // allow at most 10 redirects.
-                    'strict'          => true,      // use "strict" RFC compliant redirects.
                     'referer'         => true,      // add a Referer header
                     'protocols'       => ['https'], // only allow https URLs
                     'track_redirects' => true
