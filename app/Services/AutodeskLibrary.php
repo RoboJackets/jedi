@@ -21,17 +21,49 @@ class AutodeskLibrary extends Service
             return self::$client;
         }
 
-        self::$client = new Client(
+        $jar = new \GuzzleHttp\Cookie\CookieJar;
+
+        $autodesk_client = new Client(
             [
-                'base_uri' => config('apiary.server'),
+                'base_uri' => 'https://accounts.autodesk.com/' ,
                 'headers' => [
                     'User-Agent' => 'JEDI on ' . config('app.url'),
-                    'Authorization' => 'Bearer ' . config('apiary.token'),
                     'Accept' => 'application/json',
                 ],
-                'allow_redirects' => false,
+                'allow_redirects' => true,
+                'cookies' => $jar,
             ]
         );
+
+        $autodesk_client->post(
+            'Authentication/LogOn',
+            [
+                'json' => [
+                    'UserName' => config('autodesk.email'),
+                    'Password' => config('autodesk.password'),
+                    'RememberMe' => 'true',
+                ],
+            ]
+        );
+
+        # Above should expect 200
+
+        self::$client = new Client(
+            [
+                'base_uri' => 'https://contapi.circuits.io/123D-Circuits/' ,
+                'headers' => [
+                    'User-Agent' => 'JEDI on ' . config('app.url'),
+                    'Accept' => 'application/json',
+                ],
+                'allow_redirects' => true,
+                'cookies' => $jar,
+            ]
+        );
+
+        self::$client->get(
+            'actions/login?tenant=circuits&redirect=https://library.io/id-username/libraries',
+        );
+
 
         return self::$client;
     }
