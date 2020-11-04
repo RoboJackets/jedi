@@ -15,6 +15,41 @@ class AutodeskLibrary extends Service
      */
     private static $client;
 
+    public static function addUser(string $email): void
+    {
+        $response = self::client()->post(
+            '/hubs/' . config('autodesk-library.hub_id') . '/invite',
+            [
+                'json' => [
+                    'inviteEmail' => $email,
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 201);
+    }
+
+
+    // Needs to make a get request to the invite url
+    //
+    public static function removeUser(string $email): void
+    {
+        $response = self::client()->post(
+            '/hubs/' . config('autodesk-library.hub_id'),
+            [
+                'json' => [
+                    'rem' => [
+                        [
+                            'id' => $clickup_id,
+                        ],
+                    ],
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+    }
+
     public static function client(): Client
     {
         if (null !== self::$client) {
@@ -30,23 +65,29 @@ class AutodeskLibrary extends Service
                     'User-Agent' => 'JEDI on ' . config('app.url'),
                     'Accept' => 'application/json',
                 ],
-                'allow_redirects' => true,
+                'allow_redirects' => [
+                    'max'             => 10,        // allow at most 10 redirects.
+                    'strict'          => true,      // use "strict" RFC compliant redirects.
+                    'referer'         => true,      // add a Referer header
+                    'protocols'       => ['https'], // only allow https URLs
+                    'track_redirects' => true
+                ],
                 'cookies' => $jar,
             ]
         );
 
-        $autodesk_client->post(
+        $response = $autodesk_client->post(
             'Authentication/LogOn',
             [
                 'json' => [
-                    'UserName' => config('autodesk.email'),
-                    'Password' => config('autodesk.password'),
+                    'UserName' => config('autodesk-library.email'),
+                    'Password' => config('autodesk-library.password'),
                     'RememberMe' => 'true',
                 ],
             ]
         );
 
-        # Above should expect 200
+        self::expectStatusCodes($response, 200);
 
         self::$client = new Client(
             [
@@ -55,15 +96,22 @@ class AutodeskLibrary extends Service
                     'User-Agent' => 'JEDI on ' . config('app.url'),
                     'Accept' => 'application/json',
                 ],
-                'allow_redirects' => true,
+                'allow_redirects' => [
+                    'max'             => 10,        // allow at most 10 redirects.
+                    'strict'          => true,      // use "strict" RFC compliant redirects.
+                    'referer'         => true,      // add a Referer header
+                    'protocols'       => ['https'], // only allow https URLs
+                    'track_redirects' => true
+                ],
                 'cookies' => $jar,
             ]
         );
 
-        self::$client->get(
+        $response = self::$client->get(
             'actions/login?tenant=circuits&redirect=https://library.io/id-username/libraries',
         );
 
+        self::expectStatusCodes($response, 200);
 
         return self::$client;
     }
