@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
 
 class AutodeskLibrary extends Service
@@ -34,21 +35,65 @@ class AutodeskLibrary extends Service
     //
     public static function removeUser(string $email): void
     {
-        $response = self::client()->post(
-            'hubs/' . config('autodesk-library.hub_id'),
-            [
-                'json' => [
-                    'rem' => [
-                        [
-                            'id' => $clickup_id,
-                        ],
-                    ],
-                ],
-            ]
+        $user_id = self::getUserID($email);
+
+        $response = self::client()->delete(
+            'hubs/' . config('autodesk-library.hub_id') . '/members/' . $user_id
         );
 
         self::expectStatusCodes($response, 200);
     }
+
+
+    public static function cancelInvite(string $email): void
+    {
+        $ref_id = self::getRefID($email);
+
+        $response = self::client()->get(
+            'hubs/' . config('autodesk-library.hub_id') . '/invite/' . $ref_id . '/cancel'
+        );
+
+        self::expectStatusCodes($response, 200);
+    }
+
+
+    public static function getUserID(string $email): string
+    {
+        $response = self::client()->get(
+            'hubs/' . config('autodesk-library.hub_id') . '/members'
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        $obj = self::decodeToObject($response);
+        foreach ($obj->members as $member) {
+            if ($email === $member->email) {
+                return $member->id;
+            }
+        }
+
+        throw new DownstreamServiceProblem('Couldn\'t find user');
+    }
+
+
+    public static function getRefID(string $email): string
+    {
+        $response = self::client()->get(
+            'hubs/' . config('autodesk-library.hub_id') . '/invite'
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        $obj = self::decodeToObject($response);
+        foreach ($obj->invites as $invite) {
+            if ($email === $invite->email) {
+                return $invite->lookup;
+            }
+        }
+
+        throw new DownstreamServiceProblem('Couldn\'t find user');
+    }
+
 
     public static function client(): Client
     {
