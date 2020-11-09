@@ -174,11 +174,12 @@ class SyncController extends Controller
         }
 
 
-        if (true === config('autodesk_library.enabled')) {
+        if (true === config('autodesk_library.enabled') && $request->filled('autodesk_email')) {
             SyncAutodeskLibrary::dispatch(
                 $request->uid,
                 $request->is_access_active,
-                $request->clickup_email,
+                $request->teams,
+                $request->autodesk_email,
                 $request->autodesk_invite_pending
             );
         }

@@ -31,13 +31,6 @@ class UpdateAutodeskLibraryInvitePendingFlag extends ApiaryJob
     public function handle(): void
     {
         Apiary::setFlag($this->uid, 'autodesk_invite_pending', $this->autodesk_invite_pending);
-        Apiary::setAttributes(
-            $this->uid,
-            [
-                'autodesk_invite_pending' => $this->autodesk_invite_pending,
-            ]
-        );
-
         Log::info(self::class . ': Successfully updated autodesk_invite_pending flag for ' . $this->uid);
     }
 

@@ -145,7 +145,7 @@ class AutodeskLibrary extends Service
             [
                 'base_uri' => 'https://accounts.autodesk.com' ,
                 'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
+                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . '--admin@robojackets.org',
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
@@ -174,7 +174,7 @@ class AutodeskLibrary extends Service
             [
                 'base_uri' => 'https://contapi.circuits.io/123D-Circuits/' ,
                 'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
+                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . '--admin@robojackets.org',
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
