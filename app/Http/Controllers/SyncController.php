@@ -173,6 +173,16 @@ class SyncController extends Controller
             );
         }
 
+
+        if (true === config('autodesk_library.enabled')) {
+            SyncAutodeskLibrary::dispatch(
+                $request->uid,
+                $request->is_access_active,
+                $request->clickup_email,
+                $request->autodesk_invite_pending
+            );
+        }
+
         return response()->json('queued', 200);
     }
 }

@@ -59,23 +59,34 @@ class SyncAutodeskLibrary extends SyncJob
      */
     public function handle(): void
     {
+        $member = AutodeskLibrary::isMember($this->$autodesk_email);
+        $pending = AutodeskLibrary::isInvitePending($this->$autodesk_email);
+
         if ($this->is_access_active) {
             Log::info(self::class . ': Enabling ' . $this->uid);
 
-            if (AutodeskLibrary::isMember($this->$autodesk_email) !== true) {
+            if ($member !== true) {
                 AutodeskLibrary::addUser($this->autodesk_email);
+                $pending = true;
             }
 
         } else {
             Log::info(self::class . ': Disabling ' . $this->uid);
 
-            if (AutodeskLibrary::isMember($this->$autodesk_email)) {
+            if ($member) {
                 Autodesk::removeUser($this->autodesk_email);
             }
 
-            if (AutodeskLibrary::isInvitePending($this->$autodesk_email)) {
+            if ($pending) {
                 AutodeskLibrary::cancelInvite($this->autodesk_email);
+                $pending = false;
             }
         }
+
+        if ($this->autodesk_invite_pending !== $pending) {
+            UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+        }
+
+
     }
 }
