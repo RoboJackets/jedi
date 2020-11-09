@@ -62,38 +62,19 @@ class SyncAutodeskLibrary extends SyncJob
         if ($this->is_access_active) {
             Log::info(self::class . ': Enabling ' . $this->uid);
 
-            $response = Autodesk::addUser($this->autodesk_email);
-
-            if (null === $this->autodesk_id || $this->autodesk_id !== $response->user->id) {
-                UpdateAutodeskAttributes::dispatch($this->uid, $response->user->id, $response->invite);
-            } else {
-                if ($this->autodesk_invite_pending !== $response->invite) {
-                    UpdateAutodeskInvitePendingFlag::dispatch($this->uid, $response->invite);
-                }
+            if (AutodeskLibrary::isMember($this->$autodesk_email) !== true) {
+                AutodeskLibrary::addUser($this->autodesk_email);
             }
 
-            foreach ($this->teams as $team) {
-                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-                if (!array_key_exists($team, config('autodesk.teams_to_spaces'))) {
-                    continue;
-                }
-
-                foreach (config('autodesk.teams_to_spaces')[$team] as $space_id) {
-                    Autodesk::addUserToSpace($response->user->id, $space_id);
-                }
-            }
         } else {
             Log::info(self::class . ': Disabling ' . $this->uid);
 
-            if (null === $this->autodesk_id) {
-                Log::info(self::class . ': Asked to disable ' . $this->uid . ' but no autodesk_id available');
-                return;
+            if (AutodeskLibrary::isMember($this->$autodesk_email)) {
+                Autodesk::removeUser($this->autodesk_email);
             }
 
-            Autodesk::removeUser($this->autodesk_id);
-
-            if (true === $this->autodesk_invite_pending) {
-                UpdateAutodeskInvitePendingFlag::dispatch($this->uid, false);
+            if (AutodeskLibrary::isInvitePending($this->$autodesk_email)) {
+                AutodeskLibrary::cancelInvite($this->autodesk_email);
             }
         }
     }

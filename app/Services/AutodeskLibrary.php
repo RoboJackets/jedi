@@ -76,6 +76,25 @@ class AutodeskLibrary extends Service
     }
 
 
+    public static function isMember(string $email): bool
+    {
+        $response = self::client()->get(
+            'hubs/' . config('autodesk-library.hub_id') . '/members'
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        $obj = self::decodeToObject($response);
+        foreach ($obj->members as $member) {
+            if ($email === $member->email) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
     public static function getRefID(string $email): string
     {
         $response = self::client()->get(
@@ -88,6 +107,25 @@ class AutodeskLibrary extends Service
         foreach ($obj->invites as $invite) {
             if ($email === $invite->email) {
                 return $invite->lookup;
+            }
+        }
+
+        throw new DownstreamServiceProblem('Couldn\'t find user');
+    }
+
+
+    public static function isInvitePending(string $email): string
+    {
+        $response = self::client()->get(
+            'hubs/' . config('autodesk-library.hub_id') . '/invite'
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        $obj = self::decodeToObject($response);
+        foreach ($obj->invites as $invite) {
+            if ($email === $invite->email) {
+                return ($invite->state === "pending") ? true : false;
             }
         }
 
