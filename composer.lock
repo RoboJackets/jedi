@@ -3865,9 +3865,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.robojackets.org/dist/robojackets/error-pages/robojackets-error-pages-22e01ddd8df96f297407095be5cd74480aa10469-zip-4a4769.zip",
+                "url": "https://composer.robojackets.org/1604849115/robojackets/error-pages/robojackets-error-pages-22e01ddd8df96f297407095be5cd74480aa10469-zip-4a4769.zip",
                 "reference": "22e01ddd8df96f297407095be5cd74480aa10469",
-                "shasum": "66f9486a88f28e9429b65f820c86ec6204241be7"
+                "shasum": "bca21fcd1a3572ed7a6ac6c60324ae5bd8b1d38f"
             },
             "require": {
                 "twig/twig": "^2.0"
@@ -3914,9 +3914,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.robojackets.org/dist/robojackets/network-check/robojackets-network-check-2fed18379f699e0e215b999b8c59c8dda5d7d00c-zip-2a429c.zip",
+                "url": "https://composer.robojackets.org/1604849115/robojackets/network-check/robojackets-network-check-2fed18379f699e0e215b999b8c59c8dda5d7d00c-zip-2a429c.zip",
                 "reference": "2fed18379f699e0e215b999b8c59c8dda5d7d00c",
-                "shasum": "aef8a9463480b5c990a68bd8e6182ae78eaab84a"
+                "shasum": "10125cdc18d8c801fce59a7d42bc22235ae0a523"
             },
             "type": "library",
             "autoload": {
@@ -7031,23 +7031,23 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.5.3",
+            "version": "1.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8"
+                "reference": "87dc337d4200b32717dd3849fea846319e897658"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/25bcbf01678930251fd572891447d9e318a6e2b8",
-                "reference": "25bcbf01678930251fd572891447d9e318a6e2b8",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/87dc337d4200b32717dd3849fea846319e897658",
+                "reference": "87dc337d4200b32717dd3849fea846319e897658",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "~6.0 || ~7.0"
+                "phpunit/phpunit": "~6.0 || ~7.0 || ~9.0"
             },
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
@@ -7077,7 +7077,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/master"
+                "source": "https://github.com/voku/portable-ascii/tree/1.5.4"
             },
             "funding": [
                 {
@@ -7101,7 +7101,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-07-22T23:32:04+00:00"
+            "time": "2020-11-08T21:15:15+00:00"
         }
     ],
     "packages-dev": [
@@ -9914,9 +9914,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.robojackets.org/dist/robojackets/static-analysis/robojackets-static-analysis-c2bb4f016bab81c4a59b008f876e066b74facb9d-zip-5370fe.zip",
+                "url": "https://composer.robojackets.org/1604849115/robojackets/static-analysis/robojackets-static-analysis-c2bb4f016bab81c4a59b008f876e066b74facb9d-zip-5370fe.zip",
                 "reference": "c2bb4f016bab81c4a59b008f876e066b74facb9d",
-                "shasum": "a4251bc41c9e9d4d188f67b28ab176b3e4186407"
+                "shasum": "0bf271f4168f96ebfc96225eec558787176e0e99"
             },
             "require": {
                 "phan/phan": "*",
