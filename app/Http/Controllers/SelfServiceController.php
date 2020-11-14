@@ -228,4 +228,65 @@ class SelfServiceController extends Controller
 
         return view('selfservice.checkemailforclickup');
     }
+
+
+    /**
+     * Resend an invitation to ClickUp for the currently logged in user.
+     *
+     * @param Request $request The incoming request
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function autodesk(Request $request)
+    {
+        $username = $request->user()->uid;
+
+        $apiary_user = Apiary::getUser($username);
+
+        if (! $apiary_user->user->is_access_active) {
+            return view('selfservice.unpaiddues');
+        }
+
+        if (0 === count($apiary_user->user->teams)) {
+            return view('selfservice.noteams');
+        }
+
+        if (null === $apiary_user->user->autodesk_email) {
+            return redirect('https://my.robojackets.org/profile');
+        }
+
+        $member = AutodeskLibrary::isMember($this->$autodesk_email);
+        $pending = AutodeskLibrary::isInvitePending($this->$autodesk_email);
+
+        if (!AutodeskLibrary::isMember($apiary_user->user->autodesk_email)) {
+            AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
+
+            if ($pending) {
+                return view('selfservice.checkemailforautodesk');
+            }
+
+            return view(
+                'selfservice.alreadymember',
+                [
+                    'service' => 'Autodesk',
+                ]
+            );
+        }
+
+        if (false !== $pending) {
+            if (true === $apiary_user->user->autodesk_invite_pending) {
+                UpdateClickUpInvitePendingFlag::dispatch($username, false);
+            }
+            return view(
+                'selfservice.alreadymember',
+                [
+                    'service' => 'ClickUp',
+                ]
+            );
+        }
+
+        AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
+
+        return view('selfservice.checkemailforclickup');
+    }
 }
