@@ -130,7 +130,7 @@ class AutodeskLibrary extends Service
             return self::$client;
         }
 
-        $jar = new(\GuzzleHttp\Cookie\CookieJar);
+        $jar = new \GuzzleHttp\Cookie\CookieJar();
 
         $autodesk_client = new Client(
             [
@@ -143,7 +143,7 @@ class AutodeskLibrary extends Service
                     'max'             => 10,        // allow at most 10 redirects.
                     'referer'         => true,      // add a Referer header
                     'protocols'       => ['https'], // only allow https URLs
-                    'track_redirects' => true
+                    'track_redirects' => true,
                 ],
                 'cookies' => $jar,
             ]
@@ -172,7 +172,7 @@ class AutodeskLibrary extends Service
                     'max'             => 10,        // allow at most 10 redirects.
                     'referer'         => true,      // add a Referer header
                     'protocols'       => ['https'], // only allow https URLs
-                    'track_redirects' => true
+                    'track_redirects' => true,
                 ],
                 'cookies' => $jar,
             ]
