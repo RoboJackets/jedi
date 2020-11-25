@@ -117,7 +117,7 @@ class AutodeskLibrary extends Service
         $obj = self::decodeToObject($response);
         foreach ($obj->invites as $invite) {
             if ($email === $invite->email) {
-                return $invite->state === "pending" ? true : false;
+                return 'pending' === $invite->state
             }
         }
 
@@ -130,7 +130,7 @@ class AutodeskLibrary extends Service
             return self::$client;
         }
 
-        $jar = new \GuzzleHttp\Cookie\CookieJar;
+        $jar = new(\GuzzleHttp\Cookie\CookieJar);
 
         $autodesk_client = new Client(
             [
