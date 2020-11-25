@@ -30,7 +30,6 @@ class AutodeskLibrary extends Service
         self::expectStatusCodes($response, 201);
     }
 
-
     // Needs to make a get request to the invite url
     //
     public static function removeUser(string $email): void
@@ -44,7 +43,6 @@ class AutodeskLibrary extends Service
         self::expectStatusCodes($response, 200);
     }
 
-
     public static function cancelInvite(string $email): void
     {
         $ref_id = self::getRefID($email);
@@ -55,7 +53,6 @@ class AutodeskLibrary extends Service
 
         self::expectStatusCodes($response, 200);
     }
-
 
     public static function getUserID(string $email): string
     {
@@ -75,7 +72,6 @@ class AutodeskLibrary extends Service
         throw new DownstreamServiceProblem('Couldn\'t find user');
     }
 
-
     public static function isMember(string $email): bool
     {
         $response = self::client()->get(
@@ -93,7 +89,6 @@ class AutodeskLibrary extends Service
 
         return false;
     }
-
 
     public static function getRefID(string $email): string
     {
@@ -113,7 +108,6 @@ class AutodeskLibrary extends Service
         throw new DownstreamServiceProblem('Couldn\'t find user');
     }
 
-
     public static function isInvitePending(string $email): string
     {
         $response = self::client()->get(
@@ -131,7 +125,6 @@ class AutodeskLibrary extends Service
 
         throw new DownstreamServiceProblem('Couldn\'t find user');
     }
-
 
     public static function client(): Client
     {
