@@ -30,8 +30,6 @@ class AutodeskLibrary extends Service
         self::expectStatusCodes($response, 201);
     }
 
-    // Needs to make a get request to the invite url
-    //
     public static function removeUser(string $email): void
     {
         $user_id = self::getUserID($email);
@@ -54,7 +52,7 @@ class AutodeskLibrary extends Service
         self::expectStatusCodes($response, 200);
     }
 
-    public static function getUserID(string $email): string
+    public static function getUserId(string $email): string
     {
         $response = self::client()->get(
             'hubs/' . config('autodesk-library.hub_id') . '/members'
@@ -90,7 +88,7 @@ class AutodeskLibrary extends Service
         return false;
     }
 
-    public static function getRefID(string $email): string
+    public static function getRefId(string $email): string
     {
         $response = self::client()->get(
             'hubs/' . config('autodesk-library.hub_id') . '/invite'
@@ -119,7 +117,7 @@ class AutodeskLibrary extends Service
         $obj = self::decodeToObject($response);
         foreach ($obj->invites as $invite) {
             if ($email === $invite->email) {
-                return ($invite->state === "pending") ? true : false;
+                return $invite->state === "pending" ? true : false;
             }
         }
 

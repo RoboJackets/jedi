@@ -229,7 +229,6 @@ class SelfServiceController extends Controller
         return view('selfservice.checkemailforclickup');
     }
 
-
     /**
      * Resend an invitation to ClickUp for the currently logged in user.
      *
