@@ -80,9 +80,10 @@ class AutodeskLibrary extends Service
 
         $obj = self::decodeToObject($response);
         foreach ($obj->members as $member) {
-            if ($email === $member->email) {
-                return true;
+            if ($email !== $member->email) {
+                continue;
             }
+            return true;
         }
 
         return false;
@@ -116,9 +117,10 @@ class AutodeskLibrary extends Service
 
         $obj = self::decodeToObject($response);
         foreach ($obj->invites as $invite) {
-            if ($email === $invite->email) {
-                return 'pending' === $invite->state
+            if ($email !== $invite->email) {
+                continue;
             }
+            return 'pending' === $invite->state
         }
 
         throw new DownstreamServiceProblem('Couldn\'t find user');
