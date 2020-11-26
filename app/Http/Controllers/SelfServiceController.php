@@ -230,7 +230,7 @@ class SelfServiceController extends Controller
     }
 
     /**
-     * Resend an invitation to ClickUp for the currently logged in user.
+     * Resend an invitation to Autodesk for the currently logged in user.
      *
      * @param Request $request The incoming request
      *
