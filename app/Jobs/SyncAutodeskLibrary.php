@@ -81,8 +81,10 @@ class SyncAutodeskLibrary extends SyncJob
             }
         }
 
-        if ($this->autodesk_invite_pending !== $pending) {
-            UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+        if ($this->autodesk_invite_pending === $pending) {
+            return;
         }
+
+        UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
     }
 }
