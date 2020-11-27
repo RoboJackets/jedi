@@ -230,7 +230,7 @@ class SelfServiceController extends Controller
     }
 
     /**
-     * Resend an invitation to ClickUp for the currently logged in user.
+     * Resend an invitation to libray.io for the currently logged in user.
      *
      * @param Request $request The incoming request
      *
@@ -254,14 +254,24 @@ class SelfServiceController extends Controller
             return redirect('https://my.robojackets.org/profile');
         }
 
-        $member = AutodeskLibrary::isMember($this->$autodesk_email);
-        $pending = AutodeskLibrary::isInvitePending($this->$autodesk_email);
+        $member = AutodeskLibrary::isMember($apiary_user->user->autodesk_email);
+        // Will return false if invite is in any state but pending including canceled
+        $pending = AutodeskLibrary::isInvitePending($apiary_user->user->autodesk_email);
 
-        if (!AutodeskLibrary::isMember($apiary_user->user->autodesk_email)) {
+        if (true !== $member) {
+            // Always just resend an invite
             AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
+            $pending = true;
 
-            if ($pending) {
-                return view('selfservice.checkemailforautodesk');
+            if ($apiary_user->user->autodesk_invite_pending !== $pending) {
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+            }
+
+            return view('selfservice.checkemailforautodesk');
+        } else {
+            // If the invite was accepted
+            if ($apiary_user->user->autodesk_invite_pending !== $pending) {
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
             }
 
             return view(
@@ -271,21 +281,5 @@ class SelfServiceController extends Controller
                 ]
             );
         }
-
-        if (false !== $pending) {
-            if (true === $apiary_user->user->autodesk_invite_pending) {
-                UpdateClickUpInvitePendingFlag::dispatch($username, false);
-            }
-            return view(
-                'selfservice.alreadymember',
-                [
-                    'service' => 'ClickUp',
-                ]
-            );
-        }
-
-        AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
-
-        return view('selfservice.checkemailforclickup');
     }
 }

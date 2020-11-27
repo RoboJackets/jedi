@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Services\AutodeskLibrary;
+use App\Jobs\UpdateAutodeskLibraryInvitePendingFlag;
 use Illuminate\Support\Facades\Log;
 
 class SyncAutodeskLibrary extends SyncJob
@@ -71,11 +72,11 @@ class SyncAutodeskLibrary extends SyncJob
         } else {
             Log::info(self::class . ': Disabling ' . $this->uid);
 
-            if ($member) {
-                Autodesk::removeUser($this->autodesk_email);
+            if (true === $member) {
+                AutodeskLibrary::removeUser($this->autodesk_email);
             }
 
-            if ($pending) {
+            if (true === $pending) {
                 AutodeskLibrary::cancelInvite($this->autodesk_email);
                 $pending = false;
             }
@@ -86,5 +87,8 @@ class SyncAutodeskLibrary extends SyncJob
         }
 
         UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+
+
+
     }
 }

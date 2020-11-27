@@ -107,7 +107,7 @@ class AutodeskLibrary extends Service
         throw new DownstreamServiceProblem('Couldn\'t find user');
     }
 
-    public static function isInvitePending(string $email): string
+    public static function isInvitePending(string $email): bool
     {
         $response = self::client()->get(
             'hubs/' . config('autodesk-library.hub_id') . '/invite'
@@ -123,7 +123,8 @@ class AutodeskLibrary extends Service
             return 'pending' === $invite->state
         }
 
-        throw new DownstreamServiceProblem('Couldn\'t find user');
+        return false;
+
     }
 
     public static function client(): Client
