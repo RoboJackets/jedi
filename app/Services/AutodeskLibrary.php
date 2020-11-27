@@ -32,7 +32,7 @@ class AutodeskLibrary extends Service
 
     public static function removeUser(string $email): void
     {
-        $user_id = self::getUserID($email);
+        $user_id = self::getUserId($email);
 
         $response = self::client()->delete(
             'hubs/' . config('autodesk-library.hub_id') . '/members/' . $user_id
@@ -43,7 +43,7 @@ class AutodeskLibrary extends Service
 
     public static function cancelInvite(string $email): void
     {
-        $ref_id = self::getRefID($email);
+        $ref_id = self::getInviteId($email);
 
         $response = self::client()->get(
             'hubs/' . config('autodesk-library.hub_id') . '/invite/' . $ref_id . '/cancel'
@@ -89,7 +89,7 @@ class AutodeskLibrary extends Service
         return false;
     }
 
-    public static function getRefId(string $email): string
+    public static function getInviteId(string $email): string
     {
         $response = self::client()->get(
             'hubs/' . config('autodesk-library.hub_id') . '/invite'
