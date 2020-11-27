@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SyncAutodeskLibrary;
 use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncWordPress;
+use App\Services\AutodeskLibrary;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
