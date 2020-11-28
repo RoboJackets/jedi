@@ -120,11 +120,10 @@ class AutodeskLibrary extends Service
             if ($email !== $invite->email) {
                 continue;
             }
-            return 'pending' === $invite->state
+            return 'pending' === $invite->state;
         }
 
         return false;
-
     }
 
     public static function client(): Client

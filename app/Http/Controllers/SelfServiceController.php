@@ -266,14 +266,14 @@ class SelfServiceController extends Controller
             $pending = true;
 
             if ($apiary_user->user->autodesk_invite_pending !== $pending) {
-                UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($username, $pending);
             }
 
             return view('selfservice.checkemailforautodesk');
         } else {
             // If the invite was accepted
             if ($apiary_user->user->autodesk_invite_pending !== $pending) {
-                UpdateAutodeskLibraryInvitePendingFlag::dispatch($this->uid, $pending);
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($username, $pending);
             }
 
             return view(
