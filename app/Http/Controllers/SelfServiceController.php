@@ -260,7 +260,7 @@ class SelfServiceController extends Controller
         // Will return false if invite is in any state but pending including canceled
         $pending = AutodeskLibrary::isInvitePending($apiary_user->user->autodesk_email);
 
-        if (true !== $member) {
+        if (!$member) {
             // Always just resend an invite
             AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
             $pending = true;
