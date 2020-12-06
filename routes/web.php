@@ -22,4 +22,5 @@ Route::group(['prefix' => 'self-service/', 'middleware' => ['auth.cas']], static
     Route::get('/github', [SelfServiceController::class, 'github']);
     Route::get('/sums', [SelfServiceController::class, 'sums']);
     Route::get('/clickup', [SelfServiceController::class, 'clickup']);
+    Route::get('/autodesk', [SelfServiceController::class, 'autodesk']);
 });

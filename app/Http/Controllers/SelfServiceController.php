@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Jobs\SyncGitHub;
+use App\Jobs\UpdateAutodeskLibraryInvitePendingFlag;
 use App\Jobs\UpdateClickUpAttributes;
 use App\Jobs\UpdateClickUpInvitePendingFlag;
 use App\Jobs\UpdateExistsInSUMSFlag;
 use App\Services\Apiary;
+use App\Services\AutodeskLibrary;
 use App\Services\ClickUp;
 use App\Services\GitHub;
 use App\Services\SUMS;
@@ -227,5 +229,59 @@ class SelfServiceController extends Controller
         }
 
         return view('selfservice.checkemailforclickup');
+    }
+
+    /**
+     * Resend an invitation to library.io for the currently logged in user.
+     *
+     * @param Request $request The incoming request
+     *
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function autodesk(Request $request)
+    {
+        $username = $request->user()->uid;
+
+        $apiary_user = Apiary::getUser($username);
+
+        if (! $apiary_user->user->is_access_active) {
+            return view('selfservice.unpaiddues');
+        }
+
+        if (0 === count($apiary_user->user->teams)) {
+            return view('selfservice.noteams');
+        }
+
+        if (null === $apiary_user->user->autodesk_email) {
+            return redirect('https://my.robojackets.org/profile');
+        }
+
+        $member = AutodeskLibrary::isMember($apiary_user->user->autodesk_email);
+        // Will return false if invite is in any state but pending including canceled
+        $pending = AutodeskLibrary::isInvitePending($apiary_user->user->autodesk_email);
+
+        if (!$member) {
+            // Always just resend an invite
+            AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
+            $pending = true;
+
+            if ($apiary_user->user->autodesk_invite_pending !== $pending) {
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($username, $pending);
+            }
+
+            return view('selfservice.checkemailforautodesk');
+        } else {
+            // If the invite was accepted
+            if ($apiary_user->user->autodesk_invite_pending !== $pending) {
+                UpdateAutodeskLibraryInvitePendingFlag::dispatch($username, $pending);
+            }
+
+            return view(
+                'selfservice.alreadymember',
+                [
+                    'service' => 'Autodesk',
+                ]
+            );
+        }
     }
 }

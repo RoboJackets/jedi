@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SyncAutodeskLibrary;
 use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
@@ -170,6 +171,17 @@ class SyncController extends Controller
                 $request->clickup_email,
                 $request->clickup_id,
                 $request->clickup_invite_pending
+            );
+        }
+
+
+        if (true === config('autodesk_library.enabled') && $request->filled('autodesk_email')) {
+            SyncAutodeskLibrary::dispatch(
+                $request->uid,
+                $request->is_access_active,
+                $request->teams,
+                $request->autodesk_email,
+                $request->autodesk_invite_pending
             );
         }
 
