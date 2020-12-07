@@ -46,6 +46,8 @@ class SyncController extends Controller
                 'clickup_email' => 'present|string|nullable',
                 'clickup_id' => 'present|integer|nullable',
                 'clickup_invite_pending' => 'required|boolean',
+                'autodesk_email' => 'present|string|nullable'
+                'autodesk_invite_pending' => 'required|boolean',
             ]
         );
 
@@ -70,7 +72,8 @@ class SyncController extends Controller
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
-                    $lastRequest['clickup_id'] === $request->clickup_id;
+                    $lastRequest['clickup_id'] === $request->clickup_id && 
+                    $lastRequest['autodesk_email'] === $request->autodesk_email;
 
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
