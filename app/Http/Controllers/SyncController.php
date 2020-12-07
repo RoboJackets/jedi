@@ -36,17 +36,17 @@ class SyncController extends Controller
                 'project_manager_of_teams.*' => 'string',
                 'github_username' => 'present|string|nullable',
                 'google_accounts' => 'present|array',
-                'google_accounts.*' => 'string',
+                'google_accounts.*' => 'string|email:rfc,strict,dns,spoof',
                 'model_class' => 'required|string',
                 'model_id' => 'required|numeric',
                 'model_event' => 'required|string',
                 'last_attendance_time' => 'present|date|nullable',
                 'last_attendance_id' => 'present|numeric|nullable',
                 'exists_in_sums' => 'required|boolean',
-                'clickup_email' => 'present|string|nullable',
+                'clickup_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
                 'clickup_id' => 'present|integer|nullable',
                 'clickup_invite_pending' => 'required|boolean',
-                'autodesk_email' => 'present|string|nullable',
+                'autodesk_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
                 'autodesk_invite_pending' => 'required|boolean',
             ]
         );
@@ -72,7 +72,7 @@ class SyncController extends Controller
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
-                    $lastRequest['clickup_id'] === $request->clickup_id && 
+                    $lastRequest['clickup_id'] === $request->clickup_id &&
                     $lastRequest['autodesk_email'] === $request->autodesk_email;
 
             if ($same) {
