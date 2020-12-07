@@ -181,7 +181,7 @@ class AutodeskLibrary extends Service
         );
 
         $response = self::$client->get(
-            'actions/login?tenant=circuits&redirect=https://library.io/id-username/libraries',
+            'actions/login?tenant=circuits&redirect=https://library.io/id-username/libraries'
         );
 
         self::expectStatusCodes($response, 200);
