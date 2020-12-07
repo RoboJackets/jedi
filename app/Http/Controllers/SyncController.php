@@ -46,7 +46,7 @@ class SyncController extends Controller
                 'clickup_email' => 'present|string|nullable',
                 'clickup_id' => 'present|integer|nullable',
                 'clickup_invite_pending' => 'required|boolean',
-                'autodesk_email' => 'present|string|nullable'
+                'autodesk_email' => 'present|string|nullable',
                 'autodesk_invite_pending' => 'required|boolean',
             ]
         );
