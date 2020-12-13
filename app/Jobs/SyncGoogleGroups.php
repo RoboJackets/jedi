@@ -60,6 +60,8 @@ class SyncGoogleGroups extends SyncJob
      * Execute the job.
      *
      * @return void
+     *
+     * @phan-suppress PhanPartialTypeMismatchArgument
      */
     public function handle(): void
     {
