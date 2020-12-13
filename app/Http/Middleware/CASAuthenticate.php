@@ -10,13 +10,7 @@ use App\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use RoboJackets\ErrorPages\BadNetwork;
-use RoboJackets\ErrorPages\DuoNotEnabled;
-use RoboJackets\ErrorPages\DuoOutage;
-use RoboJackets\ErrorPages\EduroamISSDisabled;
-use RoboJackets\ErrorPages\EduroamNonGatech;
-use RoboJackets\ErrorPages\UsernameContainsDomain;
-use RoboJackets\NetworkCheck;
+use RoboJackets\AuthStickler;
 
 /**
  * Authenticates users against a CAS server (e.g. GT Login Service)
@@ -43,51 +37,7 @@ class CASAuthenticate
         //Check to ensure the request isn't already authenticated through the API guard
         if (! Auth::guard('api')->check()) {
             if ($this->cas->isAuthenticated() && null === $request->user()) {
-                $username = strtolower($this->cas->user());
-
-                if (false !== strpos($username, '@')) {
-                    foreach (array_keys($_COOKIE) as $key) {
-                        setcookie($key, '', time() - 3600);
-                    }
-                    UsernameContainsDomain::render($username);
-                    exit;
-                }
-
-                if ('duo-two-factor' !== $this->cas->getAttribute('authn_method')) {
-                    if (
-                        in_array(
-                            '/gt/central/services/iam/two-factor/duo-user',
-                            $this->cas->getAttribute('gtAccountEntitlement'),
-                            true
-                        )
-                    ) {
-                        DuoOutage::render();
-                        exit;
-                    }
-                    DuoNotEnabled::render();
-                    exit;
-                }
-
-                $network = NetworkCheck::detect();
-                if (NetworkCheck::EDUROAM_ISS_DISABLED === $network) {
-                    EduroamISSDisabled::render();
-                    exit;
-                }
-                if (NetworkCheck::GTOTHER === $network) {
-                    BadNetwork::render('GTother', $username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
-                    exit;
-                }
-                if (NetworkCheck::GTVISITOR === $network) {
-                    BadNetwork::render('GTvisitor', $username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
-                    exit;
-                }
-                if (
-                    NetworkCheck::EDUROAM_NON_GATECH_V4 === $network
-                    || NetworkCheck::EDUROAM_NON_GATECH_V6 === $network
-                ) {
-                    EduroamNonGatech::render($username, $this->cas->getAttribute('eduPersonPrimaryAffiliation'));
-                    exit;
-                }
+                $username = AuthStickler::check($this->cas);
 
                 $user = User::where('uid', '=', $username)->first();
 

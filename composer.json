@@ -22,8 +22,7 @@
         "laravel/slack-notification-channel": "^2.2",
         "laravel/tinker": "^2.0",
         "predis/predis": "^1.1",
-        "robojackets/error-pages": "^2.0",
-        "robojackets/network-check": "^1.0",
+        "robojackets/auth-stickler": "^0.1.0",
         "sensiolabs/security-checker": "^6.0",
         "spatie/laravel-failed-job-monitor": "^3.3",
         "spatie/laravel-webhook-client": "*",
@@ -80,11 +79,18 @@
     "repositories": [
         {
             "type": "composer",
-            "url": "https://nova.laravel.com"
+            "url": "https://nova.laravel.com",
+            "only": [
+                "laravel/nova"
+            ]
         },
         {
             "type": "composer",
-            "url": "https://composer.robojackets.org"
+            "url": "https://composer.robojackets.org",
+            "only": [
+                "robojackets/*",
+                "oitnetworkservices/*"
+            ]
         }
     ]
 }
