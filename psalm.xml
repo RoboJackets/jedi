@@ -26,5 +26,10 @@
                 <directory name="app/Nova/Actions/" />
             </errorLevel>
         </TooManyTemplateParams>
+        <NonInvariantDocblockPropertyType>
+            <errorLevel type="suppress">
+                <directory name="app" />
+            </errorLevel>
+        </NonInvariantDocblockPropertyType>
     </issueHandlers>
 </psalm>

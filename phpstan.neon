@@ -1,7 +1,7 @@
 parameters:
-  excludes_analyse:
-    - %currentWorkingDirectory%/vendor/*
-    - %currentWorkingDirectory%/bootstrap/cache/*
+  excludePaths:
+    - bootstrap/*
+    - vendor/*
   ignoreErrors:
     - '#Call to an undefined method Illuminate\\Contracts\\Auth\\StatefulGuard::getTokenForRequest\(\)\.#'
     - '#Dynamic call to static method Illuminate\\Auth\\SessionGuard::authenticate\(\)\.#'
