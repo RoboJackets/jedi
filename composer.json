@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "apereo/phpcas": "1.3.8",
         "bugsnag/bugsnag-laravel": "^2.20",
         "doctrine/dbal": "*",
         "fideloper/proxy": "^4.2",
@@ -16,17 +17,17 @@
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^6.3",
         "kelvinmo/simplejwt": "^0.2.5",
-        "laravel/framework": "^7.28",
-        "laravel/horizon": "^4.3",
-        "laravel/nova": "^3.13",
-        "laravel/slack-notification-channel": "^2.2",
-        "laravel/tinker": "^2.0",
+        "laravel/framework": "*",
+        "laravel/horizon": "*",
+        "laravel/nova": "*",
+        "laravel/slack-notification-channel": "*",
+        "laravel/tinker": "*",
         "predis/predis": "^1.1",
-        "robojackets/auth-stickler": "^0.1.0",
-        "sensiolabs/security-checker": "^6.0",
-        "spatie/laravel-failed-job-monitor": "^3.3",
+        "robojackets/auth-stickler": "*",
+        "spatie/laravel-failed-job-monitor": "*",
         "spatie/laravel-webhook-client": "*",
         "subfission/cas": "*",
+        "symfony/console": "5.2.1",
         "ukfast/laravel-health-check": "^1.7"
     },
     "require-dev": {
@@ -58,8 +59,7 @@
         "symfony/polyfill-php74": "*",
         "symfony/polyfill-util": "*",
         "symfony/polyfill-uuid": "*",
-        "paragonie/random_compat": "*",
-        "sensiolabs/security-checker": "*"
+        "paragonie/random_compat": "*"
     },
     "config": {
         "classmap-authoritative": true,
