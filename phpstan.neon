@@ -14,4 +14,4 @@ parameters:
     - '#Property App\\EmailEvent::\$last_attendance_id \(int\) does not accept int\|null\.#'
     - '#Strict comparison using !== between 200 and 200 will always evaluate to false\.#'
     - '#Strict comparison using === between false and array<SimpleXMLElement> will always evaluate to false\.#'
-    - '#Strict comparison using === between false and array<SimpleXMLElement> will always evaluate to true\.#'
+    - '#Strict comparison using !== between false and array<SimpleXMLElement> will always evaluate to true\.#'
