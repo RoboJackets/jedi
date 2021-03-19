@@ -27,7 +27,6 @@
         "spatie/laravel-failed-job-monitor": "*",
         "spatie/laravel-webhook-client": "*",
         "subfission/cas": "*",
-        "symfony/console": "5.2.1",
         "ukfast/laravel-health-check": "^1.7"
     },
     "require-dev": {
@@ -55,8 +54,6 @@
         "symfony/polyfill-php70": "*",
         "symfony/polyfill-php71": "*",
         "symfony/polyfill-php72": "*",
-        "symfony/polyfill-php73": "*",
-        "symfony/polyfill-php74": "*",
         "symfony/polyfill-util": "*",
         "symfony/polyfill-uuid": "*",
         "paragonie/random_compat": "*"
