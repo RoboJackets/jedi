@@ -165,7 +165,7 @@ class AutodeskLibrary extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => 'https://contapi.circuits.io/123D-Circuits/' ,
+                'base_uri' => 'https://api.library.io/123D-Circuits/' ,
                 'headers' => [
                     'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . '--admin@robojackets.org',
                     'Accept' => 'application/json',
