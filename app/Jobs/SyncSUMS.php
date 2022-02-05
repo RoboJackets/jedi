@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // phpcs:disable SlevomatCodingStandard.ControlStructures.RequireSingleLineCondition.RequiredSingleLineCondition
 // phpcs:disable SlevomatCodingStandard.Functions.RequireSingleLineCall.RequiredSingleLineCall
+// phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
 
 namespace App\Jobs;
 
@@ -100,20 +101,33 @@ class SyncSUMS extends SyncJob
                     $createResponse = SUMS::createUser($this->uid);
 
                     if (SUMS::SUCCESS === $createResponse) {
-                        Log::info(self::class . ': '. 'Created ' . $this->uid . ' in SUMS, dispatching new job to add to billing group');
+                        Log::info(
+                            self::class . ': ' . 'Created ' . $this->uid
+                                . ' in SUMS, dispatching new job to add to billing group'
+                        );
 
-                        self::dispatch($this->uid, $this->is_access_active, $this->should_send_email, $this->last_attendance_id, $this->exists_in_sums);
+                        self::dispatch(
+                            $this->uid,
+                            $this->is_access_active,
+                            $this->should_send_email,
+                            $this->last_attendance_id,
+                            $this->exists_in_sums
+                        );
                     } else {
                         throw new Exception(
-                            'SUMS returned an unexpected response ' . $createResponse . ' while creating user, expected "' . SUMS::SUCCESS '"';
+                            'SUMS returned an unexpected response ' . $createResponse
+                                . ' while creating user, expected "' . SUMS::SUCCESS . '"'
                         )
                     }
                 } else {
-                    Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS and auto-creation is disabled');
+                    Log::info(
+                        self::class . ': ' . $this->uid . ' does not exist in SUMS and auto-creation is disabled'
+                    );
                 }
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ' while adding user to billing group, expected "' . SUMS::SUCCESS . '", "'
+                    'SUMS returned an unexpected response ' . $responseBody
+                        . ' while adding user to billing group, expected "' . SUMS::SUCCESS . '", "'
                         . SUMS::MEMBER_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }
