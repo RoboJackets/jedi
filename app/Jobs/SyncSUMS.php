@@ -117,7 +117,7 @@ class SyncSUMS extends SyncJob
                         throw new Exception(
                             'SUMS returned an unexpected response ' . $createResponse
                                 . ' while creating user, expected "' . SUMS::SUCCESS . '"'
-                        )
+                        );
                     }
                 } else {
                     Log::info(
@@ -150,7 +150,8 @@ class SyncSUMS extends SyncJob
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ' while removing user from billing group, expected "' . SUMS::SUCCESS . '", "'
+                    'SUMS returned an unexpected response ' . $responseBody
+                        . ' while removing user from billing group, expected "' . SUMS::SUCCESS . '", "'
                         . SUMS::MEMBER_NOT_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }
