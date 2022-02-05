@@ -188,6 +188,6 @@ class SyncController extends Controller
             );
         }
 
-        return response()->json('queued', 200);
+        return response()->json('queued', 202);
     }
 }

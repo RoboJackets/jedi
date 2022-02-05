@@ -119,7 +119,7 @@ class SelfServiceController extends Controller
             return view('selfservice.norecentattendance');
         }
 
-        $response = SUMS::addUser($username);
+        $response = SUMS::addUserToBillingGroup($username);
 
         if (SUMS::SUCCESS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);

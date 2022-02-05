@@ -64,6 +64,11 @@
         "sort-packages": true,
         "platform": {
             "php": "7.2.24"
+        },
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true,
+            "phpstan/extension-installer": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
