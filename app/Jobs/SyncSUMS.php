@@ -81,7 +81,7 @@ class SyncSUMS extends SyncJob
         if ($this->is_access_active) {
             Log::info(self::class . ': Enabling ' . $this->uid);
 
-            $responseBody = SUMS::addUser($this->uid);
+            $responseBody = SUMS::addUserToBillingGroup($this->uid);
 
             if (SUMS::SUCCESS === $responseBody) {
                 Log::info(self::class . ': Enabled ' . $this->uid);
@@ -94,10 +94,22 @@ class SyncSUMS extends SyncJob
                     UpdateExistsInSUMSFlag::dispatch($this->uid);
                 }
             } elseif (SUMS::USER_NOT_FOUND === $responseBody) {
-                Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
+                Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS, attempting to create');
+
+                $createResponse = SUMS::createUser($this->uid);
+
+                if (SUMS::SUCCESS === $createResponse) {
+                    Log::info(self::class . ': '. 'Created ' . $this->uid . ' in SUMS, dispatching new job to add to billing group');
+
+                    self::dispatch($this->uid, $this->is_access_active, $this->should_send_email, $this->last_attendance_id, $this->exists_in_sums);
+                } else {
+                    throw new Exception(
+                        'SUMS returned an unexpected response ' . $createResponse . ' while creating user, expected "' . SUMS::SUCCESS '"';
+                    )
+                }
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . SUMS::SUCCESS . '", "'
+                    'SUMS returned an unexpected response ' . $responseBody . ' while adding user to billing group, expected "' . SUMS::SUCCESS . '", "'
                         . SUMS::MEMBER_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }
@@ -120,7 +132,7 @@ class SyncSUMS extends SyncJob
                 Log::info(self::class . ': ' . $this->uid . ' does not exist in SUMS');
             } else {
                 throw new Exception(
-                    'SUMS returned an unexpected response ' . $responseBody . ', expected "' . SUMS::SUCCESS . '", "'
+                    'SUMS returned an unexpected response ' . $responseBody . ' while removing user from billing group, expected "' . SUMS::SUCCESS . '", "'
                         . SUMS::MEMBER_NOT_EXISTS . '", "' . SUMS::USER_NOT_FOUND . '"'
                 );
             }

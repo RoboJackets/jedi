@@ -40,7 +40,7 @@ class SUMS extends Service
         return $response->getBody()->getContents();
     }
 
-    public static function addUser(string $username): string
+    public static function addUserToBillingGroup(string $username): string
     {
         $response = self::client()->get(
             'EditPeople',
@@ -51,6 +51,28 @@ class SUMS extends Service
                     'isRemove' => 'false',
                     'isListMembers' => 'false',
                     'Key' => config('sums.token'),
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        return $response->getBody()->getContents();
+    }
+
+    public static function createUser(string $username): string
+    {
+        $response = self::client()->post(
+            '/SUMSAPI/rest/API/Add_User_By_Username',
+            [
+                'query' => [
+                    'icalID' => config('sums.token'),
+                    'CreatorUsername' => config('sums.token_owner'),
+                ],
+                'json' => [
+                    [
+                        'Username' => $username,
+                    ],
                 ],
             ]
         );

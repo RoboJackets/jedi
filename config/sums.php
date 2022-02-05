@@ -7,6 +7,7 @@ return [
     'server' => env('SUMS_SERVER'),
     'whitelisted_accounts' => explode(',', env('SUMS_WHITELISTED_ACCOUNTS', '')),
     'token' => env('SUMS_TOKEN'),
+    'token_owner' => env('SUMS_TOKEN_OWNER'),
     'billinggroupid' => env('SUMS_BILLING_GROUP_ID'),
     'attendance_timeout_enabled' => env('SUMS_ATTENDANCE_TIMEOUT_ENABLED', false),
     'attendance_timeout_emails' => env('SUMS_ATTENDANCE_TIMEOUT_EMAILS', false),
