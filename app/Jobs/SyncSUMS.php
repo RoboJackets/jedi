@@ -113,12 +113,14 @@ class SyncSUMS extends SyncJob
                             $this->last_attendance_id,
                             $this->exists_in_sums
                         );
-                    } else {
-                        throw new Exception(
-                            'SUMS returned an unexpected response ' . $createResponse
-                                . ' while creating user, expected "' . SUMS::SUCCESS . '"'
-                        );
+
+                        return;
                     }
+
+                    throw new Exception(
+                        'SUMS returned an unexpected response ' . $createResponse
+                            . ' while creating user, expected "' . SUMS::SUCCESS . '"'
+                    );
                 } else {
                     Log::info(
                         self::class . ': ' . $this->uid . ' does not exist in SUMS and auto-creation is disabled'
