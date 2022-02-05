@@ -6,6 +6,7 @@ declare(strict_types=1);
 // phpcs:disable SlevomatCodingStandard.Functions.RequireSingleLineCall.RequiredSingleLineCall
 // phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
 // phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.UselessElse
+// phpcs:disable SlevomatCodingStandard.ControlStructures.EarlyExit.EarlyExitNotUsed
 
 namespace App\Jobs;
 
