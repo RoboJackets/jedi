@@ -82,7 +82,7 @@ class SyncController extends Controller
                         self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
                     );
                     Cache::put('last_request_for_' . $request->uid, $request->all(), self::ONE_DAY); // update exp
-                    return response()->json('duplicate', 200);
+                    return response()->json('duplicate', 202);
                 }
                 Log::info(
                     self::class . ': ' . $request->uid
