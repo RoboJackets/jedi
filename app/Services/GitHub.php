@@ -37,14 +37,16 @@ class GitHub extends Service
 
     public static function addUserToTeam(int $team_id, string $username): void
     {
-        $response = self::client()->put('/teams/' . $team_id . '/memberships/' . $username);
+        $response = self::client()->put(
+            '/orgs/' . config('github.organization') . '/teams/' . $team_id . '/memberships/' . $username
+        );
         self::expectStatusCodes($response, 200);
     }
 
     public static function promoteUserToTeamMaintainer(int $team_id, string $username): void
     {
         $response = self::client()->put(
-            '/teams/' . $team_id . '/memberships/' . $username,
+            '/orgs/' . config('github.organization') . '/teams/' . $team_id . '/memberships/' . $username,
             [
                 'json' => [
                     'role' => 'maintainer',
@@ -66,7 +68,9 @@ class GitHub extends Service
         $etag = Cache::get($etag_key);
 
         if (null === $membership) {
-            $response = self::client()->get('/teams/' . $team_id . '/memberships/' . $username);
+            $response = self::client()->get(
+                '/orgs/' . config('github.organization') . '/teams/' . $team_id . '/memberships/' . $username
+            );
 
             self::expectStatusCodes($response, 200, 404);
             $membership = self::decodeToObject($response);
@@ -83,7 +87,7 @@ class GitHub extends Service
         }
 
         $response = self::client()->get(
-            '/teams/' . $team_id . '/memberships/' . $username,
+            '/orgs/' . config('github.organization') . '/teams/' . $team_id . '/memberships/' . $username,
             [
                 'headers' => [
                     'If-None-Match' => $etag,
