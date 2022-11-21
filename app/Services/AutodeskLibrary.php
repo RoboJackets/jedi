@@ -144,9 +144,9 @@ class AutodeskLibrary extends Service
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
-                    'max'             => 10,        // allow at most 10 redirects.
-                    'referer'         => true,      // add a Referer header
-                    'protocols'       => ['https'], // only allow https URLs
+                    'max' => 10,        // allow at most 10 redirects.
+                    'referer' => true,      // add a Referer header
+                    'protocols' => ['https'], // only allow https URLs
                     'track_redirects' => true,
                 ],
                 'cookies' => $jar,
@@ -173,9 +173,9 @@ class AutodeskLibrary extends Service
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
-                    'max'             => 10,        // allow at most 10 redirects.
-                    'referer'         => true,      // add a Referer header
-                    'protocols'       => ['https'], // only allow https URLs
+                    'max' => 10,        // allow at most 10 redirects.
+                    'referer' => true,      // add a Referer header
+                    'protocols' => ['https'], // only allow https URLs
                     'track_redirects' => true,
                 ],
                 'cookies' => $jar,
