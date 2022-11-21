@@ -94,6 +94,7 @@ class SyncGoogleGroups extends SyncJob
                 } catch (Google_Service_Exception $e) {
                     if ($e->getCode() === 409) {
                         $this->info('User was already a member of Google Group '.$group);
+
                         continue;
                     }
                     throw $e;
@@ -106,6 +107,7 @@ class SyncGoogleGroups extends SyncJob
                 } catch (Google_Service_Exception $e) {
                     if ($e->getCode() === 404) {
                         $this->info('User was already not a member of Google Group '.$group);
+
                         continue;
                     }
                     throw $e;

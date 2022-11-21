@@ -144,6 +144,7 @@ class SyncGitHub extends SyncJob
 
                     if (GitHub::getTeamMembership($team->id, $this->github_username) !== null) {
                         $this->debug('User already in team '.$team->name);
+
                         continue;
                     }
 
