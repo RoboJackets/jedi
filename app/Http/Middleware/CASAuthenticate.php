@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Auth;
 use RoboJackets\AuthStickler;
 
 /**
- * Authenticates users against a CAS server (e.g. GT Login Service)
+ * Authenticates users against a CAS server (e.g. GT Login Service).
  */
 class CASAuthenticate
 {
     /**
-     * The CAS manager
+     * The CAS manager.
      *
      * @var \Subfission\Cas\CasManager
      */
@@ -48,6 +48,7 @@ class CASAuthenticate
                 }
 
                 Auth::login($user);
+
                 return $next($request);
             }
 

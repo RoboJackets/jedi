@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 class UpdateClickUpInvitePendingFlag extends ApiaryJob
 {
     /**
-     * Whether this user has a pending ClickUp invitation
+     * Whether this user has a pending ClickUp invitation.
      *
      * @var bool
      */
     private $clickup_invite_pending = false;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      */
     protected function __construct(string $uid, bool $clickup_invite_pending)
     {
@@ -32,7 +32,7 @@ class UpdateClickUpInvitePendingFlag extends ApiaryJob
     {
         Apiary::setFlag($this->uid, 'clickup_invite_pending', $this->clickup_invite_pending);
 
-        Log::info(self::class . ': Successfully updated clickup_invite_pending flag for ' . $this->uid);
+        Log::info(self::class.': Successfully updated clickup_invite_pending flag for '.$this->uid);
     }
 
     /**
@@ -43,8 +43,8 @@ class UpdateClickUpInvitePendingFlag extends ApiaryJob
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
-            'clickup_invite_pending:' . ($this->clickup_invite_pending ? 'true' : 'false'),
+            'user:'.$this->uid,
+            'clickup_invite_pending:'.($this->clickup_invite_pending ? 'true' : 'false'),
         ];
     }
 }

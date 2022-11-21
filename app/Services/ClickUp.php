@@ -17,7 +17,7 @@ class ClickUp extends Service
     private const ALMOST_TWO_WEEKS = (7 * 24 * 60 * 60) - 60;
 
     /**
-     * A Guzzle client configured for ClickUp
+     * A Guzzle client configured for ClickUp.
      *
      * @var \GuzzleHttp\Client
      */
@@ -37,7 +37,7 @@ class ClickUp extends Service
 
     public static function getUserById(int $clickup_id): ?object
     {
-        $response = self::client()->get('profile/' . $clickup_id);
+        $response = self::client()->get('profile/'.$clickup_id);
 
         if (404 === $response->getStatusCode()) {
             return null;
@@ -51,7 +51,7 @@ class ClickUp extends Service
     public static function removeUser(int $clickup_id): void
     {
         $response = self::client()->put(
-            '/v1/team/' . config('clickup.workspace_id'),
+            '/v1/team/'.config('clickup.workspace_id'),
             [
                 'json' => [
                     'rem' => [
@@ -69,7 +69,7 @@ class ClickUp extends Service
     public static function addUser(string $email): object
     {
         $response = self::client()->put(
-            '/v1/team/' . config('clickup.workspace_id'),
+            '/v1/team/'.config('clickup.workspace_id'),
             [
                 'json' => [
                     'add' => [
@@ -98,7 +98,7 @@ class ClickUp extends Service
     public static function addUserToSpace(int $clickup_id, int $space_id): void
     {
         $response = self::client()->put(
-            '/v1/project/' . $space_id,
+            '/v1/project/'.$space_id,
             [
                 'json' => [
                     'add' => [
@@ -117,7 +117,7 @@ class ClickUp extends Service
     public static function removeUserFromSpace(int $clickup_id, int $space_id): void
     {
         $response = self::client()->put(
-            '/v1/project/' . $space_id,
+            '/v1/project/'.$space_id,
             [
                 'json' => [
                     'rem' => [
@@ -134,7 +134,7 @@ class ClickUp extends Service
     }
 
     /**
-     * Returns a Guzzle client configured for ClickUp
+     * Returns a Guzzle client configured for ClickUp.
      */
     public static function client(): Client
     {
@@ -160,11 +160,11 @@ class ClickUp extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => 'https://app.clickup.com/v1/team/' . config('clickup.workspace_id') . '/',
+                'base_uri' => 'https://app.clickup.com/v1/team/'.config('clickup.workspace_id').'/',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . ' Make a real user api pls '
-                    . '--kristaps@robojackets.org',
-                    'Authorization' => 'Bearer ' . $token,
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').' Make a real user api pls '
+                    .'--kristaps@robojackets.org',
+                    'Authorization' => 'Bearer '.$token,
                 ],
                 'allow_redirects' => false,
                 'http_errors' => false,
@@ -180,8 +180,8 @@ class ClickUp extends Service
             [
                 'base_uri' => 'https://app.clickup.com/v1/',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . ' Make a real user api pls '
-                    . '--kristaps@robojackets.org',
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').' Make a real user api pls '
+                    .'--kristaps@robojackets.org',
                 ],
                 'allow_redirects' => false,
                 'auth' => [

@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 class UpdateAutodeskLibraryInvitePendingFlag extends ApiaryJob
 {
     /**
-     * Whether this user has a pending Autodesk invitation
+     * Whether this user has a pending Autodesk invitation.
      *
      * @var bool
      */
     private $autodesk_invite_pending = false;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      */
     protected function __construct(string $uid, bool $autodesk_invite_pending)
     {
@@ -31,7 +31,7 @@ class UpdateAutodeskLibraryInvitePendingFlag extends ApiaryJob
     public function handle(): void
     {
         Apiary::setFlag($this->uid, 'autodesk_invite_pending', $this->autodesk_invite_pending);
-        Log::info(self::class . ': Successfully updated autodesk_invite_pending flag for ' . $this->uid);
+        Log::info(self::class.': Successfully updated autodesk_invite_pending flag for '.$this->uid);
     }
 
     /**
@@ -42,8 +42,8 @@ class UpdateAutodeskLibraryInvitePendingFlag extends ApiaryJob
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
-            'autodesk_invite_pending:' . ($this->autodesk_invite_pending ? 'true' : 'false'),
+            'user:'.$this->uid,
+            'autodesk_invite_pending:'.($this->autodesk_invite_pending ? 'true' : 'false'),
         ];
     }
 }

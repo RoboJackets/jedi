@@ -13,17 +13,17 @@ use Illuminate\Support\Facades\Log;
 class SendTimeoutEmail extends ApiaryJob
 {
     /**
-     * Whether this user exists in SUMS
+     * Whether this user exists in SUMS.
      *
      * @var bool
      */
     private $exists_in_sums = false;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid The user's GT username
-     * @param bool $exists_in_sums Whether this user exists in SUMS
+     * @param  string  $uid  The user's GT username
+     * @param  bool  $exists_in_sums  Whether this user exists in SUMS
      */
     protected function __construct(string $uid, bool $exists_in_sums)
     {
@@ -47,7 +47,7 @@ class SendTimeoutEmail extends ApiaryJob
                         ? config('apiary.sums_timeout_email_template_id')
                         : config('apiary.non_sums_timeout_email_template_id'),
                     'emails' => [
-                        $this->uid . '@gatech.edu',
+                        $this->uid.'@gatech.edu',
                     ],
                 ],
             ]
@@ -55,7 +55,7 @@ class SendTimeoutEmail extends ApiaryJob
 
         if (200 !== $response->getStatusCode()) {
             throw new Exception(
-                'Apiary returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                'Apiary returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
         }
 
@@ -65,11 +65,11 @@ class SendTimeoutEmail extends ApiaryJob
 
         if ('success' !== $json->status) {
             throw new Exception(
-                'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
+                'Apiary returned an unexpected response '.$responseBody.', expected status: success'
             );
         }
 
-        Log::info(self::class . ': Successfully queued for ' . $this->uid);
+        Log::info(self::class.': Successfully queued for '.$this->uid);
     }
 
     /**
@@ -79,6 +79,6 @@ class SendTimeoutEmail extends ApiaryJob
      */
     public function tags(): array
     {
-        return ['user:' . $this->uid, 'exists_in_sums:' . ($this->exists_in_sums ? 'true' : 'false')];
+        return ['user:'.$this->uid, 'exists_in_sums:'.($this->exists_in_sums ? 'true' : 'false')];
     }
 }

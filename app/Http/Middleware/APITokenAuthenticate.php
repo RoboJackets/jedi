@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class APITokenAuthenticate
 {
     /**
-     * AuthFactory
+     * AuthFactory.
      *
      * @var \Illuminate\Contracts\Auth\Factory
      */
@@ -38,6 +38,7 @@ class APITokenAuthenticate
             $this->auth->shouldUse('api');
             $this->auth->authenticate();
         }
+
         return $next($request);
     }
 }

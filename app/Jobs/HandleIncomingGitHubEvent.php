@@ -14,7 +14,7 @@ use Spatie\WebhookClient\ProcessWebhookJob;
 class HandleIncomingGitHubEvent extends ProcessWebhookJob
 {
     /**
-     * The queue this job will run on
+     * The queue this job will run on.
      *
      * @var string
      */
@@ -34,7 +34,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
      */
     public function handle(): void
     {
-        # Parse webhook body
+        // Parse webhook body
         $action = $this->webhookCall->payload['action'];
 
         if ('member_added' === $action || 'member_removed' === $action) {
@@ -44,12 +44,12 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
             $github_invite_pending = true;
             $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
-            throw new Exception('Unexpected action ' . $action);
+            throw new Exception('Unexpected action '.$action);
         }
 
-        Log::info(self::class . ' Received ' . $action . ' event regarding GitHub user ' . $github_username);
+        Log::info(self::class.' Received '.$action.' event regarding GitHub user '.$github_username);
 
-        # Get GT username from Apiary
+        // Get GT username from Apiary
         $response = Apiary::client()->get(
             '/api/v1/users/search',
             [
@@ -61,7 +61,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
 
         if (200 !== $response->getStatusCode()) {
             throw new Exception(
-                'Apiary returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                'Apiary returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
         }
 
@@ -71,18 +71,19 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
 
         if ('success' !== $json->status) {
             throw new Exception(
-                'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
+                'Apiary returned an unexpected response '.$responseBody.', expected status: success'
             );
         }
 
         foreach ($json->users as $user) {
             if ($user->github_username === $github_username) {
                 UpdateGitHubInvitePendingFlag::dispatch($user->uid, $github_invite_pending);
+
                 return;
             }
         }
 
-        throw new Exception('Could not find a corresponding GT user for GitHub user ' . $github_username);
+        throw new Exception('Could not find a corresponding GT user for GitHub user '.$github_username);
     }
 
     /**
@@ -99,12 +100,12 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
         } elseif ('member_invited' === $action) {
             $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
-            throw new Exception('Unexpected action ' . $action);
+            throw new Exception('Unexpected action '.$action);
         }
 
         return [
-            'action:' . $action,
-            'github_user:' . $github_username,
+            'action:'.$action,
+            'github_user:'.$github_username,
         ];
     }
 }

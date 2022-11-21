@@ -20,7 +20,7 @@ class EmailEvent extends Model
     ];
 
     /**
-     *  Get the user associated with the event (if any)
+     *  Get the user associated with the event (if any).
      */
     public function user(): BelongsTo
     {

@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 class Apiary extends Service
 {
     /**
-     * A Guzzle client configured for Apiary
+     * A Guzzle client configured for Apiary.
      *
      * @var \GuzzleHttp\Client
      */
@@ -19,7 +19,7 @@ class Apiary extends Service
     public static function getUser(string $username): object
     {
         $response = self::client()->get(
-            '/api/v1/users/' . $username,
+            '/api/v1/users/'.$username,
             [
                 'query' => [
                     'include' => 'teams,attendance',
@@ -35,7 +35,7 @@ class Apiary extends Service
     public static function setFlag(string $username, string $flag, bool $value): void
     {
         $response = self::client()->put(
-            '/api/v1/users/' . $username,
+            '/api/v1/users/'.$username,
             [
                 'json' => [
                     $flag => $value,
@@ -47,22 +47,22 @@ class Apiary extends Service
 
         if ('success' !== self::decodeToObject($response)->status) {
             throw new DownstreamServiceProblem(
-                'Apiary returned an unexpected response ' . $response->getBody()->getContents()
-                . ', expected status: success'
+                'Apiary returned an unexpected response '.$response->getBody()->getContents()
+                .', expected status: success'
             );
         }
     }
 
     /**
-     * Sets some attributes on a user
+     * Sets some attributes on a user.
      *
-     * @param string $username   The user's uid
-     * @param array<string,int|bool>  $attributes The attributes to update
+     * @param  string  $username  The user's uid
+     * @param  array<string,int|bool>  $attributes  The attributes to update
      */
     public static function setAttributes(string $username, array $attributes): void
     {
         $response = self::client()->put(
-            '/api/v1/users/' . $username,
+            '/api/v1/users/'.$username,
             [
                 'json' => $attributes,
             ]
@@ -72,8 +72,8 @@ class Apiary extends Service
 
         if ('success' !== self::decodeToObject($response)->status) {
             throw new DownstreamServiceProblem(
-                'Apiary returned an unexpected response ' . $response->getBody()->getContents()
-                . ', expected status: success'
+                'Apiary returned an unexpected response '.$response->getBody()->getContents()
+                .', expected status: success'
             );
         }
     }
@@ -88,8 +88,8 @@ class Apiary extends Service
             [
                 'base_uri' => config('apiary.server'),
                 'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
-                    'Authorization' => 'Bearer ' . config('apiary.token'),
+                    'User-Agent' => 'JEDI on '.config('app.url'),
+                    'Authorization' => 'Bearer '.config('apiary.token'),
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => false,

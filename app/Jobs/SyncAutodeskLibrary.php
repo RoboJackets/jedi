@@ -10,34 +10,34 @@ use Illuminate\Support\Facades\Log;
 class SyncAutodeskLibrary extends SyncJob
 {
     /**
-     * The queue this job will run on
+     * The queue this job will run on.
      *
      * @var string
      */
     public $queue = 'autodesk';
 
     /**
-     * The email associated with this user in Apiary
+     * The email associated with this user in Apiary.
      *
      * @var string
      */
     private $autodesk_email;
 
     /**
-     * Whether Apiary thinks this user has a pending invitation in Autodesk
+     * Whether Apiary thinks this user has a pending invitation in Autodesk.
      *
      * @var bool
      */
     private $autodesk_invite_pending;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid            The user's GT username
-     * @param bool $is_access_active Whether the user should have access to systems
-     * @param array<string>  $teams  The names of the teams the user is in
-     * @param string $autodesk_email    The user's Autodesk email
-     * @param bool $autodesk_invite_pending whether Apiary thinks the Autodesk invitation is pending
+     * @param  string  $uid  The user's GT username
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
+     * @param  string  $autodesk_email  The user's Autodesk email
+     * @param  bool  $autodesk_invite_pending  whether Apiary thinks the Autodesk invitation is pending
      */
     protected function __construct(
         string $uid,
@@ -63,13 +63,13 @@ class SyncAutodeskLibrary extends SyncJob
         $pending = AutodeskLibrary::isInvitePending($this->autodesk_email);
 
         if ($this->is_access_active) {
-            Log::info(self::class . ': Enabling ' . $this->uid);
-            if (!$member) {
+            Log::info(self::class.': Enabling '.$this->uid);
+            if (! $member) {
                 AutodeskLibrary::addUser($this->autodesk_email);
                 $pending = true;
             }
         } else {
-            Log::info(self::class . ': Disabling ' . $this->uid);
+            Log::info(self::class.': Disabling '.$this->uid);
 
             if ($member) {
                 AutodeskLibrary::removeUser($this->autodesk_email);

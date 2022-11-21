@@ -52,11 +52,11 @@ class SyncController extends Controller
         );
 
         Log::info(
-            self::class . ': Request to sync ' . $request->uid . ' caused by ' . $request->model_event . ' of '
-            . $request->model_class . ' with id ' . $request->model_id
+            self::class.': Request to sync '.$request->uid.' caused by '.$request->model_event.' of '
+            .$request->model_class.' with id '.$request->model_id
         );
 
-        $lastRequest = Cache::get('last_request_for_' . $request->uid);
+        $lastRequest = Cache::get('last_request_for_'.$request->uid);
 
         if (null !== $lastRequest) {
             $same = $lastRequest['first_name'] === $request->first_name &&
@@ -77,21 +77,22 @@ class SyncController extends Controller
 
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-                if (!in_array($request->model_event, config('apiary.whitelisted_events'), true)) {
+                if (! in_array($request->model_event, config('apiary.whitelisted_events'), true)) {
                     Log::info(
-                        self::class . ': Not syncing ' . $request->uid . ' as it is a duplicate of last seen event'
+                        self::class.': Not syncing '.$request->uid.' as it is a duplicate of last seen event'
                     );
-                    Cache::put('last_request_for_' . $request->uid, $request->all(), self::ONE_DAY); // update exp
+                    Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY); // update exp
+
                     return response()->json('duplicate', 202);
                 }
                 Log::info(
-                    self::class . ': ' . $request->uid
-                        . ' is a duplicate request but this one is ' . $request->model_event . ', continuing'
+                    self::class.': '.$request->uid
+                        .' is a duplicate request but this one is '.$request->model_event.', continuing'
                 );
             }
         }
 
-        Cache::put('last_request_for_' . $request->uid, $request->all(), self::ONE_DAY);
+        Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY);
 
         if (true === config('github.enabled') && $request->filled('github_username')) {
             SyncGitHub::dispatch(
@@ -176,7 +177,6 @@ class SyncController extends Controller
                 $request->clickup_invite_pending
             );
         }
-
 
         if (true === config('autodesk-library.enabled') && $request->filled('autodesk_email')) {
             SyncAutodeskLibrary::dispatch(

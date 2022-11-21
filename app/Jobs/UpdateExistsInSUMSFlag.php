@@ -18,6 +18,6 @@ class UpdateExistsInSUMSFlag extends ApiaryJob
     {
         Apiary::setFlag($this->uid, 'exists_in_sums', true);
 
-        Log::info(self::class . ': Successfully updated exists_in_sums flag for ' . $this->uid);
+        Log::info(self::class.': Successfully updated exists_in_sums flag for '.$this->uid);
     }
 }

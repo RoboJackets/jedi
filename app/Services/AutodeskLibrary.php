@@ -10,7 +10,7 @@ use GuzzleHttp\Client;
 class AutodeskLibrary extends Service
 {
     /**
-     * A Guzzle client configured for Autodesk Library
+     * A Guzzle client configured for Autodesk Library.
      *
      * @var \GuzzleHttp\Client
      */
@@ -19,7 +19,7 @@ class AutodeskLibrary extends Service
     public static function addUser(string $email): void
     {
         $response = self::client()->post(
-            'hubs/' . config('autodesk-library.hub_id') . '/invite',
+            'hubs/'.config('autodesk-library.hub_id').'/invite',
             [
                 'json' => [
                     'inviteEmail' => $email,
@@ -35,7 +35,7 @@ class AutodeskLibrary extends Service
         $user_id = self::getUserId($email);
 
         $response = self::client()->delete(
-            'hubs/' . config('autodesk-library.hub_id') . '/members/' . $user_id
+            'hubs/'.config('autodesk-library.hub_id').'/members/'.$user_id
         );
 
         self::expectStatusCodes($response, 200);
@@ -46,7 +46,7 @@ class AutodeskLibrary extends Service
         $ref_id = self::getInviteId($email);
 
         $response = self::client()->get(
-            'hubs/' . config('autodesk-library.hub_id') . '/invite/' . $ref_id . '/cancel'
+            'hubs/'.config('autodesk-library.hub_id').'/invite/'.$ref_id.'/cancel'
         );
 
         self::expectStatusCodes($response, 200);
@@ -55,7 +55,7 @@ class AutodeskLibrary extends Service
     public static function getUserId(string $email): string
     {
         $response = self::client()->get(
-            'hubs/' . config('autodesk-library.hub_id') . '/members'
+            'hubs/'.config('autodesk-library.hub_id').'/members'
         );
 
         self::expectStatusCodes($response, 200);
@@ -73,7 +73,7 @@ class AutodeskLibrary extends Service
     public static function isMember(string $email): bool
     {
         $response = self::client()->get(
-            'hubs/' . config('autodesk-library.hub_id') . '/members'
+            'hubs/'.config('autodesk-library.hub_id').'/members'
         );
 
         self::expectStatusCodes($response, 200);
@@ -83,6 +83,7 @@ class AutodeskLibrary extends Service
             if ($email !== $member->email) {
                 continue;
             }
+
             return true;
         }
 
@@ -92,7 +93,7 @@ class AutodeskLibrary extends Service
     public static function getInviteId(string $email): string
     {
         $response = self::client()->get(
-            'hubs/' . config('autodesk-library.hub_id') . '/invite'
+            'hubs/'.config('autodesk-library.hub_id').'/invite'
         );
 
         self::expectStatusCodes($response, 200);
@@ -110,7 +111,7 @@ class AutodeskLibrary extends Service
     public static function isInvitePending(string $email): bool
     {
         $response = self::client()->get(
-            'hubs/' . config('autodesk-library.hub_id') . '/invite'
+            'hubs/'.config('autodesk-library.hub_id').'/invite'
         );
 
         self::expectStatusCodes($response, 200);
@@ -120,6 +121,7 @@ class AutodeskLibrary extends Service
             if ($email !== $invite->email) {
                 continue;
             }
+
             return 'pending' === $invite->state;
         }
 
@@ -136,9 +138,9 @@ class AutodeskLibrary extends Service
 
         $autodesk_client = new Client(
             [
-                'base_uri' => 'https://accounts.autodesk.com' ,
+                'base_uri' => 'https://accounts.autodesk.com',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . '--admin@robojackets.org',
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').'--admin@robojackets.org',
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [
@@ -165,9 +167,9 @@ class AutodeskLibrary extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => 'https://api.library.io/123D-Circuits/' ,
+                'base_uri' => 'https://api.library.io/123D-Circuits/',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/' . config('bugsnag.app_version') . '--admin@robojackets.org',
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').'--admin@robojackets.org',
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => [

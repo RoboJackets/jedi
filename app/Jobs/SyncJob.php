@@ -16,35 +16,35 @@ abstract class SyncJob implements ShouldQueue
     use Queueable;
 
     /**
-     * The user's GT username
+     * The user's GT username.
      *
      * @var string
      */
     protected $uid;
 
     /**
-     * The user's first name
+     * The user's first name.
      *
      * @var string
      */
     protected $first_name;
 
     /**
-     * The user's last name
+     * The user's last name.
      *
      * @var string
      */
     protected $last_name;
 
     /**
-     * Whether the user should have access to systems
+     * Whether the user should have access to systems.
      *
      * @var bool
      */
     protected $is_access_active;
 
     /**
-     * The names of the teams the user is in
+     * The names of the teams the user is in.
      *
      * @var array<string>
      */
@@ -58,13 +58,13 @@ abstract class SyncJob implements ShouldQueue
     public $tries = 1;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid            The user's GT username
-     * @param string $first_name     The user's first name
-     * @param string $last_name      The user's last name
-     * @param bool $is_access_active Whether the user should have access to systems
-     * @param array<string>  $teams  The names of the teams the user is in
+     * @param  string  $uid  The user's GT username
+     * @param  string  $first_name  The user's first name
+     * @param  string  $last_name  The user's last name
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
      */
     protected function __construct(
         string $uid,
@@ -94,6 +94,6 @@ abstract class SyncJob implements ShouldQueue
      */
     public function tags(): array
     {
-        return ['user:' . $this->uid, 'active:' . ($this->is_access_active ? 'true' : 'false')];
+        return ['user:'.$this->uid, 'active:'.($this->is_access_active ? 'true' : 'false')];
     }
 }

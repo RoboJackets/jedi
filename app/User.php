@@ -38,7 +38,7 @@ class User extends Authenticatable
     ];
 
     /**
-     *  Get the email events associated with this user
+     *  Get the email events associated with this user.
      */
     public function emailEvents(): HasMany
     {

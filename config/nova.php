@@ -44,7 +44,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL') . '/horizon/dashboard',
+    'url' => env('APP_URL').'/horizon/dashboard',
 
     /*
     |--------------------------------------------------------------------------

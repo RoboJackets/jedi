@@ -14,7 +14,7 @@ class SUMS extends Service
     public const USER_NOT_FOUND = 'User not found';
 
     /**
-     * A Guzzle client configured for SUMS
+     * A Guzzle client configured for SUMS.
      *
      * @var \GuzzleHttp\Client
      */
@@ -90,9 +90,9 @@ class SUMS extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => config('sums.server') . '/SUMSAPI/rest/BillingGroupEdit/',
+                'base_uri' => config('sums.server').'/SUMSAPI/rest/BillingGroupEdit/',
                 'headers' => [
-                    'User-Agent' => 'JEDI on ' . config('app.url'),
+                    'User-Agent' => 'JEDI on '.config('app.url'),
                 ],
                 'allow_redirects' => false,
             ]

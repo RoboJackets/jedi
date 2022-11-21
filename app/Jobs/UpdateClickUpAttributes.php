@@ -10,21 +10,21 @@ use Illuminate\Support\Facades\Log;
 class UpdateClickUpAttributes extends ApiaryJob
 {
     /**
-     * The numeric ID for this user within ClickUp
+     * The numeric ID for this user within ClickUp.
      *
      * @var int
      */
     private $clickup_id;
 
     /**
-     * Whether this user has a pending ClickUp invitation
+     * Whether this user has a pending ClickUp invitation.
      *
      * @var bool
      */
     private $clickup_invite_pending = false;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      */
     protected function __construct(string $uid, int $clickup_id, bool $clickup_invite_pending)
     {
@@ -46,7 +46,7 @@ class UpdateClickUpAttributes extends ApiaryJob
             ]
         );
 
-        Log::info(self::class . ': Successfully updated ClickUp attributes for ' . $this->uid);
+        Log::info(self::class.': Successfully updated ClickUp attributes for '.$this->uid);
     }
 
     /**
@@ -57,9 +57,9 @@ class UpdateClickUpAttributes extends ApiaryJob
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
-            'clickup_id:' . $this->clickup_id,
-            'clickup_invite_pending:' . ($this->clickup_invite_pending ? 'true' : 'false'),
+            'user:'.$this->uid,
+            'clickup_id:'.$this->clickup_id,
+            'clickup_invite_pending:'.($this->clickup_invite_pending ? 'true' : 'false'),
         ];
     }
 }

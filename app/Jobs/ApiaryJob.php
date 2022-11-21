@@ -16,7 +16,7 @@ abstract class ApiaryJob implements ShouldQueue
     use Queueable;
 
     /**
-     * The user's GT username
+     * The user's GT username.
      *
      * @var string
      */
@@ -30,9 +30,9 @@ abstract class ApiaryJob implements ShouldQueue
     public $tries = 1;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid The user's GT username
+     * @param  string  $uid  The user's GT username
      */
     protected function __construct(string $uid)
     {
@@ -55,7 +55,7 @@ abstract class ApiaryJob implements ShouldQueue
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
+            'user:'.$this->uid,
         ];
     }
 }

@@ -10,42 +10,42 @@ use Illuminate\Support\Facades\Log;
 class SyncClickUp extends SyncJob
 {
     /**
-     * The queue this job will run on
+     * The queue this job will run on.
      *
      * @var string
      */
     public $queue = 'clickup';
 
     /**
-     * The email associated with this user in Apiary
+     * The email associated with this user in Apiary.
      *
      * @var string
      */
     private $clickup_email;
 
     /**
-     * The numeric ID of this user within ClickUp
+     * The numeric ID of this user within ClickUp.
      *
      * @var ?int
      */
     private $clickup_id;
 
     /**
-     * Whether Apiary thinks this user has a pending invitation in ClickUp
+     * Whether Apiary thinks this user has a pending invitation in ClickUp.
      *
      * @var bool
      */
     private $clickup_invite_pending;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid            The user's GT username
-     * @param bool $is_access_active Whether the user should have access to systems
-     * @param array<string>  $teams  The names of the teams the user is in
-     * @param string $clickup_email     The user's ClickUp email
-     * @param ?int $clickup_id the user's ClickUp ID
-     * @param bool $clickup_invite_pending whether Apiary thinks the ClickUp invitation is pending
+     * @param  string  $uid  The user's GT username
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
+     * @param  string  $clickup_email  The user's ClickUp email
+     * @param  ?int  $clickup_id  the user's ClickUp ID
+     * @param  bool  $clickup_invite_pending  whether Apiary thinks the ClickUp invitation is pending
      */
     protected function __construct(
         string $uid,
@@ -70,7 +70,7 @@ class SyncClickUp extends SyncJob
     public function handle(): void
     {
         if ($this->is_access_active) {
-            Log::info(self::class . ': Enabling ' . $this->uid);
+            Log::info(self::class.': Enabling '.$this->uid);
 
             $response = ClickUp::addUser($this->clickup_email);
 
@@ -84,7 +84,7 @@ class SyncClickUp extends SyncJob
 
             foreach ($this->teams as $team) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-                if (!array_key_exists($team, config('clickup.teams_to_spaces'))) {
+                if (! array_key_exists($team, config('clickup.teams_to_spaces'))) {
                     continue;
                 }
 
@@ -93,10 +93,11 @@ class SyncClickUp extends SyncJob
                 }
             }
         } else {
-            Log::info(self::class . ': Disabling ' . $this->uid);
+            Log::info(self::class.': Disabling '.$this->uid);
 
             if (null === $this->clickup_id) {
-                Log::info(self::class . ': Asked to disable ' . $this->uid . ' but no clickup_id available');
+                Log::info(self::class.': Asked to disable '.$this->uid.' but no clickup_id available');
+
                 return;
             }
 

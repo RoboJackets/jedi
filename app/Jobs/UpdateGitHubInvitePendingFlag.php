@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Log;
 class UpdateGitHubInvitePendingFlag extends ApiaryJob
 {
     /**
-     * Whether this user has a pending GitHub invitation
+     * Whether this user has a pending GitHub invitation.
      *
      * @var bool
      */
     private $github_invite_pending = false;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      */
     protected function __construct(string $uid, bool $github_invite_pending)
     {
@@ -32,7 +32,7 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
     {
         Apiary::setFlag($this->uid, 'github_invite_pending', $this->github_invite_pending);
 
-        Log::info(self::class . ': Successfully updated github_invite_pending flag for ' . $this->uid);
+        Log::info(self::class.': Successfully updated github_invite_pending flag for '.$this->uid);
     }
 
     /**
@@ -43,8 +43,8 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
-            'github_invite_pending:' . ($this->github_invite_pending ? 'true' : 'false'),
+            'user:'.$this->uid,
+            'github_invite_pending:'.($this->github_invite_pending ? 'true' : 'false'),
         ];
     }
 }

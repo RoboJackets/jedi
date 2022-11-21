@@ -20,28 +20,28 @@ use Illuminate\Support\Facades\Log;
 class SyncGoogleGroups extends SyncJob
 {
     /**
-     * The queue this job will run on
+     * The queue this job will run on.
      *
      * @var string
      */
     public $queue = 'google';
 
     /**
-     * The user's Gmail address
+     * The user's Gmail address.
      *
      * @var string
      */
     private $gmail_address;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid             The user's GT username
-     * @param string $first_name      The user's first name
-     * @param string $last_name       The user's last name
-     * @param bool $is_access_active  Whether the user should have access to systems
-     * @param array<string>  $teams   The names of the teams the user is in
-     * @param string $gmail_address   The user's Gmail address
+     * @param  string  $uid  The user's GT username
+     * @param  string  $first_name  The user's first name
+     * @param  string  $last_name  The user's last name
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
+     * @param  string  $gmail_address  The user's Gmail address
      */
     public function __construct(
         string $uid,
@@ -92,35 +92,35 @@ class SyncGoogleGroups extends SyncJob
         foreach ($allGroups as $group) {
             // @phan-suppress-next-line PhanPluginNonBoolInLogicalArith
             if ($this->is_access_active && $activeGroups->contains($group)) {
-                $this->debug('Adding to group ' . $group);
+                $this->debug('Adding to group '.$group);
                 try {
                     $service->members->insert($group, $member);
                 } catch (Google_Service_Exception $e) {
                     if (409 === $e->getCode()) {
-                        $this->info('User was already a member of Google Group ' . $group);
+                        $this->info('User was already a member of Google Group '.$group);
                         continue;
                     }
                     throw $e;
                 }
-                $this->info('Added user to Google Group ' . $group);
+                $this->info('Added user to Google Group '.$group);
             } else {
-                $this->debug('Removing from group ' . $group);
+                $this->debug('Removing from group '.$group);
                 try {
                     $service->members->delete($group, $this->gmail_address);
                 } catch (Google_Service_Exception $e) {
                     if (404 === $e->getCode()) {
-                        $this->info('User was already not a member of Google Group ' . $group);
+                        $this->info('User was already not a member of Google Group '.$group);
                         continue;
                     }
                     throw $e;
                 }
-                $this->info('Removed user from Google Group ' . $group);
+                $this->info('Removed user from Google Group '.$group);
             }
         }
     }
 
     /**
-     * Get all groups in the domain
+     * Get all groups in the domain.
      *
      * @return \Illuminate\Support\Collection
      */
@@ -132,7 +132,7 @@ class SyncGoogleGroups extends SyncJob
 
         if (200 !== $response->getStatusCode()) {
             throw new Exception(
-                'Apiary returned an unexpected HTTP response code ' . $response->getStatusCode() . ', expected 200'
+                'Apiary returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
         }
 
@@ -141,7 +141,7 @@ class SyncGoogleGroups extends SyncJob
 
         if ('success' !== $json->status) {
             throw new Exception(
-                'Apiary returned an unexpected response ' . $responseBody . ', expected status: success'
+                'Apiary returned an unexpected response '.$responseBody.', expected status: success'
             );
         }
 
@@ -158,17 +158,17 @@ class SyncGoogleGroups extends SyncJob
 
     private function debug(string $message): void
     {
-        Log::debug(self::jobDetails() . $message);
+        Log::debug(self::jobDetails().$message);
     }
 
     private function info(string $message): void
     {
-        Log::info(self::jobDetails() . $message);
+        Log::info(self::jobDetails().$message);
     }
 
     private function jobDetails(): string
     {
-        return self::class . ' GT=' . $this->uid . ' Gmail=' . $this->gmail_address . ' ';
+        return self::class.' GT='.$this->uid.' Gmail='.$this->gmail_address.' ';
     }
 
     /**
@@ -179,9 +179,9 @@ class SyncGoogleGroups extends SyncJob
     public function tags(): array
     {
         return [
-            'user:' . $this->uid,
-            'active:' . ($this->is_access_active ? 'true' : 'false'),
-            'google_account:' . $this->gmail_address,
+            'user:'.$this->uid,
+            'active:'.($this->is_access_active ? 'true' : 'false'),
+            'google_account:'.$this->gmail_address,
         ];
     }
 }

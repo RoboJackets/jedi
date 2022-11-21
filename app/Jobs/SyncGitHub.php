@@ -11,34 +11,34 @@ use Illuminate\Support\Facades\Log;
 class SyncGitHub extends SyncJob
 {
     /**
-     * The queue this job will run on
+     * The queue this job will run on.
      *
      * @var string
      */
     public $queue = 'github';
 
     /**
-     * The user's GitHub username
+     * The user's GitHub username.
      *
      * @var string
      */
     private $github_username;
 
     /**
-     * The names of teams this user manages
+     * The names of teams this user manages.
      *
      * @var array<string>
      */
     private $project_manager_of_teams;
 
     /**
-     * Create a new job instance
+     * Create a new job instance.
      *
-     * @param string $uid             The user's GT username
-     * @param bool $is_access_active  Whether the user should have access to systems
-     * @param array<string>  $teams   The names of the teams the user is in
-     * @param array<string> $project_manager_of_teams The names of teams this user manages
-     * @param string $github_username The user's GitHub username
+     * @param  string  $uid  The user's GT username
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
+     * @param  array<string>  $project_manager_of_teams  The names of teams this user manages
+     * @param  string  $github_username  The user's GitHub username
      */
     protected function __construct(
         string $uid,
@@ -83,7 +83,7 @@ class SyncGitHub extends SyncJob
                 $team_ids = [];
 
                 foreach ($teams as $team) {
-                    if (!in_array($team->name, $this->teams, true)) {
+                    if (! in_array($team->name, $this->teams, true)) {
                         continue;
                     }
 
@@ -91,12 +91,13 @@ class SyncGitHub extends SyncJob
                         throw new Exception('Expected team id to be an integer');
                     }
 
-                    $this->info('Team ' . $team->name . ' will be in invite');
+                    $this->info('Team '.$team->name.' will be in invite');
                     $team_ids[] = $team->id;
                 }
 
                 if (0 === count($team_ids)) {
                     $this->warning('User is not a member of any teams in Apiary, not sending invitation');
+
                     return;
                 }
 
@@ -124,7 +125,7 @@ class SyncGitHub extends SyncJob
                             throw new Exception('Expected team id to be an integer');
                         }
 
-                        $this->info('Promoting to maintainer of ' . $team->name);
+                        $this->info('Promoting to maintainer of '.$team->name);
 
                         GitHub::promoteUserToTeamMaintainer($team->id, $this->github_username);
                     }
@@ -135,18 +136,18 @@ class SyncGitHub extends SyncJob
                 $this->info('User is in the organization');
 
                 foreach ($teams as $team) {
-                    if (!in_array($team->name, $this->teams, true)) {
+                    if (! in_array($team->name, $this->teams, true)) {
                         continue;
                     }
 
-                    $this->debug('User should be in team ' . $team->name . ', checking membership');
+                    $this->debug('User should be in team '.$team->name.', checking membership');
 
                     if (null !== GitHub::getTeamMembership($team->id, $this->github_username)) {
-                        $this->debug('User already in team ' . $team->name);
+                        $this->debug('User already in team '.$team->name);
                         continue;
                     }
 
-                    $this->info('Adding user to team ' . $team->name);
+                    $this->info('Adding user to team '.$team->name);
                     GitHub::addUserToTeam($team->id, $this->github_username);
                 }
 
@@ -172,7 +173,7 @@ class SyncGitHub extends SyncJob
                             throw new Exception('Expected team id to be an integer');
                         }
 
-                        $this->info('Promoting to maintainer of ' . $team->name);
+                        $this->info('Promoting to maintainer of '.$team->name);
 
                         GitHub::promoteUserToTeamMaintainer($team->id, $this->github_username);
                     }
@@ -192,21 +193,21 @@ class SyncGitHub extends SyncJob
 
     private function warning(string $message): void
     {
-        Log::warning($this->jobDetails() . $message);
+        Log::warning($this->jobDetails().$message);
     }
 
     private function debug(string $message): void
     {
-        Log::debug($this->jobDetails() . $message);
+        Log::debug($this->jobDetails().$message);
     }
 
     private function info(string $message): void
     {
-        Log::info($this->jobDetails() . $message);
+        Log::info($this->jobDetails().$message);
     }
 
     private function jobDetails(): string
     {
-        return self::class . ' GT=' . $this->uid . ' GH=' . $this->github_username . ' ';
+        return self::class.' GT='.$this->uid.' GH='.$this->github_username.' ';
     }
 }

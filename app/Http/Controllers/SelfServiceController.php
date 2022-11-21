@@ -22,8 +22,7 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with GitHub.
      *
-     * @param Request $request The incoming request
-     *
+     * @param  Request  $request  The incoming request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function github(Request $request)
@@ -68,7 +67,7 @@ class SelfServiceController extends Controller
         }
 
         if ('pending' === $github_membership->state) {
-            return redirect('https://github.com/orgs/' . config('github.organization') . '/invitation');
+            return redirect('https://github.com/orgs/'.config('github.organization').'/invitation');
         }
 
         if ('active' === $github_membership->state) {
@@ -86,8 +85,7 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with SUMS.
      *
-     * @param Request $request The incoming request
-     *
+     * @param  Request  $request  The incoming request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function sums(Request $request)
@@ -123,6 +121,7 @@ class SelfServiceController extends Controller
 
         if (SUMS::SUCCESS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);
+
             return view(
                 'selfservice.success',
                 [
@@ -132,6 +131,7 @@ class SelfServiceController extends Controller
         }
         if (SUMS::MEMBER_EXISTS === $response) {
             UpdateExistsInSUMSFlag::dispatch($username);
+
             return view(
                 'selfservice.alreadymember',
                 [
@@ -149,8 +149,7 @@ class SelfServiceController extends Controller
     /**
      * Resend an invitation to ClickUp for the currently logged in user.
      *
-     * @param Request $request The incoming request
-     *
+     * @param  Request  $request  The incoming request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function clickup(Request $request)
@@ -207,6 +206,7 @@ class SelfServiceController extends Controller
             if (true === $apiary_user->user->clickup_invite_pending) {
                 UpdateClickUpInvitePendingFlag::dispatch($username, false);
             }
+
             return view(
                 'selfservice.alreadymember',
                 [
@@ -234,8 +234,7 @@ class SelfServiceController extends Controller
     /**
      * Resend an invitation to library.io for the currently logged in user.
      *
-     * @param Request $request The incoming request
-     *
+     * @param  Request  $request  The incoming request
      * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function autodesk(Request $request)
@@ -260,7 +259,7 @@ class SelfServiceController extends Controller
         // Will return false if invite is in any state but pending including canceled
         $pending = AutodeskLibrary::isInvitePending($apiary_user->user->autodesk_email);
 
-        if (!$member) {
+        if (! $member) {
             // Always just resend an invite
             AutodeskLibrary::addUser($apiary_user->user->autodesk_email);
             $pending = true;

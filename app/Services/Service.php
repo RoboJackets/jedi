@@ -16,10 +16,10 @@ abstract class Service
     {
         $received = $response->getStatusCode();
 
-        if (!in_array($received, $expected, true)) {
+        if (! in_array($received, $expected, true)) {
             throw new DownstreamServiceProblem(
-                'Service returned unexpected HTTP response code ' . $received . ', expected '
-                . implode(' or ', $expected) . ', response body: ' . $response->getBody()->getContents()
+                'Service returned unexpected HTTP response code '.$received.', expected '
+                .implode(' or ', $expected).', response body: '.$response->getBody()->getContents()
             );
         }
     }
@@ -28,9 +28,9 @@ abstract class Service
     {
         $ret = json_decode($response->getBody()->getContents());
 
-        if (!is_object($ret)) {
+        if (! is_object($ret)) {
             throw new DownstreamServiceProblem(
-                'Service did not return an object - ' . $response->getBody()->getContents()
+                'Service did not return an object - '.$response->getBody()->getContents()
             );
         }
 
@@ -38,7 +38,7 @@ abstract class Service
     }
 
     /**
-     * Decodes a response to an array
+     * Decodes a response to an array.
      *
      * @return array<object>
      */
@@ -46,9 +46,9 @@ abstract class Service
     {
         $ret = json_decode($response->getBody()->getContents());
 
-        if (!is_array($ret)) {
+        if (! is_array($ret)) {
             throw new DownstreamServiceProblem(
-                'Service did not return an array - ' . $response->getBody()->getContents()
+                'Service did not return an array - '.$response->getBody()->getContents()
             );
         }
 
