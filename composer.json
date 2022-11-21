@@ -19,11 +19,9 @@
         "kelvinmo/simplejwt": "^0.2.5",
         "laravel/framework": "*",
         "laravel/horizon": "*",
-        "laravel/nova": "^3.0",
         "laravel/slack-notification-channel": "*",
         "laravel/tinker": "*",
         "predis/predis": "^1.1",
-        "robojackets/auth-stickler": "*",
         "spatie/laravel-failed-job-monitor": "*",
         "spatie/laravel-webhook-client": "*",
         "subfission/cas": "*",
@@ -62,9 +60,6 @@
         "classmap-authoritative": true,
         "preferred-install": "dist",
         "sort-packages": true,
-        "platform": {
-            "php": "7.2.24"
-        },
         "allow-plugins": {
             "composer/package-versions-deprecated": true,
             "phpstan/extension-installer": true,
@@ -101,13 +96,6 @@
         ]
     },
     "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com",
-            "only": [
-                "laravel/nova"
-            ]
-        },
         {
             "type": "composer",
             "url": "https://composer.robojackets.org",
