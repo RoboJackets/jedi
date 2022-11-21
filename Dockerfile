@@ -27,7 +27,7 @@ RUN set -eux && \
     apt-get update && \
     apt-get upgrade -qq --assume-yes && \
     apt-get install -qq --assume-yes \
-        php7.4-fpm php7.4-mysql php7.4-xml unzip libfcgi-bin php7.4-curl && \
+        php7.4-fpm php7.4-mysql php7.4-xml unzip libfcgi-bin php7.4-curl php7.4-mbstring && \
     apt-get autoremove -qq --assume-yes && \
     mkdir /app && \
     chown www-data:www-data /app && \
