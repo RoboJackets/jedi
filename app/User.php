@@ -28,19 +28,6 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array<string>
-     */
-    /**
-     *  Get the email events associated with this user.
-     */
-    public function emailEvents(): HasMany
-    {
-        return $this->hasMany(EmailEvent::class, 'uid', 'uid');
-    }
-
-    /**
      * Get the is_active flag for the User.
      */
     public function getNameAttribute(): string
