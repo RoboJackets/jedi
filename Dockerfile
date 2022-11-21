@@ -51,8 +51,7 @@ WORKDIR /app/
 
 USER www-data
 
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,required=true \
-    set -eux && \
+RUN set -eux && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
     mkdir --parents /app/resources/views/ && \
     php artisan nova:publish && \
