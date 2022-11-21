@@ -19,7 +19,7 @@
         "kelvinmo/simplejwt": "^0.2.5",
         "laravel/framework": "*",
         "laravel/horizon": "*",
-        "laravel/nova": "*",
+        "laravel/nova": "^3.0",
         "laravel/slack-notification-channel": "*",
         "laravel/tinker": "*",
         "predis/predis": "^1.1",
