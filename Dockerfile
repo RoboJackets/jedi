@@ -54,7 +54,6 @@ USER www-data
 RUN set -eux && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
     mkdir --parents /app/resources/views/ && \
-    php artisan nova:publish && \
     php artisan horizon:publish
 # && \
 #    sed -i '/"\$1\\n\$2"/c\\' /app/vendor/mrclay/minify/lib/Minify/HTML.php;
