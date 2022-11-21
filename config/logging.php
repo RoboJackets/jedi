@@ -50,7 +50,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['daily', 'bugsnag', 'papertrail'],
+            'channels' => ['daily', 'papertrail'],
             'ignore_exceptions' => false,
         ],
 
@@ -103,10 +103,6 @@ return [
         'errorlog' => [
             'driver' => 'errorlog',
             'level' => env('LOG_LEVEL', 'debug'),
-        ],
-
-        'bugsnag' => [
-            'driver' => 'bugsnag',
         ],
 
         'null' => [
