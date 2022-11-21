@@ -21,7 +21,6 @@ return [
     */
     'cas_real_hosts' => env('CAS_REAL_HOSTS', 'cas.myuniv.edu'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Customize CAS Session Cookie Name
@@ -69,7 +68,6 @@ return [
     | Example: 'http://localhost', 'https://example.com:8888'
     */
     'cas_client_service' => env('CAS_CLIENT_SERVICE', 'http://localhost'),
-
 
     /*
     |--------------------------------------------------------------------------
@@ -151,7 +149,7 @@ return [
     | will override this configuration.
     |--------------------------------------------------------------------------
     */
-    'cas_version' => env('CAS_VERSION', "2.0"),
+    'cas_version' => env('CAS_VERSION', '2.0'),
 
     /*
     |--------------------------------------------------------------------------
