@@ -8,16 +8,15 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.2.5",
+        "php": "^7.3|^8.0",
         "apereo/phpcas": "1.3.8",
         "bugsnag/bugsnag-laravel": "^2.20",
         "doctrine/dbal": "*",
-        "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.7",
-        "guzzlehttp/guzzle": "^6.3",
+        "guzzlehttp/guzzle": "^7.0.1",
         "kelvinmo/simplejwt": "^0.2.5",
-        "laravel/framework": "*",
+        "laravel/framework": "^8.83",
         "laravel/horizon": "*",
         "laravel/slack-notification-channel": "*",
         "laravel/tinker": "*",
@@ -28,13 +27,14 @@
         "ukfast/laravel-health-check": "^1.7"
     },
     "require-dev": {
-        "fzaninotto/faker": "^1.9.1",
-        "mockery/mockery": "^1.3.1",
-        "nunomaduro/collision": "^4.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
         "nunomaduro/larastan": "^0.6",
         "phpstan/extension-installer": "*",
         "robojackets/static-analysis": "*",
-        "facade/ignition": "^2.0"
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "phpunit/phpunit": "^9.5.10"
     },
     "replace": {
         "symfony/polyfill-apcu": "*",
@@ -95,6 +95,9 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
     },
     "repositories": [
