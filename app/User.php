@@ -32,11 +32,6 @@ class User extends Authenticatable
      *
      * @var array<string>
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
     /**
      *  Get the email events associated with this user.
      */

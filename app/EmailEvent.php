@@ -14,11 +14,6 @@ class EmailEvent extends Model
      *
      * @var array<string>
      */
-    protected $dates = [
-        'created_at',
-        'updated_at',
-    ];
-
     /**
      *  Get the user associated with the event (if any).
      */
