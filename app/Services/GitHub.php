@@ -67,7 +67,7 @@ class GitHub extends Service
         $membership = Cache::get($cache_key);
         $etag = Cache::get($etag_key);
 
-        if (null === $membership) {
+        if ($membership === null) {
             $response = self::client()->get(
                 '/orgs/'.config('github.organization_id').'/teams/'.$team_id.'/memberships/'.$username
             );
@@ -75,7 +75,7 @@ class GitHub extends Service
             self::expectStatusCodes($response, 200, 404);
             $membership = self::decodeToObject($response);
 
-            if (200 === $response->getStatusCode()) {
+            if ($response->getStatusCode() === 200) {
                 $etag = $response->getHeader('ETag')[0];
 
                 Cache::forever($cache_key, $membership);
@@ -98,7 +98,7 @@ class GitHub extends Service
 
         self::expectStatusCodes($response, 200, 304, 404);
 
-        if (200 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 200) {
             $membership = self::decodeToObject($response);
             $etag = $response->getHeader('ETag')[0];
 
@@ -107,10 +107,10 @@ class GitHub extends Service
 
             return $membership;
         }
-        if (304 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 304) {
             return $membership;
         }
-        if (404 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 404) {
             Cache::forget($cache_key);
             Cache::forget($etag_key);
 
@@ -158,7 +158,7 @@ class GitHub extends Service
         $teams = Cache::get($cache_key);
         $etag = Cache::get($etag_key);
 
-        if (null === $teams) {
+        if ($teams === null) {
             $response = self::client()->get('/orgs/'.config('github.organization').'/teams');
 
             self::expectStatusCodes($response, 200);
@@ -180,7 +180,7 @@ class GitHub extends Service
 
             self::expectStatusCodes($response, 200, 304);
 
-            if (200 === $response->getStatusCode()) {
+            if ($response->getStatusCode() === 200) {
                 $teams = self::decodeToArray($response);
 
                 $etag = $response->getHeader('ETag')[0];
@@ -201,12 +201,12 @@ class GitHub extends Service
         $user = Cache::get($cache_key);
         $etag = Cache::get($etag_key);
 
-        if (null === $user) {
+        if ($user === null) {
             $response = self::client()->get('/users/'.$username);
 
             self::expectStatusCodes($response, 200, 404);
 
-            if (404 === $response->getStatusCode()) {
+            if ($response->getStatusCode() === 404) {
                 throw new DownstreamServiceProblem(
                     'Linked GitHub user '
                     .$username
@@ -233,7 +233,7 @@ class GitHub extends Service
 
             self::expectStatusCodes($response, 200, 304);
 
-            if (200 === $response->getStatusCode()) {
+            if ($response->getStatusCode() === 200) {
                 $user = self::decodeToObject($response);
 
                 $etag = $response->getHeader('ETag')[0];
@@ -254,7 +254,7 @@ class GitHub extends Service
         $membership = Cache::get($cache_key);
         $etag = Cache::get($etag_key);
 
-        if (null === $etag) {
+        if ($etag === null) {
             $response = self::client()->get(
                 '/orgs/'.config('github.organization').'/memberships/'.$username
             );
@@ -263,7 +263,7 @@ class GitHub extends Service
 
             $membership = self::decodeToObject($response);
 
-            if (200 === $response->getStatusCode()) {
+            if ($response->getStatusCode() === 200) {
                 $etag = $response->getHeader('ETag')[0];
 
                 Cache::forever($cache_key, $membership);
@@ -286,7 +286,7 @@ class GitHub extends Service
 
         self::expectStatusCodes($response, 200, 304, 404);
 
-        if (200 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 200) {
             $membership = self::decodeToObject($response);
 
             $etag = $response->getHeader('ETag')[0];
@@ -296,10 +296,10 @@ class GitHub extends Service
 
             return $membership;
         }
-        if (304 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 304) {
             return $membership;
         }
-        if (404 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 404) {
             Cache::forget($cache_key);
             Cache::forget($etag_key);
 
@@ -320,7 +320,7 @@ class GitHub extends Service
 
     public static function client(): Client
     {
-        if (null !== self::$client && null !== Cache::get('github_installation_token')) {
+        if (self::$client !== null && Cache::get('github_installation_token') !== null) {
             return self::$client;
         }
 
@@ -390,7 +390,7 @@ class GitHub extends Service
 
         $pem = file_get_contents($filename);
 
-        if (false === $pem) {
+        if ($pem === false) {
             throw new Exception('Could not read private key');
         }
 

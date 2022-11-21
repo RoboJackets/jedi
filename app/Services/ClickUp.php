@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 // phpcs:disable Generic.Strings.UnnecessaryStringConcat.Found
 // phpcs:disable Generic.NamingConventions.CamelCapsFunctionName.ScopeNotCamelCaps
+// phpcs:disable SlevomatCodingStandard.Variables.UnusedVariable.UnusedVariable
 
 namespace App\Services;
 
@@ -39,7 +40,7 @@ class ClickUp extends Service
     {
         $response = self::client()->get('profile/'.$clickup_id);
 
-        if (404 === $response->getStatusCode()) {
+        if ($response->getStatusCode() === 404) {
             return null;
         }
 
@@ -138,16 +139,14 @@ class ClickUp extends Service
      */
     public static function client(): Client
     {
-        if (null !== self::$client && null !== Cache::get('clickup_jwt')) {
+        if (self::$client !== null && Cache::get('clickup_jwt') !== null) {
             return self::$client;
         }
 
         $token = Cache::remember(
             'clickup_jwt',
             self::ALMOST_TWO_WEEKS,
-            static function (): string {
-                return self::fetchJWT();
-            }
+            static fn (): string => self::fetchJWT()
         );
 
         // @phan-suppress-next-line PhanUnusedVariable

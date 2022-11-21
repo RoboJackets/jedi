@@ -50,7 +50,7 @@ class SyncWordPress extends SyncJob
             ]
         );
 
-        if (200 !== $response->getStatusCode()) {
+        if ($response->getStatusCode() !== 200) {
             throw new Exception(
                 'WordPress returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
@@ -64,13 +64,13 @@ class SyncWordPress extends SyncJob
             );
         }
 
-        if (0 === count($json)) {
+        if (count($json) === 0) {
             Log::info(self::class.': User '.$this->uid.' does not exist in WordPress');
 
             return;
         }
 
-        if (1 !== count($json)) {
+        if (count($json) !== 1) {
             throw new Exception(
                 'WordPress returned more than one user for query by slug - should not happen'
             );
@@ -115,7 +115,7 @@ class SyncWordPress extends SyncJob
                     ]
                 );
 
-                if (200 !== $response->getStatusCode()) {
+                if ($response->getStatusCode() !== 200) {
                     throw new Exception(
                         'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
                         .', expected 200'
@@ -127,7 +127,7 @@ class SyncWordPress extends SyncJob
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name.' '.$this->last_name
                     && $wp_user->email === $this->uid.'@gatech.edu'
-                    && ['editor'] === $wp_user->roles
+                    && $wp_user->roles === ['editor']
                 ) {
                     Log::debug(self::class.': User '.$this->uid.' attributes are up to date');
 
@@ -147,7 +147,7 @@ class SyncWordPress extends SyncJob
                     ]
                 );
 
-                if (200 !== $response->getStatusCode()) {
+                if ($response->getStatusCode() !== 200) {
                     throw new Exception(
                         'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
                         .', expected 200'
@@ -157,7 +157,7 @@ class SyncWordPress extends SyncJob
 
             Log::debug(self::class.': Successfully updated '.$this->uid);
         } else {
-            if ([] === $wp_user->roles) {
+            if ($wp_user->roles === []) {
                 Log::info(self::class.': User '.$this->uid.' already disabled, don\'t need to change anything');
 
                 return;
@@ -174,7 +174,7 @@ class SyncWordPress extends SyncJob
                 ]
             );
 
-            if (200 !== $response->getStatusCode()) {
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     'WordPress returned an unexpected HTTP response code '.$response->getStatusCode()
                     .', expected 200'

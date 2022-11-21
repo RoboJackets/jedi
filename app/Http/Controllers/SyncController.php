@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SyncAutodeskLibrary;
 use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
@@ -58,17 +57,17 @@ class SyncController extends Controller
 
         $lastRequest = Cache::get('last_request_for_'.$request->uid);
 
-        if (null !== $lastRequest) {
+        if ($lastRequest !== null) {
             $same = $lastRequest['first_name'] === $request->first_name &&
                     $lastRequest['last_name'] === $request->last_name &&
                     $lastRequest['is_access_active'] === $request->is_access_active &&
-                    [] === array_diff($lastRequest['teams'], $request->teams) &&
-                    [] === array_diff($request->teams, $lastRequest['teams']) &&
-                    [] === array_diff($lastRequest['project_manager_of_teams'], $request->project_manager_of_teams) &&
-                    [] === array_diff($request->project_manager_of_teams, $lastRequest['project_manager_of_teams']) &&
+                    array_diff($lastRequest['teams'], $request->teams) === [] &&
+                    array_diff($request->teams, $lastRequest['teams']) === [] &&
+                    array_diff($lastRequest['project_manager_of_teams'], $request->project_manager_of_teams) === [] &&
+                    array_diff($request->project_manager_of_teams, $lastRequest['project_manager_of_teams']) === [] &&
                     $lastRequest['github_username'] === $request->github_username &&
-                    [] === array_diff($lastRequest['google_accounts'], $request->google_accounts) &&
-                    [] === array_diff($request->google_accounts, $lastRequest['google_accounts']) &&
+                    array_diff($lastRequest['google_accounts'], $request->google_accounts) === [] &&
+                    array_diff($request->google_accounts, $lastRequest['google_accounts']) === [] &&
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
@@ -78,9 +77,7 @@ class SyncController extends Controller
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
                 if (! in_array($request->model_event, config('apiary.whitelisted_events'), true)) {
-                    Log::info(
-                        self::class.': Not syncing '.$request->uid.' as it is a duplicate of last seen event'
-                    );
+                    Log::info(self::class.': Not syncing '.$request->uid.' as it is a duplicate of last seen event');
                     Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY); // update exp
 
                     return response()->json('duplicate', 202);
@@ -94,7 +91,7 @@ class SyncController extends Controller
 
         Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY);
 
-        if (true === config('github.enabled') && $request->filled('github_username')) {
+        if (config('github.enabled') === true && $request->filled('github_username')) {
             SyncGitHub::dispatch(
                 $request->uid,
                 $request->is_access_active,
@@ -104,7 +101,7 @@ class SyncController extends Controller
             );
         }
 
-        if (true === config('nextcloud.enabled')) {
+        if (config('nextcloud.enabled') === true) {
             SyncNextcloud::dispatch(
                 $request->uid,
                 $request->first_name,
@@ -114,37 +111,30 @@ class SyncController extends Controller
             );
         }
 
-        if (true === config('sums.enabled')) {
+        if (config('sums.enabled') === true) {
             if (
-                true === config('sums.attendance_timeout_enabled')
-                && (true === $request->is_access_active)
-                && (null !== $request->last_attendance_time
+                config('sums.attendance_timeout_enabled') === true
+                && ($request->is_access_active === true)
+                && ($request->last_attendance_time !== null
                 && ($request->last_attendance_time < new Carbon(
                     // @phan-suppress-next-line PhanPartialTypeMismatchArgument
                     config('sums.attendance_timeout_limit'),
                     'America/New_York'
                 ))
-                || null === $request->last_attendance_id)
+                || $request->last_attendance_id === null)
             ) {
-                SyncSUMS::dispatch(
-                    $request->uid,
-                    false,
-                    true === config('sums.attendance_timeout_emails') && null !== $request->last_attendance_id,
-                    $request->last_attendance_id,
-                    $request->exists_in_sums
-                );
+                SyncSUMS::dispatch($request->uid, false, $request->last_attendance_id, $request->exists_in_sums);
             } else {
                 SyncSUMS::dispatch(
                     $request->uid,
                     $request->is_access_active,
-                    false,
                     $request->last_attendance_id,
                     $request->exists_in_sums
                 );
             }
         }
 
-        if (true === config('wordpress.enabled')) {
+        if (config('wordpress.enabled') === true) {
             SyncWordPress::dispatch(
                 $request->uid,
                 $request->first_name,
@@ -154,7 +144,7 @@ class SyncController extends Controller
             );
         }
 
-        if (true === config('google.enabled')) {
+        if (config('google.enabled') === true) {
             foreach ($request->google_accounts as $google_account) {
                 SyncGoogleGroups::dispatch(
                     $request->uid,
@@ -167,7 +157,7 @@ class SyncController extends Controller
             }
         }
 
-        if (true === config('clickup.enabled') && $request->filled('clickup_email')) {
+        if (config('clickup.enabled') === true && $request->filled('clickup_email')) {
             SyncClickUp::dispatch(
                 $request->uid,
                 $request->is_access_active,
@@ -175,16 +165,6 @@ class SyncController extends Controller
                 $request->clickup_email,
                 $request->clickup_id,
                 $request->clickup_invite_pending
-            );
-        }
-
-        if (true === config('autodesk-library.enabled') && $request->filled('autodesk_email')) {
-            SyncAutodeskLibrary::dispatch(
-                $request->uid,
-                $request->is_access_active,
-                $request->teams,
-                $request->autodesk_email,
-                $request->autodesk_invite_pending
             );
         }
 

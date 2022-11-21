@@ -10,7 +10,6 @@ use App\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use RoboJackets\AuthStickler;
 
 /**
  * Authenticates users against a CAS server (e.g. GT Login Service).
@@ -36,12 +35,12 @@ class CASAuthenticate
     {
         //Check to ensure the request isn't already authenticated through the API guard
         if (! Auth::guard('api')->check()) {
-            if ($this->cas->isAuthenticated() && null === $request->user()) {
-                $username = AuthStickler::check($this->cas);
+            if ($this->cas->isAuthenticated() && $request->user() === null) {
+                $username = $this->cas->user();
 
                 $user = User::where('uid', '=', $username)->first();
 
-                if (null === $user) {
+                if ($user === null) {
                     $user = new User();
                     $user->uid = $username;
                     $user->save();
@@ -52,11 +51,11 @@ class CASAuthenticate
                 return $next($request);
             }
 
-            if (null === $request->user() && ($request->ajax() || $request->wantsJson())) {
+            if ($request->user() === null && ($request->ajax() || $request->wantsJson())) {
                 abort(401);
             }
 
-            if (null === $request->user()) {
+            if ($request->user() === null) {
                 $this->cas->authenticate();
             }
         }

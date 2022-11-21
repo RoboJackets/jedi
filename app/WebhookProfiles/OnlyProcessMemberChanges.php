@@ -11,6 +11,6 @@ class OnlyProcessMemberChanges implements WebhookProfile
 {
     public function shouldProcess(Request $request): bool
     {
-        return 'member_' === substr($request->action, 0, 7);
+        return substr($request->action, 0, 7) === 'member_';
     }
 }

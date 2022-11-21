@@ -8,7 +8,8 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.1",
+        "ans-group/laravel-health-check": "^1.13",
         "apereo/phpcas": "1.6.0",
         "doctrine/dbal": "*",
         "fruitcake/laravel-cors": "^2.0",
@@ -21,19 +22,19 @@
         "laravel/tinker": "*",
         "predis/predis": "^1.1",
         "spatie/laravel-failed-job-monitor": "*",
-        "spatie/laravel-webhook-client": "*",
-        "subfission/cas": "4.3.0",
-        "ukfast/laravel-health-check": "^1.7"
+        "spatie/laravel-github-webhooks": "^1.2",
+        "subfission/cas": "4.3.0"
     },
     "require-dev": {
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^5.10",
         "nunomaduro/larastan": "^0.6",
         "phpstan/extension-installer": "*",
+        "phpunit/phpunit": "^9.5.10",
         "robojackets/static-analysis": "*",
-        "facade/ignition": "^2.5",
-        "fakerphp/faker": "^1.9.1",
-        "phpunit/phpunit": "^9.5.10"
+        "slevomat/coding-standard": "^8.6"
     },
     "replace": {
         "symfony/polyfill-apcu": "*",

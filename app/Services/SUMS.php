@@ -87,7 +87,7 @@ class SUMS extends Service
 
     public static function client(): Client
     {
-        if (null !== self::$client) {
+        if (self::$client !== null) {
             return self::$client;
         }
 

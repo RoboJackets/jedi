@@ -47,7 +47,7 @@ class SyncNextcloud extends SyncJob
 
             $response = $client->put($this->uid.'/enable');
 
-            if (200 !== $response->getStatusCode()) {
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
                     .', expected 200'
@@ -56,19 +56,19 @@ class SyncNextcloud extends SyncJob
 
             $xml = simplexml_load_string($response->getBody()->getContents());
 
-            if (false === $xml) {
+            if ($xml === false) {
                 throw new Exception('Nextcloud did not return valid XML');
             }
 
             $status_code = self::getStatusCodeFromXML($xml);
 
-            if (101 === $status_code) {
+            if ($status_code === 101) {
                 Log::info(self::class.': User '.$this->uid.' does not exist in Nextcloud');
 
                 return;
             }
 
-            if (100 !== $status_code) {
+            if ($status_code !== 100) {
                 throw new Exception(
                     'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 101'
                 );
@@ -78,7 +78,7 @@ class SyncNextcloud extends SyncJob
 
             $response = $client->get($this->uid.'/groups');
 
-            if (200 !== $response->getStatusCode()) {
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
                     .', expected 200'
@@ -87,13 +87,13 @@ class SyncNextcloud extends SyncJob
 
             $xml = simplexml_load_string($response->getBody()->getContents());
 
-            if (false === $xml) {
+            if ($xml === false) {
                 throw new Exception('Nextcloud did not return valid XML');
             }
 
             $status_code = self::getStatusCodeFromXML($xml);
 
-            if (100 !== $status_code) {
+            if ($status_code !== 100) {
                 throw new Exception(
                     'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
                 );
@@ -103,7 +103,7 @@ class SyncNextcloud extends SyncJob
 
             $xpath_result = $xml->xpath('/ocs/data/groups/element');
 
-            if (false !== $xpath_result) {
+            if ($xpath_result !== false) {
                 foreach ($xpath_result as $nc_group) {
                     $groups_from_nc[] = $nc_group->__toString();
                 }
@@ -114,7 +114,7 @@ class SyncNextcloud extends SyncJob
             $missing_groups = array_diff($this->teams, $groups_from_nc);
 
             foreach ($extra_groups as $group) {
-                if ('admin' === $group) {
+                if ($group === 'admin') {
                     continue;
                 }
 
@@ -129,7 +129,7 @@ class SyncNextcloud extends SyncJob
                     ]
                 );
 
-                if (200 !== $response->getStatusCode()) {
+                if ($response->getStatusCode() !== 200) {
                     throw new Exception(
                         'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
                         .', expected 200'
@@ -138,13 +138,13 @@ class SyncNextcloud extends SyncJob
 
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
-                if (false === $xml) {
+                if ($xml === false) {
                     throw new Exception('Nextcloud did not return valid XML');
                 }
 
                 $status_code = self::getStatusCodeFromXML($xml);
 
-                if (100 !== $status_code) {
+                if ($status_code !== 100) {
                     throw new Exception(
                         'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100'
                     );
@@ -152,7 +152,7 @@ class SyncNextcloud extends SyncJob
             }
 
             foreach ($missing_groups as $group) {
-                if ('admin' === $group) {
+                if ($group === 'admin') {
                     continue;
                 }
 
@@ -167,7 +167,7 @@ class SyncNextcloud extends SyncJob
                     ]
                 );
 
-                if (200 !== $response->getStatusCode()) {
+                if ($response->getStatusCode() !== 200) {
                     throw new Exception(
                         'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
                         .', expected 200'
@@ -176,13 +176,13 @@ class SyncNextcloud extends SyncJob
 
                 $xml = simplexml_load_string($response->getBody()->getContents());
 
-                if (false === $xml) {
+                if ($xml === false) {
                     throw new Exception('Nextcloud did not return valid XML');
                 }
 
                 $status_code = self::getStatusCodeFromXML($xml);
 
-                if (100 !== $status_code && 102 !== $status_code) {
+                if ($status_code !== 100 && $status_code !== 102) {
                     throw new Exception(
                         'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 102'
                     );
@@ -195,7 +195,7 @@ class SyncNextcloud extends SyncJob
 
             $response = $client->put($this->uid.'/disable');
 
-            if (200 !== $response->getStatusCode()) {
+            if ($response->getStatusCode() !== 200) {
                 throw new Exception(
                     'Nextcloud returned an unexpected HTTP response code '.$response->getStatusCode()
                     .', expected 200'
@@ -204,19 +204,19 @@ class SyncNextcloud extends SyncJob
 
             $xml = simplexml_load_string($response->getBody()->getContents());
 
-            if (false === $xml) {
+            if ($xml === false) {
                 throw new Exception('Nextcloud did not return valid XML');
             }
 
             $status_code = self::getStatusCodeFromXML($xml);
 
-            if (101 === $status_code) {
+            if ($status_code === 101) {
                 Log::info(self::class.': User '.$this->uid.' does not exist in Nextcloud');
 
                 return;
             }
 
-            if (100 !== $status_code) {
+            if ($status_code !== 100) {
                 throw new Exception(
                     'Nextcloud returned an unexpected status code '.$status_code.' in XML, expected 100 or 101'
                 );
@@ -230,11 +230,11 @@ class SyncNextcloud extends SyncJob
     {
         $status_array = $xml->xpath('/ocs/meta/statuscode');
 
-        if (false === $status_array) {
+        if ($status_array === false) {
             throw new Exception('XPath search for status code returned false');
         }
 
-        if (1 !== count($status_array)) {
+        if (count($status_array) !== 1) {
             throw new Exception(
                 'XPath search for status code returned '.count($status_array).' results, expected 1'
             );
