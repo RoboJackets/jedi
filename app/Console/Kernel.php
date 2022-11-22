@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace App\Console;
 
-use Bugsnag\BugsnagLaravel\Commands\DeployCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -18,7 +17,6 @@ class Kernel extends ConsoleKernel
      * @var array<string>
      */
     protected $commands = [
-        DeployCommand::class,
     ];
 
     /**

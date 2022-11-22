@@ -62,6 +62,7 @@ class SyncGoogleGroups extends SyncJob
      * @return void
      *
      * @phan-suppress PhanPartialTypeMismatchArgument
+     * @phan-suppress PhanUndeclaredClassProperty
      */
     public function handle(): void
     {
@@ -79,15 +80,10 @@ class SyncGoogleGroups extends SyncJob
         $member->setRole('MEMBER');
 
         // Cache for 15 minutes
-        $allGroups = Cache::remember('apiary_google_groups_teams', 15, function (): Collection {
-            return $this->getAllGroups();
-        });
+        $allGroups = Cache::remember('apiary_google_groups_teams', 15, fn (): Collection => $this->getAllGroups());
         // Get the groups that the user should be in
         $user_teams = $this->teams;
-        // @phan-suppress-next-line PhanUnusedClosureParameter
-        $activeGroups = $allGroups->filter(static function ($group, $team) use ($user_teams): bool {
-            return in_array($team, $user_teams, true);
-        });
+        $activeGroups = $allGroups->filter(static fn ($group, $team): bool => in_array($team, $user_teams, true));
 
         foreach ($allGroups as $group) {
             // @phan-suppress-next-line PhanPluginNonBoolInLogicalArith
@@ -96,8 +92,9 @@ class SyncGoogleGroups extends SyncJob
                 try {
                     $service->members->insert($group, $member);
                 } catch (Google_Service_Exception $e) {
-                    if (409 === $e->getCode()) {
+                    if ($e->getCode() === 409) {
                         $this->info('User was already a member of Google Group '.$group);
+
                         continue;
                     }
                     throw $e;
@@ -108,8 +105,9 @@ class SyncGoogleGroups extends SyncJob
                 try {
                     $service->members->delete($group, $this->gmail_address);
                 } catch (Google_Service_Exception $e) {
-                    if (404 === $e->getCode()) {
+                    if ($e->getCode() === 404) {
                         $this->info('User was already not a member of Google Group '.$group);
+
                         continue;
                     }
                     throw $e;
@@ -130,7 +128,7 @@ class SyncGoogleGroups extends SyncJob
 
         $response = $client->get('/api/v1/teams');
 
-        if (200 !== $response->getStatusCode()) {
+        if ($response->getStatusCode() !== 200) {
             throw new Exception(
                 'Apiary returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
@@ -139,21 +137,19 @@ class SyncGoogleGroups extends SyncJob
         $responseBody = $response->getBody()->getContents();
         $json = json_decode($responseBody);
 
-        if ('success' !== $json->status) {
-            throw new Exception(
-                'Apiary returned an unexpected response '.$responseBody.', expected status: success'
-            );
+        if ($json->status !== 'success') {
+            throw new Exception('Apiary returned an unexpected response '.$responseBody.', expected status: success');
         }
 
         $teams = collect($json->teams);
 
-        return $teams->filter(static function ($team): bool {
-            return null !== $team->google_group
-                && 'officers@robojackets.org' !== $team->google_group
-                && 'developers@robojackets.org' !== $team->google_group;
-        })->mapWithKeys(static function ($team): array {
-            return [$team->name => $team->google_group];
-        });
+        return $teams->filter(
+            static fn ($team): bool => $team->google_group !== null
+                && $team->google_group !== 'officers@robojackets.org'
+                && $team->google_group !== 'developers@robojackets.org'
+        )->mapWithKeys(
+            static fn ($team): array => [$team->name => $team->google_group]
+        );
     }
 
     private function debug(string $message): void

@@ -77,7 +77,7 @@ class SyncGitHub extends SyncJob
 
             $teams = GitHub::getTeams();
 
-            if (null === $membership) {
+            if ($membership === null) {
                 $this->info('Not a member, building invite');
 
                 $team_ids = [];
@@ -95,7 +95,7 @@ class SyncGitHub extends SyncJob
                     $team_ids[] = $team->id;
                 }
 
-                if (0 === count($team_ids)) {
+                if (count($team_ids) === 0) {
                     $this->warning('User is not a member of any teams in Apiary, not sending invitation');
 
                     return;
@@ -103,8 +103,8 @@ class SyncGitHub extends SyncJob
 
                 GitHub::inviteUserToOrganization($user->id, $team_ids);
 
-                if (0 !== count($this->project_manager_of_teams)) {
-                    if (1 < count($this->project_manager_of_teams)) {
+                if (count($this->project_manager_of_teams) !== 0) {
+                    if (count($this->project_manager_of_teams) > 1) {
                         $this->warning(
                             'User is listed as manager of multiple teams, maintainer access may not work as desired'
                         );
@@ -142,8 +142,9 @@ class SyncGitHub extends SyncJob
 
                     $this->debug('User should be in team '.$team->name.', checking membership');
 
-                    if (null !== GitHub::getTeamMembership($team->id, $this->github_username)) {
+                    if (GitHub::getTeamMembership($team->id, $this->github_username) !== null) {
                         $this->debug('User already in team '.$team->name);
+
                         continue;
                     }
 
@@ -151,8 +152,8 @@ class SyncGitHub extends SyncJob
                     GitHub::addUserToTeam($team->id, $this->github_username);
                 }
 
-                if (0 !== count($this->project_manager_of_teams)) {
-                    if (1 < count($this->project_manager_of_teams)) {
+                if (count($this->project_manager_of_teams) !== 0) {
+                    if (count($this->project_manager_of_teams) > 1) {
                         $this->warning(
                             'User is listed as manager of multiple teams, maintainer access may not work as desired'
                         );
@@ -183,7 +184,7 @@ class SyncGitHub extends SyncJob
             return;
         }
 
-        if (null === $membership) {
+        if ($membership === null) {
             return;
         }
 

@@ -16,16 +16,6 @@
         </ignoreFiles>
     </projectFiles>
     <issueHandlers>
-        <TooManyArguments>
-            <errorLevel type="suppress">
-                <directory name="app/Nova/" />
-            </errorLevel>
-        </TooManyArguments>
-        <TooManyTemplateParams>
-            <errorLevel type="suppress">
-                <directory name="app/Nova/Actions/" />
-            </errorLevel>
-        </TooManyTemplateParams>
         <NonInvariantDocblockPropertyType>
             <errorLevel type="suppress">
                 <directory name="app" />

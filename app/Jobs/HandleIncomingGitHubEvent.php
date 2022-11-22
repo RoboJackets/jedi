@@ -9,9 +9,9 @@ namespace App\Jobs;
 use App\Services\Apiary;
 use Exception;
 use Illuminate\Support\Facades\Log;
-use Spatie\WebhookClient\ProcessWebhookJob;
+use Spatie\GitHubWebhooks\Jobs\ProcessGitHubWebhookJob;
 
-class HandleIncomingGitHubEvent extends ProcessWebhookJob
+class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
 {
     /**
      * The queue this job will run on.
@@ -30,17 +30,17 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
     /**
      * Execute the job.
      *
-     * @return void
+     * @phan-suppress PhanTypeArraySuspiciousNullable
      */
     public function handle(): void
     {
         // Parse webhook body
         $action = $this->webhookCall->payload['action'];
 
-        if ('member_added' === $action || 'member_removed' === $action) {
+        if ($action === 'member_added' || $action === 'member_removed') {
             $github_invite_pending = false;
             $github_username = $this->webhookCall->payload['membership']['user']['login'];
-        } elseif ('member_invited' === $action) {
+        } elseif ($action === 'member_invited') {
             $github_invite_pending = true;
             $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
@@ -59,7 +59,7 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
             ]
         );
 
-        if (200 !== $response->getStatusCode()) {
+        if ($response->getStatusCode() !== 200) {
             throw new Exception(
                 'Apiary returned an unexpected HTTP response code '.$response->getStatusCode().', expected 200'
             );
@@ -69,10 +69,8 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
 
         $json = json_decode($responseBody);
 
-        if ('success' !== $json->status) {
-            throw new Exception(
-                'Apiary returned an unexpected response '.$responseBody.', expected status: success'
-            );
+        if ($json->status !== 'success') {
+            throw new Exception('Apiary returned an unexpected response '.$responseBody.', expected status: success');
         }
 
         foreach ($json->users as $user) {
@@ -90,14 +88,16 @@ class HandleIncomingGitHubEvent extends ProcessWebhookJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @phan-suppress PhanTypeArraySuspiciousNullable
      */
     public function tags(): array
     {
         $action = $this->webhookCall->payload['action'];
 
-        if ('member_added' === $action || 'member_removed' === $action) {
+        if ($action === 'member_added' || $action === 'member_removed') {
             $github_username = $this->webhookCall->payload['membership']['user']['login'];
-        } elseif ('member_invited' === $action) {
+        } elseif ($action === 'member_invited') {
             $github_username = $this->webhookCall->payload['invitation']['login'];
         } else {
             throw new Exception('Unexpected action '.$action);

@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.4
 
-ARG base_image="debian:bullseye-slim"
+ARG base_image="debian:bookworm-slim"
 
 FROM scratch as backend-source
 
@@ -27,21 +27,21 @@ RUN set -eux && \
     apt-get update && \
     apt-get upgrade -qq --assume-yes && \
     apt-get install -qq --assume-yes \
-        php7.4-fpm php7.4-mysql php7.4-xml unzip libfcgi-bin php7.4-curl php7.4-mbstring zopfli && \
+        php8.1-fpm php8.1-mysql php8.1-xml unzip libfcgi-bin php8.1-curl php8.1-mbstring zopfli && \
     apt-get autoremove -qq --assume-yes && \
     mkdir /app && \
     chown www-data:www-data /app && \
-    sed -i '/pid/c\\' /etc/php/7.4/fpm/php-fpm.conf && \
-    sed -i '/systemd_interval/c\systemd_interval = 0' /etc/php/7.4/fpm/php-fpm.conf && \
-    sed -i '/error_log/c\error_log = /local/error.log' /etc/php/7.4/fpm/php-fpm.conf && \
-    sed -i '/upload_max_filesize/c\upload_max_filesize = 10M' /etc/php/7.4/fpm/php.ini && \
-    sed -i '/max_file_uploads/c\max_file_uploads = 1' /etc/php/7.4/fpm/php.ini && \
-    sed -i '/expose_php/c\expose_php = Off' /etc/php/7.4/fpm/php.ini && \
-    sed -i '/expose_php/c\expose_php = Off' /etc/php/7.4/cli/php.ini && \
-    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/7.4/fpm/php.ini && \
-    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/7.4/cli/php.ini && \
-    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/7.4/fpm/php.ini && \
-    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/7.4/cli/php.ini
+    sed -i '/pid/c\\' /etc/php/8.1/fpm/php-fpm.conf && \
+    sed -i '/systemd_interval/c\systemd_interval = 0' /etc/php/8.1/fpm/php-fpm.conf && \
+    sed -i '/error_log/c\error_log = /local/error.log' /etc/php/8.1/fpm/php-fpm.conf && \
+    sed -i '/upload_max_filesize/c\upload_max_filesize = 10M' /etc/php/8.1/fpm/php.ini && \
+    sed -i '/max_file_uploads/c\max_file_uploads = 1' /etc/php/8.1/fpm/php.ini && \
+    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.1/fpm/php.ini && \
+    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.1/cli/php.ini && \
+    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.1/fpm/php.ini && \
+    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.1/cli/php.ini && \
+    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.1/fpm/php.ini && \
+    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.1/cli/php.ini
 
 COPY --link --from=composer /usr/bin/composer /usr/bin/composer
 
@@ -51,11 +51,9 @@ WORKDIR /app/
 
 USER www-data
 
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,required=true \
-    set -eux && \
+RUN set -eux && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
     mkdir --parents /app/resources/views/ && \
-    php artisan nova:publish && \
     php artisan horizon:publish
 # && \
 #    sed -i '/"\$1\\n\$2"/c\\' /app/vendor/mrclay/minify/lib/Minify/HTML.php;

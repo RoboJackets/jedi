@@ -74,7 +74,7 @@ class SyncClickUp extends SyncJob
 
             $response = ClickUp::addUser($this->clickup_email);
 
-            if (null === $this->clickup_id || $this->clickup_id !== $response->user->id) {
+            if ($this->clickup_id === null || $this->clickup_id !== $response->user->id) {
                 UpdateClickUpAttributes::dispatch($this->uid, $response->user->id, $response->invite);
             } else {
                 if ($this->clickup_invite_pending !== $response->invite) {
@@ -95,7 +95,7 @@ class SyncClickUp extends SyncJob
         } else {
             Log::info(self::class.': Disabling '.$this->uid);
 
-            if (null === $this->clickup_id) {
+            if ($this->clickup_id === null) {
                 Log::info(self::class.': Asked to disable '.$this->uid.' but no clickup_id available');
 
                 return;
@@ -103,7 +103,7 @@ class SyncClickUp extends SyncJob
 
             ClickUp::removeUser($this->clickup_id);
 
-            if (true === $this->clickup_invite_pending) {
+            if ($this->clickup_invite_pending === true) {
                 UpdateClickUpInvitePendingFlag::dispatch($this->uid, false);
             }
         }

@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'v1/', 'as' => 'api.v1.', 'middleware' => ['auth.token']], static function (): void {
+Route::prefix('v1/')->name('api.v1.')->middleware('auth.token')->group(static function (): void {
     Route::post('/apiary', [SyncController::class, 'sync']);
 });
 
-Route::webhooks('/v1/github', 'github');
+Route::githubWebhooks('/v1/github');
