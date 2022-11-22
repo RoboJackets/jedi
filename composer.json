@@ -13,9 +13,9 @@
         "apereo/phpcas": "1.6.0",
         "doctrine/dbal": "*",
         "google/apiclient": "^2.7",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.2",
         "kelvinmo/simplejwt": "^0.2.5",
-        "laravel/framework": "^8.83",
+        "laravel/framework": "^9.40",
         "laravel/horizon": "*",
         "laravel/pint": "^1.2",
         "laravel/slack-notification-channel": "*",
@@ -26,15 +26,15 @@
         "subfission/cas": "4.3.0"
     },
     "require-dev": {
-        "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
-        "nunomaduro/collision": "^5.10",
+        "nunomaduro/collision": "^6.3",
         "nunomaduro/larastan": "^0.6",
         "phpstan/extension-installer": "*",
         "phpunit/phpunit": "^9.5.10",
         "robojackets/static-analysis": "*",
-        "slevomat/coding-standard": "^8.6"
+        "slevomat/coding-standard": "^8.6",
+        "spatie/laravel-ignition": "^1.4"
     },
     "replace": {
         "symfony/polyfill-apcu": "*",
