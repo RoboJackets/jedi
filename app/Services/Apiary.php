@@ -12,7 +12,7 @@ class Apiary extends Service
     /**
      * A Guzzle client configured for Apiary.
      */
-    private static ?Client $client;
+    private static ?Client $client = null;
 
     public static function getUser(string $username): object
     {
