@@ -19,9 +19,6 @@ class SelfServiceController extends Controller
 {
     /**
      * Sync the currently logged in user with GitHub.
-     *
-     * @param  Request  $request  The incoming request
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function github(Request $request)
     {
@@ -80,9 +77,6 @@ class SelfServiceController extends Controller
 
     /**
      * Sync the currently logged in user with SUMS.
-     *
-     * @param  Request  $request  The incoming request
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
      */
     public function sums(Request $request)
     {
@@ -142,9 +136,6 @@ class SelfServiceController extends Controller
 
     /**
      * Resend an invitation to ClickUp for the currently logged in user.
-     *
-     * @param  Request  $request  The incoming request
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function clickup(Request $request)
     {

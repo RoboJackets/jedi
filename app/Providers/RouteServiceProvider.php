@@ -53,8 +53,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         RateLimiter::for(
             'api',
-            // @phan-suppress-next-line PhanPossiblyNullTypeArgument
-            static fn (Request $request): Limit => Limit::perMinute(600)->by($request->user()?->id ?: $request->ip())
+            static fn (Request $request): Limit => Limit::perMinute(600)->by($request->user()?->id ?? $request->ip())
         );
     }
 }
