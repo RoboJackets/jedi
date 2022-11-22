@@ -25,20 +25,6 @@ class SyncSUMS extends SyncJob
     public $queue = 'sums';
 
     /**
-     * Last seen attendance event ID.
-     *
-     * @var ?int
-     */
-    private $last_attendance_id;
-
-    /**
-     * Whether the user exists in SUMS according to Apiary.
-     *
-     * @var bool
-     */
-    private $exists_in_sums;
-
-    /**
      * Create a new job instance.
      *
      * @param  string  $uid  The user's GT username
@@ -49,19 +35,14 @@ class SyncSUMS extends SyncJob
     protected function __construct(
         string $uid,
         bool $is_access_active,
-        ?int $last_attendance_id,
-        bool $exists_in_sums
+        private readonly ?int $last_attendance_id,
+        private readonly bool $exists_in_sums
     ) {
         parent::__construct($uid, '', '', $is_access_active, []);
-
-        $this->last_attendance_id = $last_attendance_id;
-        $this->exists_in_sums = $exists_in_sums;
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {

@@ -19,10 +19,8 @@ class ClickUp extends Service
 
     /**
      * A Guzzle client configured for ClickUp.
-     *
-     * @var \GuzzleHttp\Client
      */
-    private static $client;
+    private static ?Client $client;
 
     public static function resendInvitationToUser(int $clickup_id): void
     {

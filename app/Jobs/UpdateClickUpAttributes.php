@@ -10,27 +10,14 @@ use Illuminate\Support\Facades\Log;
 class UpdateClickUpAttributes extends ApiaryJob
 {
     /**
-     * The numeric ID for this user within ClickUp.
-     *
-     * @var int
-     */
-    private $clickup_id;
-
-    /**
-     * Whether this user has a pending ClickUp invitation.
-     *
-     * @var bool
-     */
-    private $clickup_invite_pending = false;
-
-    /**
      * Create a new job instance.
      */
-    protected function __construct(string $uid, int $clickup_id, bool $clickup_invite_pending)
-    {
+    protected function __construct(
+        string $uid,
+        private readonly int $clickup_id,
+        private readonly bool $clickup_invite_pending
+    ) {
         parent::__construct($uid);
-        $this->clickup_id = $clickup_id;
-        $this->clickup_invite_pending = $clickup_invite_pending;
     }
 
     /**

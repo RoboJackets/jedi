@@ -22,10 +22,8 @@ class GitHub extends Service
 
     /**
      * A Guzzle client configured for GitHub.
-     *
-     * @var \GuzzleHttp\Client
      */
-    private static $client;
+    private static ?Client $client;
 
     public static function removeUserFromOrganization(string $username): void
     {

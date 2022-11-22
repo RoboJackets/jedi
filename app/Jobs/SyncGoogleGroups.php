@@ -27,13 +27,6 @@ class SyncGoogleGroups extends SyncJob
     public $queue = 'google';
 
     /**
-     * The user's Gmail address.
-     *
-     * @var string
-     */
-    private $gmail_address;
-
-    /**
      * Create a new job instance.
      *
      * @param  string  $uid  The user's GT username
@@ -49,11 +42,9 @@ class SyncGoogleGroups extends SyncJob
         string $last_name,
         bool $is_access_active,
         array $teams,
-        string $gmail_address
+        private readonly string $gmail_address
     ) {
         parent::__construct($uid, $first_name, $last_name, $is_access_active, $teams);
-
-        $this->gmail_address = $gmail_address;
     }
 
     /**
@@ -147,8 +138,7 @@ class SyncGoogleGroups extends SyncJob
 
         return $teams->filter(
             static fn (object $team): bool => $team->google_group !== null
-                && $team->google_group !== 'officers@robojackets.org'
-                && $team->google_group !== 'developers@robojackets.org'
+                && !in_array($team->google_group, config('google.manual_groups'), true)
         )->mapWithKeys(
             static fn (object $team): array => [$team->name => $team->google_group]
         );

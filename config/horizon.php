@@ -125,7 +125,6 @@ return [
                 'queue' => [
                     'apiary',
                     'clickup',
-                    'autodesk',
                     'github',
                     'google',
                     'nextcloud',

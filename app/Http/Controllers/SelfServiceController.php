@@ -35,7 +35,7 @@ class SelfServiceController extends Controller
         }
 
         if ($apiary_user->user->github_username === null) {
-            return redirect('https://my.robojackets.org/github');
+            return redirect(config('apiary.server').'/github');
         }
 
         $github_membership = GitHub::getOrganizationMembership($apiary_user->user->github_username);
@@ -152,7 +152,7 @@ class SelfServiceController extends Controller
         }
 
         if ($apiary_user->user->clickup_email === null) {
-            return redirect('https://my.robojackets.org/profile');
+            return redirect(config('apiary.server').'/profile');
         }
 
         $id_in_apiary_is_wrong = false;

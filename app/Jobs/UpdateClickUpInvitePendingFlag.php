@@ -10,19 +10,11 @@ use Illuminate\Support\Facades\Log;
 class UpdateClickUpInvitePendingFlag extends ApiaryJob
 {
     /**
-     * Whether this user has a pending ClickUp invitation.
-     *
-     * @var bool
-     */
-    private $clickup_invite_pending = false;
-
-    /**
      * Create a new job instance.
      */
-    protected function __construct(string $uid, bool $clickup_invite_pending)
+    protected function __construct(string $uid, private readonly bool $clickup_invite_pending)
     {
         parent::__construct($uid);
-        $this->clickup_invite_pending = $clickup_invite_pending;
     }
 
     /**

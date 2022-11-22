@@ -17,27 +17,6 @@ class SyncClickUp extends SyncJob
     public $queue = 'clickup';
 
     /**
-     * The email associated with this user in Apiary.
-     *
-     * @var string
-     */
-    private $clickup_email;
-
-    /**
-     * The numeric ID of this user within ClickUp.
-     *
-     * @var ?int
-     */
-    private $clickup_id;
-
-    /**
-     * Whether Apiary thinks this user has a pending invitation in ClickUp.
-     *
-     * @var bool
-     */
-    private $clickup_invite_pending;
-
-    /**
      * Create a new job instance.
      *
      * @param  string  $uid  The user's GT username
@@ -51,21 +30,15 @@ class SyncClickUp extends SyncJob
         string $uid,
         bool $is_access_active,
         array $teams,
-        string $clickup_email,
-        ?int $clickup_id,
-        bool $clickup_invite_pending
+        private readonly string $clickup_email,
+        private readonly ?int $clickup_id,
+        private readonly bool $clickup_invite_pending
     ) {
         parent::__construct($uid, '', '', $is_access_active, $teams);
-
-        $this->clickup_email = $clickup_email;
-        $this->clickup_id = $clickup_id;
-        $this->clickup_invite_pending = $clickup_invite_pending;
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {

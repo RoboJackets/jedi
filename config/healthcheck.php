@@ -13,12 +13,13 @@ return [
      * of the service.
      */
     'checks' => [
-        UKFast\HealthCheck\Checks\CacheHealthCheck::class,
-        UKFast\HealthCheck\Checks\DatabaseHealthCheck::class,
-        UKFast\HealthCheck\Checks\LogHealthCheck::class,
-        UKFast\HealthCheck\Checks\MigrationUpToDateHealthCheck::class,
-        UKFast\HealthCheck\Checks\RedisHealthCheck::class,
-        UKFast\HealthCheck\Checks\StorageHealthCheck::class,
+        \UKFast\HealthCheck\Checks\CacheHealthCheck::class,
+        \UKFast\HealthCheck\Checks\DatabaseHealthCheck::class,
+        \UKFast\HealthCheck\Checks\LogHealthCheck::class,
+        \UKFast\HealthCheck\Checks\MigrationUpToDateHealthCheck::class,
+        \UKFast\HealthCheck\Checks\RedisHealthCheck::class,
+        \UKFast\HealthCheck\Checks\SchedulerHealthCheck::class,
+        \UKFast\HealthCheck\Checks\StorageHealthCheck::class,
     ],
 
     /**

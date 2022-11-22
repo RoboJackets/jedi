@@ -18,10 +18,8 @@ class SUMS extends Service
 
     /**
      * A Guzzle client configured for SUMS.
-     *
-     * @var \GuzzleHttp\Client
      */
-    private static $client;
+    private static ?Client $client;
 
     public static function removeUser(string $username): string
     {

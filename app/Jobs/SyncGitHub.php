@@ -18,20 +18,6 @@ class SyncGitHub extends SyncJob
     public $queue = 'github';
 
     /**
-     * The user's GitHub username.
-     *
-     * @var string
-     */
-    private $github_username;
-
-    /**
-     * The names of teams this user manages.
-     *
-     * @var array<string>
-     */
-    private $project_manager_of_teams;
-
-    /**
      * Create a new job instance.
      *
      * @param  string  $uid  The user's GT username
@@ -44,19 +30,14 @@ class SyncGitHub extends SyncJob
         string $uid,
         bool $is_access_active,
         array $teams,
-        array $project_manager_of_teams,
-        string $github_username
+        private readonly array $project_manager_of_teams,
+        private readonly string $github_username
     ) {
         parent::__construct($uid, '', '', $is_access_active, $teams);
-
-        $this->github_username = $github_username;
-        $this->project_manager_of_teams = $project_manager_of_teams;
     }
 
     /**
      * Execute the job.
-     *
-     * @return void
      */
     public function handle(): void
     {

@@ -8,6 +8,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use UKFast\HealthCheck\Commands\CacheSchedulerRunning;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,12 +18,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
+        $schedule->command(CacheSchedulerRunning::class)->everyMinute();
     }
 
     /**
      * Register the commands for the application.
-     *
-     * @return void
      */
     protected function commands(): void
     {

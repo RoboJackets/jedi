@@ -10,19 +10,11 @@ use Illuminate\Support\Facades\Log;
 class UpdateGitHubInvitePendingFlag extends ApiaryJob
 {
     /**
-     * Whether this user has a pending GitHub invitation.
-     *
-     * @var bool
-     */
-    private $github_invite_pending = false;
-
-    /**
      * Create a new job instance.
      */
-    protected function __construct(string $uid, bool $github_invite_pending)
+    protected function __construct(string $uid, private readonly bool $github_invite_pending)
     {
         parent::__construct($uid);
-        $this->github_invite_pending = $github_invite_pending;
     }
 
     /**

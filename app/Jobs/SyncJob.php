@@ -16,46 +16,11 @@ abstract class SyncJob implements ShouldQueue
     use Queueable;
 
     /**
-     * The user's GT username.
-     *
-     * @var string
-     */
-    protected $uid;
-
-    /**
-     * The user's first name.
-     *
-     * @var string
-     */
-    protected $first_name;
-
-    /**
-     * The user's last name.
-     *
-     * @var string
-     */
-    protected $last_name;
-
-    /**
-     * Whether the user should have access to systems.
-     *
-     * @var bool
-     */
-    protected $is_access_active;
-
-    /**
-     * The names of the teams the user is in.
-     *
-     * @var array<string>
-     */
-    protected $teams;
-
-    /**
      * The number of times the job may be attempted.
      *
      * @var int
      */
-    public $tries = 1;
+    public int $tries = 1;
 
     /**
      * Create a new job instance.
@@ -67,17 +32,12 @@ abstract class SyncJob implements ShouldQueue
      * @param  array<string>  $teams  The names of the teams the user is in
      */
     protected function __construct(
-        string $uid,
-        string $first_name,
-        string $last_name,
-        bool $is_access_active,
-        array $teams
+        protected readonly string $uid,
+        protected readonly string $first_name,
+        protected readonly string $last_name,
+        protected readonly bool $is_access_active,
+        protected readonly array $teams
     ) {
-        $this->uid = $uid;
-        $this->first_name = $first_name;
-        $this->last_name = $last_name;
-        $this->is_access_active = $is_access_active;
-        $this->teams = $teams;
     }
 
     /**
