@@ -4,11 +4,8 @@ declare(strict_types=1);
 
 namespace App\Util;
 
-use Closure;
 use Illuminate\Support\Str;
-use Sentry\SentrySdk;
 use Sentry\Tracing\SamplingContext;
-use Sentry\Tracing\SpanContext;
 
 class Sentry
 {
