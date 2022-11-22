@@ -12,6 +12,7 @@
         "ans-group/laravel-health-check": "^1.13",
         "apereo/phpcas": "1.6.0",
         "doctrine/dbal": "*",
+        "enlightn/enlightn": "^2.1",
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^7.2",
         "kelvinmo/simplejwt": "^0.2.5",
