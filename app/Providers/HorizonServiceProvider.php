@@ -12,11 +12,21 @@ use Laravel\Horizon\HorizonApplicationServiceProvider;
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
     /**
+     * Bootstrap any application services.
+     */
+    public function boot(): void
+    {
+        parent::boot();
+
+        if (config('horizon.master_supervisor_name') !== null) {
+            MasterSupervisor::determineNameUsing(static fn (): string => config('horizon.master_supervisor_name'));
+        }
+    }
+
+    /**
      * Register the Horizon gate.
      *
      * This gate determines who can access Horizon in non-local environments.
-     *
-     * @return void
      */
     protected function gate(): void
     {
@@ -25,8 +35,6 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register(): void
     {
