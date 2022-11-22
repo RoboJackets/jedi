@@ -120,7 +120,7 @@ class SyncGoogleGroups extends SyncJob
     /**
      * Get all groups in the domain.
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<string,string>
      */
     private function getAllGroups(): Collection
     {
@@ -144,11 +144,11 @@ class SyncGoogleGroups extends SyncJob
         $teams = collect($json->teams);
 
         return $teams->filter(
-            static fn ($team): bool => $team->google_group !== null
+            static fn (object $team): bool => $team->google_group !== null
                 && $team->google_group !== 'officers@robojackets.org'
                 && $team->google_group !== 'developers@robojackets.org'
         )->mapWithKeys(
-            static fn ($team): array => [$team->name => $team->google_group]
+            static fn (object $team): array => [$team->name => $team->google_group]
         );
     }
 
