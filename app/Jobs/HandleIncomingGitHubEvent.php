@@ -22,10 +22,8 @@ class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
 
     /**
      * The number of times the job may be attempted.
-     *
-     * @var int
      */
-    public $tries = 1;
+    public int $tries = 1;
 
     /**
      * Execute the job.

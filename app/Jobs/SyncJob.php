@@ -17,8 +17,6 @@ abstract class SyncJob implements ShouldQueue
 
     /**
      * The number of times the job may be attempted.
-     *
-     * @var int
      */
     public int $tries = 1;
 
