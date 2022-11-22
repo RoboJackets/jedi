@@ -25,6 +25,7 @@
         "laravel/slack-notification-channel": "*",
         "laravel/tinker": "*",
         "predis/predis": "^1.1",
+        "sentry/sentry-laravel": "^3.1",
         "spatie/laravel-failed-job-monitor": "*",
         "spatie/laravel-github-webhooks": "^1.2",
         "subfission/cas": "4.3.0"
