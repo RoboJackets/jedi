@@ -18,7 +18,11 @@ return [
 
     // If you wish to skip running some analyzers, list the classes in the array below.
     'exclude_analyzers' => [
+        \Enlightn\Enlightn\Analyzers\Performance\DebugLogAnalyzer::class,
+        \Enlightn\Enlightn\Analyzers\Reliability\CustomErrorPageAnalyzer::class,
+        \Enlightn\Enlightn\Analyzers\Reliability\EnvFileAnalyzer::class,
         \Enlightn\Enlightn\Analyzers\Security\CSRFAnalyzer::class,
+        \Enlightn\Enlightn\Analyzers\Security\XSSAnalyzer::class,
         ...(env('SKIP_PHPSTAN_CHECKS', false) === true ? [
             \Enlightn\Enlightn\Analyzers\Performance\CollectionCallAnalyzer::class,
             \Enlightn\Enlightn\Analyzers\Reliability\DeadCodeAnalyzer::class,
