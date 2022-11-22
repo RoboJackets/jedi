@@ -1,0 +1,23 @@
+{
+    "extends": [
+        "config:base",
+        ":disableMajorUpdates"
+    ],
+    "labels": [],
+    "reviewers": [],
+    "ignoreDeps": [
+    ],
+    "prConcurrentLimit": 1,
+    "prHourlyLimit": 0,
+    "rebaseStalePrs": true,
+    "automerge": true,
+    "platformAutomerge": true,
+    "php": {
+        "lockFileMaintenance": {
+            "enabled": true,
+            "schedule": ["before 8am every weekday"]
+        }
+    },
+    "timezone": "America/New_York",
+    "schedule": ["before 4pm every weekday"]
+}
