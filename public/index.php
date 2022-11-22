@@ -19,6 +19,7 @@ define('LARAVEL_START', microtime(true));
 */
 
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
+    // @phan-suppress-next-line PhanMissingRequireFile
     require $maintenance;
 }
 
