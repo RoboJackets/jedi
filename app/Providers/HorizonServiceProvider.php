@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Horizon\Horizon;
 use Laravel\Horizon\HorizonApplicationServiceProvider;
+use Laravel\Horizon\MasterSupervisor;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
