@@ -380,6 +380,8 @@ class GitHub extends Service
 
     /**
      * Generate a new JWT to authenticate to the API as the GitHub App.
+     *
+     * @phan-suppress PhanPartialTypeMismatchArgument
      */
     private static function generateJWT(): string
     {
