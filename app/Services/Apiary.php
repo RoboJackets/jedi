@@ -76,6 +76,11 @@ class Apiary extends Service
         }
     }
 
+    /**
+     * Return a client configured for Apiary.
+     * 
+     * @phan-suppress PhanTypeMismatchReturnNullable
+     */
     public static function client(): Client
     {
         if (self::$client !== null) {

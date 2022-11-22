@@ -134,6 +134,8 @@ class ClickUp extends Service
 
     /**
      * Returns a Guzzle client configured for ClickUp.
+     *
+     * @phan-suppress PhanTypeMismatchReturnNullable
      */
     public static function client(): Client
     {

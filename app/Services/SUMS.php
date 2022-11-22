@@ -83,6 +83,11 @@ class SUMS extends Service
         return $response->getBody()->getContents();
     }
 
+    /**
+     * Return a client configured for SUMS.
+     *
+     * @phan-suppress PhanTypeMismatchReturnNullable
+     */
     public static function client(): Client
     {
         if (self::$client !== null) {

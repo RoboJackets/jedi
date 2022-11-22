@@ -316,6 +316,11 @@ class GitHub extends Service
         return intval($response->getHeader('X-RateLimit-Remaining')[0]);
     }
 
+    /**
+     * Return a client configured for GitHub.
+     *
+     * @phan-suppress PhanTypeMismatchReturnNullable
+     */
     public static function client(): Client
     {
         if (self::$client !== null && Cache::get('github_installation_token') !== null) {

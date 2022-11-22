@@ -138,6 +138,7 @@ class SyncGoogleGroups extends SyncJob
 
         return $teams->filter(
             static fn (object $team): bool => $team->google_group !== null
+                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
                 && ! in_array($team->google_group, config('google.manual_groups'), true)
         )->mapWithKeys(
             static fn (object $team): array => [$team->name => $team->google_group]
