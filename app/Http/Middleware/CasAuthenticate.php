@@ -45,7 +45,6 @@ class CasAuthenticate
     {
         // Run the user update only if they don't have an active session
         if ($this->cas->isAuthenticated() && $request->user() === null) {
-
             $user = User::where('username', $this->cas->user())->first();
             if ($user === null) {
                 $user = new User();
