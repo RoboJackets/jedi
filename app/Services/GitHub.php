@@ -385,19 +385,7 @@ class GitHub extends Service
     {
         $set = new KeySet();
 
-        $filename = config('github.private_key');
-
-        if (! is_string($filename)) {
-            throw new Exception('Private key path is not string');
-        }
-
-        $pem = file_get_contents($filename);
-
-        if ($pem === false) {
-            throw new Exception('Could not read private key');
-        }
-
-        $set->add(new RSAKey($pem, 'pem'));
+        $set->add(new RSAKey(config('github.private_key'), 'pem'));
 
         $headers = ['alg' => 'RS256', 'typ' => 'JWT'];
         $claims = ['iss' => config('github.app_id'), 'exp' => time() + 5];
