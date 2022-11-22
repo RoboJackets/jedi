@@ -62,6 +62,7 @@ class SyncGoogleGroups extends SyncJob
      * @return void
      *
      * @phan-suppress PhanPartialTypeMismatchArgument
+     * @phan-suppress PhanUndeclaredClassProperty
      */
     public function handle(): void
     {
@@ -82,7 +83,6 @@ class SyncGoogleGroups extends SyncJob
         $allGroups = Cache::remember('apiary_google_groups_teams', 15, fn (): Collection => $this->getAllGroups());
         // Get the groups that the user should be in
         $user_teams = $this->teams;
-        // @phan-suppress-next-line PhanUnusedClosureParameter
         $activeGroups = $allGroups->filter(static fn ($group, $team): bool => in_array($team, $user_teams, true));
 
         foreach ($allGroups as $group) {

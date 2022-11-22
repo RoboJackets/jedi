@@ -37,6 +37,7 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
+        // @phan-suppress-next-line PhanUnusedClosureParameter
         $this->reportable(static function (Throwable $e) {
             // adding sentry here later
         });

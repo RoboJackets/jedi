@@ -25,13 +25,6 @@ class SyncSUMS extends SyncJob
     public $queue = 'sums';
 
     /**
-     * Whether this job should trigger an email.
-     *
-     * @var bool
-     */
-    private $should_send_email;
-
-    /**
      * Last seen attendance event ID.
      *
      * @var ?int
@@ -109,7 +102,6 @@ class SyncSUMS extends SyncJob
                         self::dispatch(
                             $this->uid,
                             $this->is_access_active,
-                            $this->should_send_email,
                             $this->last_attendance_id,
                             $this->exists_in_sums
                         );

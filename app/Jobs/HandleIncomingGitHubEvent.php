@@ -30,7 +30,7 @@ class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
     /**
      * Execute the job.
      *
-     * @return void
+     * @phan-suppress PhanTypeArraySuspiciousNullable
      */
     public function handle(): void
     {
@@ -88,6 +88,8 @@ class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @phan-suppress PhanTypeArraySuspiciousNullable
      */
     public function tags(): array
     {

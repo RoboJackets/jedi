@@ -100,7 +100,6 @@ class SelfServiceController extends Controller
 
         $recent_attendance = array_filter(
             $apiary_user->user->attendance,
-            // @phan-suppress-next-line PhanPartialTypeMismatchArgument
             static fn (object $attendance): bool => $attendance->created_at > new Carbon(
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgument
                 config('sums.attendance_timeout_limit'),
