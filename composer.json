@@ -29,12 +29,12 @@
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.3",
-        "nunomaduro/larastan": "^0.6",
+        "nunomaduro/larastan": "^2.0",
         "phpstan/extension-installer": "*",
         "phpunit/phpunit": "^9.5.10",
         "robojackets/static-analysis": "*",
         "slevomat/coding-standard": "^8.6",
-        "spatie/laravel-ignition": "^1.4"
+        "spatie/laravel-ignition": "^1.6"
     },
     "replace": {
         "symfony/polyfill-apcu": "*",
