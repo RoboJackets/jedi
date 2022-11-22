@@ -46,8 +46,8 @@ class SyncSUMS extends SyncJob
      */
     public function handle(): void
     {
-        // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
         if (
+            // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
             in_array($this->username, config('sums.whitelisted_accounts'), true) && ($this->is_access_active === false)
         ) {
             Log::info('Attempted to disable '.$this->username.' but that user is whitelisted');

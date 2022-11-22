@@ -190,6 +190,6 @@ class SyncGitHub extends SyncJob
 
     private function jobDetails(): string
     {
-        return self::class.' GT='.$this->uid.' GH='.$this->github_username.' ';
+        return self::class.' GT='.$this->username.' GH='.$this->github_username.' ';
     }
 }

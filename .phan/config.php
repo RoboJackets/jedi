@@ -12,6 +12,7 @@ return [
     'exclude_analysis_directory_list' => [
         'vendor/',
         'bootstrap/cache/',
+        'storage/framework/',
     ],
 
     'suppress_issue_types' => [
