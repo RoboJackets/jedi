@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Facade;
-
 declare(strict_types=1);
+
+use Illuminate\Support\Facades\Facade;
 
 return [
 
