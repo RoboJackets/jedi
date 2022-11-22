@@ -121,6 +121,8 @@ class SyncGoogleGroups extends SyncJob
      * Get all groups in the domain.
      *
      * @return \Illuminate\Support\Collection<string,string>
+     *
+     * @phan-suppress PhanTypeMismatchReturn
      */
     private function getAllGroups(): Collection
     {

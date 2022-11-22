@@ -21,5 +21,10 @@
                 <directory name="app" />
             </errorLevel>
         </NonInvariantDocblockPropertyType>
+        <PossiblyNullArrayAccess>
+            <errorLevel type="suppress">
+                <directory name="app/Jobs"/>
+            </errorLevel>
+        </PossiblyNullArrayAccess>
     </issueHandlers>
 </psalm>
