@@ -23,14 +23,14 @@ abstract class SyncJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @param  string  $uid  The user's GT username
+     * @param  string  $username  The user's GT username
      * @param  string  $first_name  The user's first name
      * @param  string  $last_name  The user's last name
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      */
     protected function __construct(
-        protected readonly string $uid,
+        protected readonly string $username,
         protected readonly string $first_name,
         protected readonly string $last_name,
         protected readonly bool $is_access_active,
@@ -52,6 +52,6 @@ abstract class SyncJob implements ShouldQueue
      */
     public function tags(): array
     {
-        return ['user:'.$this->uid, 'active:'.($this->is_access_active ? 'true' : 'false')];
+        return ['user:'.$this->username, 'active:'.($this->is_access_active ? 'true' : 'false')];
     }
 }

@@ -12,9 +12,9 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
     /**
      * Create a new job instance.
      */
-    protected function __construct(string $uid, private readonly bool $github_invite_pending)
+    protected function __construct(string $username, private readonly bool $github_invite_pending)
     {
-        parent::__construct($uid);
+        parent::__construct($username);
     }
 
     /**
@@ -22,9 +22,9 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
      */
     public function handle(): void
     {
-        Apiary::setFlag($this->uid, 'github_invite_pending', $this->github_invite_pending);
+        Apiary::setFlag($this->username, 'github_invite_pending', $this->github_invite_pending);
 
-        Log::info(self::class.': Successfully updated github_invite_pending flag for '.$this->uid);
+        Log::info(self::class.': Successfully updated github_invite_pending flag for '.$this->username);
     }
 
     /**
@@ -35,7 +35,7 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
     public function tags(): array
     {
         return [
-            'user:'.$this->uid,
+            'user:'.$this->username,
             'github_invite_pending:'.($this->github_invite_pending ? 'true' : 'false'),
         ];
     }

@@ -22,7 +22,7 @@ class SelfServiceController extends Controller
      */
     public function github(Request $request)
     {
-        $username = $request->user()->uid;
+        $username = $request->user()->username;
 
         $apiary_user = Apiary::getUser($username);
 
@@ -80,7 +80,7 @@ class SelfServiceController extends Controller
      */
     public function sums(Request $request)
     {
-        $username = $request->user()->uid;
+        $username = $request->user()->username;
 
         $apiary_user = Apiary::getUser($username);
 
@@ -139,7 +139,7 @@ class SelfServiceController extends Controller
      */
     public function clickup(Request $request)
     {
-        $username = $request->user()->uid;
+        $username = $request->user()->username;
 
         $apiary_user = Apiary::getUser($username);
 

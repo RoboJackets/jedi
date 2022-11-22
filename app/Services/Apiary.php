@@ -54,7 +54,7 @@ class Apiary extends Service
     /**
      * Sets some attributes on a user.
      *
-     * @param  string  $username  The user's uid
+     * @param  string  $username  The user's GT username
      * @param  array<string,int|bool>  $attributes  The attributes to update
      */
     public static function setAttributes(string $username, array $attributes): void

@@ -42,7 +42,7 @@ class SyncWordPress extends SyncJob
             'users',
             [
                 'query' => [
-                    'slug' => $this->uid,
+                    'slug' => $this->username,
                     'context' => 'edit',
                 ],
             ]
@@ -63,7 +63,7 @@ class SyncWordPress extends SyncJob
         }
 
         if (count($json) === 0) {
-            Log::info(self::class.': User '.$this->uid.' does not exist in WordPress');
+            Log::info(self::class.': User '.$this->username.' does not exist in WordPress');
 
             return;
         }
@@ -76,30 +76,30 @@ class SyncWordPress extends SyncJob
 
         $wp_user = $json[0];
 
-        if ($wp_user->username !== $this->uid) {
+        if ($wp_user->username !== $this->username) {
             throw new Exception(
                 'WordPress returned a user with mismatched username - searched for '
-                .$this->uid.', got '.$wp_user->username
+                .$this->username.', got '.$wp_user->username
             );
         }
 
         if ($this->is_access_active && in_array(config('wordpress.team'), $this->teams, true)) {
-            Log::info(self::class.': Enabling user '.$this->uid);
+            Log::info(self::class.': Enabling user '.$this->username);
 
             if (in_array('administrator', $wp_user->roles, true)) {
-                Log::debug(self::class.': User '.$this->uid.' is admin');
+                Log::debug(self::class.': User '.$this->username.' is admin');
                 if (
                     $wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name.' '.$this->last_name
-                    && $wp_user->email === $this->uid.'@gatech.edu'
+                    && $wp_user->email === $this->username.'@gatech.edu'
                 ) {
-                    Log::debug(self::class.': User '.$this->uid.' attributes are up to date');
+                    Log::debug(self::class.': User '.$this->username.' attributes are up to date');
 
                     return;
                 }
 
-                Log::debug(self::class.': Updating name/email for user '.$this->uid);
+                Log::debug(self::class.': Updating name/email for user '.$this->username);
 
                 $client->post(
                     'users/'.$wp_user->id,
@@ -108,7 +108,7 @@ class SyncWordPress extends SyncJob
                             'first_name' => $this->first_name,
                             'last_name' => $this->last_name,
                             'name' => $this->first_name.' '.$this->last_name,
-                            'email' => $this->uid.'@gatech.edu',
+                            'email' => $this->username.'@gatech.edu',
                         ],
                     ]
                 );
@@ -124,10 +124,10 @@ class SyncWordPress extends SyncJob
                     $wp_user->first_name === $this->first_name
                     && $wp_user->last_name === $this->last_name
                     && $wp_user->name === $this->first_name.' '.$this->last_name
-                    && $wp_user->email === $this->uid.'@gatech.edu'
+                    && $wp_user->email === $this->username.'@gatech.edu'
                     && $wp_user->roles === ['editor']
                 ) {
-                    Log::debug(self::class.': User '.$this->uid.' attributes are up to date');
+                    Log::debug(self::class.': User '.$this->username.' attributes are up to date');
 
                     return;
                 }
@@ -139,7 +139,7 @@ class SyncWordPress extends SyncJob
                             'first_name' => $this->first_name,
                             'last_name' => $this->last_name,
                             'name' => $this->first_name.' '.$this->last_name,
-                            'email' => $this->uid.'@gatech.edu',
+                            'email' => $this->username.'@gatech.edu',
                             'roles' => 'editor',
                         ],
                     ]
@@ -153,15 +153,15 @@ class SyncWordPress extends SyncJob
                 }
             }
 
-            Log::debug(self::class.': Successfully updated '.$this->uid);
+            Log::debug(self::class.': Successfully updated '.$this->username);
         } else {
             if ($wp_user->roles === []) {
-                Log::info(self::class.': User '.$this->uid.' already disabled, don\'t need to change anything');
+                Log::info(self::class.': User '.$this->username.' already disabled, don\'t need to change anything');
 
                 return;
             }
 
-            Log::info(self::class.': Disabling user '.$this->uid);
+            Log::info(self::class.': Disabling user '.$this->username);
 
             $client->post(
                 'users/'.$wp_user->id,
@@ -179,7 +179,7 @@ class SyncWordPress extends SyncJob
                 );
             }
 
-            Log::info(self::class.': Successfully disabled '.$this->uid);
+            Log::info(self::class.': Successfully disabled '.$this->username);
         }
     }
 }

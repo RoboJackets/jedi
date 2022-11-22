@@ -25,7 +25,7 @@ class SyncController extends Controller
         $this->validate(
             $request,
             [
-                'uid' => 'required|string|alpha_num',
+                'username' => 'required|string|alpha_num',
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
                 'is_access_active' => 'required|boolean',
@@ -51,11 +51,11 @@ class SyncController extends Controller
         );
 
         Log::info(
-            self::class.': Request to sync '.$request->uid.' caused by '.$request->model_event.' of '
+            self::class.': Request to sync '.$request->username.' caused by '.$request->model_event.' of '
             .$request->model_class.' with id '.$request->model_id
         );
 
-        $lastRequest = Cache::get('last_request_for_'.$request->uid);
+        $lastRequest = Cache::get('last_request_for_'.$request->username);
 
         if ($lastRequest !== null) {
             $same = $lastRequest['first_name'] === $request->first_name &&
@@ -77,23 +77,25 @@ class SyncController extends Controller
             if ($same) {
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
                 if (! in_array($request->model_event, config('apiary.whitelisted_events'), true)) {
-                    Log::info(self::class.': Not syncing '.$request->uid.' as it is a duplicate of last seen event');
-                    Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY); // update exp
+                    Log::info(
+                        self::class.': Not syncing '.$request->username.' as it is a duplicate of last seen event'
+                    );
+                    Cache::put('last_request_for_'.$request->username, $request->all(), self::ONE_DAY); // update exp
 
                     return response()->json('duplicate', 202);
                 }
                 Log::info(
-                    self::class.': '.$request->uid
+                    self::class.': '.$request->username
                         .' is a duplicate request but this one is '.$request->model_event.', continuing'
                 );
             }
         }
 
-        Cache::put('last_request_for_'.$request->uid, $request->all(), self::ONE_DAY);
+        Cache::put('last_request_for_'.$request->username, $request->all(), self::ONE_DAY);
 
         if (config('github.enabled') === true && $request->filled('github_username')) {
             SyncGitHub::dispatch(
-                $request->uid,
+                $request->username,
                 $request->is_access_active,
                 $request->teams,
                 $request->project_manager_of_teams,
@@ -103,7 +105,7 @@ class SyncController extends Controller
 
         if (config('nextcloud.enabled') === true) {
             SyncNextcloud::dispatch(
-                $request->uid,
+                $request->username,
                 $request->first_name,
                 $request->last_name,
                 $request->is_access_active,
@@ -123,10 +125,10 @@ class SyncController extends Controller
                 ))
                 || $request->last_attendance_id === null)
             ) {
-                SyncSUMS::dispatch($request->uid, false, $request->last_attendance_id, $request->exists_in_sums);
+                SyncSUMS::dispatch($request->username, false, $request->last_attendance_id, $request->exists_in_sums);
             } else {
                 SyncSUMS::dispatch(
-                    $request->uid,
+                    $request->username,
                     $request->is_access_active,
                     $request->last_attendance_id,
                     $request->exists_in_sums
@@ -136,7 +138,7 @@ class SyncController extends Controller
 
         if (config('wordpress.enabled') === true) {
             SyncWordPress::dispatch(
-                $request->uid,
+                $request->username,
                 $request->first_name,
                 $request->last_name,
                 $request->is_access_active,
@@ -147,7 +149,7 @@ class SyncController extends Controller
         if (config('google.enabled') === true) {
             foreach ($request->google_accounts as $google_account) {
                 SyncGoogleGroups::dispatch(
-                    $request->uid,
+                    $request->username,
                     $request->first_name,
                     $request->last_name,
                     $request->is_access_active,
@@ -159,7 +161,7 @@ class SyncController extends Controller
 
         if (config('clickup.enabled') === true && $request->filled('clickup_email')) {
             SyncClickUp::dispatch(
-                $request->uid,
+                $request->username,
                 $request->is_access_active,
                 $request->teams,
                 $request->clickup_email,

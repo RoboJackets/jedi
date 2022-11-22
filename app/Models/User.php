@@ -34,6 +34,6 @@ class User extends Authenticatable
      */
     public function getNameAttribute(): string
     {
-        return $this->uid;
+        return $this->username;
     }
 }

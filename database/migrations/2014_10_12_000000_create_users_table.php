@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', static function (Blueprint $table): void {
             $table->increments('id');
-            $table->string('uid', 127)->unique();
+            $table->string('username', 127)->unique();
             $table->boolean('admin')->default(false);
             $table->timestamps();
         });

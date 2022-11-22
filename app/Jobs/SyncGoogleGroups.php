@@ -29,7 +29,7 @@ class SyncGoogleGroups extends SyncJob
     /**
      * Create a new job instance.
      *
-     * @param  string  $uid  The user's GT username
+     * @param  string  $username  The user's GT username
      * @param  string  $first_name  The user's first name
      * @param  string  $last_name  The user's last name
      * @param  bool  $is_access_active  Whether the user should have access to systems
@@ -37,14 +37,14 @@ class SyncGoogleGroups extends SyncJob
      * @param  string  $gmail_address  The user's Gmail address
      */
     public function __construct(
-        string $uid,
+        string $username,
         string $first_name,
         string $last_name,
         bool $is_access_active,
         array $teams,
         private readonly string $gmail_address
     ) {
-        parent::__construct($uid, $first_name, $last_name, $is_access_active, $teams);
+        parent::__construct($username, $first_name, $last_name, $is_access_active, $teams);
     }
 
     /**
@@ -157,7 +157,7 @@ class SyncGoogleGroups extends SyncJob
 
     private function jobDetails(): string
     {
-        return self::class.' GT='.$this->uid.' Gmail='.$this->gmail_address.' ';
+        return self::class.' GT='.$this->username.' Gmail='.$this->gmail_address.' ';
     }
 
     /**
@@ -168,7 +168,7 @@ class SyncGoogleGroups extends SyncJob
     public function tags(): array
     {
         return [
-            'user:'.$this->uid,
+            'user:'.$this->username,
             'active:'.($this->is_access_active ? 'true' : 'false'),
             'google_account:'.$this->gmail_address,
         ];

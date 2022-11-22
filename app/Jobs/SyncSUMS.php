@@ -27,18 +27,18 @@ class SyncSUMS extends SyncJob
     /**
      * Create a new job instance.
      *
-     * @param  string  $uid  The user's GT username
+     * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  ?int  $last_attendance_id  The last seen attendance event ID for this user
      * @param  bool  $exists_in_sums  Whether the user exists in SUMS according to Apiary
      */
     protected function __construct(
-        string $uid,
+        string $username,
         bool $is_access_active,
         private readonly ?int $last_attendance_id,
         private readonly bool $exists_in_sums
     ) {
-        parent::__construct($uid, '', '', $is_access_active, []);
+        parent::__construct($username, '', '', $is_access_active, []);
     }
 
     /**
@@ -47,41 +47,43 @@ class SyncSUMS extends SyncJob
     public function handle(): void
     {
         // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
-        if (in_array($this->uid, config('sums.whitelisted_accounts'), true) && ($this->is_access_active === false)) {
-            Log::info('Attempted to disable '.$this->uid.' but that user is whitelisted');
+        if (
+            in_array($this->username, config('sums.whitelisted_accounts'), true) && ($this->is_access_active === false)
+        ) {
+            Log::info('Attempted to disable '.$this->username.' but that user is whitelisted');
 
             return;
         }
 
         if ($this->is_access_active) {
-            Log::info(self::class.': Enabling '.$this->uid);
+            Log::info(self::class.': Enabling '.$this->username);
 
-            $responseBody = SUMS::addUserToBillingGroup($this->uid);
+            $responseBody = SUMS::addUserToBillingGroup($this->username);
 
             if ($responseBody === SUMS::SUCCESS) {
-                Log::info(self::class.': Enabled '.$this->uid);
+                Log::info(self::class.': Enabled '.$this->username);
                 if (! $this->exists_in_sums) {
-                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                    UpdateExistsInSUMSFlag::dispatch($this->username);
                 }
             } elseif ($responseBody === SUMS::MEMBER_EXISTS) {
-                Log::info(self::class.': '.$this->uid.' was already enabled');
+                Log::info(self::class.': '.$this->username.' was already enabled');
                 if (! $this->exists_in_sums) {
-                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                    UpdateExistsInSUMSFlag::dispatch($this->username);
                 }
             } elseif ($responseBody === SUMS::USER_NOT_FOUND) {
                 if (config('sums.auto_create_accounts') === true) {
-                    Log::info(self::class.': '.$this->uid.' does not exist in SUMS, attempting to create');
+                    Log::info(self::class.': '.$this->username.' does not exist in SUMS, attempting to create');
 
-                    $createResponse = SUMS::createUser($this->uid);
+                    $createResponse = SUMS::createUser($this->username);
 
                     if ($createResponse === SUMS::SUCCESS) {
                         Log::info(
-                            self::class.': '.'Created '.$this->uid
+                            self::class.': '.'Created '.$this->username
                                 .' in SUMS, dispatching new job to add to billing group'
                         );
 
                         self::dispatch(
-                            $this->uid,
+                            $this->username,
                             $this->is_access_active,
                             $this->last_attendance_id,
                             $this->exists_in_sums
@@ -94,7 +96,7 @@ class SyncSUMS extends SyncJob
                     }
                 } else {
                     Log::info(
-                        self::class.': '.$this->uid.' does not exist in SUMS and auto-creation is disabled'
+                        self::class.': '.$this->username.' does not exist in SUMS and auto-creation is disabled'
                     );
                 }
             } else {
@@ -105,22 +107,22 @@ class SyncSUMS extends SyncJob
                 );
             }
         } else {
-            Log::info(self::class.': Disabling '.$this->uid);
+            Log::info(self::class.': Disabling '.$this->username);
 
-            $responseBody = SUMS::removeUser($this->uid);
+            $responseBody = SUMS::removeUser($this->username);
 
             if ($responseBody === SUMS::SUCCESS) {
-                Log::info(self::class.': Disabled '.$this->uid);
+                Log::info(self::class.': Disabled '.$this->username);
                 if (! $this->exists_in_sums) {
-                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                    UpdateExistsInSUMSFlag::dispatch($this->username);
                 }
             } elseif ($responseBody === SUMS::MEMBER_NOT_EXISTS) {
-                Log::info(self::class.': '.$this->uid.' was already disabled');
+                Log::info(self::class.': '.$this->username.' was already disabled');
                 if (! $this->exists_in_sums) {
-                    UpdateExistsInSUMSFlag::dispatch($this->uid);
+                    UpdateExistsInSUMSFlag::dispatch($this->username);
                 }
             } elseif ($responseBody === SUMS::USER_NOT_FOUND) {
-                Log::info(self::class.': '.$this->uid.' does not exist in SUMS');
+                Log::info(self::class.': '.$this->username.' does not exist in SUMS');
             } else {
                 throw new Exception(
                     'SUMS returned an unexpected response '.$responseBody

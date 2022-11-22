@@ -23,7 +23,7 @@ abstract class ApiaryJob implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    protected function __construct(protected string $uid)
+    protected function __construct(protected string $username)
     {
         $this->queue = 'apiary';
     }
@@ -41,7 +41,7 @@ abstract class ApiaryJob implements ShouldQueue
     public function tags(): array
     {
         return [
-            'user:'.$this->uid,
+            'user:'.$this->username,
         ];
     }
 }

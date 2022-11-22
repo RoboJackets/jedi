@@ -41,9 +41,9 @@ class SyncNextcloud extends SyncJob
         );
 
         if ($this->is_access_active) {
-            Log::info(self::class.': Enabling user '.$this->uid);
+            Log::info(self::class.': Enabling user '.$this->username);
 
-            $response = $client->put($this->uid.'/enable');
+            $response = $client->put($this->username.'/enable');
 
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
@@ -61,7 +61,7 @@ class SyncNextcloud extends SyncJob
             $status_code = self::getStatusCodeFromXML($xml);
 
             if ($status_code === 101) {
-                Log::info(self::class.': User '.$this->uid.' does not exist in Nextcloud');
+                Log::info(self::class.': User '.$this->username.' does not exist in Nextcloud');
 
                 return;
             }
@@ -72,9 +72,9 @@ class SyncNextcloud extends SyncJob
                 );
             }
 
-            Log::debug(self::class.': Getting groups for user '.$this->uid);
+            Log::debug(self::class.': Getting groups for user '.$this->username);
 
-            $response = $client->get($this->uid.'/groups');
+            $response = $client->get($this->username.'/groups');
 
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
@@ -116,10 +116,10 @@ class SyncNextcloud extends SyncJob
                     continue;
                 }
 
-                Log::debug(self::class.': Removing group '.$group.' from '.$this->uid);
+                Log::debug(self::class.': Removing group '.$group.' from '.$this->username);
 
                 $response = $client->delete(
-                    $this->uid.'/groups',
+                    $this->username.'/groups',
                     [
                         'query' => [
                             'groupid' => $group,
@@ -154,10 +154,10 @@ class SyncNextcloud extends SyncJob
                     continue;
                 }
 
-                Log::debug(self::class.': Adding group '.$group.' to '.$this->uid);
+                Log::debug(self::class.': Adding group '.$group.' to '.$this->username);
 
                 $response = $client->post(
-                    $this->uid.'/groups',
+                    $this->username.'/groups',
                     [
                         'query' => [
                             'groupid' => $group,
@@ -187,11 +187,11 @@ class SyncNextcloud extends SyncJob
                 }
             }
 
-            Log::info(self::class.': Successfully enabled and synced groups for '.$this->uid);
+            Log::info(self::class.': Successfully enabled and synced groups for '.$this->username);
         } else {
-            Log::info(self::class.': Disabling user '.$this->uid);
+            Log::info(self::class.': Disabling user '.$this->username);
 
-            $response = $client->put($this->uid.'/disable');
+            $response = $client->put($this->username.'/disable');
 
             if ($response->getStatusCode() !== 200) {
                 throw new Exception(
@@ -209,7 +209,7 @@ class SyncNextcloud extends SyncJob
             $status_code = self::getStatusCodeFromXML($xml);
 
             if ($status_code === 101) {
-                Log::info(self::class.': User '.$this->uid.' does not exist in Nextcloud');
+                Log::info(self::class.': User '.$this->username.' does not exist in Nextcloud');
 
                 return;
             }
@@ -220,7 +220,7 @@ class SyncNextcloud extends SyncJob
                 );
             }
 
-            Log::info(self::class.': Successfully disabled '.$this->uid);
+            Log::info(self::class.': Successfully disabled '.$this->username);
         }
     }
 
