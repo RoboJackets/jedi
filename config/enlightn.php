@@ -117,6 +117,7 @@ return [
     |
     */
     'dont_report' => [
+        \Enlightn\Enlightn\Analyzers\Security\AppDebugAnalyzer::class,
         ...(env('SKIP_HTTP_CHECKS', false) === true ? [
             \Enlightn\Enlightn\Analyzers\Performance\CacheHeaderAnalyzer::class,
             \Enlightn\Enlightn\Analyzers\Security\HSTSHeaderAnalyzer::class,
