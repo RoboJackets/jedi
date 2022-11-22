@@ -12,7 +12,6 @@
         "ans-group/laravel-health-check": "^1.13",
         "apereo/phpcas": "1.6.0",
         "doctrine/dbal": "*",
-        "fruitcake/laravel-cors": "^2.0",
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^7.0.1",
         "kelvinmo/simplejwt": "^0.2.5",
