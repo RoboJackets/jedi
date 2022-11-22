@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Facade;
-use Illuminate\Support\Facades\Route;
 
 declare(strict_types=1);
 
