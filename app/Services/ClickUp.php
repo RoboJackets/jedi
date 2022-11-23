@@ -149,10 +149,9 @@ class ClickUp extends Service
             static fn (): string => self::fetchJWT()
         );
 
-        // @phan-suppress-next-line PhanUnusedVariable
-        [$headers, $claims, $signing_input, $signature] = JWT::deserialise($token);
+        $deserialized = JWT::deserialise($token);
 
-        if ($claims['exp'] < time() - 60) {
+        if ($deserialized['claims']['exp'] < time() - 60) {
             Cache::put('clickup_jwt', self::fetchJWT(), self::ALMOST_TWO_WEEKS);
             $token = Cache::get('clickup_jwt');
         }
@@ -161,7 +160,7 @@ class ClickUp extends Service
             [
                 'base_uri' => 'https://app.clickup.com/v1/team/'.config('clickup.workspace_id').'/',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').' Make a real user api pls '
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('sentry.release').' Make a real user api pls '
                     .'--kristaps@robojackets.org',
                     'Authorization' => 'Bearer '.$token,
                 ],
@@ -179,7 +178,7 @@ class ClickUp extends Service
             [
                 'base_uri' => 'https://app.clickup.com/v1/',
                 'headers' => [
-                    'User-Agent' => 'RoboJacketsJEDI/'.config('bugsnag.app_version').' Make a real user api pls '
+                    'User-Agent' => 'RoboJacketsJEDI/'.config('sentry.release').' Make a real user api pls '
                     .'--kristaps@robojackets.org',
                 ],
                 'allow_redirects' => false,

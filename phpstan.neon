@@ -24,7 +24,7 @@ parameters:
     - '#Offset ''[a-zA-Z]+'' does not exist on array\|null\.#'
     - '#Parameter \#1 \$array of function array_diff expects array, mixed given\.#'
     - '#Parameter \#1 \$config of method Google\\Client::setAuthConfig\(\) expects array\|string, mixed given\.#'
-    - '#Parameter \#1 \$data of class SimpleJWT\\Keys\\RSAKey constructor expects array\|string, mixed given\.#'
+    - '#Parameter \#1 \$data of class SimpleJWT\\Keys\\RSAKey constructor expects array<string, mixed>\|string, mixed given\.#'
     - '#Parameter \#1 \$haystack of static method Illuminate\\Support\\Str::startsWith\(\) expects string, mixed given\.#'
     - '#Parameter \#1 \$json of function json_decode expects string, mixed given\.#'
     - '#Parameter \#1 \$string of function substr expects string, mixed given\.#'
