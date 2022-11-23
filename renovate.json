@@ -3,16 +3,13 @@
         "config:base",
         ":disableMajorUpdates"
     ],
-    "labels": [],
-    "reviewers": [],
-    "ignoreDeps": [
-    ],
     "prConcurrentLimit": 1,
     "prHourlyLimit": 0,
     "rebaseStalePrs": true,
     "automerge": true,
     "platformAutomerge": true,
     "php": {
+        "rangeStrategy": "pin",
         "lockFileMaintenance": {
             "enabled": true,
             "schedule": ["before 8am every weekday"]
