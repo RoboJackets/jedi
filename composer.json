@@ -17,7 +17,7 @@
         "google/apiclient": "^2.7",
         "guzzlehttp/guzzle": "^7.2",
         "htmlmin/htmlmin": "^9.0",
-        "kelvinmo/simplejwt": "^0.2.5",
+        "kelvinmo/simplejwt": "^0.6.0",
         "laravel/framework": "^9.40",
         "laravel/horizon": "*",
         "laravel/pint": "^1.2",
