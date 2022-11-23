@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e0144745907b3cd2eff04a24dd6dc354",
+    "content-hash": "34e6fa609070b642115a52ef8a980157",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -5893,16 +5893,16 @@
         },
         {
             "name": "sentry/sentry-laravel",
-            "version": "3.1.1",
+            "version": "3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-laravel.git",
-                "reference": "dd55f62a5b7bed0edabc5afcd04e5435713f57ae"
+                "reference": "1626336dc478abcd8aa5cb128b69423299216bf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/dd55f62a5b7bed0edabc5afcd04e5435713f57ae",
-                "reference": "dd55f62a5b7bed0edabc5afcd04e5435713f57ae",
+                "url": "https://api.github.com/repos/getsentry/sentry-laravel/zipball/1626336dc478abcd8aa5cb128b69423299216bf9",
+                "reference": "1626336dc478abcd8aa5cb128b69423299216bf9",
                 "shasum": ""
             },
             "require": {
@@ -5910,7 +5910,7 @@
                 "nyholm/psr7": "^1.0",
                 "php": "^7.2 | ^8.0",
                 "sentry/sdk": "^3.3",
-                "sentry/sentry": "^3.10",
+                "sentry/sentry": "^3.12",
                 "symfony/psr-http-message-bridge": "^1.0 | ^2.0"
             },
             "conflict": {
@@ -5970,7 +5970,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-laravel/issues",
-                "source": "https://github.com/getsentry/sentry-laravel/tree/3.1.1"
+                "source": "https://github.com/getsentry/sentry-laravel/tree/3.1.2"
             },
             "funding": [
                 {
@@ -5982,7 +5982,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-11-14T11:55:52+00:00"
+            "time": "2022-11-23T13:25:02+00:00"
         },
         {
             "name": "spatie/laravel-failed-job-monitor",
@@ -12484,7 +12484,9 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^8.1",
-        "ext-simplexml": "*"
+        "ext-intl": "*",
+        "ext-simplexml": "*",
+        "ext-uuid": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
