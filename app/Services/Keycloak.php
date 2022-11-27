@@ -39,7 +39,7 @@ class Keycloak extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => config('keycloak.server').'/admin/realms/'.config('keycloak.user_realm'),
+                'base_uri' => config('keycloak.server').'/admin/realms/'.config('keycloak.user_realm').'/',
                 'headers' => [
                     'User-Agent' => 'RoboJacketsJEDI/'.config('sentry.release'),
                     'Authorization' => 'Bearer '.$token,
