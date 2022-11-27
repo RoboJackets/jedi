@@ -18,6 +18,21 @@ class SyncKeycloak extends SyncJob
     public $queue = 'keycloak';
 
     /**
+     * Create a new job instance.
+     *
+     * @param  string  $username  The user's GT username
+     * @param  bool  $is_access_active  Whether the user should have access to systems
+     * @param  array<string>  $teams  The names of the teams the user is in
+     */
+    protected function __construct(
+        protected readonly string $username,
+        protected readonly bool $is_access_active,
+        protected readonly array $teams
+    ) {
+        parent::__construct($this->username, '', '', $is_access_active, $teams);
+    }
+
+    /**
      * Execute the job.
      *
      * @phan-suppress PhanTypeSuspiciousStringExpression
