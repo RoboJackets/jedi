@@ -126,6 +126,11 @@ class Keycloak extends Service
         self::expectStatusCodes($response, 204);
     }
 
+    /**
+     * Return all groups present in the realm.
+     *
+     * @return array<object>
+     */
     public static function getGroups(): array
     {
         $response = self::client()->get('groups');
@@ -135,6 +140,11 @@ class Keycloak extends Service
         return self::decodeToArray($response);
     }
 
+    /**
+     * Return group membership for a specific user.
+     *
+     * @return array<object>
+     */
     public static function getGroupsForUser(string $user_id): array
     {
         $response = self::client()->get('users/'.$user_id.'/groups');

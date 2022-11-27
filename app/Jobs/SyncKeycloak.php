@@ -88,6 +88,7 @@ class SyncKeycloak extends SyncJob
 
         collect(Cache::rememberForever('keycloak_groups', static fn (): array => Keycloak::getGroups()))
             ->filter(fn (object $group): bool => in_array($group->name, $this->teams, true))
+            // @phan-suppress-next-line PhanUnusedClosureParameter
             ->each(static function (object $group, int $key) use ($user): void {
                 Log::info(self::class.': Adding user '.$user->username.' to group '.$group->name);
                 Keycloak::addUserToGroup($user->id, $group->id);
@@ -95,6 +96,7 @@ class SyncKeycloak extends SyncJob
 
         collect(Keycloak::getGroupsForUser($user->id))
             ->filter(fn (object $group): bool => ! in_array($group->name, $this->teams, true))
+            // @phan-suppress-next-line PhanUnusedClosureParameter
             ->each(static function (object $group, int $key) use ($user): void {
                 Log::info(
                     self::class.': Removing user '.$user->username.' from group '.$group->name

@@ -47,3 +47,5 @@ parameters:
     - '#Unable to resolve the template type TKey in call to function collect#'
     - '#Unable to resolve the template type TMapWithKeysValue in call to method Illuminate\\Support\\Collection<\(int\|string\),mixed>::mapWithKeys\(\)#'
     - '#Unable to resolve the template type TValue in call to function collect#'
+    - '#Parameter \#1 \$callback of method Illuminate\\Support\\Collection<\(int\|string\),mixed>::filter\(\) expects \(callable\(mixed, \(int\|string\)\): bool\)\|null, Closure\(object\): bool given\.#'
+    - '#Parameter \#1 \$callback of method Illuminate\\Support\\Collection<\(int\|string\),mixed>::each\(\) expects callable\(mixed, \(int\|string\)\): mixed, Closure\(object, int\): void given\.#'
