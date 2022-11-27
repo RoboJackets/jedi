@@ -181,6 +181,7 @@ return [
                     'nextcloud',
                     'sums',
                     'wordpress',
+                    'keycloak',
                 ],
                 'balance' => 'simple',
                 'processes' => 1,
