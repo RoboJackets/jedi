@@ -27,7 +27,8 @@ class SyncKeycloak extends SyncJob
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      */
-    protected function __construct(string $username, bool $is_access_active, array $teams) {
+    protected function __construct(string $username, bool $is_access_active, array $teams)
+    {
         parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
