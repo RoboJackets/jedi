@@ -28,11 +28,11 @@ class SyncKeycloak extends SyncJob
      * @param  array<string>  $teams  The names of the teams the user is in
      */
     protected function __construct(
-        protected readonly string $username,
-        protected readonly bool $is_access_active,
-        protected readonly array $teams
+        string $username,
+        bool $is_access_active,
+        array $teams
     ) {
-        parent::__construct($this->username, '', '', $is_access_active, $teams);
+        parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
     /**
