@@ -144,14 +144,12 @@ class SyncController extends Controller
         }
 
         if (config('google.enabled') === true) {
-            foreach ($request->google_accounts as $google_account) {
-                SyncGoogleGroups::dispatch(
-                    $request->username,
-                    $request->is_access_active,
-                    $request->teams,
-                    $google_account
-                );
-            }
+            SyncGoogleGroups::dispatch(
+                $request->username,
+                $request->is_access_active,
+                $request->teams,
+                $request->google_account
+            );
         }
 
         if (config('clickup.enabled') === true && $request->filled('clickup_email')) {
