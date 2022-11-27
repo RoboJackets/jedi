@@ -20,20 +20,20 @@ class SyncGitHub extends SyncJob
     /**
      * Create a new job instance.
      *
-     * @param  string  $uid  The user's GT username
+     * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      * @param  array<string>  $project_manager_of_teams  The names of teams this user manages
      * @param  string  $github_username  The user's GitHub username
      */
     protected function __construct(
-        string $uid,
+        string $username,
         bool $is_access_active,
         array $teams,
         private readonly array $project_manager_of_teams,
         private readonly string $github_username
     ) {
-        parent::__construct($uid, '', '', $is_access_active, $teams);
+        parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
     /**

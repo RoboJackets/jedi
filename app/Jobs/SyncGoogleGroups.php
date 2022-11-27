@@ -30,21 +30,17 @@ class SyncGoogleGroups extends SyncJob
      * Create a new job instance.
      *
      * @param  string  $username  The user's GT username
-     * @param  string  $first_name  The user's first name
-     * @param  string  $last_name  The user's last name
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      * @param  string  $gmail_address  The user's Gmail address
      */
     public function __construct(
         string $username,
-        string $first_name,
-        string $last_name,
         bool $is_access_active,
         array $teams,
         private readonly string $gmail_address
     ) {
-        parent::__construct($username, $first_name, $last_name, $is_access_active, $teams);
+        parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
     /**

@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
+use App\Jobs\SyncKeycloak;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
 use App\Jobs\SyncWordPress;
@@ -34,8 +35,7 @@ class SyncController extends Controller
                 'project_manager_of_teams' => 'present|array',
                 'project_manager_of_teams.*' => 'string',
                 'github_username' => 'present|string|nullable',
-                'google_accounts' => 'present|array',
-                'google_accounts.*' => 'string|email:rfc,strict,dns,spoof',
+                'google_account' => 'present|string|nullable|email:rfc,strict,dns,spoof',
                 'model_class' => 'required|string',
                 'model_id' => 'required|numeric',
                 'model_event' => 'required|string',
@@ -64,8 +64,7 @@ class SyncController extends Controller
                     array_diff($lastRequest['project_manager_of_teams'], $request->project_manager_of_teams) === [] &&
                     array_diff($request->project_manager_of_teams, $lastRequest['project_manager_of_teams']) === [] &&
                     $lastRequest['github_username'] === $request->github_username &&
-                    array_diff($lastRequest['google_accounts'], $request->google_accounts) === [] &&
-                    array_diff($request->google_accounts, $lastRequest['google_accounts']) === [] &&
+                    $lastRequest['google_account'] === $request->google_account &&
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
                     $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
@@ -148,8 +147,6 @@ class SyncController extends Controller
             foreach ($request->google_accounts as $google_account) {
                 SyncGoogleGroups::dispatch(
                     $request->username,
-                    $request->first_name,
-                    $request->last_name,
                     $request->is_access_active,
                     $request->teams,
                     $google_account
@@ -166,6 +163,10 @@ class SyncController extends Controller
                 $request->clickup_id,
                 $request->clickup_invite_pending
             );
+        }
+
+        if (config('keycloak.enabled') === true) {
+            SyncKeycloak::dispatch($request->username, $request->is_access_active, $request->teams);
         }
 
         return response()->json('queued', 202);
