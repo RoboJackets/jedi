@@ -75,7 +75,7 @@ class SyncKeycloak extends SyncJob
                 ->each(static function (object $group) use ($user): void {
                     Log::info(
                         self::class.': Removing user '.$user->username.' from group '.$group->name
-                        .' because the user is not enabled'
+                        .' because the user is not access active in Apiary'
                     );
                     Keycloak::removeUserFromGroup($user->id, $group->id);
                 });
@@ -97,7 +97,7 @@ class SyncKeycloak extends SyncJob
             ->each(static function (object $group, int $key) use ($user): void {
                 Log::info(
                     self::class.': Removing user '.$user->username.' from group '.$group->name
-                    .' because they are no longer in the group in Apiary'
+                    .' because they are not in the team in Apiary'
                 );
                 Keycloak::removeUserFromGroup($user->id, $group->id);
             });
