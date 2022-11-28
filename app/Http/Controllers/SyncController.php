@@ -143,7 +143,7 @@ class SyncController extends Controller
             );
         }
 
-        if (config('google.enabled') === true) {
+        if (config('google.enabled') === true && $request->filled('google_account')) {
             SyncGoogleGroups::dispatch(
                 $request->username,
                 $request->is_access_active,
@@ -164,7 +164,12 @@ class SyncController extends Controller
         }
 
         if (config('keycloak.enabled') === true) {
-            SyncKeycloak::dispatch($request->username, $request->is_access_active, $request->teams);
+            SyncKeycloak::dispatch(
+                $request->username,
+                $request->is_access_active,
+                $request->teams,
+                $request->google_account
+            );
         }
 
         return response()->json('queued', 202);

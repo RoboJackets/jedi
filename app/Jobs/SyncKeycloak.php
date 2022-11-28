@@ -27,8 +27,12 @@ class SyncKeycloak extends SyncJob
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      */
-    protected function __construct(string $username, bool $is_access_active, array $teams)
-    {
+    protected function __construct(
+        string $username,
+        bool $is_access_active,
+        array $teams,
+        private readonly ?string $google_account
+    ) {
         parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
@@ -55,7 +59,11 @@ class SyncKeycloak extends SyncJob
             $user = Keycloak::getUser($cached_user_id);
         }
 
-        if (property_exists($user, 'attributes') && property_exists($user->attributes, 'googleWorkspaceAccount')) {
+        if (
+            property_exists($user, 'attributes') &&
+            property_exists($user->attributes, 'googleWorkspaceAccount') &&
+            $this->google_account !== $user->attributes->googleWorkspaceAccount[0]
+        ) {
             SyncGoogleGroups::dispatch(
                 $this->username,
                 $this->is_access_active,
