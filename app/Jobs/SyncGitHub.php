@@ -123,6 +123,8 @@ class SyncGitHub extends SyncJob
 
                     $this->debug('User should be in team '.$team->name.', checking membership');
 
+                    $this->debug('Team ID is '.$team->id.' and username is '.$this->github_username);
+
                     if (GitHub::getTeamMembership($team->id, $this->github_username) !== null) {
                         $this->debug('User already in team '.$team->name);
 
