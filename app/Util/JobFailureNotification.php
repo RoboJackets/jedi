@@ -12,7 +12,7 @@ class JobFailureNotification extends Notification
 {
     public function toSlack(): SlackMessage
     {
-        $job_name_parts = explode('\'', $this->event->job->resolveName());
+        $job_name_parts = explode('\\', $this->event->job->resolveName());
         $job_name = $job_name_parts[count($job_name_parts) - 1];
 
         return (new SlackMessage())
