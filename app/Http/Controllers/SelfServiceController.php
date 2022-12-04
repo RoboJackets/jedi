@@ -48,7 +48,6 @@ class SelfServiceController extends Controller
                     static fn (object $team): string => $team->name,
                     $apiary_user->user->teams
                 ),
-                [],
                 $apiary_user->user->github_username
             );
 
