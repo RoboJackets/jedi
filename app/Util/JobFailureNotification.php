@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Util;
 
 use Illuminate\Notifications\Messages\SlackAttachment;
@@ -15,7 +17,7 @@ class JobFailureNotification extends Notification
 
         return (new SlackMessage())
             ->error()
-            ->attachment(static function (SlackAttachment $attachment) use ($job_name): void {
+            ->attachment(function (SlackAttachment $attachment) use ($job_name): void {
                 $attachment
                     ->title(
                         $job_name.' failed',
