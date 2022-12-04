@@ -35,9 +35,6 @@ class GitHub extends Service
 
     public static function addUserToTeam(int $team_id, string $username): void
     {
-        Log::debug(
-            'Constructed URL /orgs/'.config('github.organization_id').'/teams/'.$team_id.'/memberships/'.$username
-        );
         $response = self::client()->put(
             '/orgs/'.config('github.organization_id').'/teams/'.$team_id.'/memberships/'.$username
         );
