@@ -117,4 +117,17 @@ class SyncGitHub extends SyncJob
     {
         return self::class.' GT='.$this->username.' GH='.$this->github_username.' ';
     }
+
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<string>
+     */
+    public function tags(): array
+    {
+        $tags = parent::tags();
+        $tags[] = 'github:'.$this->github_username;
+
+        return $tags;
+    }
 }
