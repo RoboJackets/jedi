@@ -95,6 +95,7 @@ class SyncController extends Controller
                 $request->username,
                 $request->is_access_active,
                 $request->teams,
+                $request->project_manager_of_teams,
                 $request->github_username
             );
         }
