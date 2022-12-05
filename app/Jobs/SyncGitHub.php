@@ -123,6 +123,8 @@ class SyncGitHub extends SyncJob
 
                     $this->debug('User should be in team '.$team->name.', checking membership');
 
+                    $this->debug('Team ID is '.$team->id.' and username is '.$this->github_username);
+
                     if (GitHub::getTeamMembership($team->id, $this->github_username) !== null) {
                         $this->debug('User already in team '.$team->name);
 
@@ -191,5 +193,18 @@ class SyncGitHub extends SyncJob
     private function jobDetails(): string
     {
         return self::class.' GT='.$this->username.' GH='.$this->github_username.' ';
+    }
+
+    /**
+     * Get the tags that should be assigned to the job.
+     *
+     * @return array<string>
+     */
+    public function tags(): array
+    {
+        $tags = parent::tags();
+        $tags[] = 'github:'.$this->github_username;
+
+        return $tags;
     }
 }
