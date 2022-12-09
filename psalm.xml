@@ -26,5 +26,20 @@
                 <directory name="app/Jobs"/>
             </errorLevel>
         </PossiblyNullArrayAccess>
+        <PossiblyNullIterator>
+            <errorLevel type="suppress">
+                <file name="app/Jobs/SyncNextcloud.php"/>
+            </errorLevel>
+        </PossiblyNullIterator>
+        <PossiblyNullArgument>
+            <errorLevel type="suppress">
+                <file name="app/Jobs/SyncNextcloud.php"/>
+            </errorLevel>
+        </PossiblyNullArgument>
+        <PossiblyNullReference>
+            <errorLevel type="suppress">
+                <file name="app/Jobs/SyncNextcloud.php"/>
+            </errorLevel>
+        </PossiblyNullReference>
     </issueHandlers>
 </psalm>
