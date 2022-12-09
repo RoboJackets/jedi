@@ -52,6 +52,7 @@ WORKDIR /app/
 USER www-data
 
 RUN set -eux && \
+    composer check-platform-reqs --lock --no-dev && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
     mkdir --parents /app/resources/views/ && \
     php artisan horizon:publish && \
