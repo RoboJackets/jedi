@@ -4,8 +4,11 @@
 {{- range service "mysql" }}
 DB_SOCKET="{{- index .ServiceMeta "socket" | trimSpace -}}"
 {{ end }}
+REDIS_CLIENT="phpredis"
+REDIS_SCHEME="null"
+REDIS_PORT="-1"
 {{- range service "redis" }}
-REDIS_PATH="{{- index .ServiceMeta "socket" | trimSpace -}}"
+REDIS_HOST="{{- index .ServiceMeta "socket" | trimSpace -}}"
 {{ end }}
 REDIS_PASSWORD="{{- key "redis/password" | trimSpace -}}"
 {{ range $key, $value := (key "jedi" | parseJSON) -}}
