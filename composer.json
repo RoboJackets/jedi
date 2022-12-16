@@ -22,7 +22,7 @@
         "htmlmin/htmlmin": "9.0.1",
         "kelvinmo/simplejwt": "0.7.0",
         "laravel/framework": "9.43.0",
-        "laravel/horizon": "5.10.5",
+        "laravel/horizon": "5.10.6",
         "laravel/pint": "1.2.1",
         "laravel/sanctum": "3.0.1",
         "laravel/slack-notification-channel": "2.4.0",
