@@ -15,7 +15,7 @@
         "ext-uuid": "*",
         "ans-group/laravel-health-check": "1.13.4",
         "apereo/phpcas": "1.6.0",
-        "doctrine/dbal": "3.5.1",
+        "doctrine/dbal": "3.5.2",
         "enlightn/enlightn": "2.1.0",
         "google/apiclient": "2.13.0",
         "guzzlehttp/guzzle": "7.5.0",
