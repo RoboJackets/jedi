@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "607b1c02db1f5080a539dfdbe5e898ba",
+    "content-hash": "f0b3e655ec37929c5a665a1f77b9fdec",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -2430,16 +2430,16 @@
         },
         {
             "name": "laravel/horizon",
-            "version": "v5.10.6",
+            "version": "v5.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/horizon.git",
-                "reference": "22b6d7c67bb86722cf380dbaed55ff1a3fc84053"
+                "reference": "30c3690ea95ade4d90539d42e2c4ac333ed0c7f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/horizon/zipball/22b6d7c67bb86722cf380dbaed55ff1a3fc84053",
-                "reference": "22b6d7c67bb86722cf380dbaed55ff1a3fc84053",
+                "url": "https://api.github.com/repos/laravel/horizon/zipball/30c3690ea95ade4d90539d42e2c4ac333ed0c7f4",
+                "reference": "30c3690ea95ade4d90539d42e2c4ac333ed0c7f4",
                 "shasum": ""
             },
             "require": {
@@ -2501,9 +2501,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/horizon/issues",
-                "source": "https://github.com/laravel/horizon/tree/v5.10.6"
+                "source": "https://github.com/laravel/horizon/tree/v5.11.0"
             },
-            "time": "2022-12-14T15:24:14+00:00"
+            "time": "2023-01-03T09:40:06+00:00"
         },
         {
             "name": "laravel/pint",
