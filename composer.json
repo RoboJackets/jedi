@@ -39,7 +39,7 @@
         "nunomaduro/larastan": "2.3.4",
         "phan/phan": "5.4.1",
         "phpstan/extension-installer": "1.2.0",
-        "phpstan/phpstan": "1.9.6",
+        "phpstan/phpstan": "1.9.7",
         "phpstan/phpstan-deprecation-rules": "1.1.1",
         "phpstan/phpstan-strict-rules": "1.4.4",
         "psalm/plugin-laravel": "2.0.2",
