@@ -17,7 +17,7 @@
         "packageRules": [
             {
                 "matchPackageNames": ["php"],
-                "rangeStrategy": "replace",
+                "rangeStrategy": "replace"
             }
         ]
     },
