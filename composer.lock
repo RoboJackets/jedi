@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75dc65ebef7e32d65196b23189c1bcf7",
+    "content-hash": "a516ac673d54e5aa59f43418dcc3087f",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -10996,16 +10996,16 @@
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v2.2.0",
+            "version": "v2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "1c85f599be5f26a6835d453fe5bd3b3ec36044bf"
+                "reference": "294c30f5883f37d425117474bd5406eb0c3ed8fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/1c85f599be5f26a6835d453fe5bd3b3ec36044bf",
-                "reference": "1c85f599be5f26a6835d453fe5bd3b3ec36044bf",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/294c30f5883f37d425117474bd5406eb0c3ed8fe",
+                "reference": "294c30f5883f37d425117474bd5406eb0c3ed8fe",
                 "shasum": ""
             },
             "require": {
@@ -11060,9 +11060,9 @@
             "homepage": "https://github.com/psalm/psalm-plugin-laravel",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.2.0"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.3.1"
             },
-            "time": "2023-01-18T14:57:57+00:00"
+            "time": "2023-01-22T16:53:12+00:00"
         },
         {
             "name": "sabre/event",
