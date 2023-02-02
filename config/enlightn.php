@@ -123,6 +123,7 @@ return [
         ] : []),
         ...(env('SKIP_DEPENDENCY_ANALYZER') === true ? [
             \Enlightn\Enlightn\Analyzers\Security\StableDependencyAnalyzer::class,
+            \Enlightn\Enlightn\Analyzers\Security\VulnerableDependencyAnalyzer::class,
         ] : []),
     ],
 
