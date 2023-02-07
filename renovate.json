@@ -18,6 +18,18 @@
             {
                 "matchPackageNames": ["php"],
                 "rangeStrategy": "replace"
+            },
+            {
+              "matchDepTypes": ["devDependencies"],
+              "prPriority": -1
+            },
+            {
+              "matchPackageNames": ["laravel/framework"],
+              "prPriority": 2
+            },
+            {
+              "matchPackagePatterns": ["^laravel/"],
+              "prPriority": 1
             }
         ]
     },
