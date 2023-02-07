@@ -12,7 +12,7 @@
         "rangeStrategy": "pin",
         "lockFileMaintenance": {
             "enabled": true,
-            "schedule": ["before 8am every weekday"]
+            "schedule": ["before 10am every weekday except before 9am every weekday"]
         },
         "packageRules": [
             {
@@ -24,6 +24,9 @@
     "js": {
         "enabled": false
     },
+    "docker": {
+        "enabled": false
+    },
     "timezone": "America/New_York",
-    "schedule": ["before 4pm every weekday"]
+    "schedule": ["before 4pm every weekday except before 10am every weekday"]
 }
