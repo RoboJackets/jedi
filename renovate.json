@@ -12,7 +12,7 @@
         "rangeStrategy": "pin",
         "lockFileMaintenance": {
             "enabled": true,
-            "schedule": ["before 10am every weekday except before 9am every weekday"]
+            "schedule": ["before 4pm every weekday except before 9am every weekday"]
         },
         "packageRules": [
             {
@@ -24,12 +24,12 @@
               "prPriority": -1
             },
             {
-              "matchPackageNames": ["laravel/framework"],
-              "prPriority": 2
-            },
-            {
               "matchPackagePatterns": ["^laravel/"],
               "prPriority": 1
+            },
+            {
+              "matchPackageNames": ["laravel/framework"],
+              "prPriority": 2
             }
         ]
     },
@@ -40,5 +40,5 @@
         "enabled": false
     },
     "timezone": "America/New_York",
-    "schedule": ["before 4pm every weekday except before 10am every weekday"]
+    "schedule": ["before 4pm every weekday except before 9am every weekday"]
 }
