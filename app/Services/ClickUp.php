@@ -81,6 +81,12 @@ class ClickUp extends Service
             ]
         );
 
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 200);
 
         $team = self::decodeToObject($response);
