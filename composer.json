@@ -23,7 +23,7 @@
         "kelvinmo/simplejwt": "0.7.0",
         "laravel/framework": "9.52.0",
         "laravel/horizon": "5.14.2",
-        "laravel/pint": "1.4.1",
+        "laravel/pint": "1.5.0",
         "laravel/sanctum": "3.2.1",
         "laravel/slack-notification-channel": "2.5.0",
         "laravel/tinker": "2.8.0",
