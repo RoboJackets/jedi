@@ -12,7 +12,8 @@
         "rangeStrategy": "pin",
         "lockFileMaintenance": {
             "enabled": true,
-            "schedule": ["before 4pm every weekday except before 9am every weekday"]
+            "schedule": ["before 4pm every weekday except before 9am every weekday"],
+            "prPriority": -2
         },
         "packageRules": [
             {
