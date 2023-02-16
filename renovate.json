@@ -20,7 +20,7 @@
                 "rangeStrategy": "replace"
             },
             {
-              "matchDepTypes": ["devDependencies"],
+              "matchDepTypes": ["require-dev"],
               "prPriority": -1
             },
             {
