@@ -13,7 +13,7 @@
         "ext-redis": "*",
         "ext-simplexml": "*",
         "ext-uuid": "*",
-        "ans-group/laravel-health-check": "1.13.5",
+        "ans-group/laravel-health-check": "1.14.0",
         "apereo/phpcas": "1.6.1",
         "doctrine/dbal": "3.6.0",
         "enlightn/enlightn": "2.1.0",
