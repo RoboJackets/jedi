@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0bd9ca62ce817c225a312848a6df5089",
+    "content-hash": "88389caa3f818e796e759d315285615a",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -1454,24 +1454,24 @@
         },
         {
             "name": "graham-campbell/result-type",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/GrahamCampbell/Result-Type.git",
-                "reference": "a878d45c1914464426dc94da61c9e1d36ae262a8"
+                "reference": "672eff8cf1d6fe1ef09ca0f89c4b287d6a3eb831"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/a878d45c1914464426dc94da61c9e1d36ae262a8",
-                "reference": "a878d45c1914464426dc94da61c9e1d36ae262a8",
+                "url": "https://api.github.com/repos/GrahamCampbell/Result-Type/zipball/672eff8cf1d6fe1ef09ca0f89c4b287d6a3eb831",
+                "reference": "672eff8cf1d6fe1ef09ca0f89c4b287d6a3eb831",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2.5 || ^8.0",
-                "phpoption/phpoption": "^1.9"
+                "phpoption/phpoption": "^1.9.1"
             },
             "require-dev": {
-                "phpunit/phpunit": "^8.5.28 || ^9.5.21"
+                "phpunit/phpunit": "^8.5.32 || ^9.6.3 || ^10.0.12"
             },
             "type": "library",
             "autoload": {
@@ -1500,7 +1500,7 @@
             ],
             "support": {
                 "issues": "https://github.com/GrahamCampbell/Result-Type/issues",
-                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.1.0"
+                "source": "https://github.com/GrahamCampbell/Result-Type/tree/v1.1.1"
             },
             "funding": [
                 {
@@ -1512,7 +1512,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-30T15:56:11+00:00"
+            "time": "2023-02-25T20:23:15+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -4624,24 +4624,24 @@
         },
         {
             "name": "phpoption/phpoption",
-            "version": "1.9.0",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/schmittjoh/php-option.git",
-                "reference": "dc5ff11e274a90cc1c743f66c9ad700ce50db9ab"
+                "reference": "dd3a383e599f49777d8b628dadbb90cae435b87e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/dc5ff11e274a90cc1c743f66c9ad700ce50db9ab",
-                "reference": "dc5ff11e274a90cc1c743f66c9ad700ce50db9ab",
+                "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/dd3a383e599f49777d8b628dadbb90cae435b87e",
+                "reference": "dd3a383e599f49777d8b628dadbb90cae435b87e",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2.5 || ^8.0"
             },
             "require-dev": {
-                "bamarni/composer-bin-plugin": "^1.8",
-                "phpunit/phpunit": "^8.5.28 || ^9.5.21"
+                "bamarni/composer-bin-plugin": "^1.8.2",
+                "phpunit/phpunit": "^8.5.32 || ^9.6.3 || ^10.0.12"
             },
             "type": "library",
             "extra": {
@@ -4683,7 +4683,7 @@
             ],
             "support": {
                 "issues": "https://github.com/schmittjoh/php-option/issues",
-                "source": "https://github.com/schmittjoh/php-option/tree/1.9.0"
+                "source": "https://github.com/schmittjoh/php-option/tree/1.9.1"
             },
             "funding": [
                 {
@@ -4695,7 +4695,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-07-30T15:51:26+00:00"
+            "time": "2023-02-25T19:38:58+00:00"
         },
         {
             "name": "phpseclib/phpseclib",
@@ -10715,23 +10715,23 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "9.2.24",
+            "version": "9.2.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed"
+                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/2cf940ebc6355a9d430462811b5aaa308b174bed",
-                "reference": "2cf940ebc6355a9d430462811b5aaa308b174bed",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/0e2b40518197a8c0d4b08bc34dfff1c99c508954",
+                "reference": "0e2b40518197a8c0d4b08bc34dfff1c99c508954",
                 "shasum": ""
             },
             "require": {
                 "ext-dom": "*",
                 "ext-libxml": "*",
                 "ext-xmlwriter": "*",
-                "nikic/php-parser": "^4.14",
+                "nikic/php-parser": "^4.15",
                 "php": ">=7.3",
                 "phpunit/php-file-iterator": "^3.0.3",
                 "phpunit/php-text-template": "^2.0.2",
@@ -10780,7 +10780,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.24"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/9.2.25"
             },
             "funding": [
                 {
@@ -10788,7 +10788,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-01-26T08:26:55+00:00"
+            "time": "2023-02-25T05:32:00+00:00"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -11033,16 +11033,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.6.3",
+            "version": "9.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "e7b1615e3e887d6c719121c6d4a44b0ab9645555"
+                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/e7b1615e3e887d6c719121c6d4a44b0ab9645555",
-                "reference": "e7b1615e3e887d6c719121c6d4a44b0ab9645555",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
+                "reference": "9125ee085b6d95e78277dc07aa1f46f9e0607b8d",
                 "shasum": ""
             },
             "require": {
@@ -11115,7 +11115,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.3"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.6.4"
             },
             "funding": [
                 {
@@ -11131,20 +11131,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-02-04T13:37:15+00:00"
+            "time": "2023-02-27T13:06:37+00:00"
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v2.7.1",
+            "version": "v2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "a186913185bab419663bc97c7b85cf4ca86cae3e"
+                "reference": "0b42a51f977d216e0b5d649f68346e2f324f4a55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/a186913185bab419663bc97c7b85cf4ca86cae3e",
-                "reference": "a186913185bab419663bc97c7b85cf4ca86cae3e",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/0b42a51f977d216e0b5d649f68346e2f324f4a55",
+                "reference": "0b42a51f977d216e0b5d649f68346e2f324f4a55",
                 "shasum": ""
             },
             "require": {
@@ -11202,9 +11202,9 @@
             "homepage": "https://github.com/psalm/psalm-plugin-laravel",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.7.1"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v2.8.0"
             },
-            "time": "2023-02-14T16:30:12+00:00"
+            "time": "2023-02-26T18:23:48+00:00"
         },
         {
             "name": "sabre/event",
