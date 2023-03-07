@@ -16,7 +16,7 @@
         "ans-group/laravel-health-check": "1.14.0",
         "apereo/phpcas": "1.6.1",
         "doctrine/dbal": "3.6.1",
-        "enlightn/enlightn": "2.1.0",
+        "enlightn/enlightn": "2.3.0",
         "google/apiclient": "2.13.0",
         "guzzlehttp/guzzle": "7.5.0",
         "htmlmin/htmlmin": "9.0.1",
