@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7489d209a9be28dcc62371edec007f2e",
+    "content-hash": "455732af46fe9c80fe211a9ce33ba129",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -6173,26 +6173,26 @@
         },
         {
             "name": "subfission/cas",
-            "version": "v4.3.0",
+            "version": "v4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/subfission/cas.git",
-                "reference": "9fed4eb7496c5caec45c3f6a9112a211eded39e7"
+                "reference": "ca3150f42ccf84d1e2c232ce84327f799697a0e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/subfission/cas/zipball/9fed4eb7496c5caec45c3f6a9112a211eded39e7",
-                "reference": "9fed4eb7496c5caec45c3f6a9112a211eded39e7",
+                "url": "https://api.github.com/repos/subfission/cas/zipball/ca3150f42ccf84d1e2c232ce84327f799697a0e9",
+                "reference": "ca3150f42ccf84d1e2c232ce84327f799697a0e9",
                 "shasum": ""
             },
             "require": {
                 "apereo/phpcas": "^1.6",
-                "illuminate/support": "^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
                 "php": ">=7.2.0"
             },
             "require-dev": {
                 "pestphp/pest": "^1.21",
-                "phpunit/phpunit": "^8.0|^9.0"
+                "phpunit/phpunit": "^8.0|^9.0|^10.0"
             },
             "type": "library",
             "extra": {
@@ -6223,7 +6223,7 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Adds CAS support to Laravel 5.x - 9.x",
+            "description": "Adds CAS support to Laravel 5.x - 10.x",
             "keywords": [
                 "SSO",
                 "cas",
@@ -6236,9 +6236,9 @@
             ],
             "support": {
                 "issues": "https://github.com/subfission/cas/issues",
-                "source": "https://github.com/subfission/cas/tree/v4.3.0"
+                "source": "https://github.com/subfission/cas/tree/v4.4.0"
             },
-            "time": "2022-11-04T08:28:42+00:00"
+            "time": "2023-03-10T04:23:58+00:00"
         },
         {
             "name": "symfony/console",
