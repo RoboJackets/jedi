@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Jobs\SyncGitHub;
 use App\Jobs\UpdateClickUpAttributes;
 use App\Jobs\UpdateClickUpInvitePendingFlag;
@@ -15,6 +14,7 @@ use App\Services\GitHub;
 use App\Services\SUMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SelfServiceController extends Controller
 {
