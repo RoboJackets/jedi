@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Jobs\SyncGitHub;
 use App\Jobs\UpdateClickUpAttributes;
 use App\Jobs\UpdateClickUpInvitePendingFlag;
@@ -78,7 +79,7 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with SUMS.
      */
-    public function sums(Request $request)
+    public function sums(Request $request): View
     {
         $username = $request->user()->username;
 
