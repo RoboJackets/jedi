@@ -85,8 +85,6 @@ job "jedi" {
       config {
         image = var.image
 
-        force_pull = true
-
         network_mode = "host"
 
         entrypoint = [
@@ -144,8 +142,6 @@ EOF
 
       config {
         image = var.image
-
-        force_pull = true
 
         network_mode = "host"
 
@@ -262,8 +258,6 @@ EOF
         config {
           image = var.image
 
-          force_pull = true
-
           network_mode = "host"
 
           entrypoint = [
@@ -307,31 +301,6 @@ EOF
 
           change_mode = "noop"
         }
-      }
-    }
-
-    task "set-restart-policy" {
-      driver = "raw_exec"
-
-      config {
-        command = "/usr/bin/bash"
-        args    = [
-          "-xue",
-          "-o",
-          "pipefail",
-          "-c",
-          join("; ", [for task in ["web", "scheduler", "worker"] : "docker update --restart=always ${task}-${NOMAD_ALLOC_ID}"])
-        ]
-      }
-
-      resources {
-        cpu = 100
-        memory = 128
-        memory_max = 2048
-      }
-
-      lifecycle {
-        hook = "poststart"
       }
     }
   }
