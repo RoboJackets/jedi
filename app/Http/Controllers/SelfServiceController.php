@@ -14,7 +14,6 @@ use App\Services\GitHub;
 use App\Services\SUMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
 class SelfServiceController extends Controller
 {
@@ -79,7 +78,7 @@ class SelfServiceController extends Controller
     /**
      * Sync the currently logged in user with SUMS.
      */
-    public function sums(Request $request): View
+    public function sums(Request $request)
     {
         $username = $request->user()->username;
 
