@@ -24,7 +24,7 @@
         "laravel/framework": "10.9.0",
         "laravel/horizon": "5.15.0",
         "laravel/pint": "1.9.0",
-        "laravel/sanctum": "3.2.1",
+        "laravel/sanctum": "3.2.4",
         "laravel/slack-notification-channel": "2.5.0",
         "laravel/tinker": "2.8.1",
         "mrclay/jsmin-php": "2.4.3",
