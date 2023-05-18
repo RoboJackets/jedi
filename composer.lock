@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "43c1204f69ea0a295e207e2ced1abd60",
+    "content-hash": "6f96a88635a2de9ef89583942a669c1c",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -12105,16 +12105,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.12.0",
+            "version": "8.12.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "cc04334ed0ce5a251389112fbd2dbe1dbc931ae8"
+                "reference": "f69e2524e8770efb9b3e5ac4a0ebc0d54eb446d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/cc04334ed0ce5a251389112fbd2dbe1dbc931ae8",
-                "reference": "cc04334ed0ce5a251389112fbd2dbe1dbc931ae8",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/f69e2524e8770efb9b3e5ac4a0ebc0d54eb446d7",
+                "reference": "f69e2524e8770efb9b3e5ac4a0ebc0d54eb446d7",
                 "shasum": ""
             },
             "require": {
@@ -12154,7 +12154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.12.0"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.12.1"
             },
             "funding": [
                 {
@@ -12166,7 +12166,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-14T20:06:01+00:00"
+            "time": "2023-05-15T21:42:25+00:00"
         },
         {
             "name": "spatie/array-to-xml",
