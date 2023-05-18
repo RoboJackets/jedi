@@ -34,7 +34,7 @@
         "subfission/cas": "4.4.0"
     },
     "require-dev": {
-        "fakerphp/faker": "1.21.0",
+        "fakerphp/faker": "1.22.0",
         "mockery/mockery": "1.5.1",
         "nunomaduro/collision": "7.5.2",
         "nunomaduro/larastan": "2.6.0",
