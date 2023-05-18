@@ -18,7 +18,7 @@
         "doctrine/dbal": "3.6.2",
         "enlightn/enlightn": "2.3.0",
         "google/apiclient": "2.14.0",
-        "guzzlehttp/guzzle": "7.6.0",
+        "guzzlehttp/guzzle": "7.6.1",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "0.7.0",
         "laravel/framework": "10.11.0",
