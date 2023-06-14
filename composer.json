@@ -21,7 +21,7 @@
         "guzzlehttp/guzzle": "7.7.0",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "0.7.0",
-        "laravel/framework": "10.13.2",
+        "laravel/framework": "10.13.5",
         "laravel/horizon": "5.16.1",
         "laravel/pint": "1.10.1",
         "laravel/sanctum": "3.2.5",
