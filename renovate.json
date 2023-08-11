@@ -40,6 +40,9 @@
     "docker": {
         "enabled": false
     },
+    "lockFileMaintenance": {
+        "enabled": true
+    },
     "timezone": "America/New_York",
     "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"]
 }
