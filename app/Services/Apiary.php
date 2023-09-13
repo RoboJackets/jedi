@@ -43,7 +43,7 @@ class Apiary extends Service
 
         self::expectStatusCodes($response, 200);
 
-        if ('success' !== self::decodeToObject($response)->status) {
+        if (self::decodeToObject($response)->status !== 'success') {
             throw new DownstreamServiceProblem(
                 'Apiary returned an unexpected response '.$response->getBody()->getContents()
                 .', expected status: success'
@@ -68,7 +68,7 @@ class Apiary extends Service
 
         self::expectStatusCodes($response, 200);
 
-        if ('success' !== self::decodeToObject($response)->status) {
+        if (self::decodeToObject($response)->status !== 'success') {
             throw new DownstreamServiceProblem(
                 'Apiary returned an unexpected response '.$response->getBody()->getContents()
                 .', expected status: success'
