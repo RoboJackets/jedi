@@ -29,13 +29,11 @@ class SyncSUMS extends SyncJob
      *
      * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
-     * @param  ?int  $last_attendance_id  The last seen attendance event ID for this user
      * @param  bool  $exists_in_sums  Whether the user exists in SUMS according to Apiary
      */
     protected function __construct(
         string $username,
         bool $is_access_active,
-        private readonly ?int $last_attendance_id,
         private readonly bool $exists_in_sums
     ) {
         parent::__construct($username, '', '', $is_access_active, []);
@@ -86,7 +84,6 @@ class SyncSUMS extends SyncJob
                         self::dispatch(
                             $this->username,
                             $this->is_access_active,
-                            $this->last_attendance_id,
                             $this->exists_in_sums
                         );
                     } else {

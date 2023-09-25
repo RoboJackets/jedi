@@ -40,7 +40,6 @@ class SyncController extends Controller
                 'model_id' => 'required|numeric',
                 'model_event' => 'required|string',
                 'last_attendance_time' => 'present|date|nullable',
-                'last_attendance_id' => 'present|numeric|nullable',
                 'exists_in_sums' => 'required|boolean',
                 'clickup_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
                 'clickup_id' => 'present|integer|nullable',
@@ -66,7 +65,6 @@ class SyncController extends Controller
                     $lastRequest['github_username'] === $request->github_username &&
                     $lastRequest['google_account'] === $request->google_account &&
                     $lastRequest['last_attendance_time'] === $request->last_attendance_time &&
-                    $lastRequest['last_attendance_id'] === $request->last_attendance_id &&
                     $lastRequest['clickup_email'] === $request->clickup_email &&
                     $lastRequest['clickup_id'] === $request->clickup_id;
 
@@ -119,14 +117,13 @@ class SyncController extends Controller
                     config('sums.attendance_timeout_limit'),
                     'America/New_York'
                 ))
-                || $request->last_attendance_id === null)
+                || $request->last_attendance_time === null)
             ) {
-                SyncSUMS::dispatch($request->username, false, $request->last_attendance_id, $request->exists_in_sums);
+                SyncSUMS::dispatch($request->username, false, $request->exists_in_sums);
             } else {
                 SyncSUMS::dispatch(
                     $request->username,
                     $request->is_access_active,
-                    $request->last_attendance_id,
                     $request->exists_in_sums
                 );
             }
