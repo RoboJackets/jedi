@@ -121,11 +121,7 @@ class SyncController extends Controller
             ) {
                 SyncSUMS::dispatch($request->username, false, $request->exists_in_sums);
             } else {
-                SyncSUMS::dispatch(
-                    $request->username,
-                    $request->is_access_active,
-                    $request->exists_in_sums
-                );
+                SyncSUMS::dispatch($request->username, $request->is_access_active, $request->exists_in_sums);
             }
         }
 
