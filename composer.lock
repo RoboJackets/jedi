@@ -1357,16 +1357,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.322.0",
+            "version": "v0.323.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "e892db67c88eb119de0c12aa2419b48401555ded"
+                "reference": "d5497d30ddfafe7592102ca48bedaf222a4ca7a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/e892db67c88eb119de0c12aa2419b48401555ded",
-                "reference": "e892db67c88eb119de0c12aa2419b48401555ded",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/d5497d30ddfafe7592102ca48bedaf222a4ca7a6",
+                "reference": "d5497d30ddfafe7592102ca48bedaf222a4ca7a6",
                 "shasum": ""
             },
             "require": {
@@ -1395,9 +1395,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.322.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.323.0"
             },
-            "time": "2023-10-29T01:10:18+00:00"
+            "time": "2023-11-06T01:08:38+00:00"
         },
         {
             "name": "google/auth",
@@ -4609,16 +4609,16 @@
         },
         {
             "name": "php-http/promise",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-http/promise.git",
-                "reference": "ef4905bfb492ff389eb7f12e26925a0f20073050"
+                "reference": "44a67cb59f708f826f3bec35f22030b3edb90119"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-http/promise/zipball/ef4905bfb492ff389eb7f12e26925a0f20073050",
-                "reference": "ef4905bfb492ff389eb7f12e26925a0f20073050",
+                "url": "https://api.github.com/repos/php-http/promise/zipball/44a67cb59f708f826f3bec35f22030b3edb90119",
+                "reference": "44a67cb59f708f826f3bec35f22030b3edb90119",
                 "shasum": ""
             },
             "require": {
@@ -4655,9 +4655,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-http/promise/issues",
-                "source": "https://github.com/php-http/promise/tree/1.2.0"
+                "source": "https://github.com/php-http/promise/tree/1.2.1"
             },
-            "time": "2023-10-24T09:20:26+00:00"
+            "time": "2023-11-08T12:57:08+00:00"
         },
         {
             "name": "phpmyadmin/sql-parser",
@@ -9729,16 +9729,16 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.15.3",
+            "version": "2.15.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "c83e88a30524f9360b11f585f71e6b17313b7187"
+                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/c83e88a30524f9360b11f585f71e6b17313b7187",
-                "reference": "c83e88a30524f9360b11f585f71e6b17313b7187",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/a139776fa3f5985a50b509f2a02ff0f709d2a546",
+                "reference": "a139776fa3f5985a50b509f2a02ff0f709d2a546",
                 "shasum": ""
             },
             "require": {
@@ -9788,7 +9788,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.15.3"
+                "source": "https://github.com/filp/whoops/tree/2.15.4"
             },
             "funding": [
                 {
@@ -9796,7 +9796,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-13T12:00:00+00:00"
+            "time": "2023-11-03T12:00:00+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
@@ -10187,16 +10187,16 @@
         },
         {
             "name": "orchestra/canvas",
-            "version": "v8.11.2",
+            "version": "v8.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/canvas.git",
-                "reference": "5038b630e2306a8e7486d69628d84fa2d1764cb1"
+                "reference": "d336a5a5b14a3dbcb2c12888c314d6ea34a8545c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/canvas/zipball/5038b630e2306a8e7486d69628d84fa2d1764cb1",
-                "reference": "5038b630e2306a8e7486d69628d84fa2d1764cb1",
+                "url": "https://api.github.com/repos/orchestral/canvas/zipball/d336a5a5b14a3dbcb2c12888c314d6ea34a8545c",
+                "reference": "d336a5a5b14a3dbcb2c12888c314d6ea34a8545c",
                 "shasum": ""
             },
             "require": {
@@ -10254,9 +10254,9 @@
             "description": "Code Generators for Laravel Applications and Packages",
             "support": {
                 "issues": "https://github.com/orchestral/canvas/issues",
-                "source": "https://github.com/orchestral/canvas/tree/v8.11.2"
+                "source": "https://github.com/orchestral/canvas/tree/v8.11.3"
             },
-            "time": "2023-10-26T21:59:54+00:00"
+            "time": "2023-11-06T06:10:13+00:00"
         },
         {
             "name": "orchestra/canvas-core",
@@ -10328,16 +10328,16 @@
         },
         {
             "name": "orchestra/testbench",
-            "version": "v8.14.0",
+            "version": "v8.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/testbench.git",
-                "reference": "7dacad632a5f48830443f739cd846212c174448a"
+                "reference": "887556915aed4278ddd97e64f88c2172ab2ff708"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/testbench/zipball/7dacad632a5f48830443f739cd846212c174448a",
-                "reference": "7dacad632a5f48830443f739cd846212c174448a",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/887556915aed4278ddd97e64f88c2172ab2ff708",
+                "reference": "887556915aed4278ddd97e64f88c2172ab2ff708",
                 "shasum": ""
             },
             "require": {
@@ -10345,8 +10345,8 @@
                 "fakerphp/faker": "^1.21",
                 "laravel/framework": "^10.23.1",
                 "mockery/mockery": "^1.5.1",
-                "orchestra/testbench-core": ">=8.14.0 <8.15.0",
-                "orchestra/workbench": "^1.0",
+                "orchestra/testbench-core": ">=8.14.4 <8.15.0",
+                "orchestra/workbench": "^1.0 || ^8.0",
                 "php": "^8.1",
                 "phpunit/phpunit": "^9.6 || ^10.1",
                 "spatie/laravel-ray": "^1.32.4",
@@ -10378,9 +10378,9 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/testbench/issues",
-                "source": "https://github.com/orchestral/testbench/tree/v8.14.0"
+                "source": "https://github.com/orchestral/testbench/tree/v8.14.1"
             },
-            "time": "2023-10-24T04:44:26+00:00"
+            "time": "2023-11-07T09:03:19+00:00"
         },
         {
             "name": "orchestra/testbench-core",
@@ -10472,25 +10472,25 @@
         },
         {
             "name": "orchestra/workbench",
-            "version": "v1.0.1",
+            "version": "v8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/orchestral/workbench.git",
-                "reference": "0b1a0632d6a849831410c00c5a96e77bd43ddc78"
+                "reference": "e9db2771df0a2dbc4924b917c589b8de6df3ee4c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/orchestral/workbench/zipball/0b1a0632d6a849831410c00c5a96e77bd43ddc78",
-                "reference": "0b1a0632d6a849831410c00c5a96e77bd43ddc78",
+                "url": "https://api.github.com/repos/orchestral/workbench/zipball/e9db2771df0a2dbc4924b917c589b8de6df3ee4c",
+                "reference": "e9db2771df0a2dbc4924b917c589b8de6df3ee4c",
                 "shasum": ""
             },
             "require": {
                 "composer-runtime-api": "^2.2",
                 "fakerphp/faker": "^1.21",
-                "laravel/framework": "^9.52.15 || ^10.26.0",
+                "laravel/framework": "^10.26",
                 "laravel/tinker": "^2.8.2",
-                "orchestra/canvas": "^7.10.0 || ^8.11.0",
-                "orchestra/testbench-core": "^7.34.0 || ^8.14.0",
+                "orchestra/canvas": "^8.11",
+                "orchestra/testbench-core": "^8.14",
                 "php": "^8.0",
                 "symfony/yaml": "^6.0.9"
             },
@@ -10532,9 +10532,9 @@
             ],
             "support": {
                 "issues": "https://github.com/orchestral/workbench/issues",
-                "source": "https://github.com/orchestral/workbench/tree/v1.0.1"
+                "source": "https://github.com/orchestral/workbench/tree/v8.0.0"
             },
-            "time": "2023-10-31T01:06:37+00:00"
+            "time": "2023-11-07T08:53:44+00:00"
         },
         {
             "name": "phan/phan",
@@ -12577,16 +12577,16 @@
         },
         {
             "name": "spatie/array-to-xml",
-            "version": "3.2.0",
+            "version": "3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/array-to-xml.git",
-                "reference": "f9ab39c808500c347d5a8b6b13310bd5221e39e7"
+                "reference": "84a404e5b67dd21466a0ff47d335129d67b94029"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/f9ab39c808500c347d5a8b6b13310bd5221e39e7",
-                "reference": "f9ab39c808500c347d5a8b6b13310bd5221e39e7",
+                "url": "https://api.github.com/repos/spatie/array-to-xml/zipball/84a404e5b67dd21466a0ff47d335129d67b94029",
+                "reference": "84a404e5b67dd21466a0ff47d335129d67b94029",
                 "shasum": ""
             },
             "require": {
@@ -12624,7 +12624,7 @@
                 "xml"
             ],
             "support": {
-                "source": "https://github.com/spatie/array-to-xml/tree/3.2.0"
+                "source": "https://github.com/spatie/array-to-xml/tree/3.2.1"
             },
             "funding": [
                 {
@@ -12636,7 +12636,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-07-19T18:30:26+00:00"
+            "time": "2023-11-08T08:19:46+00:00"
         },
         {
             "name": "spatie/backtrace",
@@ -13082,16 +13082,16 @@
         },
         {
             "name": "spatie/ray",
-            "version": "1.39.0",
+            "version": "1.40.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ray.git",
-                "reference": "7ab6bd01dc6a8ecdd836b3182d40a04308ae0c75"
+                "reference": "d2477d80996416ac33066f4fef8c6bd6e393fedd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ray/zipball/7ab6bd01dc6a8ecdd836b3182d40a04308ae0c75",
-                "reference": "7ab6bd01dc6a8ecdd836b3182d40a04308ae0c75",
+                "url": "https://api.github.com/repos/spatie/ray/zipball/d2477d80996416ac33066f4fef8c6bd6e393fedd",
+                "reference": "d2477d80996416ac33066f4fef8c6bd6e393fedd",
                 "shasum": ""
             },
             "require": {
@@ -13142,7 +13142,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/ray/issues",
-                "source": "https://github.com/spatie/ray/tree/1.39.0"
+                "source": "https://github.com/spatie/ray/tree/1.40.0"
             },
             "funding": [
                 {
@@ -13154,7 +13154,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2023-09-18T10:36:07+00:00"
+            "time": "2023-11-07T13:53:06+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
