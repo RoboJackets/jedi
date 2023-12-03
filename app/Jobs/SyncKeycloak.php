@@ -62,6 +62,7 @@ class SyncKeycloak extends SyncJob
         if (
             property_exists($user, 'attributes') &&
             property_exists($user->attributes, 'googleWorkspaceAccount') &&
+            count($user->attributes->googleWorkspaceAccount) > 0 &&
             $this->google_account !== $user->attributes->googleWorkspaceAccount[0]
         ) {
             SyncGoogleGroups::dispatch(
