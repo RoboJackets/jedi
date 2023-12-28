@@ -157,13 +157,13 @@ class SelfServiceController extends Controller
 
         $id_in_apiary_is_wrong = false;
 
-        if ($apiary_user->user->clickup_id !== null) {
-            $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+        // if ($apiary_user->user->clickup_id !== null) {
+        //     $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
 
-            if ($clickup_membership === null) {
-                $id_in_apiary_is_wrong = true;
-            }
-        }
+        //     if ($clickup_membership === null) {
+        //         $id_in_apiary_is_wrong = true;
+        //     }
+        // }
 
         if ($apiary_user->user->clickup_id === null || $id_in_apiary_is_wrong) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
