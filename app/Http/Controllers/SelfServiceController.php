@@ -155,8 +155,6 @@ class SelfServiceController extends Controller
             return redirect(config('apiary.server').'/profile');
         }
 
-
-
         if ($apiary_user->user->clickup_id === null) {
             $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
             UpdateClickUpAttributes::dispatch($username, $clickup_membership->user->id, $clickup_membership->invite);
