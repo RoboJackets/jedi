@@ -165,7 +165,7 @@ class ClickUp extends Service
 
         self::$client = new Client(
             [
-                'base_uri' => 'https://prod-us-east-2-2.clickup.com/team/v1/team/'.config('clickup.workspace_id').'/',
+                'base_uri' => 'https://prod-us-east-2-2.clickup.com/v1/team/'.config('clickup.workspace_id').'/',
                 'headers' => [
                     'User-Agent' => 'RoboJacketsJEDI/'.config('sentry.release').' Make a real user api pls '
                     .'--kristaps@robojackets.org',
