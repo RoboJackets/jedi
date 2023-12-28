@@ -36,7 +36,7 @@ class ClickUp extends Service
 
     public static function getUserById(int $clickup_id): ?object
     {
-        $response = self::client()->get('profile/'.$clickup_id,['debug' => true]);
+        $response = self::client()->get('profile/'.$clickup_id, ['debug' => true]);
 
         if ($response->getStatusCode() === 404) {
             return null;
