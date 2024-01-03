@@ -17,7 +17,7 @@
         "apereo/phpcas": "1.6.1",
         "doctrine/dbal": "3.7.2",
         "enlightn/enlightn": "2.7.0",
-        "google/apiclient": "2.15.1",
+        "google/apiclient": "2.15.2",
         "guzzlehttp/guzzle": "7.8.1",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "0.8.1",
