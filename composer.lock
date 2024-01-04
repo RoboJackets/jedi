@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ab244e90e1bf307c2c66cb477d6e4098",
+    "content-hash": "9dd3b946e89f7cfe233cdb64fe98f3be",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -1357,16 +1357,16 @@
         },
         {
             "name": "google/apiclient",
-            "version": "dev-p-golovin-patch-1",
+            "version": "v2.15.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/p-golovin/google-api-php-client.git",
-                "reference": "690a48684b3a950f4c75ad47e7aa0d5041ecc49f"
+                "url": "https://github.com/googleapis/google-api-php-client.git",
+                "reference": "e70273c06d18824de77e114247ae3102f8aec64d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/p-golovin/google-api-php-client/zipball/690a48684b3a950f4c75ad47e7aa0d5041ecc49f",
-                "reference": "690a48684b3a950f4c75ad47e7aa0d5041ecc49f",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client/zipball/e70273c06d18824de77e114247ae3102f8aec64d",
+                "reference": "e70273c06d18824de77e114247ae3102f8aec64d",
                 "shasum": ""
             },
             "require": {
@@ -1399,16 +1399,17 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Google\\": "src/"
-                },
                 "files": [
                     "src/aliases.php"
                 ],
+                "psr-4": {
+                    "Google\\": "src/"
+                },
                 "classmap": [
                     "src/aliases.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "Apache-2.0"
             ],
@@ -1418,9 +1419,10 @@
                 "google"
             ],
             "support": {
-                "source": "https://github.com/p-golovin/google-api-php-client/tree/p-golovin-patch-1"
+                "issues": "https://github.com/googleapis/google-api-php-client/issues",
+                "source": "https://github.com/googleapis/google-api-php-client/tree/v2.15.3"
             },
-            "time": "2024-01-03T21:53:31+00:00"
+            "time": "2024-01-04T19:15:22+00:00"
         },
         {
             "name": "google/apiclient-services",
@@ -13887,7 +13889,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "google/apiclient": 20,
         "htmlmin/htmlmin": 20
     },
     "prefer-stable": true,
