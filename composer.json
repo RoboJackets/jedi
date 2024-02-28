@@ -47,7 +47,7 @@
         "slevomat/coding-standard": "8.14.1",
         "spatie/laravel-ignition": "2.4.2",
         "squizlabs/php_codesniffer": "3.8.1",
-        "vimeo/psalm": "5.22.0"
+        "vimeo/psalm": "5.22.2"
     },
     "replace": {
         "paragonie/random_compat": "*",
