@@ -111,13 +111,15 @@ class SyncController extends Controller
             if (
                 config('sums.attendance_timeout_enabled') === true
                 && ($request->is_access_active === true)
-                && ($request->last_attendance_time !== null
-                && ($request->last_attendance_time < new Carbon(
-                    // @phan-suppress-next-line PhanPartialTypeMismatchArgument
-                    config('sums.attendance_timeout_limit'),
-                    'America/New_York'
-                ))
-                || $request->last_attendance_time === null)
+                && (
+                    ($request->last_attendance_time !== null
+                    && ($request->last_attendance_time < new Carbon(
+                        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
+                        config('sums.attendance_timeout_limit'),
+                        'America/New_York'
+                    )))
+                    || $request->last_attendance_time === null
+                )
             ) {
                 SyncSUMS::dispatch($request->username, false, $request->exists_in_sums);
             } else {
