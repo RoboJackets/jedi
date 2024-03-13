@@ -30,7 +30,7 @@
         "mrclay/jsmin-php": "2.4.3",
         "sentry/sentry-laravel": "4.2.0",
         "spatie/laravel-failed-job-monitor": "4.3.0",
-        "spatie/laravel-github-webhooks": "1.2.2",
+        "spatie/laravel-github-webhooks": "1.2.3",
         "subfission/cas": "4.4.0"
     },
     "require-dev": {
