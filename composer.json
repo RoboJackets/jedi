@@ -43,7 +43,7 @@
         "phpstan/phpstan": "1.10.66",
         "phpstan/phpstan-deprecation-rules": "1.1.4",
         "phpstan/phpstan-strict-rules": "1.5.3",
-        "psalm/plugin-laravel": "2.8.0",
+        "psalm/plugin-laravel": "2.11.0",
         "slevomat/coding-standard": "8.14.1",
         "spatie/laravel-ignition": "2.4.2",
         "squizlabs/php_codesniffer": "3.9.1",
