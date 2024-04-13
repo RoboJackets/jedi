@@ -41,5 +41,10 @@
                 <file name="app/Jobs/SyncNextcloud.php"/>
             </errorLevel>
         </PossiblyNullReference>
+        <UndefinedMagicMethod>
+            <errorLevel type="suppress">
+                <file name="routes/api.php"/>
+            </errorLevel>
+        </UndefinedMagicMethod>
     </issueHandlers>
 </psalm>
