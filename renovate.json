@@ -38,7 +38,9 @@
         "enabled": false
     },
     "docker": {
-        "enabled": false
+        "major": {
+            "enabled": true
+        }
     },
     "lockFileMaintenance": {
         "enabled": true,
