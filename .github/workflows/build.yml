@@ -103,5 +103,4 @@ jobs:
       contents: read
     with:
       image-digest: ${{ needs.docker.outputs.image-digest }}
-      environment: production
       precompressed-assets: true
