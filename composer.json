@@ -13,9 +13,8 @@
         "ext-redis": "*",
         "ext-simplexml": "*",
         "ext-uuid": "*",
-        "ans-group/laravel-health-check": "1.14.0",
+        "ans-group/laravel-health-check": "dev-l11-compatibility",
         "apereo/phpcas": "1.6.1",
-        "doctrine/dbal": "3.8.3",
         "enlightn/enlightn": "2.10.0",
         "google/apiclient": "2.15.3",
         "guzzlehttp/guzzle": "7.8.1",
@@ -118,5 +117,15 @@
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/RoboJackets/Laravel-HTMLMin.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/laravel-shift/laravel-health-check.git"
+        }
+    ]
 }
