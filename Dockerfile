@@ -13,7 +13,7 @@ COPY --link routes/ /app/routes/
 COPY --link storage/ /app/storage/
 COPY --link artisan composer.json composer.lock /app/
 
-FROM debian:bookworm-slim as backend-uncompressed
+FROM ubuntu:noble as backend-uncompressed
 
 LABEL maintainer="developers@robojackets.org"
 
@@ -25,21 +25,21 @@ RUN set -eux && \
     apt-get update && \
     apt-get upgrade -qq --assume-yes && \
     apt-get install -qq --assume-yes \
-        php8.2-fpm php8.2-mysql php8.2-xml unzip libfcgi-bin php8.2-curl php8.2-mbstring php8.2-intl php8.2-redis php8.2-uuid php8.2-gmp zopfli && \
+        php8.3-fpm php8.3-mysql php8.3-xml unzip libfcgi-bin php8.3-curl php8.3-mbstring php8.3-intl php8.3-redis php8.3-uuid php8.3-gmp zopfli && \
     apt-get autoremove -qq --assume-yes && \
     mkdir /app && \
     chown www-data:www-data /app && \
-    sed -i '/pid/c\\' /etc/php/8.2/fpm/php-fpm.conf && \
-    sed -i '/systemd_interval/c\systemd_interval = 0' /etc/php/8.2/fpm/php-fpm.conf && \
-    sed -i '/error_log/c\error_log = /local/error.log' /etc/php/8.2/fpm/php-fpm.conf && \
-    sed -i '/upload_max_filesize/c\upload_max_filesize = 10M' /etc/php/8.2/fpm/php.ini && \
-    sed -i '/max_file_uploads/c\max_file_uploads = 1' /etc/php/8.2/fpm/php.ini && \
-    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.2/fpm/php.ini && \
-    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.2/cli/php.ini && \
-    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.2/fpm/php.ini && \
-    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.2/cli/php.ini && \
-    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.2/fpm/php.ini && \
-    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.2/cli/php.ini
+    sed -i '/pid/c\\' /etc/php/8.3/fpm/php-fpm.conf && \
+    sed -i '/systemd_interval/c\systemd_interval = 0' /etc/php/8.3/fpm/php-fpm.conf && \
+    sed -i '/error_log/c\error_log = /local/error.log' /etc/php/8.3/fpm/php-fpm.conf && \
+    sed -i '/upload_max_filesize/c\upload_max_filesize = 10M' /etc/php/8.3/fpm/php.ini && \
+    sed -i '/max_file_uploads/c\max_file_uploads = 1' /etc/php/8.3/fpm/php.ini && \
+    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.3/fpm/php.ini && \
+    sed -i '/expose_php/c\expose_php = Off' /etc/php/8.3/cli/php.ini && \
+    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.3/fpm/php.ini && \
+    sed -i '/allow_url_fopen/c\allow_url_fopen = Off' /etc/php/8.3/cli/php.ini && \
+    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.3/fpm/php.ini && \
+    sed -i '/allow_url_include/c\allow_url_include = Off' /etc/php/8.3/cli/php.ini
 
 COPY --link --from=composer /usr/bin/composer /usr/bin/composer
 
