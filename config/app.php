@@ -2,11 +2,9 @@
 
 declare(strict_types=1);
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
-
 
     'aliases' => Facade::defaultAliases()->merge([
         'Cas' => Subfission\Cas\Facades\Cas::class,
