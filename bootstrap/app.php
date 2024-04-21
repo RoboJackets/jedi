@@ -21,7 +21,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(fn () => route('login'));
-        $middleware->redirectUsersTo(AppServiceProvider::HOME);
 
         $middleware->web([
             \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
