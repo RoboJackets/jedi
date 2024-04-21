@@ -89,7 +89,7 @@ return [
      */
     'cache' => [
         'stores' => [
-            env('CACHE_DRIVER'),
+            env('CACHE_STORE'),
         ],
     ],
 

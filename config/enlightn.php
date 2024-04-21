@@ -123,6 +123,8 @@ return [
         ] : []),
         \Enlightn\Enlightn\Analyzers\Security\StableDependencyAnalyzer::class,
         \Enlightn\Enlightn\Analyzers\Security\VulnerableDependencyAnalyzer::class,
+        \Enlightn\Enlightn\Analyzers\Security\LoginThrottlingAnalyzer::class,
+        \Enlightn\Enlightn\Analyzers\Performance\UnusedGlobalMiddlewareAnalyzer::class,
     ],
 
     /*
