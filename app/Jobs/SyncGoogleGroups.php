@@ -13,6 +13,7 @@ use Google\Service\Exception as Google_Service_Exception;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
+use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -165,6 +166,18 @@ class SyncGoogleGroups extends SyncJob
             'user:'.$this->username,
             'active:'.($this->is_access_active ? 'true' : 'false'),
             'google_account:'.$this->gmail_address,
+        ];
+    }
+
+    /**
+     * Get the middleware the job should pass through.
+     *
+     * @return array<object>
+     */
+    public function middleware(): array
+    {
+        return [
+            new RateLimited('google-groups'),
         ];
     }
 }
