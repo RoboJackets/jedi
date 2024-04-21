@@ -47,5 +47,8 @@
         "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"]
     },
     "timezone": "America/New_York",
-    "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"]
+    "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"],
+    "ignoreDeps": [
+        "ubuntu"
+    ]
 }
