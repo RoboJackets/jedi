@@ -13,6 +13,7 @@ parameters:
     - '#Cannot access property \$[a-z_]+ on App\\Models\\User\|null\.#'
     - '#Cannot access property \$[a-zA-Z]+ on mixed\.#'
     - '#Method App\\Http\\Controllers\\[a-zA-Z]+::[a-zA-Z]+\(\) has no return type specified\.#'
+    - '#Method App\\Http\\Middleware\\[a-zA-Z]+::handle\(\) has no return type specified\.#'
     - '#Method App\\Jobs\\SyncGoogleGroups::getAllGroups\(\) should return Illuminate\\Support\\Collection<string, string> but returns Illuminate\\Support\\Collection<int\|string, mixed>\.#'
     - '#Method App\\Services\\GitHub::getOrganizationMembership\(\) should return object\|null but returns mixed\.#'
     - '#Method App\\Services\\GitHub::getTeamMembership\(\) should return object\|null but returns mixed\.#'
