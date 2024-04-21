@@ -9,7 +9,6 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class CasAuthenticate
 {
@@ -42,7 +41,7 @@ class CasAuthenticate
      *
      * @phan-suppress PhanPluginInconsistentReturnMethod
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         // Run the user update only if they don't have an active session
         if ($this->cas->isAuthenticated() && $request->user() === null) {
