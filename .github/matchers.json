@@ -1,0 +1,16 @@
+{
+    "problemMatcher": [
+        {
+            "owner": "phan",
+            "pattern": [
+                {
+                    "regexp": "^([a-zA-Z\\/\\.]+):(\\d+)\\s+([a-zA-Z]+)\\s+(.+)$",
+                    "file": 1,
+                    "line": 2,
+                    "code": 3,
+                    "message": 4
+                }
+            ]
+        }
+    ]
+}
