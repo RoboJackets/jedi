@@ -14,7 +14,23 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->redirectGuestsTo(fn () => route('login'));
+        $middleware->redirectUsersTo(RouteServiceProvider::HOME);
+
+        $middleware->web([
+            \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\CasAuthenticate::class,
+            \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class,
+        ]);
+
+        $middleware->priority([
+            \Illuminate\Session\Middleware\StartSession::class,
+            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            \Illuminate\Routing\Middleware\ThrottleRequests::class,
+            \Illuminate\Session\Middleware\AuthenticateSession::class,
+            \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \Illuminate\Auth\Middleware\Authorize::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
