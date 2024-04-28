@@ -17,7 +17,7 @@
         },
         "packageRules": [
             {
-                "matchPackageNames": ["php"],
+                "matchDepNames": ["php"],
                 "rangeStrategy": "replace"
             },
             {
@@ -29,7 +29,7 @@
               "prPriority": 1
             },
             {
-              "matchPackageNames": ["laravel/framework"],
+              "matchDepNames": ["laravel/framework"],
               "prPriority": 2
             }
         ]
