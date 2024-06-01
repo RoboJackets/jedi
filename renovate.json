@@ -12,8 +12,7 @@
         "rangeStrategy": "pin",
         "lockFileMaintenance": {
             "enabled": true,
-            "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"],
-            "prPriority": -2
+            "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"]
         },
         "packageRules": [
             {
