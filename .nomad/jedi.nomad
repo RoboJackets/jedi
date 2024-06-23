@@ -65,11 +65,6 @@ job "jedi" {
   type = "service"
 
   group "jedi" {
-    volume "assets" {
-      type = "host"
-      source = "assets"
-    }
-
     volume "run" {
       type = "host"
       source = "run"
@@ -94,17 +89,23 @@ job "jedi" {
           "-c",
           trimspace(file("scripts/prestart.sh"))
         ]
+
+        mount {
+          type = "volume"
+          target = "/assets/"
+          source = "assets"
+          readonly = false
+
+          volume_options {
+            no_copy = true
+          }
+        }
       }
 
       resources {
         cpu = 100
         memory = 128
         memory_max = 2048
-      }
-
-      volume_mount {
-        volume = "assets"
-        destination = "/assets/"
       }
 
       volume_mount {
