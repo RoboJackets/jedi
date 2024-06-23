@@ -24,7 +24,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web([
             \Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class,
             \App\Http\Middleware\CasAuthenticate::class,
-            \HTMLMin\HTMLMin\Http\Middleware\MinifyMiddleware::class,
         ]);
 
         $middleware->priority([
