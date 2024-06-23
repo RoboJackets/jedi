@@ -256,6 +256,12 @@ EOF
       content {
         driver = "docker"
 
+        lifecycle {
+          hook = "poststart"
+
+          sidecar = true
+        }
+
         config {
           image = var.image
 
