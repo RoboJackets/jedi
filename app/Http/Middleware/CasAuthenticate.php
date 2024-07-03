@@ -33,6 +33,7 @@ class CasAuthenticate
     public function __construct(Guard $auth)
     {
         $this->auth = $auth;
+        // @phan-suppress-next-line PhanUndeclaredClassReference
         $this->cas = app('cas');
     }
 
