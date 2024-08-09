@@ -13,6 +13,7 @@ return [
      * of the service.
      */
     'checks' => [
+        \App\HorizonHealthCheck::class,
         \UKFast\HealthCheck\Checks\CacheHealthCheck::class,
         \UKFast\HealthCheck\Checks\DatabaseHealthCheck::class,
         \UKFast\HealthCheck\Checks\LogHealthCheck::class,
@@ -20,7 +21,7 @@ return [
         \UKFast\HealthCheck\Checks\RedisHealthCheck::class,
         \UKFast\HealthCheck\Checks\SchedulerHealthCheck::class,
         \UKFast\HealthCheck\Checks\StorageHealthCheck::class,
-        \App\HorizonHealthCheck::class,
+        \UKFast\Healthchecks\Checks\PackageSecurityHealthCheck::class,
     ],
 
     /**
