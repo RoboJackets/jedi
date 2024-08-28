@@ -18,7 +18,7 @@
         "enlightn/enlightn": "2.10.0",
         "enlightn/security-checker": "^2.0",
         "google/apiclient": "2.17.0",
-        "guzzlehttp/guzzle": "7.8.1",
+        "guzzlehttp/guzzle": "7.9.2",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "0.9.1",
         "laravel/framework": "11.21.0",
