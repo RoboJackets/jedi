@@ -166,6 +166,14 @@ class SyncController extends Controller
             );
         }
 
+        if (config('grouper.enabled') === true) {
+            SyncGrouper::dispatch(
+                $request->username,
+                $request->is_access_active,
+                $request->teams
+            );
+        }
+
         return response()->json('queued', 202);
     }
 }
