@@ -7,11 +7,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
-use App\Exceptions\DownstreamServiceProblem;
-use Exception;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 class Grouper extends Service
 {
@@ -26,11 +22,11 @@ class Grouper extends Service
             'groups/'.config('grouper.folder_base_path').":$group_name/members",
             [
                 'json' => [
-                    "WsRestAddMemberLiteRequest" => [
-                        "subjectId" => $username,
-                        "groupName" => config('grouper.folder_base_path').":$group_name"
-                    ]
-                ]
+                    'WsRestAddMemberLiteRequest' => [
+                        'subjectId' => $username,
+                        'groupName' => config('grouper.folder_base_path').":$group_name",
+                    ],
+                ],
             ]
         );
         self::expectStatusCodes($response, 200, 201);
@@ -42,8 +38,8 @@ class Grouper extends Service
             'groups/'.config('grouper.folder_base_path').":$group_name/members/sources/gted-accounts/subjectId/$username",
             [
                 'json' => [
-                    "WsRestDeleteMemberLiteRequest" => []
-                ]
+                    'WsRestDeleteMemberLiteRequest' => [],
+                ],
             ]
         );
         self::expectStatusCodes($response, 200);
@@ -71,9 +67,9 @@ class Grouper extends Service
                 'json' => [
                     'WsRestFindGroupsLiteRequest' => [
                         'stemName' => config('grouper.folder_base_path'),
-                        'queryFilterType' => 'FIND_BY_STEM_NAME'
-                    ]
-                ]
+                        'queryFilterType' => 'FIND_BY_STEM_NAME',
+                    ],
+                ],
             ]
         );
 
@@ -97,7 +93,7 @@ class Grouper extends Service
                 ],
                 'auth' => [
                     'user' => config('grouper.username'),
-                    'pass' => config('grouper.password')
+                    'pass' => config('grouper.password'),
                 ],
                 'allow_redirects' => false,
                 'http_errors' => false,

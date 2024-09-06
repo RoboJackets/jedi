@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Services\Grouper;
-use Exception;
 use Illuminate\Support\Facades\Log;
 
 class SyncGrouper extends SyncJob
@@ -49,12 +48,12 @@ class SyncGrouper extends SyncJob
         $desiredGroups = $allGroups->filter(static fn (object $group): bool => in_array($group->displayExtension, $userTeams, true));
 
         foreach ($allGroups as $group) {
-            if ($this->is_access_active && $desiredGroups->contains($group) && !in_array($group->name, $userGroupFullNames)) {
+            if ($this->is_access_active && $desiredGroups->contains($group) && ! in_array($group->name, $userGroupFullNames)) {
                 // User should be, but is not currently, in the group
                 $this->debug('Adding user to group '.$group->name);
                 Grouper::addUserToGroup($group->displayExtension, $this->username);
                 $this->info('Added user to group '.$group->name);
-            } else if ($this->is_access_active && $desiredGroups->contains($group)) {
+            } elseif ($this->is_access_active && $desiredGroups->contains($group)) {
                 // User should be, and is currently, in the group. No action required.
                 $this->debug('User is already a member of group '.$group->name);
                 continue;
