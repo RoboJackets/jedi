@@ -1,4 +1,4 @@
-# jedi
+# JEDI
 
 JEDI is a service that synchronizes member information from [Apiary](https://github.com/RoboJackets/apiary) to other RoboJackets services. This enables new members to quickly and easily get access to the services they need to participate in RoboJackets, and automatically removes access from people who are no longer participating.
 
