@@ -6,6 +6,12 @@ It operates completely transparently to the general membership, and most members
 
 Most changes are applied within 5 seconds of the change being saved in Apiary.
 
+## Local development
+
+A `Dockerfile` and `docker-compose.yml` file are included in this repository. Both are designed for use on Linux hosts; you may need to make adjustments to run on macOS or Windows.
+
+The `Dockerfile` is intended for production release but can also be used for local development. Run `docker compose up --build` to build and start the container. A Sanctum token will be printed during container startup. If you make code changes, you will need to stop any existing containers and run `docker compose up --build` again to rebuild and restart it.
+
 ## Supported applications and services
 
 The following external services can receive updates from JEDI.
