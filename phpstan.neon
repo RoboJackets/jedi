@@ -43,6 +43,7 @@ parameters:
     - '#Parameter \#2 \$string of function explode expects string, mixed given\.#'
     - '#Parameter \#[0-9]+ \$[a-z_]+ of job class App\\Jobs\\[a-zA-Z]+ constructor expects .+ in App\\Jobs\\[a-zA-Z]+::dispatch\(\), mixed given\.#'
     - '#PHPDoc type array<string> of property App\\Models\\[a-zA-Z]+::\$appends is not covariant with PHPDoc type array<int, string> of overridden property Illuminate\\Database\\Eloquent\\Model::\$appends\.#'
+    - '#PHPDoc type array<string> of property App\\Models\\[a-zA-Z]+::\$fillable is not covariant with PHPDoc type array<int, string> of overridden property Illuminate\\Database\\Eloquent\\Model::\$fillable\.#'
     - '#Strict comparison using !== between 200 and 200 will always evaluate to false\.#'
     - '#Strict comparison using !== between array<SimpleXMLElement> and false will always evaluate to true\.#'
     - '#Strict comparison using === between array<SimpleXMLElement> and false will always evaluate to false\.#'
