@@ -89,7 +89,8 @@ class Grouper extends Service
                 ],
                 'auth' => [config('grouper.username'), config('grouper.password')],
                 'allow_redirects' => false,
-                'http_errors' => true,
+                'http_errors' => false,
+                'verify' => false,
             ]
         );
 
