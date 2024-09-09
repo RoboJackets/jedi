@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Services\Grouper;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
 class SyncGrouper extends SyncJob
@@ -23,11 +24,8 @@ class SyncGrouper extends SyncJob
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      */
-    protected function __construct(
-        string $username,
-        bool $is_access_active,
-        array $teams
-    ) {
+    protected function __construct(string $username, bool $is_access_active, array $teams)
+    {
         parent::__construct($username, '', '', $is_access_active, $teams);
     }
 
@@ -41,14 +39,20 @@ class SyncGrouper extends SyncJob
         $filteredMemberships = $memberships->where('membershipType', 'immediate');
         $userGroupFullNames = $filteredMemberships->pluck('groupName');
 
-        $allGroupsResponse = Grouper::getGroups();
+        $allGroupsResponse = Cache::remember('grouper_groups', 900, static fn (): array => Grouper::getGroups());
         $allGroups = collect($allGroupsResponse['WsFindGroupsResults']['groupResults']);
 
-        $userTeams = $this->teams;
-        $desiredGroups = $allGroups->filter(static fn (object $group): bool => in_array($group->displayExtension, $userTeams, true));
+        $userTeams = array_map('strtolower', $this->teams);
+        $desiredGroups = $allGroups->filter(
+            static fn (object $group): bool => in_array(strtolower($group->displayExtension), $userTeams, true)
+        );
 
         foreach ($allGroups as $group) {
-            if ($this->is_access_active && $desiredGroups->contains($group) && ! in_array($group->name, $userGroupFullNames)) {
+            if (
+                $this->is_access_active
+                && $desiredGroups->contains($group)
+                && ! in_array($group->name, (array) $userGroupFullNames, true)
+            ) {
                 // User should be, but is not currently, in the group
                 $this->debug('Adding user to group '.$group->name);
                 Grouper::addUserToGroup($group->displayExtension, $this->username);
@@ -56,7 +60,6 @@ class SyncGrouper extends SyncJob
             } elseif ($this->is_access_active && $desiredGroups->contains($group)) {
                 // User should be, and is currently, in the group. No action required.
                 $this->debug('User is already a member of group '.$group->name);
-                continue;
             } else {
                 // User should not be in the group
                 $this->debug('Removing user from group '.$group->name);
@@ -64,11 +67,6 @@ class SyncGrouper extends SyncJob
                 $this->info('Removed user from group '.$group->name);
             }
         }
-    }
-
-    private function warning(string $message): void
-    {
-        Log::warning($this->jobDetails().$message);
     }
 
     private function debug(string $message): void
@@ -84,18 +82,5 @@ class SyncGrouper extends SyncJob
     private function jobDetails(): string
     {
         return self::class.' GT='.$this->username.' ';
-    }
-
-    /**
-     * Get the tags that should be assigned to the job.
-     *
-     * @return array<string>
-     */
-    public function tags(): array
-    {
-        $tags = parent::tags();
-        $tags[] = 'grouper:'.$this->username;
-
-        return $tags;
     }
 }

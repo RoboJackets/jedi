@@ -19,12 +19,12 @@ class Grouper extends Service
     public static function addUserToGroup(string $group_name, string $username): void
     {
         $response = self::client()->post(
-            'groups/'.config('grouper.folder_base_path').":$group_name/members",
+            'groups/'.config('grouper.folder_base_path').':'.$group_name.'/members',
             [
                 'json' => [
                     'WsRestAddMemberLiteRequest' => [
                         'subjectId' => $username,
-                        'groupName' => config('grouper.folder_base_path').":$group_name",
+                        'groupName' => config('grouper.folder_base_path').':'.$group_name,
                     ],
                 ],
             ]
@@ -35,7 +35,9 @@ class Grouper extends Service
     public static function removeUserFromGroup(string $group_name, string $username): void
     {
         $response = self::client()->post(
-            'groups/'.config('grouper.folder_base_path').":$group_name/members/sources/gted-accounts/subjectId/$username",
+            'groups/'.config(
+                'grouper.folder_base_path'
+            ).':'.$group_name.'/members/sources/gted-accounts/subjectId/'.$username,
             [
                 'json' => [
                     'WsRestDeleteMemberLiteRequest' => [],
@@ -47,7 +49,7 @@ class Grouper extends Service
 
     public static function getGroupMembershipsForUser(string $username): array
     {
-        $response = self::client()->get("subjects/$username/memberships");
+        $response = self::client()->get('subjects/'.$username.'/memberships');
 
         self::expectStatusCodes($response, 200);
 
@@ -81,7 +83,6 @@ class Grouper extends Service
     /**
      * Return a client configured for Grouper.
      *
-     * @phan-suppress PhanTypeMismatchReturnNullable
      */
     public static function client(): Client
     {
@@ -96,7 +97,7 @@ class Grouper extends Service
                     'pass' => config('grouper.password'),
                 ],
                 'allow_redirects' => false,
-                'http_errors' => false,
+                'http_errors' => true,
             ]
         );
 
