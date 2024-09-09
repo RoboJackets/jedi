@@ -21,6 +21,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'username',
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array<string,string>
