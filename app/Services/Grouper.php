@@ -82,7 +82,6 @@ class Grouper extends Service
 
     /**
      * Return a client configured for Grouper.
-     *
      */
     public static function client(): Client
     {
