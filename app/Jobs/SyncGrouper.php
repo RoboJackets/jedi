@@ -35,12 +35,14 @@ class SyncGrouper extends SyncJob
     public function handle(): void
     {
         $membershipResponse = Grouper::getGroupMembershipsForUser($this->username);
-        $memberships = collect($membershipResponse['WsGetMembershipsResults']['wsMemberships']);
+        $memberships = property_exists($membershipResponse->WsGetMembershipsResults, 'wsMemberships')
+            ? collect($membershipResponse->WsGetMembershipsResults->wsMemberships) :
+            Collection::empty();
         $filteredMemberships = $memberships->where('membershipType', 'immediate');
         $userGroupFullNames = $filteredMemberships->pluck('groupName');
 
-        $allGroupsResponse = Cache::remember('grouper_groups', 900, static fn (): array => Grouper::getGroups());
-        $allGroups = collect($allGroupsResponse['WsFindGroupsResults']['groupResults']);
+        $allGroupsResponse = Cache::remember('grouper_groups', 900, static fn (): object => Grouper::getGroups());
+        $allGroups = collect($allGroupsResponse->WsFindGroupsResults->groupResults);
 
         $userTeams = array_map('strtolower', $this->teams);
         $desiredGroups = $allGroups->filter(

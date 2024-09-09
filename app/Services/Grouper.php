@@ -39,29 +39,25 @@ class Grouper extends Service
                 'grouper.folder_base_path'
             ).':'.$group_name.'/members/sources/gted-accounts/subjectId/'.$username,
             [
-                'json' => [
-                    'WsRestDeleteMemberLiteRequest' => [],
-                ],
+                'json' => ['WsRestDeleteMemberLiteRequest' => new \stdClass()],
             ]
         );
         self::expectStatusCodes($response, 200);
     }
 
-    public static function getGroupMembershipsForUser(string $username): array
+    public static function getGroupMembershipsForUser(string $username): object
     {
         $response = self::client()->get('subjects/'.$username.'/memberships');
 
         self::expectStatusCodes($response, 200);
 
-        return self::decodeToArray($response);
+        return self::decodeToObject($response);
     }
 
     /**
      * Returns all groups in the RoboJackets Grouper hierarchy.
-     *
-     * @return array<object>
      */
-    public static function getGroups(): array
+    public static function getGroups(): object
     {
         $response = self::client()->post(
             'groups',
@@ -77,7 +73,7 @@ class Grouper extends Service
 
         self::expectStatusCodes($response, 200);
 
-        return self::decodeToArray($response);
+        return self::decodeToObject($response);
     }
 
     /**
