@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Jobs;
 
 use App\Services\Grouper;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
@@ -40,6 +41,7 @@ class SyncGrouper extends SyncJob
             Collection::empty();
         $filteredMemberships = $memberships->where('membershipType', 'immediate');
         $userGroupFullNames = $filteredMemberships->pluck('groupName');
+        $this->debug('User is a direct member of Grouper groups: '.implode(', ', $userGroupFullNames->toArray()));
 
         $allGroupsResponse = Cache::remember('grouper_groups', 900, static fn (): object => Grouper::getGroups());
         $allGroups = collect($allGroupsResponse->WsFindGroupsResults->groupResults);
@@ -50,23 +52,29 @@ class SyncGrouper extends SyncJob
         );
 
         foreach ($allGroups as $group) {
-            if (
-                $this->is_access_active
-                && $desiredGroups->contains($group)
-                && ! in_array($group->name, (array) $userGroupFullNames, true)
-            ) {
+            $this->debug('Processing '.$group->name);
+            $shouldBeGroupMember = $desiredGroups->contains($group);
+            $currentGroupMember = $userGroupFullNames->contains($group->name);
+
+            if ($this->is_access_active && $shouldBeGroupMember && ! $currentGroupMember) {
                 // User should be, but is not currently, in the group
                 $this->debug('Adding user to group '.$group->name);
                 Grouper::addUserToGroup($group->displayExtension, $this->username);
                 $this->info('Added user to group '.$group->name);
-            } elseif ($this->is_access_active && $desiredGroups->contains($group)) {
+            } elseif ($this->is_access_active && $shouldBeGroupMember) {
                 // User should be, and is currently, in the group. No action required.
-                $this->debug('User is already a member of group '.$group->name);
-            } else {
-                // User should not be in the group
+                $this->debug('User is already a direct member of group '.$group->name);
+            } elseif (
+                (! $this->is_access_active && $currentGroupMember) ||
+                ($this->is_access_active && ! $shouldBeGroupMember && $currentGroupMember)
+            ) {
+                // Remove the user, either because their access is inactive, or they otherwise shouldn't be a member
                 $this->debug('Removing user from group '.$group->name);
                 Grouper::removeUserFromGroup($group->displayExtension, $this->username);
                 $this->info('Removed user from group '.$group->name);
+            } elseif ($this->is_access_active && ! $shouldBeGroupMember && ! $currentGroupMember) {
+                // User is access active, but is not and should not be a member of the group
+                $this->debug('User is not a direct member of group '.$group->name);
             }
         }
     }
