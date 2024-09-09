@@ -87,10 +87,7 @@ class Grouper extends Service
                 'headers' => [
                     'User-Agent' => 'RoboJacketsJEDI/'.config('sentry.release'),
                 ],
-                'auth' => [
-                    'user' => config('grouper.username'),
-                    'pass' => config('grouper.password'),
-                ],
+                'auth' => [config('grouper.username'), config('grouper.password')],
                 'allow_redirects' => false,
                 'http_errors' => true,
             ]
