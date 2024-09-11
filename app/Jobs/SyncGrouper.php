@@ -44,7 +44,13 @@ class SyncGrouper extends SyncJob
         $this->debug('User is a direct member of Grouper groups: '.implode(', ', $userGroupFullNames->toArray()));
 
         $allGroupsResponse = Cache::remember('grouper_groups', 900, static fn (): object => Grouper::getGroups());
-        $allGroups = collect($allGroupsResponse->WsFindGroupsResults->groupResults);
+        $allGroups = collect($allGroupsResponse->WsFindGroupsResults->groupResults)->filter(
+            static fn (object $group): bool => ! in_array(
+                $group->displayExtension,
+                (array) config('grouper.manual_groups'),
+                true
+            )
+        );
 
         $userTeams = array_map('strtolower', $this->teams);
         $desiredGroups = $allGroups->filter(

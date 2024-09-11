@@ -8,4 +8,5 @@ return [
     'username' => env('GROUPER_USERNAME'),
     'password' => env('GROUPER_PASSWORD'),
     'folder_base_path' => env('GROUPER_FOLDER_BASE_PATH'),
+    'manual_groups' => explode(',', env('GROUPER_MANUAL_GROUPS', '')),
 ];
