@@ -89,8 +89,8 @@ class Grouper extends Service
                 ],
                 'auth' => [config('grouper.username'), config('grouper.password')],
                 'allow_redirects' => false,
-                'http_errors' => false,
-                'verify' => false,
+                'http_errors' => true,
+                'verify' => '/etc/ssl/certs/USERTrust_RSA_Certification_Authority.pem',
             ]
         );
 
