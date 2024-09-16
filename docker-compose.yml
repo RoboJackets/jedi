@@ -3,9 +3,9 @@ services:
   jedi:
     build:
       context: .
-      network: host
       target: backend-uncompressed
-    network_mode: host
+    ports:
+      - "8000:8000"
     environment:
       APP_NAME: JEDI Local
       APP_ENV: local
@@ -31,4 +31,4 @@ services:
       touch $${DB_DATABASE} &&
       php artisan migrate --no-interaction &&
       php artisan tinker --no-interaction --verbose --execute \"\\App\\Models\\User::upsert(['username' => 'ltesting3', 'admin' => true], uniqueBy: ['username'], update: ['admin']); echo \\App\\Models\\User::where('username', '=', 'ltesting3')->sole()->createToken('local testing')->plainTextToken;\" &&
-      exec php artisan serve"
+      exec php artisan serve --host=0.0.0.0"
