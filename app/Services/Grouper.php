@@ -78,6 +78,9 @@ class Grouper extends Service
 
     /**
      * Return a client configured for Grouper.
+     *
+     * The load balancer in front of Grouper isn't sending a complete (or correct) certificate chain
+     * as of 2024/09/15, so we have to manually specify the intermediate certificate from InCommon.
      */
     public static function client(): Client
     {
@@ -90,7 +93,7 @@ class Grouper extends Service
                 'auth' => [config('grouper.username'), config('grouper.password')],
                 'allow_redirects' => false,
                 'http_errors' => true,
-                'verify' => '/etc/ssl/certs/USERTrust_RSA_Certification_Authority.pem',
+                'verify' => '/app/storage/certs/InCommon_RSA_Server_CA_2.cer',
             ]
         );
 
