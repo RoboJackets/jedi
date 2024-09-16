@@ -25,7 +25,7 @@ RUN set -eux && \
     apt-get update && \
     apt-get upgrade -qq --assume-yes && \
     apt-get install -qq --assume-yes \
-        php8.3-fpm php8.3-mysql php8.3-xml unzip libfcgi-bin php8.3-curl php8.3-mbstring php8.3-intl php8.3-redis php8.3-uuid php8.3-gmp php8.3-sqlite zopfli && \
+        php8.3-fpm php8.3-mysql php8.3-xml unzip libfcgi-bin php8.3-curl php8.3-mbstring php8.3-intl php8.3-redis php8.3-uuid php8.3-gmp php8.3-sqlite zopfli default-mysql-client && \
     apt-get autoremove -qq --assume-yes && \
     mkdir /app && \
     chown www-data:www-data /app && \
