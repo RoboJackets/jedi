@@ -26,6 +26,7 @@ services:
       CAS_LOGOUT_URL: http://127.0.0.1:8000
       SCOUT_DRIVER: collection
       MAIL_MAILER: log
+      SLACK_ENDPOINT:
     command: >-
       /bin/sh -euxc "export APP_KEY=$$(php artisan key:generate --show --verbose) &&
       touch $${DB_DATABASE} &&
