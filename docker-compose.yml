@@ -18,7 +18,7 @@ services:
       BROADCAST_CONNECTION: log
       CACHE_STORE: array
       SESSION_DRIVER: file
-      QUEUE_DRIVER: sync
+      QUEUE_CONNECTION: sync
       CAS_MASQUERADE: ltesting3
       CAS_HOSTNAME: sso-test.gatech.edu
       CAS_REAL_HOSTS: sso-test.gatech.edu
