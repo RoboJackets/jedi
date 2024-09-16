@@ -3,9 +3,9 @@ services:
   jedi:
     build:
       context: .
-      network: host
       target: backend-uncompressed
-    network_mode: host
+    ports:
+      - "8000:8000"
     environment:
       APP_NAME: JEDI Local
       APP_ENV: local
@@ -18,7 +18,7 @@ services:
       BROADCAST_CONNECTION: log
       CACHE_STORE: array
       SESSION_DRIVER: file
-      QUEUE_DRIVER: sync
+      QUEUE_CONNECTION: sync
       CAS_MASQUERADE: ltesting3
       CAS_HOSTNAME: sso-test.gatech.edu
       CAS_REAL_HOSTS: sso-test.gatech.edu
@@ -26,9 +26,10 @@ services:
       CAS_LOGOUT_URL: http://127.0.0.1:8000
       SCOUT_DRIVER: collection
       MAIL_MAILER: log
+      SLACK_ENDPOINT:
     command: >-
       /bin/sh -euxc "export APP_KEY=$$(php artisan key:generate --show --verbose) &&
       touch $${DB_DATABASE} &&
       php artisan migrate --no-interaction &&
       php artisan tinker --no-interaction --verbose --execute \"\\App\\Models\\User::upsert(['username' => 'ltesting3', 'admin' => true], uniqueBy: ['username'], update: ['admin']); echo \\App\\Models\\User::where('username', '=', 'ltesting3')->sole()->createToken('local testing')->plainTextToken;\" &&
-      exec php artisan serve"
+      exec php artisan serve --host=0.0.0.0"

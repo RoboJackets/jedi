@@ -182,6 +182,7 @@ return [
                     'sums',
                     'wordpress',
                     'keycloak',
+                    'grouper',
                 ],
                 'balance' => 'simple',
                 'processes' => 1,

@@ -8,7 +8,7 @@ parameters:
     - '#Access to an undefined property object::\$[a-zA-Z_]+\.#'
     - '#Anonymous function should return string but returns mixed\.#'
     - '#Argument of an invalid type mixed supplied for foreach, only iterables are supported\.#'
-    - '#Cannot access offset ''[a-z_]+'' on mixed\.#'
+    - '#Cannot access offset ''[A-Za-z_]+'' on mixed\.#'
     - '#Cannot access offset ''project_manager_of…'' on mixed\.#'
     - '#Cannot access property \$[a-z_]+ on App\\Models\\User\|null\.#'
     - '#Cannot access property \$[a-zA-Z]+ on mixed\.#'

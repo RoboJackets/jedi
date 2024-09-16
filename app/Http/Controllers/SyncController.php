@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Jobs\SyncClickUp;
 use App\Jobs\SyncGitHub;
 use App\Jobs\SyncGoogleGroups;
+use App\Jobs\SyncGrouper;
 use App\Jobs\SyncKeycloak;
 use App\Jobs\SyncNextcloud;
 use App\Jobs\SyncSUMS;
@@ -164,6 +165,10 @@ class SyncController extends Controller
                 $request->teams,
                 $request->google_account
             );
+        }
+
+        if (config('grouper.enabled') === true) {
+            SyncGrouper::dispatch($request->username, $request->is_access_active, $request->teams);
         }
 
         return response()->json('queued', 202);
