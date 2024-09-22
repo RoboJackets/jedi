@@ -20,7 +20,7 @@
         "google/apiclient": "2.17.0",
         "guzzlehttp/guzzle": "7.9.2",
         "htmlmin/htmlmin": "dev-master",
-        "kelvinmo/simplejwt": "0.9.1",
+        "kelvinmo/simplejwt": "0.9.2",
         "laravel/framework": "11.23.5",
         "laravel/horizon": "5.28.1",
         "laravel/pint": "1.17.3",
