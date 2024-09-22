@@ -41,6 +41,14 @@
             "enabled": true
         }
     },
+    "docker-compose": {
+        "enabled": false
+    },
+    "github-actions": {
+        "major": {
+            "enabled": true
+        }
+    },
     "lockFileMaintenance": {
         "enabled": true,
         "schedule": ["before 4pm on Wednesday except before 9am on Wednesday"]
