@@ -24,7 +24,7 @@ class ClickUp extends Service
 
     public static function resendInvitationToUser(int $clickup_id): void
     {
-        self::client()->put(
+        $response = self::client()->put(
             'invite',
             [
                 'json' => [
@@ -32,11 +32,23 @@ class ClickUp extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
     }
 
     public static function getUserById(int $clickup_id): ?object
     {
         $response = self::client()->get('profile/'.$clickup_id);
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
 
         if ($response->getStatusCode() === 404) {
             return null;
@@ -61,6 +73,12 @@ class ClickUp extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
 
         self::expectStatusCodes($response, 200);
     }
@@ -116,6 +134,12 @@ class ClickUp extends Service
             ]
         );
 
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 200);
         self::decodeToObject($response);
     }
@@ -134,6 +158,12 @@ class ClickUp extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('clickup_jwt');
+
+            throw new DownstreamServiceProblem('ClickUp returned 401, flushing token from cache');
+        }
 
         self::expectStatusCodes($response, 200);
         self::decodeToObject($response);

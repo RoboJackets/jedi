@@ -17,6 +17,11 @@ class SyncClickUp extends SyncJob
     public $queue = 'clickup';
 
     /**
+     * The number of times the job may be attempted.
+     */
+    public int $tries = 2;
+
+    /**
      * Create a new job instance.
      *
      * @param  string  $username  The user's GT username

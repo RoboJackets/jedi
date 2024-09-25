@@ -30,6 +30,13 @@ class GitHub extends Service
         $response = self::client()->delete(
             '/orgs/'.config('github.organization').'/memberships/'.$username
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 204);
     }
 
@@ -38,6 +45,13 @@ class GitHub extends Service
         $response = self::client()->put(
             '/organizations/'.config('github.organization_id').'/team/'.$team_id.'/memberships/'.$username
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 200);
     }
 
@@ -54,6 +68,13 @@ class GitHub extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 200);
     }
 
@@ -69,6 +90,12 @@ class GitHub extends Service
             $response = self::client()->get(
                 '/organizations/'.config('github.organization_id').'/team/'.$team_id.'/memberships/'.$username
             );
+
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
 
             self::expectStatusCodes($response, 200, 404);
             $membership = self::decodeToObject($response);
@@ -93,6 +120,12 @@ class GitHub extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
 
         self::expectStatusCodes($response, 200, 304, 404);
 
@@ -140,6 +173,12 @@ class GitHub extends Service
             ]
         );
 
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 201);
     }
 
@@ -159,6 +198,12 @@ class GitHub extends Service
         if ($teams === null) {
             $response = self::client()->get('/orgs/'.config('github.organization').'/teams');
 
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
+
             self::expectStatusCodes($response, 200);
             $teams = self::decodeToArray($response);
 
@@ -175,6 +220,12 @@ class GitHub extends Service
                     ],
                 ]
             );
+
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
 
             self::expectStatusCodes($response, 200, 304);
 
@@ -202,6 +253,12 @@ class GitHub extends Service
         if ($user === null) {
             $response = self::client()->get('/users/'.$username);
 
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
+
             self::expectStatusCodes($response, 200, 404);
 
             if ($response->getStatusCode() === 404) {
@@ -228,6 +285,12 @@ class GitHub extends Service
                     ],
                 ]
             );
+
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
 
             self::expectStatusCodes($response, 200, 304);
 
@@ -257,6 +320,12 @@ class GitHub extends Service
                 '/orgs/'.config('github.organization').'/memberships/'.$username
             );
 
+            if ($response->getStatusCode() === 401) {
+                Cache::forget('github_installation_token');
+
+                throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+            }
+
             self::expectStatusCodes($response, 200, 404);
 
             $membership = self::decodeToObject($response);
@@ -281,6 +350,12 @@ class GitHub extends Service
                 ],
             ]
         );
+
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
 
         self::expectStatusCodes($response, 200, 304, 404);
 
