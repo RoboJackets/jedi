@@ -4,6 +4,8 @@ services:
     build:
       context: .
       target: backend-uncompressed
+      secrets:
+        - composer_auth
     ports:
       - "8000:8000"
     environment:
@@ -33,3 +35,7 @@ services:
       php artisan migrate --no-interaction &&
       php artisan tinker --no-interaction --verbose --execute \"\\App\\Models\\User::upsert(['username' => 'ltesting3', 'admin' => true], uniqueBy: ['username'], update: ['admin']); echo \\App\\Models\\User::where('username', '=', 'ltesting3')->sole()->createToken('local testing')->plainTextToken;\" &&
       exec php artisan serve --host=0.0.0.0"
+
+secrets:
+  composer_auth:
+    file: ~/.config/composer/auth.json

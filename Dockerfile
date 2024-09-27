@@ -49,7 +49,7 @@ WORKDIR /app/
 
 USER www-data
 
-RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,required=false \
+RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,required=true \
     set -eux && \
     composer check-platform-reqs --lock --no-dev && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
