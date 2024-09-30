@@ -386,6 +386,12 @@ class GitHub extends Service
     {
         $response = self::client()->get('/rate_limit');
 
+        if ($response->getStatusCode() === 401) {
+            Cache::forget('github_installation_token');
+
+            throw new DownstreamServiceProblem('GitHub returned 401, flushing token from cache');
+        }
+
         self::expectStatusCodes($response, 200);
 
         return intval($response->getHeader('X-RateLimit-Remaining')[0]);
