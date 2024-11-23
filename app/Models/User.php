@@ -9,6 +9,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    /**
+     * Users can have Sanctum API tokens.
+     *
+     * @uses \Laravel\Sanctum\HasApiTokens<\Laravel\Sanctum\PersonalAccessToken>
+     */
     use HasApiTokens;
 
     /**
