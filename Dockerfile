@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.11
 
-FROM scratch as backend-source
+FROM scratch AS backend-source
 
 COPY --link app/ /app/app/
 COPY --link bootstrap/ /app/bootstrap/
@@ -13,7 +13,7 @@ COPY --link routes/ /app/routes/
 COPY --link storage/ /app/storage/
 COPY --link artisan composer.json composer.lock /app/
 
-FROM ubuntu:noble as backend-uncompressed
+FROM ubuntu:noble AS backend-uncompressed
 
 LABEL maintainer="developers@robojackets.org"
 
@@ -60,7 +60,7 @@ RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,requir
 
 # This target is the default, but skipped during pull request builds and in our recommended local build invocation
 # precompressed_assets var on the Nomad job must match whether this stage ran or not
-FROM backend-uncompressed as backend-compressed
+FROM backend-uncompressed AS backend-compressed
 
 RUN set -eux && \
     cd /app/public/ && \
