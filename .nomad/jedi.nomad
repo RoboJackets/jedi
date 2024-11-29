@@ -65,6 +65,10 @@ job "jedi" {
   type = "service"
 
   group "jedi" {
+    network {
+      port "resp" {}
+    }
+
     volume "run" {
       type = "host"
       source = "run"
