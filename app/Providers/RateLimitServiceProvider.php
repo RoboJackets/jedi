@@ -28,7 +28,7 @@ class RateLimitServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('google-groups', static fn (SyncGoogleGroups $job): Limit => Limit::perSecond(3, 10));
-        RateLimiter::for('github', static fn (SyncGitHub $job): Limit => Limit::perSecond(10, 5));
+        RateLimiter::for('google-groups', static fn (SyncGoogleGroups $job): Limit => Limit::perSecond(3, 20));
+        RateLimiter::for('github', static fn (SyncGitHub $job): Limit => Limit::perSecond(10, 20));
     }
 }
