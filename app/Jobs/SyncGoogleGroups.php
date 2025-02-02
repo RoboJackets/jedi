@@ -13,10 +13,10 @@ use Google\Service\Exception as Google_Service_Exception;
 use Google_Client;
 use Google_Service_Directory;
 use Google_Service_Directory_Member;
-use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
+use Spatie\RateLimitedMiddleware\RateLimited;
 
 class SyncGoogleGroups extends SyncJob
 {
@@ -182,7 +182,11 @@ class SyncGoogleGroups extends SyncJob
     public function middleware(): array
     {
         return [
-            new RateLimited('google-groups'),
+            (new RateLimited())
+                ->allow(2)
+                ->everySecond()
+                ->releaseAfterSeconds(30)
+                ->releaseAfterBackoff($this->attempts(), 3),
         ];
     }
 }

@@ -31,6 +31,7 @@
         "sentry/sentry-laravel": "4.10.0",
         "spatie/laravel-failed-job-monitor": "4.3.2",
         "spatie/laravel-github-webhooks": "1.2.3",
+        "spatie/laravel-rate-limited-job-middleware": "^2.7",
         "subfission/cas": "^5.0"
     },
     "require-dev": {

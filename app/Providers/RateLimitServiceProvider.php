@@ -7,10 +7,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Jobs\SyncGitHub;
-use App\Jobs\SyncGoogleGroups;
-use Illuminate\Cache\RateLimiting\Limit;
-use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class RateLimitServiceProvider extends ServiceProvider
@@ -28,7 +24,6 @@ class RateLimitServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        RateLimiter::for('google-groups', static fn (SyncGoogleGroups $job): Limit => Limit::perSecond(3, 20));
-        RateLimiter::for('github', static fn (SyncGitHub $job): Limit => Limit::perSecond(10, 20));
+        // nothing to do here
     }
 }

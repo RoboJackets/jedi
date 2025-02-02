@@ -6,8 +6,8 @@ namespace App\Jobs;
 
 use App\Services\GitHub;
 use Exception;
-use Illuminate\Queue\Middleware\RateLimited;
 use Illuminate\Support\Facades\Log;
+use Spatie\RateLimitedMiddleware\RateLimited;
 
 class SyncGitHub extends SyncJob
 {
@@ -21,7 +21,7 @@ class SyncGitHub extends SyncJob
     /**
      * The number of times the job may be attempted.
      */
-    public int $tries = 10;
+    public int $tries = 5;
 
     /**
      * Create a new job instance.
@@ -222,7 +222,11 @@ class SyncGitHub extends SyncJob
     public function middleware(): array
     {
         return [
-            new RateLimited('github'),
+            (new RateLimited())
+                ->allow(5)
+                ->everySecond()
+                ->releaseAfterSeconds(30)
+                ->releaseAfterBackoff($this->attempts(), 3),
         ];
     }
 }
