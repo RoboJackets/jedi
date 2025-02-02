@@ -21,7 +21,7 @@ class SyncGitHub extends SyncJob
     /**
      * The number of times the job may be attempted.
      */
-    public int $tries = 2;
+    public int $tries = 5;
 
     /**
      * Create a new job instance.
