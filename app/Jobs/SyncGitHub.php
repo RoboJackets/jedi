@@ -223,7 +223,7 @@ class SyncGitHub extends SyncJob
     {
         return [
             (new RateLimited())
-                ->allow(5)
+                ->allow(10)
                 ->everySecond()
                 ->releaseAfterSeconds(30)
                 ->releaseAfterBackoff($this->attempts(), 3),

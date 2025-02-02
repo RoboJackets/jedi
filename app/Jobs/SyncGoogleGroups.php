@@ -183,10 +183,10 @@ class SyncGoogleGroups extends SyncJob
     {
         return [
             (new RateLimited())
-                ->allow(2)
+                ->allow(1)
                 ->everySecond()
                 ->releaseAfterSeconds(30)
-                ->releaseAfterBackoff($this->attempts(), 3),
+                ->releaseAfterBackoff($this->attempts(), 4),
         ];
     }
 }
