@@ -52,7 +52,7 @@ class SyncGoogleGroups extends SyncJob
     /**
      * Execute the job.
      *
-     * @phan-suppress PhanPartialTypeMismatchArgument
+     * @phan-suppress PhanTypeMismatchArgument
      * @phan-suppress PhanUndeclaredClassProperty
      */
     public function handle(): void
@@ -138,7 +138,7 @@ class SyncGoogleGroups extends SyncJob
 
         return $teams->filter(
             static fn (object $team): bool => $team->google_group !== null
-                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
+                // @phan-suppress-next-line PhanTypeMismatchArgumentInternal
                 && ! in_array($team->google_group, config('google.manual_groups'), true)
         )->mapWithKeys(
             static fn (object $team): array => [$team->name => $team->google_group]

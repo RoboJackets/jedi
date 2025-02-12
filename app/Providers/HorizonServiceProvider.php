@@ -20,6 +20,7 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
         parent::boot();
 
         if (config('horizon.master_supervisor_name') !== null) {
+            // @phan-suppress-next-line PhanTypeMismatchReturn
             MasterSupervisor::determineNameUsing(static fn (): string => config('horizon.master_supervisor_name'));
         }
     }
@@ -36,10 +37,11 @@ class HorizonServiceProvider extends HorizonApplicationServiceProvider
 
     /**
      * Register any application services.
+     *
+     * @phan-suppress PhanTypeMismatchArgument
      */
     public function register(): void
     {
-        // @phan-suppress-next-line PhanPartialTypeMismatchArgument
         Horizon::routeSlackNotificationsTo(config('slack.endpoint'));
     }
 }
