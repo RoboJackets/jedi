@@ -38,8 +38,6 @@ class SyncKeycloak extends SyncJob
 
     /**
      * Execute the job.
-     *
-     * @phan-suppress PhanTypeSuspiciousStringExpression
      */
     public function handle(): void
     {

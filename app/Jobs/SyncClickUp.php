@@ -61,7 +61,7 @@ class SyncClickUp extends SyncJob
             }
 
             foreach ($this->teams as $team) {
-                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
+                // @phan-suppress-next-line PhanTypeMismatchArgumentInternal
                 if (! array_key_exists($team, config('clickup.teams_to_spaces'))) {
                     continue;
                 }

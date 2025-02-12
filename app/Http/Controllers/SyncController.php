@@ -70,7 +70,7 @@ class SyncController extends Controller
                     $lastRequest['clickup_id'] === $request->clickup_id;
 
             if ($same) {
-                // @phan-suppress-next-line PhanPartialTypeMismatchArgumentInternal
+                // @phan-suppress-next-line PhanTypeMismatchArgumentInternal
                 if (! in_array($request->model_event, config('apiary.whitelisted_events'), true)) {
                     Log::info(
                         self::class.': Not syncing '.$request->username.' as it is a duplicate of last seen event'
