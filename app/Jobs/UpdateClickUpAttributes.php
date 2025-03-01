@@ -23,6 +23,7 @@ class UpdateClickUpAttributes extends ApiaryJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         Apiary::setAttributes(
@@ -41,6 +42,7 @@ class UpdateClickUpAttributes extends ApiaryJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         return [

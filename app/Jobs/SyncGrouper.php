@@ -33,6 +33,7 @@ class SyncGrouper extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         $membershipResponse = Grouper::getGroupMembershipsForUser($this->username);

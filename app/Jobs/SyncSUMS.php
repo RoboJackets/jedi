@@ -42,6 +42,7 @@ class SyncSUMS extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         if (

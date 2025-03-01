@@ -12,6 +12,7 @@ class UpdateExistsInSUMSFlag extends ApiaryJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         Apiary::setFlag($this->username, 'exists_in_sums', true);

@@ -21,6 +21,7 @@ class Keycloak extends Service
      *
      * @phan-suppress PhanTypeMismatchReturnNullable
      */
+    #[\Override]
     public static function client(): Client
     {
         if (self::$client !== null && Cache::get('keycloak_access_token') !== null) {

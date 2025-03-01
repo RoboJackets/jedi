@@ -23,6 +23,7 @@ class SyncNextcloud extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         $client = new Client(

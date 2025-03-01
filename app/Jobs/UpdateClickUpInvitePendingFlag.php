@@ -20,6 +20,7 @@ class UpdateClickUpInvitePendingFlag extends ApiaryJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         Apiary::setFlag($this->username, 'clickup_invite_pending', $this->clickup_invite_pending);
@@ -32,6 +33,7 @@ class UpdateClickUpInvitePendingFlag extends ApiaryJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         return [

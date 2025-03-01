@@ -45,6 +45,7 @@ class SyncGitHub extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         if (GitHub::getRateLimitRemaining() < 10) {
@@ -206,6 +207,7 @@ class SyncGitHub extends SyncJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         $tags = parent::tags();

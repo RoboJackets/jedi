@@ -88,6 +88,7 @@ class SUMS extends Service
      *
      * @phan-suppress PhanTypeMismatchReturnNullable
      */
+    #[\Override]
     public static function client(): Client
     {
         if (self::$client !== null) {

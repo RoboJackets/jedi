@@ -39,6 +39,7 @@ class SyncKeycloak extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         $cached_user_id = Cache::get('keycloak_user_id_'.$this->username);
