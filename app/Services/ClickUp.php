@@ -15,7 +15,7 @@ use SimpleJWT\JWT;
 
 class ClickUp extends Service
 {
-    private const ALMOST_TWO_WEEKS = (7 * 24 * 60 * 60) - 60;
+    private const int ALMOST_TWO_WEEKS = (7 * 24 * 60 * 60) - 60;
 
     /**
      * A Guzzle client configured for ClickUp.

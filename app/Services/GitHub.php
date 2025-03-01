@@ -18,7 +18,7 @@ use SimpleJWT\Keys\RSAKey;
 
 class GitHub extends Service
 {
-    private const FIFTY_NINE_MINUTES = 59 * 60;
+    private const int FIFTY_NINE_MINUTES = 59 * 60;
 
     /**
      * A Guzzle client configured for GitHub.
