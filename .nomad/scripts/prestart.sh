@@ -12,7 +12,6 @@ then
     export SKIP_HTTP_CHECKS=true
 fi
 php artisan config:cache --no-interaction --verbose
-php artisan enlightn --details --show-exceptions --no-interaction --verbose
 
 mkdir --parents /assets/${NOMAD_JOB_NAME}/
 cp --recursive --verbose public/* /assets/${NOMAD_JOB_NAME}/

@@ -137,10 +137,6 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/laravel-shift/enlightn.git"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/laravel-shift/larastan.git"
         },
         {
