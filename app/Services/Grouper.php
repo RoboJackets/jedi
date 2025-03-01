@@ -82,6 +82,7 @@ class Grouper extends Service
      * The load balancer in front of Grouper isn't sending a complete (or correct) certificate chain
      * as of 2024/09/15, so we have to manually specify the intermediate certificate from InCommon.
      */
+    #[\Override]
     public static function client(): Client
     {
         self::$client = new Client(

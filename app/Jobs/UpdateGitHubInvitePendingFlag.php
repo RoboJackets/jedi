@@ -20,6 +20,7 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         Apiary::setFlag($this->username, 'github_invite_pending', $this->github_invite_pending);
@@ -32,6 +33,7 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         return [

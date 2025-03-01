@@ -402,6 +402,7 @@ class GitHub extends Service
      *
      * @phan-suppress PhanTypeMismatchReturnNullable
      */
+    #[\Override]
     public static function client(): Client
     {
         if (self::$client !== null && Cache::get('github_installation_token') !== null) {

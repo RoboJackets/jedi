@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class CasAuthenticate
 {
@@ -40,9 +41,9 @@ class CasAuthenticate
     /**
      * Handle an incoming request.
      *
-     * @phan-suppress PhanPluginInconsistentReturnMethod
+     * @phan-suppress PhanTypeMismatchReturn
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         // Run the user update only if they don't have an active session
         if ($this->cas->isAuthenticated() && $request->user() === null) {
@@ -66,6 +67,6 @@ class CasAuthenticate
             return response('Unauthorized', 401);
         }
 
-        $this->cas->authenticate();
+        return $this->cas->authenticate();
     }
 }

@@ -55,6 +55,7 @@ class SyncGoogleGroups extends SyncJob
      * @phan-suppress PhanTypeMismatchArgument
      * @phan-suppress PhanUndeclaredClassProperty
      */
+    #[\Override]
     public function handle(): void
     {
         $client = new Google_Client();
@@ -165,6 +166,7 @@ class SyncGoogleGroups extends SyncJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         return [

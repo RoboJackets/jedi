@@ -10,6 +10,7 @@ use Spatie\FailedJobMonitor\Notification;
 
 class JobFailureNotification extends Notification
 {
+    #[\Override]
     public function toSlack(): SlackMessage
     {
         $job_name_parts = explode('\\', $this->event->job->resolveName());

@@ -4,6 +4,7 @@
 /public/css/app.css
 /public/js/app.js
 /storage/*.key
+/storage/pail
 /resources/views/vendor/
 /public/vendor/
 /vendor
@@ -18,3 +19,4 @@ GPATH
 GRTAGS
 GTAGS
 /.idea/
+/.nova

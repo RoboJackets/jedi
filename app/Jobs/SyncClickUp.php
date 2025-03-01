@@ -45,6 +45,7 @@ class SyncClickUp extends SyncJob
     /**
      * Execute the job.
      */
+    #[\Override]
     public function handle(): void
     {
         if ($this->is_access_active) {

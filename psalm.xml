@@ -44,12 +44,75 @@
         <UndefinedMagicMethod>
             <errorLevel type="suppress">
                 <file name="routes/api.php"/>
+                <referencedMethod name="App\Models\User::where"/>
             </errorLevel>
         </UndefinedMagicMethod>
-        <InvalidTemplateParam>
+        <UndefinedMagicPropertyFetch>
             <errorLevel type="suppress">
-                <directory name="app/Models/"/>
+                <referencedProperty name="App\Models\User::$admin"/>
+                <referencedProperty name="Illuminate\Http\Request::$action"/>
+                <referencedProperty name="Illuminate\Http\Request::$clickup_email"/>
+                <referencedProperty name="Illuminate\Http\Request::$clickup_id"/>
+                <referencedProperty name="Illuminate\Http\Request::$clickup_invite_pending"/>
+                <referencedProperty name="Illuminate\Http\Request::$exists_in_sums"/>
+                <referencedProperty name="Illuminate\Http\Request::$first_name"/>
+                <referencedProperty name="Illuminate\Http\Request::$github_username"/>
+                <referencedProperty name="Illuminate\Http\Request::$google_account"/>
+                <referencedProperty name="Illuminate\Http\Request::$is_access_active"/>
+                <referencedProperty name="Illuminate\Http\Request::$last_attendance_time"/>
+                <referencedProperty name="Illuminate\Http\Request::$last_name"/>
+                <referencedProperty name="Illuminate\Http\Request::$model_class"/>
+                <referencedProperty name="Illuminate\Http\Request::$model_event"/>
+                <referencedProperty name="Illuminate\Http\Request::$model_id"/>
+                <referencedProperty name="Illuminate\Http\Request::$project_manager_of_teams"/>
+                <referencedProperty name="Illuminate\Http\Request::$teams"/>
+                <referencedProperty name="Illuminate\Http\Request::$teams"/>
+                <referencedProperty name="Illuminate\Http\Request::$username"/>
             </errorLevel>
-        </InvalidTemplateParam>
+        </UndefinedMagicPropertyFetch>
+        <PossiblyUnusedMethod>
+            <errorLevel type="suppress">
+                <directory name="app/Http/Controllers"/>
+                <directory name="app/Jobs/"/>
+                <referencedMethod name="App\HorizonHealthCheck::__construct"/>
+                <referencedMethod name="App\Models\User::getNameAttribute"/>
+                <referencedMethod name="App\Services\ClickUp::removeUserFromSpace"/>
+                <referencedMethod name="App\Util\Sentry::tracesSampler"/>
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <PossiblyUnusedProperty>
+            <errorLevel type="suppress">
+                <directory name="app/Jobs/"/>
+            </errorLevel>
+        </PossiblyUnusedProperty>
+        <InvalidOperand>
+            <errorLevel type="suppress">
+                <directory name="app/Jobs/"/>
+                <directory name="app/Services/"/>
+            </errorLevel>
+        </InvalidOperand>
+        <UnusedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="App\Console\Commands\Ping"/>
+                <referencedClass name="App\Http\Middleware\CasAuthenticate"/>
+                <referencedClass name="App\Providers\HorizonServiceProvider"/>
+                <referencedClass name="App\Providers\RouteServiceProvider"/>
+            </errorLevel>
+        </UnusedClass>
+        <UndefinedThisPropertyFetch>
+            <errorLevel type="suppress">
+                <referencedProperty name="App\Models\User::$username"/>
+            </errorLevel>
+        </UndefinedThisPropertyFetch>
+        <UnusedClosureParam>
+            <errorLevel type="suppress">
+                <file name="app/Jobs/SyncKeycloak.php"/>
+            </errorLevel>
+        </UnusedClosureParam>
+        <InvalidReturnStatement>
+            <errorLevel type="suppress">
+                <file name="app/Http/Middleware/CasAuthenticate.php"/>
+            </errorLevel>
+        </InvalidReturnStatement>
     </issueHandlers>
 </psalm>

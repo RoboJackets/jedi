@@ -30,6 +30,7 @@ class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
      *
      * @phan-suppress PhanTypeArraySuspiciousNullable
      */
+    #[\Override]
     public function handle(): void
     {
         // Parse webhook body
