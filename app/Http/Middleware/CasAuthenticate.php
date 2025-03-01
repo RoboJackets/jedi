@@ -40,6 +40,8 @@ class CasAuthenticate
 
     /**
      * Handle an incoming request.
+     *
+     * @phan-suppress PhanTypeMismatchReturn
      */
     public function handle(Request $request, Closure $next): Response
     {
