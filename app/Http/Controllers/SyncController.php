@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 
 class SyncController
 {
-    private const ONE_DAY = 24 * 60 * 60;
+    private const int ONE_DAY = 24 * 60 * 60;
 
     public function sync(Request $request): JsonResponse
     {

@@ -8,13 +8,13 @@ use GuzzleHttp\Client;
 
 class SUMS extends Service
 {
-    public const MEMBER_EXISTS = 'BG member already exists';
+    public const string MEMBER_EXISTS = 'BG member already exists';
 
-    public const MEMBER_NOT_EXISTS = 'BG member does not exist';
+    public const string MEMBER_NOT_EXISTS = 'BG member does not exist';
 
-    public const SUCCESS = 'Success';
+    public const string SUCCESS = 'Success';
 
-    public const USER_NOT_FOUND = 'User not found';
+    public const string USER_NOT_FOUND = 'User not found';
 
     /**
      * A Guzzle client configured for SUMS.
