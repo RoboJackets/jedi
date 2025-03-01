@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 
-class SyncController extends Controller
+class SyncController
 {
     private const ONE_DAY = 24 * 60 * 60;
 

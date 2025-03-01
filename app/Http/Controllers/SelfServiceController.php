@@ -15,7 +15,7 @@ use App\Services\SUMS;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class SelfServiceController extends Controller
+class SelfServiceController
 {
     /**
      * Sync the currently logged in user with GitHub.
