@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-    <ruleset name="Apiary Ruleset" namespace="RoboJackets">
-    <description>Apiary ruleset</description>
+    <ruleset name="JEDI Ruleset" namespace="RoboJackets">
+    <description>JEDI ruleset</description>
 
     <config name="installed_paths" value="../../slevomat/coding-standard"/>
 
@@ -277,9 +277,8 @@
         <exclude-pattern>/stubs/</exclude-pattern>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.UnionTypeHintFormat">
+    <rule ref="SlevomatCodingStandard.TypeHints.DNFTypeHintFormat">
         <properties>
-            <property name="withSpaces" value="no"/>
             <property name="shortNullable" value="yes"/>
             <property name="nullPosition" value="last"/>
         </properties>
