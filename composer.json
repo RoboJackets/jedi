@@ -46,7 +46,7 @@
         "psalm/plugin-laravel": "3.0.1",
         "slevomat/coding-standard": "8.15.0",
         "spatie/laravel-ignition": "2.9.1",
-        "squizlabs/php_codesniffer": "3.9.1",
+        "squizlabs/php_codesniffer": "3.11.3",
         "laravel/pail": "1.2.2"
     },
     "replace": {
