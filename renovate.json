@@ -72,7 +72,23 @@
                     "before 4pm on Wednesday except before 9am on Wednesday"
                 ]
             },
-            "prPriority": 1,
+            "prPriority": 2,
+            "matchPackageNames": [
+                "/^spatie//"
+            ]
+        },
+        {
+            "matchCategories": [
+                "php"
+            ],
+            "rangeStrategy": "pin",
+            "lockFileMaintenance": {
+                "enabled": true,
+                "schedule": [
+                    "before 4pm on Wednesday except before 9am on Wednesday"
+                ]
+            },
+            "prPriority": 2,
             "matchPackageNames": [
                 "/^laravel//"
             ]
@@ -91,7 +107,7 @@
             "matchDepNames": [
                 "laravel/framework"
             ],
-            "prPriority": 2
+            "prPriority": 3
         },
         {
             "matchCategories": [
