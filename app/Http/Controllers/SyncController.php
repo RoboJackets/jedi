@@ -24,9 +24,7 @@ class SyncController extends Controller
 
     public function sync(Request $request): JsonResponse
     {
-        $this->validate(
-            $request,
-            [
+        $request->validate([
                 'username' => 'required|string|alpha_num',
                 'first_name' => 'required|string',
                 'last_name' => 'required|string',
@@ -45,8 +43,7 @@ class SyncController extends Controller
                 'clickup_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
                 'clickup_id' => 'present|integer|nullable',
                 'clickup_invite_pending' => 'required|boolean',
-            ]
-        );
+            ]);
 
         Log::info(
             self::class.': Request to sync '.$request->username.' caused by '.$request->model_event.' of '
