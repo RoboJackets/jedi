@@ -40,8 +40,6 @@ class CasAuthenticate
 
     /**
      * Handle an incoming request.
-     *
-     * @phan-suppress PhanPluginInconsistentReturnMethod
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -67,6 +65,6 @@ class CasAuthenticate
             return response('Unauthorized', 401);
         }
 
-        $this->cas->authenticate();
+        return $this->cas->authenticate();
     }
 }
