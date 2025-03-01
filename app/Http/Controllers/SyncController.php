@@ -25,25 +25,25 @@ class SyncController extends Controller
     public function sync(Request $request): JsonResponse
     {
         $request->validate([
-                'username' => 'required|string|alpha_num',
-                'first_name' => 'required|string',
-                'last_name' => 'required|string',
-                'is_access_active' => 'required|boolean',
-                'teams' => 'present|array',
-                'teams.*' => 'string',
-                'project_manager_of_teams' => 'present|array',
-                'project_manager_of_teams.*' => 'string',
-                'github_username' => 'present|string|nullable',
-                'google_account' => 'present|string|nullable|email:rfc,strict,dns,spoof',
-                'model_class' => 'required|string',
-                'model_id' => 'required|numeric',
-                'model_event' => 'required|string',
-                'last_attendance_time' => 'present|date|nullable',
-                'exists_in_sums' => 'required|boolean',
-                'clickup_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
-                'clickup_id' => 'present|integer|nullable',
-                'clickup_invite_pending' => 'required|boolean',
-            ]);
+            'username' => 'required|string|alpha_num',
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'is_access_active' => 'required|boolean',
+            'teams' => 'present|array',
+            'teams.*' => 'string',
+            'project_manager_of_teams' => 'present|array',
+            'project_manager_of_teams.*' => 'string',
+            'github_username' => 'present|string|nullable',
+            'google_account' => 'present|string|nullable|email:rfc,strict,dns,spoof',
+            'model_class' => 'required|string',
+            'model_id' => 'required|numeric',
+            'model_event' => 'required|string',
+            'last_attendance_time' => 'present|date|nullable',
+            'exists_in_sums' => 'required|boolean',
+            'clickup_email' => 'present|string|email:rfc,strict,dns,spoof|nullable',
+            'clickup_id' => 'present|integer|nullable',
+            'clickup_invite_pending' => 'required|boolean',
+        ]);
 
         Log::info(
             self::class.': Request to sync '.$request->username.' caused by '.$request->model_event.' of '
