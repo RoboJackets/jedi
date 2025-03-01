@@ -15,6 +15,7 @@
         "ext-uuid": "*",
         "ans-group/laravel-health-check": "dev-l12-compatibility",
         "apereo/phpcas": "1.6.1",
+        "enlightn/security-checker": "^2.0",
         "google/apiclient": "2.18.2",
         "guzzlehttp/guzzle": "7.9.2",
         "htmlmin/htmlmin": "dev-master",
