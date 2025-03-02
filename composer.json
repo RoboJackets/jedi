@@ -34,10 +34,9 @@
         "subfission/cas": "dev-master"
     },
     "require-dev": {
-        "fakerphp/faker": "1.23.1",
-        "mockery/mockery": "1.6.11",
-        "nunomaduro/collision": "8.6.1",
         "larastan/larastan": "dev-l12-compatibility",
+        "laravel/pail": "1.2.2",
+        "nunomaduro/collision": "8.6.1",
         "phan/phan": "5.4.5",
         "phpstan/extension-installer": "1.4.3",
         "phpstan/phpstan": "2.1.6",
@@ -46,8 +45,7 @@
         "psalm/plugin-laravel": "3.0.1",
         "slevomat/coding-standard": "8.16.0",
         "spatie/laravel-ignition": "2.9.1",
-        "squizlabs/php_codesniffer": "3.11.3",
-        "laravel/pail": "1.2.2"
+        "squizlabs/php_codesniffer": "3.11.3"
     },
     "replace": {
         "paragonie/random_compat": "*",
