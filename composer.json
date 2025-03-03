@@ -34,7 +34,7 @@
         "subfission/cas": "dev-master"
     },
     "require-dev": {
-        "larastan/larastan": "dev-l12-compatibility",
+        "larastan/larastan": "3.1.0",
         "laravel/pail": "1.2.2",
         "nunomaduro/collision": "8.6.1",
         "phan/phan": "5.4.5",
@@ -134,10 +134,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/RoboJackets/cas.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/laravel-shift/larastan.git"
         },
         {
             "type": "vcs",
