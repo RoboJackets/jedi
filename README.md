@@ -47,6 +47,7 @@ The following external services can receive updates from JEDI.
 - ClickUp
 - GitHub
 - Google Groups
+- Grouper
 - Keycloak
 - Nextcloud
 - Shared User Management System (SUMS)
@@ -60,6 +61,7 @@ This section broadly describes what JEDI can change within other services when e
 
 - They will be invited to the RoboJackets ClickUp workspace, if they have provided an email address for this purpose
 - They will be invited to the RoboJackets organization in GitHub, if they have a linked GitHub account
+- They will be added to the Grouper Groups corresponding to their teams
 - They will be added to the Google Groups corresponding to their teams, if they have a linked Google account
 - Their Keycloak account will be enabled, if it already exists in Keycloak
 - Their Nextcloud account will be enabled, if it already exists in Nextcloud, and group membership will be synchronized with Apiary
@@ -72,6 +74,7 @@ This typically happens when a member stops paying dues. [Officers may configure 
 
 - They will be removed from the RoboJackets ClickUp workspace, if they have provided an email address for this purpose
 - They will be removed from the RoboJackets organization in GitHub, if they have a linked GitHub account
+- They will be removed from all RoboJackets Grouper Groups
 - They will be removed from all Google Groups, if they have a linked Google account
 - Their Keycloak account will be disabled, if it already exists in Keycloak
 - Their Nextcloud account will be disabled, if it already exists in Nextcloud, and they will be removed from all groups
