@@ -77,6 +77,8 @@ job "jedi" {
     task "prestart" {
       driver = "docker"
 
+      consul {}
+
       lifecycle {
         hook = "prestart"
       }
@@ -144,6 +146,8 @@ EOF
 
     task "web" {
       driver = "docker"
+
+      consul {}
 
       config {
         image = var.image
@@ -259,6 +263,8 @@ EOF
 
       content {
         driver = "docker"
+
+        consul {}
 
         lifecycle {
           hook = "poststart"
