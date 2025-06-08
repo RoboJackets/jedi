@@ -56,9 +56,7 @@ class SyncRamp extends SyncJob
                     .', manual intervention required'
                 );
             } elseif ($ramp_user->status === 'USER_ACTIVE') {
-                Log::info(
-                    self::class.': Deactivating Ramp user '.$ramp_user->id.' because they are not access active'
-                );
+                Log::info(self::class.': Deactivating Ramp user '.$ramp_user->id.' because they are not access active');
                 Ramp::deactivateUser($ramp_user->id);
             }
         }
