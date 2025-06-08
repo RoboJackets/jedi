@@ -17,7 +17,7 @@ class Keycloak extends Service
     private static ?Client $client = null;
 
     /**
-     * Return a client configured for GitHub.
+     * Return a client configured for Keycloak.
      *
      * @phan-suppress PhanTypeMismatchReturnNullable
      */
