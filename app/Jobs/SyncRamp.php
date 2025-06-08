@@ -33,6 +33,7 @@ class SyncRamp extends SyncJob
         parent::__construct($username, '', '', $is_access_active, []);
     }
 
+    #[\Override]
     public function handle(): void
     {
         if ($this->is_access_active) {
