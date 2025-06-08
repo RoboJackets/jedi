@@ -183,6 +183,7 @@ return [
                     'wordpress',
                     'keycloak',
                     'grouper',
+                    'ramp',
                 ],
                 'balance' => 'simple',
                 'processes' => 1,

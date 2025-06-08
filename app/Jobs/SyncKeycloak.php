@@ -58,18 +58,36 @@ class SyncKeycloak extends SyncJob
             $user = Keycloak::getUser($cached_user_id);
         }
 
+        $google_workspace_account = null;
+        $ramp_user_id = null;
+
         if (
             property_exists($user, 'attributes') &&
             property_exists($user->attributes, 'googleWorkspaceAccount') &&
-            count($user->attributes->googleWorkspaceAccount) > 0 &&
-            $this->google_account !== $user->attributes->googleWorkspaceAccount[0]
+            count($user->attributes->googleWorkspaceAccount) > 0
         ) {
+            $google_workspace_account = $user->attributes->googleWorkspaceAccount[0];
+        }
+
+        if (
+            property_exists($user, 'attributes') &&
+            property_exists($user->attributes, 'rampUserId') &&
+            count($user->attributes->rampUserId) > 0
+        ) {
+            $ramp_user_id = $user->attributes->rampUserId[0];
+        }
+
+        if ($google_workspace_account !== null && $this->google_account !== $google_workspace_account) {
             SyncGoogleGroups::dispatch(
                 $this->username,
                 $this->is_access_active,
                 $this->teams,
-                $user->attributes->googleWorkspaceAccount[0]
+                $google_workspace_account
             );
+        }
+
+        if ($google_workspace_account !== null || $ramp_user_id !== null) {
+            SyncRamp::dispatch($this->username, $this->is_access_active, $ramp_user_id, $google_workspace_account);
         }
 
         if ($this->is_access_active !== $user->enabled) {
