@@ -53,6 +53,11 @@ class Ramp extends Service
         self::expectStatusCodes($response, 200);
     }
 
+    /**
+     * Return a client configured for Ramp.
+     *
+     * @phan-suppress PhanTypeMismatchReturnNullable
+     */
     #[\Override]
     public static function client(): Client
     {
