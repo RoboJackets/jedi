@@ -50,6 +50,7 @@ The following external services can receive updates from JEDI.
 - Grouper
 - Keycloak
 - Nextcloud
+- Ramp
 - Shared User Management System (SUMS)
 - WordPress
 
@@ -78,6 +79,7 @@ This typically happens when a member stops paying dues. [Officers may configure 
 - They will be removed from all Google Groups, if they have a linked Google account
 - Their Keycloak account will be disabled, if it already exists in Keycloak
 - Their Nextcloud account will be disabled, if it already exists in Nextcloud, and they will be removed from all groups
+- Their Ramp account will be deactivated, if it already exists in Ramp
 - They will be removed from the RoboJackets billing group in SUMS
 - Their WordPress account will be disabled, if it already exists in WordPress
 
