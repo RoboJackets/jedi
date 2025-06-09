@@ -34,21 +34,23 @@
         "subfission/cas": "dev-master"
     },
     "require-dev": {
+        "danog/advanced-json-rpc": "3.2.2",
         "larastan/larastan": "3.1.0",
         "laravel/pail": "1.2.2",
         "nunomaduro/collision": "8.6.1",
-        "phan/phan": "5.4.5",
+        "phan/phan": "^5.4",
         "phpstan/extension-installer": "1.4.3",
         "phpstan/phpstan": "2.1.7",
         "phpstan/phpstan-deprecation-rules": "2.0.1",
         "phpstan/phpstan-strict-rules": "2.0.3",
-        "psalm/plugin-laravel": "3.0.1",
+        "psalm/plugin-laravel": "^3.0",
         "slevomat/coding-standard": "8.16.0",
         "spatie/laravel-ignition": "2.9.1",
         "squizlabs/php_codesniffer": "3.11.3",
-        "vimeo/psalm": "^6.7"
+        "vimeo/psalm": "^6.12"
     },
     "replace": {
+        "felixfbecker/advanced-json-rpc": "*",
         "paragonie/random_compat": "*",
         "rap2hpoutre/fast-excel": "*",
         "symfony/polyfill-apcu": "*",
