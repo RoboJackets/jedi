@@ -26,7 +26,7 @@ return [
     /*
      * The channels to which the notification will be sent.
      */
-    'channels' => ['slack'],
+    'channels' => env('SLACK_ENDPOINT') === null ? [] : ['slack'],
 
     'mail' => [
         'to' => 'email@example.com',
