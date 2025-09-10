@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "575e5a553915f5cef2e8c7afe59a336a",
+    "content-hash": "c42ff42b1a525a14e3507f1ffb0a3ddf",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -5107,7 +5107,7 @@
         },
         {
             "name": "spatie/laravel-failed-job-monitor",
-            "version": "4.3.3",
+            "version": "4.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-failed-job-monitor.git",
@@ -5170,7 +5170,7 @@
                 "spatie"
             ],
             "support": {
-                "source": "https://github.com/spatie/laravel-failed-job-monitor/tree/4.3.3"
+                "source": "https://github.com/spatie/laravel-failed-job-monitor/tree/4.3.4"
             },
             "funding": [
                 {
