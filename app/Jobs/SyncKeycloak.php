@@ -88,6 +88,7 @@ class SyncKeycloak extends SyncJob
 
         if ($google_workspace_account !== null || $ramp_user_id !== null) {
             SyncRamp::dispatch($this->username, $this->is_access_active, $ramp_user_id, $google_workspace_account);
+            CopyRampPhoneNumberToApiary::dispatch($this->username, $ramp_user_id, $google_workspace_account);
         }
 
         if ($this->is_access_active !== $user->enabled) {
