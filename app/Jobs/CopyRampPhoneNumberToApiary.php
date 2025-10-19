@@ -64,6 +64,7 @@ class CopyRampPhoneNumberToApiary extends SyncJob
      *
      * @return array<string>
      */
+    #[\Override]
     public function tags(): array
     {
         return ['user:'.$this->username];
