@@ -21,7 +21,6 @@ class CopyRampPhoneNumberToApiary extends SyncJob
      * Create a new job instance.
      *
      * @param  string  $username  The user's GT username
-     * @param  bool  $is_access_active  Whether the user should have access to systems
      */
     protected function __construct(
         string $username,
