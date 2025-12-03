@@ -36,7 +36,7 @@
     "require-dev": {
         "danog/advanced-json-rpc": "3.2.2",
         "larastan/larastan": "3.4.1",
-        "laravel/pail": "1.2.3",
+        "laravel/pail": "1.2.4",
         "nunomaduro/collision": "8.6.1",
         "phan/phan": "5.4.6",
         "phpstan/extension-installer": "1.4.3",
