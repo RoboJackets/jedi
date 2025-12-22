@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7869d6cbf65c011a05d9f3d2ff0ab2ef",
+    "content-hash": "33028157e3615e0f9820cedde4941b46",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -10703,16 +10703,16 @@
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v3.0.3",
+            "version": "v3.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "7beecad02e029f8d5446385b4f26a4b0522df622"
+                "reference": "364a35e28d45cabaece26f2a2e51e50fc43e99b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/7beecad02e029f8d5446385b4f26a4b0522df622",
-                "reference": "7beecad02e029f8d5446385b4f26a4b0522df622",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/364a35e28d45cabaece26f2a2e51e50fc43e99b4",
+                "reference": "364a35e28d45cabaece26f2a2e51e50fc43e99b4",
                 "shasum": ""
             },
             "require": {
@@ -10775,9 +10775,9 @@
             ],
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v3.0.3"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v3.0.4"
             },
-            "time": "2025-06-06T13:12:42+00:00"
+            "time": "2025-08-12T18:13:40+00:00"
         },
         {
             "name": "revolt/event-loop",
@@ -11716,16 +11716,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "6.12.0",
+            "version": "7.0.0-beta13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "cf420941d061a57050b6c468ef2c778faf40aee2"
+                "reference": "e66308f7b3f539704639aca7c8e80aa699ff8afe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/cf420941d061a57050b6c468ef2c778faf40aee2",
-                "reference": "cf420941d061a57050b6c468ef2c778faf40aee2",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/e66308f7b3f539704639aca7c8e80aa699ff8afe",
+                "reference": "e66308f7b3f539704639aca7c8e80aa699ff8afe",
                 "shasum": ""
             },
             "require": {
@@ -11748,7 +11748,7 @@
                 "fidry/cpu-core-counter": "^0.4.1 || ^0.5.1 || ^1.0.0",
                 "netresearch/jsonmapper": "^5.0",
                 "nikic/php-parser": "^5.0.0",
-                "php": "~8.1.31 || ~8.2.27 || ~8.3.16 || ~8.4.3",
+                "php": "~8.1.31 || ~8.2.27 || ~8.3.16 || ~8.4.3 || ~8.5.0",
                 "sebastian/diff": "^4.0 || ^5.0 || ^6.0 || ^7.0",
                 "spatie/array-to-xml": "^2.17.0 || ^3.0",
                 "symfony/console": "^6.0 || ^7.0",
@@ -11830,7 +11830,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2025-05-28T12:52:06+00:00"
+            "time": "2025-12-10T09:32:03+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -11895,12 +11895,13 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "htmlmin/htmlmin": 20,
-        "subfission/cas": 20
+        "subfission/cas": 20,
+        "vimeo/psalm": 10
     },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.4",
+        "php": "^8.5",
         "ext-intl": "*",
         "ext-redis": "*",
         "ext-simplexml": "*",
@@ -11908,7 +11909,7 @@
     },
     "platform-dev": {},
     "platform-overrides": {
-        "php": "8.4.16"
+        "php": "8.5.1"
     },
     "plugin-api-version": "2.6.0"
 }

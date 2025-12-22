@@ -157,7 +157,7 @@ EOF
         mount {
           type   = "bind"
           source = "local/fpm/"
-          target = "/etc/php/8.4/fpm/pool.d/"
+          target = "/etc/php/8.5/fpm/pool.d/"
         }
 
         entrypoint = [
