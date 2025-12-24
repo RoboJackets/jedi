@@ -19,12 +19,12 @@
     "lockFileMaintenance": {
         "enabled": true,
         "schedule": [
-            "before 4pm on Wednesday except before 9am on Wednesday"
+            "before 4pm every weekday except before 9am every weekday"
         ]
     },
     "timezone": "America/New_York",
     "schedule": [
-        "before 4pm on Wednesday except before 9am on Wednesday"
+        "before 4pm every weekday except before 9am every weekday"
     ],
     "ignoreDeps": [
         "ubuntu"
@@ -38,7 +38,7 @@
             "lockFileMaintenance": {
                 "enabled": true,
                 "schedule": [
-                    "before 4pm on Wednesday except before 9am on Wednesday"
+                    "before 4pm every weekday except before 9am every weekday"
                 ]
             },
             "matchDepNames": [
@@ -53,7 +53,7 @@
             "lockFileMaintenance": {
                 "enabled": true,
                 "schedule": [
-                    "before 4pm on Wednesday except before 9am on Wednesday"
+                    "before 4pm every weekday except before 9am every weekday"
                 ]
             },
             "matchDepTypes": [
@@ -69,7 +69,7 @@
             "lockFileMaintenance": {
                 "enabled": true,
                 "schedule": [
-                    "before 4pm on Wednesday except before 9am on Wednesday"
+                    "before 4pm every weekday except before 9am every weekday"
                 ]
             },
             "prPriority": 1,
@@ -85,7 +85,7 @@
             "lockFileMaintenance": {
                 "enabled": true,
                 "schedule": [
-                    "before 4pm on Wednesday except before 9am on Wednesday"
+                    "before 4pm every weekday except before 9am every weekday"
                 ]
             },
             "prPriority": 2,
@@ -101,7 +101,7 @@
             "lockFileMaintenance": {
                 "enabled": true,
                 "schedule": [
-                    "before 4pm on Wednesday except before 9am on Wednesday"
+                    "before 4pm every weekday except before 9am every weekday"
                 ]
             },
             "matchDepNames": [
