@@ -12,7 +12,7 @@ COPY --link routes/ /app/routes/
 COPY --link storage/ /app/storage/
 COPY --link artisan composer.json composer.lock /app/
 
-FROM php:8.5-fpm-trixie AS backend-uncompressed
+FROM debian:trixie-slim AS backend-uncompressed
 
 LABEL maintainer="developers@robojackets.org"
 
@@ -23,6 +23,12 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN set -eux && \
     apt-get update && \
     apt-get upgrade -qq --assume-yes && \
+    apt-get install -qq --assume-yes \
+        lsb-release ca-certificates apt-transport-https curl && \
+    curl -sSLo /tmp/debsuryorg-archive-keyring.deb https://packages.sury.org/debsuryorg-archive-keyring.deb && \
+    dpkg -i /tmp/debsuryorg-archive-keyring.deb && \
+    sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
+    apt-get update && \
     apt-get install -qq --assume-yes \
         php8.5-fpm php8.5-mysql php8.5-xml unzip libfcgi-bin php8.5-curl php8.5-mbstring php8.5-intl php8.5-redis php8.5-uuid php8.5-gmp php8.5-sqlite zopfli default-mysql-client && \
     apt-get autoremove -qq --assume-yes && \
