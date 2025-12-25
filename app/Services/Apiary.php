@@ -6,6 +6,8 @@ namespace App\Services;
 
 use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class Apiary extends Service
 {
@@ -84,16 +86,26 @@ class Apiary extends Service
     #[\Override]
     public static function client(): Client
     {
-        if (self::$client !== null) {
+        if (self::$client !== null && Cache::get('apiary_access_token') !== null) {
             return self::$client;
         }
+
+        $token = Cache::remember(
+            'apiary_access_token',
+            86340, // seconds (86400 - 60)
+            static function (): string {
+                Log::debug('Generating new Apiary access token');
+
+                return self::getAccessToken();
+            }
+        );
 
         self::$client = new Client(
             [
                 'base_uri' => config('apiary.server'),
                 'headers' => [
                     'User-Agent' => 'JEDI on '.config('app.url'),
-                    'Authorization' => 'Bearer '.config('apiary.token'),
+                    'Authorization' => 'Bearer '.$token,
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => false,
@@ -101,5 +113,33 @@ class Apiary extends Service
         );
 
         return self::$client;
+    }
+
+    private static function getAccessToken(): string
+    {
+        $client = new Client(
+            [
+                'base_uri' => config('apiary.server'),
+                'headers' => [
+                    'User-Agent' => 'JEDI on '.config('app.url'),
+                ],
+                'allow_redirects' => false,
+            ]
+        );
+
+        $response = $client->post(
+            '/oauth/token',
+            [
+                'form_params' => [
+                    'client_id' => config('apiary.client_id'),
+                    'client_secret' => config('apiary.client_secret'),
+                    'grant_type' => 'client_credentials',
+                ],
+            ]
+        );
+
+        self::expectStatusCodes($response, 200);
+
+        return self::decodeToObject($response)->access_token;
     }
 }
