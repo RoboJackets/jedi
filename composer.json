@@ -25,7 +25,7 @@
         "laravel/pint": "1.25.1",
         "laravel/sanctum": "4.2.1",
         "laravel/slack-notification-channel": "3.6.0",
-        "laravel/tinker": "2.10.1",
+        "laravel/tinker": "2.10.2",
         "mrclay/jsmin-php": "2.4.3",
         "sentry/sentry-laravel": "^4.13",
         "spatie/laravel-failed-job-monitor": "4.3.4",
