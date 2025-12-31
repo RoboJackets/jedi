@@ -6,8 +6,6 @@ namespace App\Services;
 
 use App\Exceptions\DownstreamServiceProblem;
 use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 class Apiary extends Service
 {
@@ -15,6 +13,11 @@ class Apiary extends Service
      * A Guzzle client configured for Apiary.
      */
     private static ?Client $client = null;
+
+    /**
+     * Unix timestamp when the current token expires.
+     */
+    private static ?int $tokenExpiresAt = null;
 
     public static function getUser(string $username): object
     {
@@ -86,26 +89,20 @@ class Apiary extends Service
     #[\Override]
     public static function client(): Client
     {
-        if (self::$client !== null && Cache::get('apiary_access_token') !== null) {
+        if (self::$client !== null && self::$tokenExpiresAt !== null && time() < self::$tokenExpiresAt) {
             return self::$client;
         }
 
-        $token = Cache::remember(
-            'apiary_access_token',
-            86340, // seconds (86400 - 60)
-            static function (): string {
-                Log::debug('Generating new Apiary access token');
+        $tokenResponse = self::getAccessToken();
 
-                return self::getAccessToken();
-            }
-        );
+        self::$tokenExpiresAt = time() + $tokenResponse->expires_in - 60;
 
         self::$client = new Client(
             [
                 'base_uri' => config('apiary.server'),
                 'headers' => [
                     'User-Agent' => 'JEDI on '.config('app.url'),
-                    'Authorization' => 'Bearer '.$token,
+                    'Authorization' => 'Bearer '.$tokenResponse->access_token,
                     'Accept' => 'application/json',
                 ],
                 'allow_redirects' => false,
@@ -115,7 +112,7 @@ class Apiary extends Service
         return self::$client;
     }
 
-    private static function getAccessToken(): string
+    private static function getAccessToken(): object
     {
         $client = new Client(
             [
@@ -140,6 +137,6 @@ class Apiary extends Service
 
         self::expectStatusCodes($response, 200);
 
-        return self::decodeToObject($response)->access_token;
+        return self::decodeToObject($response);
     }
 }
