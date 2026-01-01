@@ -26,19 +26,19 @@ class SelfServiceController
 
         $apiary_user = Apiary::getUser($username);
 
-        if (! $apiary_user->user->is_access_active) {
+        if (! $apiary_user->is_access_active) {
             return view('selfservice.unpaiddues');
         }
 
-        if (count($apiary_user->user->teams) === 0) {
+        if (count($apiary_user->teams) === 0) {
             return view('selfservice.noteams');
         }
 
-        if ($apiary_user->user->github_username === null) {
+        if ($apiary_user->github_username === null) {
             return redirect(config('apiary.server').'/github');
         }
 
-        $github_membership = GitHub::getOrganizationMembership($apiary_user->user->github_username);
+        $github_membership = GitHub::getOrganizationMembership($apiary_user->github_username);
 
         if ($github_membership === null) {
             SyncGitHub::dispatchSync(
@@ -46,13 +46,13 @@ class SelfServiceController
                 true,
                 array_map(
                     static fn (object $team): string => $team->name,
-                    $apiary_user->user->teams
+                    $apiary_user->teams
                 ),
                 [],
-                $apiary_user->user->github_username
+                $apiary_user->github_username
             );
 
-            $github_membership = GitHub::getOrganizationMembership($apiary_user->user->github_username);
+            $github_membership = GitHub::getOrganizationMembership($apiary_user->github_username);
 
             if ($github_membership === null) {
                 return view('selfservice.error');
@@ -84,16 +84,16 @@ class SelfServiceController
 
         $apiary_user = Apiary::getUser($username);
 
-        if (! $apiary_user->user->is_access_active) {
+        if (! $apiary_user->is_access_active) {
             return view('selfservice.unpaiddues');
         }
 
-        if (count($apiary_user->user->teams) === 0) {
+        if (count($apiary_user->teams) === 0) {
             return view('selfservice.noteams');
         }
 
         $recent_attendance = array_filter(
-            $apiary_user->user->attendance,
+            $apiary_user->attendance,
             static fn (object $attendance): bool => $attendance->created_at > new Carbon(
                 // @phan-suppress-next-line PhanPartialTypeMismatchArgument
                 config('sums.attendance_timeout_limit'),
@@ -143,31 +143,31 @@ class SelfServiceController
 
         $apiary_user = Apiary::getUser($username);
 
-        if (! $apiary_user->user->is_access_active) {
+        if (! $apiary_user->is_access_active) {
             return view('selfservice.unpaiddues');
         }
 
-        if (count($apiary_user->user->teams) === 0) {
+        if (count($apiary_user->teams) === 0) {
             return view('selfservice.noteams');
         }
 
-        if ($apiary_user->user->clickup_email === null) {
+        if ($apiary_user->clickup_email === null) {
             return redirect(config('apiary.server').'/profile');
         }
 
         $id_in_apiary_is_wrong = false;
 
-        if ($apiary_user->user->clickup_id !== null) {
-            $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+        if ($apiary_user->clickup_id !== null) {
+            $clickup_membership = ClickUp::getUserById($apiary_user->clickup_id);
 
             if ($clickup_membership === null) {
                 $id_in_apiary_is_wrong = true;
             }
         }
 
-        if ($apiary_user->user->clickup_id === null || $id_in_apiary_is_wrong) {
-            $clickup_membership = ClickUp::addUser($apiary_user->user->clickup_email);
-            UpdateClickUpAttributes::dispatch($username, $clickup_membership->user->id, $clickup_membership->invite);
+        if ($apiary_user->clickup_id === null || $id_in_apiary_is_wrong) {
+            $clickup_membership = ClickUp::addUser($apiary_user->clickup_email);
+            UpdateClickUpAttributes::dispatch($username, $clickup_membership->id, $clickup_membership->invite);
             if ($clickup_membership->invite === true) {
                 return view('selfservice.checkemailforclickup');
             }
@@ -180,7 +180,7 @@ class SelfServiceController
             );
         }
 
-        $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+        $clickup_membership = ClickUp::getUserById($apiary_user->clickup_id);
 
         if ($clickup_membership === null) {
             // This should be unreachable, but just in case
@@ -188,7 +188,7 @@ class SelfServiceController
         }
 
         if ($clickup_membership->memberInfo->invite === false) {
-            if ($apiary_user->user->clickup_invite_pending === true) {
+            if ($apiary_user->clickup_invite_pending === true) {
                 UpdateClickUpInvitePendingFlag::dispatch($username, false);
             }
 
@@ -200,9 +200,9 @@ class SelfServiceController
             );
         }
 
-        ClickUp::resendInvitationToUser($apiary_user->user->clickup_id);
+        ClickUp::resendInvitationToUser($apiary_user->clickup_id);
 
-        $clickup_membership = ClickUp::getUserById($apiary_user->user->clickup_id);
+        $clickup_membership = ClickUp::getUserById($apiary_user->clickup_id);
 
         if ($clickup_membership === null) {
             // This should be unreachable, but just in case

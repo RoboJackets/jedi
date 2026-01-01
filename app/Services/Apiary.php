@@ -32,7 +32,7 @@ class Apiary extends Service
 
         self::expectStatusCodes($response, 200);
 
-        return self::decodeToObject($response);
+        return self::decodeToObject($response)->user;
     }
 
     public static function setFlag(string $username, string $flag, bool $value): void
