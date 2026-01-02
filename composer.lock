@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f688b1abf07893f36d2fa1879f6476c1",
+    "content-hash": "7b8aad725af16fbdfc09f8729b994523",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -5330,31 +5330,30 @@
         },
         {
             "name": "spatie/laravel-rate-limited-job-middleware",
-            "version": "2.8.0",
+            "version": "2.8.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-rate-limited-job-middleware.git",
-                "reference": "d0e1ad9d8fd80269efb052c1c27845c907677c40"
+                "reference": "c43791141c6715116b7e9529c3a93172401271c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-rate-limited-job-middleware/zipball/d0e1ad9d8fd80269efb052c1c27845c907677c40",
-                "reference": "d0e1ad9d8fd80269efb052c1c27845c907677c40",
+                "url": "https://api.github.com/repos/spatie/laravel-rate-limited-job-middleware/zipball/c43791141c6715116b7e9529c3a93172401271c3",
+                "reference": "c43791141c6715116b7e9529c3a93172401271c3",
                 "shasum": ""
             },
             "require": {
                 "artisansdk/ratelimiter": "^1.1",
-                "illuminate/cache": "^8.0|^9.0|^10.0|^11.0|^12.0",
-                "illuminate/redis": "^8.0|^9.0|^10.0|^11.0|^12.0",
-                "php": "^8.0"
+                "illuminate/cache": "^10.0|^11.0|^12.0",
+                "illuminate/redis": "^10.0|^11.0|^12.0",
+                "php": "^8.2"
             },
             "require-dev": {
                 "mockery/mockery": "^1.4.1",
-                "orchestra/testbench": "^6.23|^7.0|^8.0|^9.0|^10.0",
-                "pestphp/pest": "^1.21|^2.34|^3.7",
-                "phpunit/phpunit": "^9.5|^10.5|^11.5.3",
+                "orchestra/testbench": "^8.0|^9.0|^10.0",
+                "pestphp/pest": "^2.34|^3.7",
                 "spatie/pest-plugin-test-time": "^1.0|^2.0",
-                "symfony/var-dumper": "^5.4|^6.0|^7.0"
+                "symfony/var-dumper": "^6.0|^7.0|^8.0"
             },
             "type": "library",
             "autoload": {
@@ -5382,7 +5381,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-rate-limited-job-middleware/issues",
-                "source": "https://github.com/spatie/laravel-rate-limited-job-middleware/tree/2.8.0"
+                "source": "https://github.com/spatie/laravel-rate-limited-job-middleware/tree/2.8.2"
             },
             "funding": [
                 {
@@ -5390,7 +5389,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-21T14:06:56+00:00"
+            "time": "2025-11-25T21:10:13+00:00"
         },
         {
             "name": "spatie/laravel-webhook-client",
