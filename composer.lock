@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e005ff07f8d07bdde5e6cc281ce92247",
+    "content-hash": "c95f9131845bc2f91866a09d2e9ce0a7",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -1776,16 +1776,16 @@
         },
         {
             "name": "kelvinmo/simplejwt",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kelvinmo/simplejwt.git",
-                "reference": "d8d55ea943c7ab899a9e036238323dd1bf3858f9"
+                "reference": "dca918d49ff9fce87276ca83139770642fd6f5aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kelvinmo/simplejwt/zipball/d8d55ea943c7ab899a9e036238323dd1bf3858f9",
-                "reference": "d8d55ea943c7ab899a9e036238323dd1bf3858f9",
+                "url": "https://api.github.com/repos/kelvinmo/simplejwt/zipball/dca918d49ff9fce87276ca83139770642fd6f5aa",
+                "reference": "dca918d49ff9fce87276ca83139770642fd6f5aa",
                 "shasum": ""
             },
             "require": {
@@ -1829,9 +1829,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kelvinmo/simplejwt/issues",
-                "source": "https://github.com/kelvinmo/simplejwt/tree/v1.0.1"
+                "source": "https://github.com/kelvinmo/simplejwt/tree/v1.1.0"
             },
-            "time": "2024-12-30T23:39:09+00:00"
+            "time": "2025-11-09T09:42:00+00:00"
         },
         {
             "name": "laravel/framework",
