@@ -114,5 +114,10 @@
                 <file name="app/Http/Middleware/CasAuthenticate.php"/>
             </errorLevel>
         </InvalidReturnStatement>
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Illuminate\Support\Collection::merge"/>
+            </errorLevel>
+        </InvalidArgument>
     </issueHandlers>
 </psalm>
