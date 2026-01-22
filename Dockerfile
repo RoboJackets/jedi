@@ -1,4 +1,4 @@
-# syntax = docker/dockerfile:1.20
+# syntax = docker/dockerfile:1.21
 
 FROM scratch AS backend-source
 
