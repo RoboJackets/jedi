@@ -34,7 +34,7 @@
         "subfission/cas": "dev-master"
     },
     "require-dev": {
-        "danog/advanced-json-rpc": "3.2.2",
+        "danog/advanced-json-rpc": "3.2.3",
         "laravel/boost": "1.8.10",
         "laravel/pail": "1.2.4",
         "mxl/laravel-job": "1.7.0",
