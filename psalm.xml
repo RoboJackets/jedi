@@ -45,6 +45,11 @@
             <errorLevel type="suppress">
                 <file name="routes/api.php"/>
                 <referencedMethod name="App\Models\User::where"/>
+                <referencedMethod name="Illuminate\Database\Schema\ColumnDefinition::after"/>
+                <referencedMethod name="Illuminate\Database\Schema\ColumnDefinition::default"/>
+                <referencedMethod name="Illuminate\Database\Schema\ColumnDefinition::nullable"/>
+                <referencedMethod name="Illuminate\Database\Schema\ColumnDefinition::unique"/>
+                <referencedMethod name="Illuminate\Database\Schema\ColumnDefinition::useCurrent"/>
             </errorLevel>
         </UndefinedMagicMethod>
         <UndefinedMagicPropertyFetch>
