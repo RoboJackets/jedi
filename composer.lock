@@ -993,16 +993,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.432.0",
+            "version": "v0.433.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "c0d8b801cf615f8edf1b5b356a3d121d0c95ef92"
+                "reference": "feb9c13e54457a6f5e157b7eae78b41566df43b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/c0d8b801cf615f8edf1b5b356a3d121d0c95ef92",
-                "reference": "c0d8b801cf615f8edf1b5b356a3d121d0c95ef92",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/feb9c13e54457a6f5e157b7eae78b41566df43b5",
+                "reference": "feb9c13e54457a6f5e157b7eae78b41566df43b5",
                 "shasum": ""
             },
             "require": {
@@ -1031,9 +1031,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.432.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.433.0"
             },
-            "time": "2026-02-09T01:14:27+00:00"
+            "time": "2026-02-16T01:42:26+00:00"
         },
         {
             "name": "google/auth",
@@ -2203,16 +2203,16 @@
         },
         {
             "name": "laravel/prompts",
-            "version": "v0.3.12",
+            "version": "v0.3.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/prompts.git",
-                "reference": "4861ded9003b7f8a158176a0b7666f74ee761be8"
+                "reference": "ed8c466571b37e977532fb2fd3c272c784d7050d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/prompts/zipball/4861ded9003b7f8a158176a0b7666f74ee761be8",
-                "reference": "4861ded9003b7f8a158176a0b7666f74ee761be8",
+                "url": "https://api.github.com/repos/laravel/prompts/zipball/ed8c466571b37e977532fb2fd3c272c784d7050d",
+                "reference": "ed8c466571b37e977532fb2fd3c272c784d7050d",
                 "shasum": ""
             },
             "require": {
@@ -2256,9 +2256,9 @@
             "description": "Add beautiful and user-friendly forms to your command-line applications.",
             "support": {
                 "issues": "https://github.com/laravel/prompts/issues",
-                "source": "https://github.com/laravel/prompts/tree/v0.3.12"
+                "source": "https://github.com/laravel/prompts/tree/v0.3.13"
             },
-            "time": "2026-02-03T06:57:26+00:00"
+            "time": "2026-02-06T12:17:10+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -3585,16 +3585,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v4.1.2",
+            "version": "v4.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "f76b5dc3d6c6d3043c8d937df2698515b99cbaf5"
+                "reference": "bb3ea637e3d131d72acc033cfc2746ee893349fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/f76b5dc3d6c6d3043c8d937df2698515b99cbaf5",
-                "reference": "f76b5dc3d6c6d3043c8d937df2698515b99cbaf5",
+                "url": "https://api.github.com/repos/nette/utils/zipball/bb3ea637e3d131d72acc033cfc2746ee893349fe",
+                "reference": "bb3ea637e3d131d72acc033cfc2746ee893349fe",
                 "shasum": ""
             },
             "require": {
@@ -3606,8 +3606,10 @@
             },
             "require-dev": {
                 "jetbrains/phpstorm-attributes": "^1.2",
+                "nette/phpstan-rules": "^1.0",
                 "nette/tester": "^2.5",
-                "phpstan/phpstan": "^2.0@stable",
+                "phpstan/extension-installer": "^1.4@stable",
+                "phpstan/phpstan": "^2.1@stable",
                 "tracy/tracy": "^2.9"
             },
             "suggest": {
@@ -3668,9 +3670,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.1.2"
+                "source": "https://github.com/nette/utils/tree/v4.1.3"
             },
-            "time": "2026-02-03T17:21:09+00:00"
+            "time": "2026-02-13T03:05:33+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -4665,16 +4667,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.19",
+            "version": "v0.12.20",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "a4f766e5c5b6773d8399711019bb7d90875a50ee"
+                "reference": "19678eb6b952a03b8a1d96ecee9edba518bb0373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/a4f766e5c5b6773d8399711019bb7d90875a50ee",
-                "reference": "a4f766e5c5b6773d8399711019bb7d90875a50ee",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/19678eb6b952a03b8a1d96ecee9edba518bb0373",
+                "reference": "19678eb6b952a03b8a1d96ecee9edba518bb0373",
                 "shasum": ""
             },
             "require": {
@@ -4738,9 +4740,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.19"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.20"
             },
-            "time": "2026-01-30T17:33:13+00:00"
+            "time": "2026-02-11T15:05:28+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -4942,16 +4944,16 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "4.19.1",
+            "version": "4.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "1c21d60bebe67c0122335bd3fe977990435af0a3"
+                "reference": "d7264b972e5f87110492376ade1cc20cbc049345"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/1c21d60bebe67c0122335bd3fe977990435af0a3",
-                "reference": "1c21d60bebe67c0122335bd3fe977990435af0a3",
+                "url": "https://api.github.com/repos/getsentry/sentry-php/zipball/d7264b972e5f87110492376ade1cc20cbc049345",
+                "reference": "d7264b972e5f87110492376ade1cc20cbc049345",
                 "shasum": ""
             },
             "require": {
@@ -4974,7 +4976,7 @@
                 "monolog/monolog": "^1.6|^2.0|^3.0",
                 "phpbench/phpbench": "^1.0",
                 "phpstan/phpstan": "^1.3",
-                "phpunit/phpunit": "^8.5|^9.6",
+                "phpunit/phpunit": "^8.5.52|^9.6.34",
                 "vimeo/psalm": "^4.17"
             },
             "suggest": {
@@ -5014,7 +5016,7 @@
             ],
             "support": {
                 "issues": "https://github.com/getsentry/sentry-php/issues",
-                "source": "https://github.com/getsentry/sentry-php/tree/4.19.1"
+                "source": "https://github.com/getsentry/sentry-php/tree/4.20.0"
             },
             "funding": [
                 {
@@ -5026,7 +5028,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2025-12-02T15:57:41+00:00"
+            "time": "2026-02-16T13:47:54+00:00"
         },
         {
             "name": "sentry/sentry-laravel",
@@ -9709,16 +9711,16 @@
         },
         {
             "name": "laravel/mcp",
-            "version": "v0.5.5",
+            "version": "v0.5.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/mcp.git",
-                "reference": "b3327bb75fd2327577281e507e2dbc51649513d6"
+                "reference": "97fcdacbce93c572e3d25457cf30395dede67088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/mcp/zipball/b3327bb75fd2327577281e507e2dbc51649513d6",
-                "reference": "b3327bb75fd2327577281e507e2dbc51649513d6",
+                "url": "https://api.github.com/repos/laravel/mcp/zipball/97fcdacbce93c572e3d25457cf30395dede67088",
+                "reference": "97fcdacbce93c572e3d25457cf30395dede67088",
                 "shasum": ""
             },
             "require": {
@@ -9778,7 +9780,7 @@
                 "issues": "https://github.com/laravel/mcp/issues",
                 "source": "https://github.com/laravel/mcp"
             },
-            "time": "2026-02-05T14:05:18+00:00"
+            "time": "2026-02-13T14:08:37+00:00"
         },
         {
             "name": "laravel/pail",
@@ -11967,16 +11969,16 @@
         },
         {
             "name": "webmozart/assert",
-            "version": "2.1.2",
+            "version": "2.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webmozarts/assert.git",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649"
+                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webmozarts/assert/zipball/ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
-                "reference": "ce6a2f100c404b2d32a1dd1270f9b59ad4f57649",
+                "url": "https://api.github.com/repos/webmozarts/assert/zipball/6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
+                "reference": "6976757ba8dd70bf8cbaea0914ad84d8b51a9f46",
                 "shasum": ""
             },
             "require": {
@@ -12023,9 +12025,9 @@
             ],
             "support": {
                 "issues": "https://github.com/webmozarts/assert/issues",
-                "source": "https://github.com/webmozarts/assert/tree/2.1.2"
+                "source": "https://github.com/webmozarts/assert/tree/2.1.3"
             },
-            "time": "2026-01-13T14:02:24+00:00"
+            "time": "2026-02-13T21:01:40+00:00"
         }
     ],
     "aliases": [],
