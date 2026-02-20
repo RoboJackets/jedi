@@ -31,6 +31,8 @@ class SyncGitHub extends SyncJob
      * @param  array<string>  $teams  The names of the teams the user is in
      * @param  array<string>  $project_manager_of_teams  The names of teams this user manages
      * @param  string  $github_username  The user's GitHub username
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,
@@ -197,6 +199,11 @@ class SyncGitHub extends SyncJob
         Log::info($this->jobDetails().$message);
     }
 
+    /**
+     * Build details about this job for logging.
+     *
+     * @psalm-mutation-free
+     */
     private function jobDetails(): string
     {
         return self::class.' GT='.$this->username.' GH='.$this->github_username.' ';
@@ -206,6 +213,8 @@ class SyncGitHub extends SyncJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     #[\Override]
     public function tags(): array

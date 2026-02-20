@@ -11,6 +11,8 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
 {
     /**
      * Create a new job instance.
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(string $username, private readonly bool $github_invite_pending)
     {
@@ -32,6 +34,8 @@ class UpdateGitHubInvitePendingFlag extends ApiaryJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     #[\Override]
     public function tags(): array

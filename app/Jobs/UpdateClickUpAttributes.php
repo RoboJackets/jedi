@@ -11,6 +11,8 @@ class UpdateClickUpAttributes extends ApiaryJob
 {
     /**
      * Create a new job instance.
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,
@@ -41,6 +43,8 @@ class UpdateClickUpAttributes extends ApiaryJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     #[\Override]
     public function tags(): array

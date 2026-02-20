@@ -30,6 +30,8 @@ class SyncSUMS extends SyncJob
      * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  bool  $exists_in_sums  Whether the user exists in SUMS according to Apiary
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,

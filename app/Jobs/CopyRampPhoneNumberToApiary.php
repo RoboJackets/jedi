@@ -21,6 +21,8 @@ class CopyRampPhoneNumberToApiary extends SyncJob
      * Create a new job instance.
      *
      * @param  string  $username  The user's GT username
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,
@@ -30,6 +32,11 @@ class CopyRampPhoneNumberToApiary extends SyncJob
         parent::__construct($username, '', '', false, []);
     }
 
+    /**
+     * Execute the job.
+     *
+     * @psalm-impure
+     */
     #[\Override]
     public function handle(): void
     {
@@ -63,6 +70,8 @@ class CopyRampPhoneNumberToApiary extends SyncJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     #[\Override]
     public function tags(): array

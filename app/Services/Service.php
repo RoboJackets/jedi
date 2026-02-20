@@ -55,5 +55,10 @@ abstract class Service
         return $ret;
     }
 
+    /**
+     * Create a client configured for this service.
+     *
+     * @psalm-impure
+     */
     abstract public static function client(): Client;
 }

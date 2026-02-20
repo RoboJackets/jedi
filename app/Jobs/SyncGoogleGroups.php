@@ -39,6 +39,8 @@ class SyncGoogleGroups extends SyncJob
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
      * @param  string  $gmail_address  The user's Gmail address
+     *
+     * @psalm-mutation-free
      */
     public function __construct(
         string $username,
@@ -156,6 +158,11 @@ class SyncGoogleGroups extends SyncJob
         Log::info(self::jobDetails().$message);
     }
 
+    /**
+     * Build details about this job for logging.
+     *
+     * @psalm-mutation-free
+     */
     private function jobDetails(): string
     {
         return self::class.' GT='.$this->username.' Gmail='.$this->gmail_address.' ';
@@ -165,6 +172,8 @@ class SyncGoogleGroups extends SyncJob
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     #[\Override]
     public function tags(): array

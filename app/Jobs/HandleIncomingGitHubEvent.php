@@ -89,6 +89,8 @@ class HandleIncomingGitHubEvent extends ProcessGitHubWebhookJob
      * @return array<string>
      *
      * @phan-suppress PhanTypeArraySuspiciousNullable
+     *
+     * @psalm-mutation-free
      */
     public function tags(): array
     {

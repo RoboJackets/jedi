@@ -28,6 +28,8 @@ abstract class SyncJob implements ShouldQueue
      * @param  string  $last_name  The user's last name
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         protected readonly string $username,
@@ -40,6 +42,8 @@ abstract class SyncJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @psalm-impure
      */
     abstract public function handle(): void;
 
@@ -47,6 +51,8 @@ abstract class SyncJob implements ShouldQueue
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     public function tags(): array
     {

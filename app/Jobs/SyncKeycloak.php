@@ -26,6 +26,8 @@ class SyncKeycloak extends SyncJob
      * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,

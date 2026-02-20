@@ -30,6 +30,8 @@ class SyncClickUp extends SyncJob
      * @param  string  $clickup_email  The user's ClickUp email
      * @param  ?int  $clickup_id  the user's ClickUp ID
      * @param  bool  $clickup_invite_pending  whether Apiary thinks the ClickUp invitation is pending
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,
