@@ -22,6 +22,8 @@ abstract class ApiaryJob implements ShouldQueue
 
     /**
      * Create a new job instance.
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(protected string $username)
     {
@@ -30,6 +32,8 @@ abstract class ApiaryJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @psalm-impure
      */
     abstract public function handle(): void;
 
@@ -37,6 +41,8 @@ abstract class ApiaryJob implements ShouldQueue
      * Get the tags that should be assigned to the job.
      *
      * @return array<string>
+     *
+     * @psalm-mutation-free
      */
     public function tags(): array
     {

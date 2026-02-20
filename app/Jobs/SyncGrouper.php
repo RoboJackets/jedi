@@ -24,6 +24,8 @@ class SyncGrouper extends SyncJob
      * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
      * @param  array<string>  $teams  The names of the teams the user is in
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(string $username, bool $is_access_active, array $teams)
     {
@@ -96,6 +98,11 @@ class SyncGrouper extends SyncJob
         Log::info($this->jobDetails().$message);
     }
 
+    /**
+     * Build details about this job for logging.
+     *
+     * @psalm-mutation-free
+     */
     private function jobDetails(): string
     {
         return self::class.' GT='.$this->username.' ';

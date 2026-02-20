@@ -23,6 +23,8 @@ class SyncRamp extends SyncJob
      *
      * @param  string  $username  The user's GT username
      * @param  bool  $is_access_active  Whether the user should have access to systems
+     *
+     * @psalm-mutation-free
      */
     protected function __construct(
         string $username,
