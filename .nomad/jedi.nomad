@@ -64,6 +64,8 @@ job "jedi" {
 
   type = "service"
 
+  priority = 30
+
   group "jedi" {
     network {
       port "resp" {}
