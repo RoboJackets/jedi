@@ -107,7 +107,7 @@ class SyncController
 
         if (config('sums.enabled') === true) {
             if (
-                config('sums.attendance_timeout_enabled') === true
+                (config('sums.attendance_timeout_enabled') === true
                 && ($request->is_access_active === true)
                 && (
                     ($request->last_attendance_time !== null
@@ -117,7 +117,8 @@ class SyncController
                         'America/New_York'
                     )))
                     || $request->last_attendance_time === null
-                )
+                ))
+                || count($request->teams) === 0
             ) {
                 SyncSUMS::dispatch($request->username, false, $request->exists_in_sums);
             } else {
