@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "adc7f5f104651d12933a6dfefe008b2f",
+    "content-hash": "9616206e3e934c2747a5ec4c6c05961d",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -5262,28 +5262,28 @@
         },
         {
             "name": "spatie/laravel-github-webhooks",
-            "version": "1.2.4",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-github-webhooks.git",
-                "reference": "b3d3f462c2857c5511d5d02ba8b782e881006c69"
+                "reference": "8372f0100336bb27a370f4cc7bb2bd53d5cd433b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-github-webhooks/zipball/b3d3f462c2857c5511d5d02ba8b782e881006c69",
-                "reference": "b3d3f462c2857c5511d5d02ba8b782e881006c69",
+                "url": "https://api.github.com/repos/spatie/laravel-github-webhooks/zipball/8372f0100336bb27a370f4cc7bb2bd53d5cd433b",
+                "reference": "8372f0100336bb27a370f4cc7bb2bd53d5cd433b",
                 "shasum": ""
             },
             "require": {
-                "illuminate/contracts": "^8.77|^9.0|^10.0|^11.0|^12.0",
+                "illuminate/contracts": "^8.77|^9.0|^10.0|^11.0|^12.0|^13.0",
                 "php": "^8.0",
                 "spatie/laravel-package-tools": "^1.9.0",
                 "spatie/laravel-webhook-client": "^3.1.0"
             },
             "require-dev": {
                 "nunomaduro/collision": "^5.5|^6.0|^7.0|^8.0",
-                "orchestra/testbench": "^6.24|^7.0|^8.0|^9.0|^10.0",
-                "pestphp/pest": "^1.21|^2.34|^3.7",
+                "orchestra/testbench": "^6.24|^7.0|^8.0|^9.0|^10.0|^11.0",
+                "pestphp/pest": "^1.21|^2.34|^3.7|^4.4",
                 "spatie/laravel-ray": "^1.29",
                 "spatie/pest-plugin-test-time": "^1.0|^2.0"
             },
@@ -5324,7 +5324,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-github-webhooks/issues",
-                "source": "https://github.com/spatie/laravel-github-webhooks/tree/1.2.4"
+                "source": "https://github.com/spatie/laravel-github-webhooks/tree/1.3.0"
             },
             "funding": [
                 {
@@ -5332,7 +5332,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-02-17T10:16:05+00:00"
+            "time": "2026-03-06T08:25:43+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
