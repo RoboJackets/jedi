@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "19f04dd90e12b11778c61d0b3ad040eb",
+    "content-hash": "15c236309214be7ce05f04aaf951bfba",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -1777,16 +1777,16 @@
         },
         {
             "name": "kelvinmo/simplejwt",
-            "version": "v1.1.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kelvinmo/simplejwt.git",
-                "reference": "dca918d49ff9fce87276ca83139770642fd6f5aa"
+                "reference": "c633d9d85837e60bdd4c65b4e3a3da12d22c0605"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kelvinmo/simplejwt/zipball/dca918d49ff9fce87276ca83139770642fd6f5aa",
-                "reference": "dca918d49ff9fce87276ca83139770642fd6f5aa",
+                "url": "https://api.github.com/repos/kelvinmo/simplejwt/zipball/c633d9d85837e60bdd4c65b4e3a3da12d22c0605",
+                "reference": "c633d9d85837e60bdd4c65b4e3a3da12d22c0605",
                 "shasum": ""
             },
             "require": {
@@ -1799,7 +1799,7 @@
                 "consolidation/robo": "^4.0 || ^5.0",
                 "phlak/semver": "^5.0 || ^6.0",
                 "phpstan/phpstan": "^2.0.1",
-                "phpunit/phpunit": "^9.6 || ^10.0 || ^11.0"
+                "phpunit/phpunit": "^9.6.33 || ^10.5.63 || ^11.5.50"
             },
             "suggest": {
                 "ext-sodium": "Provides support for OKP (X25519/Ed25519) keys",
@@ -1830,9 +1830,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kelvinmo/simplejwt/issues",
-                "source": "https://github.com/kelvinmo/simplejwt/tree/v1.1.0"
+                "source": "https://github.com/kelvinmo/simplejwt/tree/v1.1.1"
             },
-            "time": "2025-11-09T09:42:00+00:00"
+            "time": "2026-03-18T01:26:34+00:00"
         },
         {
             "name": "laravel/framework",
