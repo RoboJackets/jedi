@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59c7c9b953698f238b9069c1e03a3efe",
+    "content-hash": "a8e800fc2ad41c403a7e824e9ab20e71",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -10355,16 +10355,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "6.0.2",
+            "version": "6.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "1d56eb53e3df149af461c4a7413ae390d476e139"
+                "reference": "66f3327ce8d3a725dcf13b1d934be9e7454703f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/1d56eb53e3df149af461c4a7413ae390d476e139",
-                "reference": "1d56eb53e3df149af461c4a7413ae390d476e139",
+                "url": "https://api.github.com/repos/phan/phan/zipball/66f3327ce8d3a725dcf13b1d934be9e7454703f4",
+                "reference": "66f3327ce8d3a725dcf13b1d934be9e7454703f4",
                 "shasum": ""
             },
             "require": {
@@ -10435,9 +10435,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phan/phan/issues",
-                "source": "https://github.com/phan/phan/tree/6.0.2"
+                "source": "https://github.com/phan/phan/tree/6.0.4"
             },
-            "time": "2026-03-05T09:22:13+00:00"
+            "time": "2026-03-23T19:46:30+00:00"
         },
         {
             "name": "phan/tolerant-php-parser",
