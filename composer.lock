@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d10d63d3c0744a665c9540eb37561666",
+    "content-hash": "22509d674572ffa5b0a0c81a9500b71f",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -11940,16 +11940,16 @@
         },
         {
             "name": "vimeo/psalm",
-            "version": "7.0.0-beta15",
+            "version": "7.0.0-beta17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vimeo/psalm.git",
-                "reference": "90bb719c909380be79f7bb788751041f7bc8efb2"
+                "reference": "a7f96f911fc869c40c48ec977e21f01a8ca534bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vimeo/psalm/zipball/90bb719c909380be79f7bb788751041f7bc8efb2",
-                "reference": "90bb719c909380be79f7bb788751041f7bc8efb2",
+                "url": "https://api.github.com/repos/vimeo/psalm/zipball/a7f96f911fc869c40c48ec977e21f01a8ca534bd",
+                "reference": "a7f96f911fc869c40c48ec977e21f01a8ca534bd",
                 "shasum": ""
             },
             "require": {
@@ -12054,7 +12054,7 @@
                 "issues": "https://github.com/vimeo/psalm/issues",
                 "source": "https://github.com/vimeo/psalm"
             },
-            "time": "2026-02-19T21:55:44+00:00"
+            "time": "2026-03-17T11:16:02+00:00"
         },
         {
             "name": "webmozart/assert",
