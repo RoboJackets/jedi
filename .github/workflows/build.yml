@@ -13,7 +13,7 @@ jobs:
         run: echo "::add-matcher::.github/matchers.json"
 
       - name: Install libuuid
-        run: apt install uuid-dev
+        run: sudo apt install uuid-dev
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
