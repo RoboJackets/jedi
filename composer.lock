@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "877fe0d1a289630b13ae8114e6016967",
+    "content-hash": "bc1b11efb6aa4bb7cb963b423820cf6d",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -5268,16 +5268,16 @@
         },
         {
             "name": "spatie/laravel-github-webhooks",
-            "version": "1.3.0",
+            "version": "1.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-github-webhooks.git",
-                "reference": "8372f0100336bb27a370f4cc7bb2bd53d5cd433b"
+                "reference": "38a3d315318feae69b9884a2c5318cfa40248f98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-github-webhooks/zipball/8372f0100336bb27a370f4cc7bb2bd53d5cd433b",
-                "reference": "8372f0100336bb27a370f4cc7bb2bd53d5cd433b",
+                "url": "https://api.github.com/repos/spatie/laravel-github-webhooks/zipball/38a3d315318feae69b9884a2c5318cfa40248f98",
+                "reference": "38a3d315318feae69b9884a2c5318cfa40248f98",
                 "shasum": ""
             },
             "require": {
@@ -5330,7 +5330,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/laravel-github-webhooks/issues",
-                "source": "https://github.com/spatie/laravel-github-webhooks/tree/1.3.0"
+                "source": "https://github.com/spatie/laravel-github-webhooks/tree/1.3.1"
             },
             "funding": [
                 {
@@ -5338,7 +5338,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-03-06T08:25:43+00:00"
+            "time": "2026-04-24T23:07:35+00:00"
         },
         {
             "name": "spatie/laravel-package-tools",
