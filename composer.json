@@ -16,7 +16,7 @@
         "ans-group/laravel-health-check": "3.0.0",
         "apereo/phpcas": "1.6.2",
         "enlightn/security-checker": "^2.0",
-        "google/apiclient": "2.19.2",
+        "google/apiclient": "2.19.3",
         "guzzlehttp/guzzle": "7.10.0",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "1.1.2",
