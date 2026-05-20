@@ -1,0 +1,16 @@
+{
+    "patches": {
+        "laravel/horizon": [
+            {
+                "description": "Add support for stop-when-empty-for to Horizon",
+                "url": "https://raw.githubusercontent.com/RoboJackets/apiary/refs/heads/main/patches/laravel/horizon/add-stop-when-empty-for.patch"
+            }
+        ],
+        "mrclay/minify": [
+            {
+                "description": "Don't insert extra newlines in HTML",
+                "url": "https://raw.githubusercontent.com/RoboJackets/apiary/refs/heads/main/patches/mrclay/minify/newlines.patch"
+            }
+        ]
+    }
+}

@@ -10,7 +10,7 @@ COPY --link public/ /app/public/
 COPY --link resources/ /app/resources/
 COPY --link routes/ /app/routes/
 COPY --link storage/ /app/storage/
-COPY --link artisan composer.json composer.lock /app/
+COPY --link artisan composer.json composer.lock patches.json patches.lock.json /app/
 
 FROM debian:trixie-slim AS backend-uncompressed
 
@@ -30,7 +30,7 @@ RUN set -eux && \
     sh -c 'echo "deb [signed-by=/usr/share/keyrings/debsuryorg-archive-keyring.gpg] https://packages.sury.org/php/ $(lsb_release -sc) main" > /etc/apt/sources.list.d/php.list' && \
     apt-get update && \
     apt-get install -qq --assume-yes \
-        php8.5-fpm php8.5-mysql php8.5-xml unzip libfcgi-bin php8.5-curl php8.5-mbstring php8.5-intl php8.5-redis php8.5-uuid php8.5-gmp php8.5-sqlite zopfli default-mysql-client && \
+        php8.5-fpm php8.5-mysql php8.5-xml unzip libfcgi-bin php8.5-curl php8.5-mbstring php8.5-intl php8.5-redis php8.5-uuid php8.5-gmp php8.5-sqlite zopfli default-mysql-client git && \
     apt-get autoremove -qq --assume-yes && \
     mkdir /app && \
     chown www-data:www-data /app && \
@@ -59,7 +59,6 @@ RUN --mount=type=secret,id=composer_auth,dst=/app/auth.json,uid=33,gid=33,requir
     composer check-platform-reqs --lock --no-dev && \
     composer install --no-interaction --no-progress --no-dev --optimize-autoloader --classmap-authoritative --no-cache && \
     mkdir --parents /app/resources/views/ && \
-    sed -i '/"\$1\\n\$2"/c\\' /app/vendor/mrclay/minify/lib/Minify/HTML.php && \
     chmod 664 /app/bootstrap/app.php /app/public/index.php && \
     chmod 775 /app/bootstrap/cache/
 

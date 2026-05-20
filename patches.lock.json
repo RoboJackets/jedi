@@ -1,0 +1,29 @@
+{
+    "_hash": "5aa46aae0a6108a50ceb40f95de5fe6888a77872b6fb981eebd2bdd155ceec56",
+    "patches": {
+        "laravel/horizon": [
+            {
+                "package": "laravel/horizon",
+                "description": "Add support for stop-when-empty-for to Horizon",
+                "url": "https://raw.githubusercontent.com/RoboJackets/apiary/refs/heads/main/patches/laravel/horizon/add-stop-when-empty-for.patch",
+                "sha256": "92ebe667eab1de074864f58c8be86392a56a0d902ecf2e39496fabbf68cf8745",
+                "depth": 1,
+                "extra": {
+                    "provenance": "patches-file:patches.json"
+                }
+            }
+        ],
+        "mrclay/minify": [
+            {
+                "package": "mrclay/minify",
+                "description": "Don't insert extra newlines in HTML",
+                "url": "https://raw.githubusercontent.com/RoboJackets/apiary/refs/heads/main/patches/mrclay/minify/newlines.patch",
+                "sha256": "71cfda1ade40aff482476b09956ec4b9e22890e026e56841f6a01fa06f0cfd4e",
+                "depth": 1,
+                "extra": {
+                    "provenance": "patches-file:patches.json"
+                }
+            }
+        ]
+    }
+}
