@@ -18,7 +18,7 @@
         "cweagans/composer-patches": "2.0.0",
         "enlightn/security-checker": "^2.0",
         "google/apiclient": "2.19.3",
-        "guzzlehttp/guzzle": "7.12.1",
+        "guzzlehttp/guzzle": "7.12.3",
         "htmlmin/htmlmin": "dev-master",
         "kelvinmo/simplejwt": "1.1.2",
         "laravel/framework": "12.62.0",
