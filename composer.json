@@ -39,7 +39,7 @@
         "laravel/boost": "1.8.13",
         "laravel/pail": "1.2.7",
         "mxl/laravel-job": "1.8.0",
-        "nunomaduro/collision": "8.9.4",
+        "nunomaduro/collision": "8.9.5",
         "phan/phan": "6.0.7",
         "psalm/plugin-laravel": "4.14.9",
         "slevomat/coding-standard": "8.30.1",
