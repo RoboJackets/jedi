@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c219a5c1b4568b8adc8182db3e887580",
+    "content-hash": "b5b0bd6fb87416a45a3c77886422ad4b",
     "packages": [
         {
             "name": "ans-group/laravel-health-check",
@@ -10523,16 +10523,16 @@
         },
         {
             "name": "psalm/plugin-laravel",
-            "version": "v4.15.3",
+            "version": "v4.15.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-laravel.git",
-                "reference": "81290e8287c3c1813ee7a7b3a578379294f3ff09"
+                "reference": "5949e9b783a6a927f3bda945ef3406cc7b3b4a2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/81290e8287c3c1813ee7a7b3a578379294f3ff09",
-                "reference": "81290e8287c3c1813ee7a7b3a578379294f3ff09",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-laravel/zipball/5949e9b783a6a927f3bda945ef3406cc7b3b4a2e",
+                "reference": "5949e9b783a6a927f3bda945ef3406cc7b3b4a2e",
                 "shasum": ""
             },
             "require": {
@@ -10559,7 +10559,7 @@
                 "laravel/framework": "^12.14 || ^13.3",
                 "phpunit/phpunit": "^11.5 || ^12.5 || ^13.0",
                 "ramsey/collection": "^1.3",
-                "rector/rector": "^2.3",
+                "rector/rector": "^2.5.8",
                 "symfony/http-foundation": "^7.1 || ^8.0",
                 "symfony/process": "^7.1 || ^8.0"
             },
@@ -10603,7 +10603,7 @@
             ],
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-laravel/issues",
-                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v4.15.3"
+                "source": "https://github.com/psalm/psalm-plugin-laravel/tree/v4.15.6"
             },
             "funding": [
                 {
@@ -10611,7 +10611,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-07-24T18:50:17+00:00"
+            "time": "2026-08-21T09:28:59+00:00"
         },
         {
             "name": "psalm/psalm-plugin-api",
