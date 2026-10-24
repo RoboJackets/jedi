@@ -31,16 +31,6 @@
                 <file name="app/Jobs/SyncNextcloud.php"/>
             </errorLevel>
         </PossiblyNullIterator>
-        <PossiblyNullArgument>
-            <errorLevel type="suppress">
-                <file name="app/Jobs/SyncNextcloud.php"/>
-            </errorLevel>
-        </PossiblyNullArgument>
-        <PossiblyNullReference>
-            <errorLevel type="suppress">
-                <file name="app/Jobs/SyncNextcloud.php"/>
-            </errorLevel>
-        </PossiblyNullReference>
         <UndefinedMagicMethod>
             <errorLevel type="suppress">
                 <file name="routes/api.php"/>
