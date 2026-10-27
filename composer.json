@@ -35,6 +35,7 @@
         "subfission/cas": "dev-master"
     },
     "require-dev": {
+        "baer-software/larabeacon": "3.3.1",
         "danog/advanced-json-rpc": "3.2.3",
         "laravel/boost": "1.8.13",
         "laravel/pail": "1.2.7",

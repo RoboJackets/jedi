@@ -229,8 +229,8 @@ class SyncNextcloud extends SyncJob
     {
         $status_array = $xml->xpath('/ocs/meta/statuscode');
 
-        if ($status_array === false) {
-            throw new Exception('XPath search for status code returned false');
+        if (! is_array($status_array)) {
+            throw new Exception('XPath search for status code returned no result list');
         }
 
         if (count($status_array) !== 1) {
