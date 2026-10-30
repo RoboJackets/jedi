@@ -43,7 +43,7 @@
         "nunomaduro/collision": "8.9.5",
         "phan/phan": "6.0.11",
         "psalm/plugin-laravel": "4.15.6",
-        "slevomat/coding-standard": "8.31.1",
+        "slevomat/coding-standard": "8.31.3",
         "spatie/laravel-ignition": "2.12.1",
         "spatie/ray": "1.48.0",
         "squizlabs/php_codesniffer": "4.0.2",
